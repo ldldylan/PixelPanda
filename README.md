@@ -4,15 +4,15 @@
 ## Functionality & MVP
 * Shopping cart
 * Artworks(CRUD)
-* artworks comments(CRUD)
-* search functionality
+* Artworks comments(CRUD)
+* Search functionality
 
 ## Bonus Features
-* real-time communication between the artist and buyers 
-* end-to-end encryption
-* live drawing for sketch of custom artwork
-* search functionality
-* level tiers for buyers and sellers to trust each other more
+* Real-time communication between the artist and buyers 
+* End-to-end encryption
+* Live drawing for sketch of custom artwork
+* Search functionality
+* Level tiers for buyers and sellers to trust each other more
 
 ## Technologies
 * Frontend: React and React Native with Redux
