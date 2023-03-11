@@ -31,3 +31,10 @@
 
 #### Artist Show Page
 <img src="./wireframs/artist-show.png">
+
+## Team members and roles
+Dilang Lin: Project Lead
+
+Kenny Tram: Project Frontend Lead
+
+James Wu: Project Backend Lead
