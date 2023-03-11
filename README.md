@@ -1,0 +1,33 @@
+# PandaPixel
+#### Panda graphic is a game assets website that allows game artists to upload, edit, and delete their artworks online to sell. Buyers or game developers can browse the website to search for assets such as images, models, and music they need. They can also directly contact the artists to negotiate the price with the artists or send an artwork request with an offer and a deadline. 
+
+## Functionality & MVP
+* Shopping cart
+* Artworks(CRUD)
+* artworks comments(CRUD)
+* search functionality
+
+## Bonus Features
+* real-time communication between the artist and buyers 
+* end-to-end encryption
+* live drawing for sketch of custom artwork
+* search functionality
+* level tiers for buyers and sellers to trust each other more
+
+## Technologies
+* Frontend: React and React Native with Redux
+* Backend: Node, Express, MongoDB
+* AWS
+* Websocket
+
+## UI/UX
+
+### Wireframes
+#### Splash Page
+<img src="./wireframs/splash.png">
+
+#### Artwork Show Page
+<img src="./wireframs/artwork-show.png">
+
+#### Artist Show Page
+<img src="./wireframs/artist-show.png">
