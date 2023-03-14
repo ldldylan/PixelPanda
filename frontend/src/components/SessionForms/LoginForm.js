@@ -135,9 +135,9 @@ function LoginForm () {
         0 -20,1.71033 -20,25 0,24.00396 20,25 20,25 h 168.57143" />
       </svg>
       <form className="form" onSubmit={handleSubmit}>
-        <label htmlFor="email" className="current">Email</label> <span className="errors">{errors?.email}</span>
+        <label htmlFor="email" className="current">Email</label> 
         <input type="email" value={email} onChange={update('email')} id="email" ref={emailRef}/>
-        <label htmlFor="password">Password</label>
+        <label htmlFor="password">Password</label> <span className="errors">{errors ? '- Invalid Credentials' : null}</span>
         <input type="password" value={password} onChange={update('password')} id="password" ref={passwordRef}/>
         <input type="submit" id="submit" value="LOGIN" ref={submitRef}/>
       </form>
