@@ -1,11 +1,3 @@
-form > .errors {
-    color: red;
-    font-size: 0.875em;
-    height: 15px;
-    display: flex;
-    align-items: center;
-  }
-
 * {
     margin: 0;
     padding: 0;
@@ -15,3 +7,12 @@ form > .errors {
     width: 100vw;
     height: 100vh;
   }
+
+:root {
+  --danger: rgb(242, 63, 66);
+  --off-white-text: rgb(224, 225, 229);
+  --app-blue-links: rgb(0, 168, 252);
+  --text-link-form: rgb(0, 108, 231);
+  --text-link: #00b0f4;
+  --focus-border: #00b0f4;
+}
