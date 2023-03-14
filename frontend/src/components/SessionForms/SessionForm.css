@@ -3,9 +3,11 @@
   background: #2D2F36;
 }
 
-.errors {
-  color: #f8101c;
-  font-size: 12px;
+form label span.errors {
+    color: #f8101c;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: none;
 }
 
 .login-page {
