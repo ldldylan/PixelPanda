@@ -1,0 +1,234 @@
+@import url('https://rsms.me/inter/inter-ui.css');
+::selection {
+  background: #2D2F36;
+}
+
+.errors {
+  color: #f70300;
+  font-size: 12px;
+}
+
+.login-page {
+  /* background: #e2e2e5; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+  font-family: 'Inter UI', sans-serif;
+  background-color: #1d243d;
+  overflow: hidden;
+  /* background-color: #f5da0f; */
+}
+.container.login {
+  display: flex;
+  height: 400px;
+  width: 320px;
+}
+.container.signup {
+    display: flex;
+    height: 400px;
+    width: 400px;
+  }
+.form-box {
+/*   background: #474A59; */
+  /* background: rgba(0,0,0,.6); */
+  background-color: rgba(248, 190, 16, 1);
+  /* background: rgba(255,255,255,1); */
+  box-shadow: 0px 0px 40px 16px rgba(0,0,0,0.33);
+  /* box-shadow: 0px 0px 30px 6px rgba(248, 190, 16, 1); */
+  /* color: #F1F1F2; */
+  color: black;
+  position: relative;
+  width: 100%;
+  border-radius: 5%;
+  z-index: 2;
+}
+
+.login-page svg.login {
+  position: absolute;
+  width: 320px;
+}
+.login-page svg.signup {
+    position: absolute;
+    width: 360px;
+  }
+
+.login-page path.login-path{
+    fill: none;
+    /* stroke: url(#linearGradient); */
+    stroke: black;
+    stroke-width: 4;
+    stroke-dasharray: 240 1386;
+}
+
+.login-page path.signup-path{
+  fill: none;
+  /* stroke: url(#linearGradient); */
+  stroke: black;
+  stroke-width: 4;
+  stroke-dasharray: 290 1800;
+}
+.form {
+  margin: 40px;
+  position: absolute;
+  z-index: 2;
+}
+.form label {
+  /* color:  #c2c2c5; */
+  color: black;
+  display: block;
+  font-size: 14px;
+  height: 16px;
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+
+/* label.current {
+    color: #03e9f4;
+} */
+
+/* .form label:hover {
+  color: #03e9f4;
+} */
+
+.form input {
+    background: transparent;
+    border: 0;
+    /* color: #f2f2f2; */
+    color: black;
+    font-size: 20px;
+    height: 30px;
+    line-height: 30px;
+    outline: none;
+    width: 90%;
+    /* border-bottom: 1px solid #f2f2f2; */
+}
+
+.form input:last-child {
+  background: transparent;
+  border: 0;
+  /* color: #f2f2f2; */
+  color: black;
+  font-size: 20px;
+  height: 30px;
+  line-height: 30px;
+  outline: none;
+  width: 100%;
+}
+
+#submit {
+  /* color: #707075; */
+  color: black;
+  margin-top: 45px;
+  transition: color 300ms;
+  font-weight: 700;
+}
+#submit:focus {
+  /* color: #f2f2f2; */
+  color: black;
+  -webkit-text-stroke: 0.5px black;
+}
+#submit:active {
+  /* color: #d0d0d2; */
+  color: black;
+  -webkit-text-stroke: 0.5px black;
+}
+/* #submit:hover {
+  color: #03e9f4;
+} */
+
+.bg-props {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 1;
+    /* overflow: hidden; */
+    overflow: hidden;
+  }
+  .bg-props li {
+    display: block;
+    position: absolute;
+    list-style: none;
+    width: 40px;
+    height: 40px;
+    bottom: -160px;
+    animation: bubble 15s infinite; 
+    transition-timing-function: linear;
+    
+  }
+  .bg-props li:nth-child(1) {
+    left: 10%;
+  }
+  .bg-props li:nth-child(2) {
+    left: 20%;
+    width: 80px;
+    height: 80px;
+    animation-delay: 2s;
+    animation-duration: 17s;
+  }
+  .bg-props li:nth-child(3) {
+    left: 25%;
+    animation-delay: 4s;
+    
+  }
+  .bg-props li:nth-child(4) {
+    left: 40%;
+    width: 60px;
+    height: 60px;
+    animation-duration: 22s;
+  }
+  .bg-props li:nth-child(5) {
+    left: 70%;
+  }
+  .bg-props li:nth-child(6) {
+    left: 80%;
+    width: 120px;
+    height: 120px;
+    animation-delay: 3s;
+  }
+  .bg-props li:nth-child(7) {
+    left: 32%;
+    width: 160px;
+    height: 160px;
+    animation-delay: 7s;
+  }
+  .bg-props li:nth-child(8) {
+    left: 55%;
+    width: 20px;
+    height: 20px;
+    animation-delay: 15s;
+    animation-duration: 40s;
+  }
+  .bg-props li:nth-child(9) {
+    left: 25%;
+    width: 80px;
+    height: 80px;
+    animation-delay: 2s;
+    animation-duration: 40s;
+  }
+  .bg-props li:nth-child(10) {
+    left: 90%;
+    width: 160px;
+    height: 160px;
+    animation-delay: 11s;        
+  }
+  @keyframes bubble {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-1100px) rotate(600deg);
+    }
+  }
+  @keyframes bubble {
+    0% {
+              transform: translateY(0);
+    }
+    100% {
+              transform: translateY(-1100px) rotate(600deg);
+    }
+  }
