@@ -61,7 +61,7 @@ function SignupForm () {
   }
 
   const handleSubmit = e => {
-    if(errors) dispatch(clearSessionErrors());
+    dispatch(clearSessionErrors());
     e.preventDefault();
     const newIndex = Array.from({length: 10}, () => Math.floor(Math.random() * svgElements.length));
     setRandIndex(newIndex);
