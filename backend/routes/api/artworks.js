@@ -5,11 +5,12 @@ const User = mongoose.model('User');
 const Artwork = mongoose.model('Artwork');
 const { requireUser } = require('../../config/passport');
 const validateArtworkInput = require('../../validations/artworks');
+const { multipleFilesUpload, multipleMulterUpload } = require("../../awsS3");
 
 router.get('/', async (req, res) => {
   try {
     const artworks = await Artwork.find()
-                              .populate("author", "_id username")
+        .populate("author", "_id username profileImageUrl")
                               .sort({ createdAt: -1 });
       return res.json(artworks);
   }
@@ -31,7 +32,7 @@ router.get('/user/:userId', async (req, res, next) => {
   try {
       const artworks = await Artwork.find({ author: user._id })
                               .sort({ createdAt: -1 })
-                              .populate("author", "_id username");
+          .populate("author", "_id username profileImageUrl");
       return res.json(artworks);
   }
   catch(err) {
@@ -42,7 +43,7 @@ router.get('/user/:userId', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   try {
       const artwork = await Artwork.findById(req.params.id)
-                             .populate("author", "_id username");
+          .populate("author", "_id username profileImageUrl");
       return res.json(artwork);
   }
   catch(err) {
@@ -53,17 +54,19 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
-router.post('/', requireUser, validateArtworkInput, async (req, res, next) => {
-  try {
+router.post('/', multipleMulterUpload("images"), requireUser, validateArtworkInput, async (req, res, next) => {
+    const ArtworkImageUrl = await multipleFilesUpload({ files: req.files, public: true });
+
+    try {
       const newArtwork = new Artwork({
           name: req.body.name,
           description: req.body.description,
           author: req.user._id,
-          ArtworkImageUrl: req.body.ArtworkImageUrl
+          ArtworkImageUrl
 
     });
       let artwork = await newArtwork.save();
-      artwork = await artwork.populate('author', '_id username');
+      artwork = await artwork.populate('author', '_id username profileImageUrl');
       return res.json(artwork);
   }
   catch(err) {
@@ -71,12 +74,14 @@ router.post('/', requireUser, validateArtworkInput, async (req, res, next) => {
   }
 });
 router.patch("/:id", validateArtworkInput, async (req, res, next) => {
+    const ArtworkImageUrl = await multipleFilesUpload({ files: req.files, public: true });
+
     Artwork.findByIdAndUpdate(
         req.params.id,
         {
           name: req.body.name,
           description:req.body.description,
-          ArtworkImageUrl: req.body.ArtworkImageUrl,
+          ArtworkImageUrl,
           price: req.body.price
         },
         { new: true }

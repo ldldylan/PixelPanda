@@ -12,6 +12,7 @@ const NUM_SEED_ARTWORKS = 40;
 // Create users
 const users = [];
 console.log('creating users...')
+
 users.push(
   new User ({
     username: 'demo-user',
@@ -94,6 +95,7 @@ const insertSeeds = () => {
 
   User.collection.drop()
                  .then(() => Tweet.collection.drop())
+                 .then(() => Artwork.collection.drop())
                  .then(() => User.insertMany(users))
                  .then(() => Tweet.insertMany(tweets))
                  .then(() => Artwork.insertMany(artworks))
