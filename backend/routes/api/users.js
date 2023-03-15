@@ -24,7 +24,7 @@ router.post('/register', singleMulterUpload("image"), validateRegisterInput,asyn
   // username.
   
   const user = await User.findOne({
-    $or: [{ email: req.body.email }, { username: req.body.username }]
+    $or: [{ email: req.body.email }]//, { username: req.body.username }]
   });
 
   if (user) {
@@ -92,8 +92,8 @@ router.get('/current', restoreUser, (req, res) => {
   if (!req.user) return res.json(null);
   res.json({
     _id: req.user._id,
-    username: req.user.username,
-    profileImageUrl: req.user.profileImageUrl, // <- ADD THIS LINE
+    // username: req.user.username,
+    // profileImageUrl: req.user.profileImageUrl, 
 
     email: req.user.email
   });
