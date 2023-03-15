@@ -172,6 +172,9 @@ const artworksReducer = (state = { }, action) => {
             })
             return newState
             // return { ...state, all: action.artworks, new: undefined };
+        case REMOVE_ARTWORK:
+            delete newState[action.ArtworkId]
+            return newState
         case RECEIVE_USER_ARTWORKS:
             return { ...state, user: action.artworks, new: undefined };
         case RECEIVE_NEW_ARTWORK:
