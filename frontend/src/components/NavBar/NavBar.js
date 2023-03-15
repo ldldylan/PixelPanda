@@ -22,7 +22,6 @@ function NavBar () {
     if (loggedIn) {
       return (<>
         <div>Hello World {user.email}</div>
-        <button onClick={logoutUser}>Logout</button>
          <div className="links-nav">
            <Link to={'/tweets'}>All Tweets</Link>
            <Link to={'/profile'}>Profile</Link>
