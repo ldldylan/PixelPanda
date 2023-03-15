@@ -9,7 +9,8 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import CropSquareIcon from '@mui/icons-material/CropSquare';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import AudiotrackIcon from '@mui/icons-material/Audiotrack';
-import LensBlurIcon from '@mui/icons-material/LensBlur';function MainPage() {
+import LensBlurIcon from '@mui/icons-material/LensBlur';
+function MainPage() {
     return (
       <>
       <NavBar />
