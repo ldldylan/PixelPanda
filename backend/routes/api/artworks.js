@@ -10,7 +10,7 @@ const { singleFileUpload, singleMulterUpload } = require("../../awsS3");
 router.get('/', async (req, res) => {
   try {
     const artworks = await Artwork.find()
-        .populate("author", "_id username profileImageUrl")
+        .populate("author", "_id email profileImageUrl")
                               .sort({ createdAt: -1 });
       return res.json(artworks);
   }
@@ -43,7 +43,7 @@ router.get('/user/:userId', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   try {
       const artwork = await Artwork.findById(req.params.id)
-          .populate("author", "_id username profileImageUrl");
+        .populate("author", "_id email profileImageUrl");
       return res.json(artwork);
   }
   catch(err) {
@@ -71,7 +71,7 @@ router.post('/', singleMulterUpload("image"), requireUser, validateArtworkInput,
 
     });
       let artwork = await newArtwork.save();
-      artwork = await artwork.populate('author', '_id username profileImageUrl');
+      artwork = await artwork.populate('author', '_id email profileImageUrl');
       return res.json(artwork);
   }
   catch(err) {
@@ -79,33 +79,37 @@ router.post('/', singleMulterUpload("image"), requireUser, validateArtworkInput,
   }
 });
 router.patch("/:id", singleMulterUpload("image"), requireUser, validateArtworkInput, async (req, res, next) => {
-  const ArtworkImageUrl = await singleFileUpload({ file: req.file, public: true });
-  console.log(ArtworkImageUrl, "ArtworkImageUrl")
-  console.log(req.params, "req.params")
-  console.log(req.user, "req.user._id")
-    Artwork.findByIdAndUpdate(
-        req.params.id,
-        {
-          author: req.user._id,
-          name: req.body.name,
-          description:req.body.description,
-          ArtworkImageUrl,
-          price: req.body.price
-        },
-        { new: true }
-
-    )
-        .then((artwork)=>{
-            return res.json(artwork);
-        })
-        .catch((err) => {
-          console.log("errstart")
-          console.log(err,"err")
-          const error = new Error("Artwork can't be updated.");
-          error.statusCode = 422;
-          error.errors = { message: "Invalid artwork input values." };
-          return next(error);
-        }); 
+  let ArtworkImageUrl;
+  if (req.file) {
+    ArtworkImageUrl = await singleFileUpload({ file: req.file, public: true });
+    console.log(ArtworkImageUrl, "ArtworkImageUrl");
+  } else {
+    ArtworkImageUrl = req.body.ArtworkImageUrl;
+  }
+  console.log(req.params, "req.params");
+  console.log(req.user, "req.user._id");
+  Artwork.findByIdAndUpdate(
+    req.params.id,
+    {
+      author: req.user._id,
+      name: req.body.name,
+      description: req.body.description,
+      ArtworkImageUrl,
+      price: req.body.price
+    },
+    { new: true }
+  )
+    .then((artwork) => {
+      return res.json(artwork);
+    })
+    .catch((err) => {
+      console.log("errstart");
+      console.log(err, "err");
+      const error = new Error("Artwork can't be updated.");
+      error.statusCode = 422;
+      error.errors = { message: "Invalid artwork input values." };
+      return next(error);
+    });
 })
 router.delete("/:artworkId", async (req, res, next) => {
   // res.json({ message: "DELETE /product" });
