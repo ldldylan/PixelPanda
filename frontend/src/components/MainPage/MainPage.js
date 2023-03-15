@@ -6,7 +6,10 @@ import ShoppingCart from '@mui/icons-material/ShoppingCart';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-function MainPage() {
+import CropSquareIcon from '@mui/icons-material/CropSquare';
+import ViewInArIcon from '@mui/icons-material/ViewInAr';
+import AudiotrackIcon from '@mui/icons-material/Audiotrack';
+import LensBlurIcon from '@mui/icons-material/LensBlur';function MainPage() {
     return (
       <>
       <NavBar />
@@ -16,10 +19,10 @@ function MainPage() {
         </div>
         <div className="categories">
           <div className="categories-items">
-            <div>2d</div>
-            <div>3d</div>
-            <div>Audio</div>
-            <div>VFX</div>
+            <div><CropSquareIcon/> <div>2D</div></div>
+            <div><ViewInArIcon/> <div>3D</div></div>
+            <div><AudiotrackIcon/> <div>AUDIO</div></div>
+            <div><LensBlurIcon/> <div>VFX</div></div>
           </div>
         </div>
         <div className="popular-assets-box">
