@@ -51,6 +51,10 @@ export const clearArtworkErrors = errors => ({
 //     return state.entitles.pins ? state.entitles.pins[id] : null
 // }
 
+export const getArtworks = (state) => {
+    return state.artworks !== [] ? Object.values(state.artworks) : []
+}
+
 export const fetchArtwork = (artworkId) => async dispatch => {
     try {
         const res = await jwtFetch(`/api/artworks/${artworkId}`);
@@ -155,14 +159,19 @@ export const artworkErrorsReducer = (state = nullErrors, action) => {
     }
 };
 
-const artworksReducer = (state = { all: {}, user: {}, new: undefined }, action) => {
+const artworksReducer = (state = { }, action) => {
     const newState = {...state};
     
     switch (action.type) {
         case RECEIVE_ARTWORK: 
             return newState[action.payload.artwork.id] = action.payload.artwork;
         case RECEIVE_ARTWORKS:
-            return { ...state, all: action.artworks, new: undefined };
+            const artworks = action.artworks
+            artworks.forEach(artwork => {
+                newState[artwork._id] = artwork
+            })
+            return newState
+            // return { ...state, all: action.artworks, new: undefined };
         case RECEIVE_USER_ARTWORKS:
             return { ...state, user: action.artworks, new: undefined };
         case RECEIVE_NEW_ARTWORK:

@@ -10,7 +10,19 @@ import CropSquareIcon from '@mui/icons-material/CropSquare';
 import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import AudiotrackIcon from '@mui/icons-material/Audiotrack';
 import LensBlurIcon from '@mui/icons-material/LensBlur';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { fetchArtworks } from '../../store/artworks';
+import { getArtworks } from '../../store/artworks';
+import { useSelector } from 'react-redux';
 function MainPage() {
+    const dispatch=useDispatch();
+ 
+    useEffect(()=>{
+      dispatch(fetchArtworks())
+    },[dispatch])
+     const artworks = useSelector(getArtworks)
+  console.log(artworks)
     return (
       <>
       <NavBar />
