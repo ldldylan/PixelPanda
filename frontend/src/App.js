@@ -11,7 +11,7 @@ import SignupForm from './components/SessionForms/SignupForm';
 import Tweets from './components/Tweets/Tweets';
 import Profile from './components/Profile/Profile';
 import TweetCompose from './components/Tweets/TweetCompose';
-import CreateArtworkPage from './components/Artwork/Create/CreateArtworkPage.jsx';
+import CreateArtworkPage from './components/Artwork/Create/CreateArtworkPage';
 import Artwork from "./components/Artwork/Artwork.jsx";
 import Cart from './components/Cart/Cart'
 import { getCurrentUser } from './store/session';
