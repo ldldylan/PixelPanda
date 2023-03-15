@@ -3,13 +3,15 @@ import { useSelector, useDispatch } from 'react-redux';
 import './SessionForm.css';
 import anime from 'animejs';
 import { login, clearSessionErrors } from '../../store/session';
+import { Redirect } from 'react-router-dom';
 
 function LoginForm () {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const errors = useSelector(state => state.errors.session);
+  const loggedIn = useSelector(state => !!state.session.user);
   const dispatch = useDispatch();
-
+  
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const submitRef = useRef(null);
@@ -132,6 +134,8 @@ function LoginForm () {
       submitElement.removeEventListener('focus', handleSubmitFocus);
     };
   }, []);
+
+  if(loggedIn) return <Redirect to='/'/>;
 
   return (
 <div className="login-page">
