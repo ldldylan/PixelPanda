@@ -1,12 +1,19 @@
 import jwtFetch from './jwt';
 import { RECEIVE_USER_LOGOUT } from './session';
 
+
+export const RECEIVE_ARTWORK = "artworks/RECEIVE_ARTWORK";
 export const RECEIVE_ARTWORKS = "artworks/RECEIVE_ARTWORKS";
 export const RECEIVE_USER_ARTWORKS = "artworks/RECEIVE_USER_ARTWORKS";
 export const RECEIVE_NEW_ARTWORK = "artworks/RECEIVE_NEW_ARTWORK";
 export const RECEIVE_ARTWORK_ERRORS = "artworks/RECEIVE_ARTWORK_ERRORS";
 export const REMOVE_ARTWORK = "artworks/REMOVE_ARTWORK"
 export const CLEAR_ARTWORK_ERRORS = "artworks/CLEAR_ARTWORK_ERRORS";
+
+const receiveArtwork = payload => ({
+    type: RECEIVE_ARTWORK,
+    payload
+})
 
 const receiveArtworks = artworks => ({
     type: RECEIVE_ARTWORKS,
@@ -43,6 +50,19 @@ export const clearArtworkErrors = errors => ({
 
 //     return state.entitles.pins ? state.entitles.pins[id] : null
 // }
+
+export const fetchArtwork = (artworkId) => async dispatch => {
+    try {
+        const res = await jwtFetch(`/api/artworks/${artworkId}`);
+        const artwork = await res.json();
+        dispatch(receiveArtwork(artwork));
+    } catch (err) {
+        const resBody = await err.json();
+        if (resBody.statusCode === 400) {
+            dispatch(receiveErrors(resBody.errors));
+        }
+    }
+};
 
 export const fetchArtworks = () => async dispatch => {
     try {
@@ -136,7 +156,11 @@ export const artworkErrorsReducer = (state = nullErrors, action) => {
 };
 
 const artworksReducer = (state = { all: {}, user: {}, new: undefined }, action) => {
+    const newState = {...state};
+    
     switch (action.type) {
+        case RECEIVE_ARTWORK: 
+            return newState[action.payload.artwork.id] = action.payload.artwork;
         case RECEIVE_ARTWORKS:
             return { ...state, all: action.artworks, new: undefined };
         case RECEIVE_USER_ARTWORKS:
