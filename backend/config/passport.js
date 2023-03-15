@@ -59,6 +59,7 @@ exports.loginUser = async function(user) {
       profileImageUrl: user.profileImageUrl, 
       email: user.email
     };
+    console.log(userInfo)
     const token = await jwt.sign(
       userInfo, // payload
       secretOrKey, // sign with secret key
