@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { fetchArtworks } from '../../store/artworks';
+
 export default function CreateArtworkPage(){
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")

@@ -24,7 +24,9 @@ function MainPage() {
           <ul className="assets">
             <li className="asset-item">
               <FavoriteBorderIcon className="favorite-item-icon"/>
-              <div className="artwork-preview-image"/>
+              <img 
+              src="https://aws-mern-pixelpanda.s3.us-west-1.amazonaws.com/public/1678898915410.png" 
+              className="artwork-preview-image"/>
               <div className="artwork-name">Billy Jeans</div>
               <div className="artwork-artist">Michael Jackson</div>
               <div className="artwork-price-cart">
@@ -34,7 +36,10 @@ function MainPage() {
             </li>
             <li className="asset-item">
               <FavoriteBorderIcon className="favorite-item-icon"/>
-              <div className="artwork-preview-image"/>
+              <img 
+              src="https://aws-mern-pixelpanda.s3.us-west-1.amazonaws.com/aws_mern/tachie+(125).png" 
+
+              className="artwork-preview-image"/>
               <div className="artwork-name">Billy Jeans</div>
               <div className="artwork-artist">Michael Jackson</div>
               <div className="artwork-price-cart">
@@ -128,15 +133,21 @@ function MainPage() {
           <h3>POPULAR ARTISTS</h3>
           <ul className="assets">
             <li className="asset-item artist">
-              <div className="artwork-preview-image"/>
+              <img src="https://aws-mern-pixelpanda.s3.us-west-1.amazonaws.com/defaultprofile.jpg"  className="artwork-preview-image"/>
               <div className="artwork-name">Artist #1</div>
             </li>
             <li className="asset-item artist">
-              <div className="artwork-preview-image"/>
+              <img src="https://aws-mern-pixelpanda.s3.us-west-1.amazonaws.com/public/1678898915410.png" className="artwork-preview-image"/>
               <div className="artwork-name">Artist #2</div>
             </li>
             <li className="asset-item artist">
-              <div className="artwork-preview-image"/>
+              <img 
+              style={{ 
+              backgroundImage: "url('https://aws-mern-pixelpanda.s3.us-west-1.amazonaws.com/public/1678898915410.png')", 
+              backgroundRepeat: "no-repeat", 
+              backgroundSize: "contain",
+              backgroundPosition: "center" }} 
+              className="artwork-preview-image"/>
               <div className="artwork-name">Artist #3</div>
             </li>
             <li className="asset-item artist">
