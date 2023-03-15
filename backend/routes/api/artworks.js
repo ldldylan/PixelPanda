@@ -76,9 +76,10 @@ router.post('/', singleMulterUpload("image"), requireUser, validateArtworkInput,
     next(err);
   }
 });
-router.patch("/:id", validateArtworkInput, async (req, res, next) => {
-    const ArtworkImageUrl = await ({ files: req.files, public: true });
-
+router.patch("/:id", singleMulterUpload("image"), validateArtworkInput, async (req, res, next) => {
+    const ArtworkImageUrl = await ({ file: req.file, public: true });
+  console.log(ArtworkImageUrl, "ArtworkImageUrl")
+  console.log(req.params, "req.params")
     Artwork.findByIdAndUpdate(
         req.params.id,
         {
@@ -94,6 +95,8 @@ router.patch("/:id", validateArtworkInput, async (req, res, next) => {
             return res.json(artwork);
         })
         .catch((err) => {
+          console.log("errstart")
+          console.log(err,"err")
           const error = new Error("Artwork can't be updated.");
           error.statusCode = 422;
           error.errors = { message: "Invalid artwork input values." };
