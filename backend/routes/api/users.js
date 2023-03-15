@@ -78,13 +78,13 @@ router.post('/login', validateLoginInput,async (req, res, next) => {
       err.errors = { email: "Invalid credentials" };
       return next(err);
     }
+    console.log(res.body)
     return res.json(await loginUser(user)); // <-- THIS IS THE CHANGED LINE
   })(req, res, next);
 });
 
 router.get('/current', restoreUser, (req, res) => {
   console.log(req.user)
-
   // console.log(req)
   if (!isProduction) {
     // In development, allow React server to gain access to the CSRF token
@@ -98,7 +98,6 @@ router.get('/current', restoreUser, (req, res) => {
     _id: req.user._id,
     username: req.user.username,
     profileImageUrl: req.user.profileImageUrl, // <- ADD THIS LINE
-
     email: req.user.email
   });
 });
