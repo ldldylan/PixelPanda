@@ -27,4 +27,48 @@
   --text-link-form: rgb(0, 108, 231);
   --text-link: #00b0f4;
   --focus-border: #00b0f4;
+
+  --not-so-black: rgb(35, 39, 42);
+  --home-background-color: #404eed;
+  --brand: #5865f2;
+  --brand-gradient: linear-gradient(90deg, #8ea1e1, #7289da);
+  --greyple: #99aab5;
+  --dark-not-black: #2c2f33;
+  --focus-border: #00b0f4;
+  --status-green: #43b581;
+  --text-link: #00b0f4;
+  --off-white: #f6f6f6;
+
+  --text-link-form: rgb(0, 108, 231);
+
+  --white: #fff;
+  --black: #000;
+  --ekko-red: #de2761;
+
+  --navbar-color: rgb(30, 31, 34);
+  --off-white-text: rgb(224, 225, 229);
+  --icon-bg: rgb(49, 51, 56);
+  --danger: rgb(242, 63, 66);
+  --green-cord: rgb(35, 169, 89);
+  --line-separator-color: rgba(78, 80, 88, 0.48);
+  --interactive: rgb(184, 185, 191);
+  --user-panel-color: rgb(35, 36, 40);
+  --left-sidebar-color: rgb(43, 45, 49);
+  --interactive-hover: rgba(78, 80, 88, 0.6);
+  --interactive-hover-heading: rgba(78, 80, 88, 0.298);
+  --positive-green: rgb(45, 199, 112);
+
+  --interactive-box-shadow: rgba(2, 2, 2, 0.2) 0px 1px 0px;
+  --channel-default: rgb(152, 154, 162);
+
+  --interactive-dm-header-text: rgb(243, 244, 245);
+  --message-box-area-color: rgb(56, 58, 64);
+  --nice-green: rgb(36, 128, 70);
+
+  --white-form-text-color: rgb(6, 6, 7);
+  --desc-text: rgb(78, 80, 88);
+  --white-form-input-text: rgb(49, 51, 56);
+  --white-form-input-bg: rgb(233, 234, 237);
+  --text-muted: rgb(92, 94, 102);
+  --app-blue-links: rgb(0, 168, 252);
 }

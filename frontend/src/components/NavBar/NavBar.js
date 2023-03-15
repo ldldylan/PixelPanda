@@ -45,9 +45,9 @@ function NavBar () {
           </div>
         </div>
         <div className="nav-tools">
-          <FavoriteIcon/>
-          <ShoppingCart/>
-          <PersonIcon/>
+          <div><FavoriteIcon/> Wish List </div>
+          <div><ShoppingCart/> Cart </div>
+          <div><PersonIcon/> Profile</div>
         </div>
       </div>);
     }

@@ -3,9 +3,10 @@
     width: 100%;
     height: 100%;
     overflow: hidden scroll;
-    margin-top: 20px;
     position: relative;
     flex-direction: column;
+
+    background-color: whitesmoke;
 }
 
 ::-webkit-scrollbar {
@@ -15,6 +16,7 @@
 }
 
 .main-banner-box {
+    margin-top: 20px;
     display: flex;
     position: relative;
     width: 100%;
@@ -22,67 +24,108 @@
     height: 400px;
     justify-content: center;
     box-sizing: border-box;
+    /* align-items: center; */
 }
 
 .main-banner {
-    position: absolute;
-    width: 84%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: 1080px;
+    height: 390px;
     max-width: none;
+    /* background-color: red; */
+
+}
+.actual-banner {
+    position: absolute;
+    background-image: url('/assets/pixelpanda.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 100%;
     height: 100%;
-    background-image: url('https://cdn.discordapp.com/attachments/1076103218829996042/1080088770222764084/image.png');
+    border-radius: 6px;
 }
 
 .popular-assets-box {
-    margin-left: 155px;
-    padding-top: 50px;
+    position: relative;
+    margin-left: 10%;
     font-weight: 700;
-    font-size: 24px;
+    font-size: 20px;
     box-sizing: border-box;
     width: 80%;
-    border: 1px solid black;
+    /* border: 1px solid black; */
+    height: 900px;
 }
-
-/* .popular-assets-box {
-    position: relative;
-    display: flex;
-    padding-top: 50px;
-    padding-left: 160px;
-    font-weight: 700;
-    font-size: 24px;
-    box-sizing: border-box;
-}
-
 .assets {
-    position: absolute;
-    width: 1600px;
-    border: 1px solid black;
+    margin-top: 20px;
+    position: relative;
+    width: 100%;
+    /* border: 1px solid blue; */
     height: auto;
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: space-between;
+    height: 700px;
 }
 
 .asset-item {
     position: relative;
-    width: 320px;
-    height: 300px;
+    width: 19%;
+    height: 40%;
+    border: 1px solid red
+}
+
+.favorite-item-icon {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    cursor: pointer;
+    font-size: 35px;
+    z-index: 2;
 }
 
 .artwork-preview-image {
-    position: absolute;
-    width: 300px;
-    height: 300px;
-    border: 1px solid black;
+    width: 100%;
+    height: 66%;
+    border: 1px solid green;
+    margin-bottom: 2px;
 }
 
-.artwork-artist-price {
+.artwork-name {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 10px;
-} */
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--white-form-text-color);
+    margin-bottom: 1px;
+    margin-left: 5px;
+}
 
 .artwork-artist {
-    /* font-size */
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--desc-text);
+    margin-left: 5px;
+    margin-bottom: 5px;
+}
+
+.artwork-price-cart{
+    display: flex;
+    justify-content: space-between;
+    margin-right: 5px;
+    margin-left: 5px;
+    font-size: 24px;
+}
+
+.artwork-price-cart svg{
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.asset-item.artist .artwork-preview-image {
+    height: 70%;
 }
