@@ -68,25 +68,25 @@ router.post('/', requireUser, validateArtworkInput, async (req, res, next) => {
   }
 });
 
-router.patch("/:id", async (req, res, next) => {
-    CartItem.findByIdAndUpdate(
-        req.params.id,
-        {
-            // quantity: req.body.quantity
-        },
-        { new: true }
+// router.patch("/:id", async (req, res, next) => {
+//     CartItem.findByIdAndUpdate(
+//         req.params.id,
+//         {
+//             // quantity: req.body.quantity
+//         },
+//         { new: true }
 
-    )
-        .then((cartItem) => {
-            return res.json(cartItem);
-        })
-        .catch((err) => {
-            const error = new Error("CartItem can't be updated.");
-            error.statusCode = 422;
-            error.errors = { message: "Invalid cartItem input values." };
-            return next(error);
-        });
-})
+//     )
+//         .then((cartItem) => {
+//             return res.json(cartItem);
+//         })
+//         .catch((err) => {
+//             const error = new Error("CartItem can't be updated.");
+//             error.statusCode = 422;
+//             error.errors = { message: "Invalid cartItem input values." };
+//             return next(error);
+//         });
+// })
 
 router.delete("/:id", async (req, res, next) => {
     // res.json({ message: "DELETE /product" });

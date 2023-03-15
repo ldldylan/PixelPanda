@@ -56,7 +56,7 @@ app.use('/api/users', usersRouter);
 app.use('/api/tweets', tweetsRouter);
 app.use('/api/artworks', artworksRouter)
 app.use('/api/csrf', csrfRouter);
-app.use('/api/cartitem', cartItemsRouter)
+app.use('/api/cartitems', cartItemsRouter)
 
 // Express custom middleware for catching all unmatched requests and formatting
 // a 404 error to be sent as the response.
