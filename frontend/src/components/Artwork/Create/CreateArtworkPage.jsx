@@ -1,9 +1,9 @@
-import {createArtwork} from '../../store/artworks'
+import {createArtwork} from '../../../store/artworks'
 import { useEffect, useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { fetchArtworks } from '../../store/artworks';
-
+import { fetchArtworks } from '../../../store/artworks';
+import "./CreateArtwork.css"
 export default function CreateArtworkPage(){
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
@@ -69,7 +69,9 @@ export default function CreateArtworkPage(){
             const fileReader = new FileReader();
             fileReader.readAsDataURL(file);
             fileReader.onload = () => {
+                const img = document.querySelector('.Uploadpic');
                 setImageUrl(fileReader.result);
+                img.src = fileReader.result;
             };
         } else {
             setImageUrl('');
@@ -106,7 +108,9 @@ export default function CreateArtworkPage(){
                 </label>
                 <label>
                     Image to Upload
+                    <div className='dotline'><img className="Uploadpic" /></div>
                     <input
+                        className='uploadButton'
                         type="file"
                         ref={fileRef}       
                         accept=".jpg, .jpeg, .png"

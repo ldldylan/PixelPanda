@@ -5,6 +5,7 @@ export const RECEIVE_ARTWORKS = "artworks/RECEIVE_ARTWORKS";
 export const RECEIVE_USER_ARTWORKS = "artworks/RECEIVE_USER_ARTWORKS";
 export const RECEIVE_NEW_ARTWORK = "artworks/RECEIVE_NEW_ARTWORK";
 export const RECEIVE_ARTWORK_ERRORS = "artworks/RECEIVE_ARTWORK_ERRORS";
+export const REMOVE_ARTWORK = "artworks/REMOVE_ARTWORK"
 export const CLEAR_ARTWORK_ERRORS = "artworks/CLEAR_ARTWORK_ERRORS";
 
 const receiveArtworks = artworks => ({
@@ -22,6 +23,13 @@ const receiveNewArtwork = artwork => ({
     artwork
 });
 
+const removeArtwork = ArtworkId => {
+    return {
+        type: REMOVE_ARTWORK,
+        ArtworkId
+    }
+}
+
 const receiveErrors = errors => ({
     type: RECEIVE_ARTWORK_ERRORS,
     errors
@@ -31,6 +39,10 @@ export const clearArtworkErrors = errors => ({
     type: CLEAR_ARTWORK_ERRORS,
     errors
 });
+// export const getArtwork = (id) => (state) => {
+
+//     return state.entitles.pins ? state.entitles.pins[id] : null
+// }
 
 export const fetchArtworks = () => async dispatch => {
     try {
@@ -68,6 +80,39 @@ export const createArtwork = formData => async dispatch => {
         const artwork = await res.json();
 
         dispatch(receiveNewArtwork(artwork));
+    } catch (err) {
+        const resBody = await err.json();
+        if (resBody.statusCode === 400) {
+            return dispatch(receiveErrors(resBody.errors));
+        }
+    }
+};
+
+export const updateArtwork = (formData,artworkId) => async dispatch => {
+    try {
+        const res = await jwtFetch(`/api/artworks/${artworkId}`, {
+            method: 'PATCH',
+            body: formData
+        });
+
+        const artwork = await res.json();
+
+        dispatch(receiveNewArtwork(artwork));
+    } catch (err) {
+        const resBody = await err.json();
+        if (resBody.statusCode === 400) {
+            return dispatch(receiveErrors(resBody.errors));
+        }
+    }
+};
+
+export const deleteArtwork =  artworkId => async dispatch => {
+    try {
+        const res = await jwtFetch(`/api/artworks/${artworkId}`, {
+            method: 'DELETE'
+        });
+
+        dispatch(removeArtwork(artworkId));
     } catch (err) {
         const resBody = await err.json();
         if (resBody.statusCode === 400) {
