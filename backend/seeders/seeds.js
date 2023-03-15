@@ -14,7 +14,7 @@ const users = [];
 console.log('creating users...')
 users.push(
   new User ({
-    username: 'demo-user',
+    // username: 'demo-user',
     email: 'demo-user@gmail.com',
     hashedPassword: bcrypt.hashSync('password', 10)
   })
@@ -22,7 +22,7 @@ users.push(
 
 users.push(
   new User ({
-    username: 'dilang',
+    // username: 'dilang',
     email: 'dilang@gmail.com',
     hashedPassword: bcrypt.hashSync('password', 10)
   })
@@ -30,7 +30,7 @@ users.push(
 
 users.push(
   new User ({
-    username: 'kenny',
+    // username: 'kenny',
     email: 'kenny@gmail.com',
     hashedPassword: bcrypt.hashSync('password', 10)
   })
@@ -38,7 +38,7 @@ users.push(
 
 users.push(
   new User ({
-    username: 'james',
+    // username: 'james',
     email: 'james@gmail.com',
     hashedPassword: bcrypt.hashSync('password', 10)
   })
@@ -49,7 +49,7 @@ for (let i = 1; i < NUM_SEED_USERS; i++) {
   const lastName = faker.name.lastName();
   users.push(
     new User ({
-      username: faker.internet.userName(firstName, lastName),
+      // username: faker.internet.userName(firstName, lastName),
       email: faker.internet.email(firstName, lastName),
       hashedPassword: bcrypt.hashSync(faker.internet.password(), 10)
     })

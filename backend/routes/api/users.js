@@ -22,7 +22,7 @@ router.post('/register', validateRegisterInput,async (req, res, next) => {
   // Check to make sure no one has already registered with the proposed email or
   // username.
   const user = await User.findOne({
-    $or: [{ email: req.body.email }, { username: req.body.username }]
+    $or: [{ email: req.body.email }]//, { username: req.body.username }]
   });
 
   if (user) {
@@ -86,7 +86,7 @@ router.get('/current', restoreUser, (req, res) => {
   if (!req.user) return res.json(null);
   res.json({
     _id: req.user._id,
-    username: req.user.username,
+    // username: req.user.username,
     email: req.user.email
   });
 });
