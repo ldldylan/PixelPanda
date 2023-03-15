@@ -1,0 +1,93 @@
+@import url('https://rsms.me/inter/inter-ui.css');
+::selection {
+  background: #2D2F36;
+}
+
+span {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+}
+
+.login-page {
+  background: #e2e2e5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  font-family: 'Inter UI', sans-serif;
+  background-color: #1d243d;
+}
+.container {
+  display: flex;
+  height: 320px;
+  width: 320px;
+}
+.form-box {
+/*   background: #474A59; */
+  background: rgba(0,0,0,.5);
+  box-shadow: 0px 0px 40px 16px rgba(0,0,0,0.22);
+  color: #F1F1F2;
+  position: relative;
+  width: 100%;
+  border-radius: 8px;
+}
+
+svg {
+  position: absolute;
+  width: 320px;
+}
+path {
+  fill: none;
+  stroke: url(#linearGradient);
+  stroke-width: 4;
+  stroke-dasharray: 240 1386;
+}
+.form {
+  margin: 40px;
+  position: absolute;
+}
+.form label {
+  color:  #c2c2c5;
+  display: block;
+  font-size: 14px;
+  height: 16px;
+  margin-top: 20px;
+  margin-bottom: 5px;
+  transition: color 300ms;
+}
+
+label.current {
+    color: #03e9f4;
+}
+
+.form input {
+  background: transparent;
+  border: 0;
+  color: #f2f2f2;
+  font-size: 20px;
+  height: 30px;
+  line-height: 30px;
+  outline: none;
+  width: 100%;
+}
+
+#submit {
+  color: #707075;
+  margin-top: 45px;
+  transition: color 300ms;
+  letter-spacing: 0.8px;
+}
+#submit:focus {
+  color: #f2f2f2;
+}
+#submit:active {
+  color: #d0d0d2;
+}
+
+#submit:hover {
+    color: #03e9f4;
+  }

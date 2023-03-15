@@ -1,0 +1,91 @@
+.links-nav {
+    /* position: absolute; */
+    z-index: 3;
+    width: 400px;
+}
+
+.links-auth {
+    /* position: absolute; */
+    z-index: 3;
+    width: 400px;
+}
+
+.navbar {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    height: 60px;
+    z-index: 10;
+    border-bottom: 1px solid grey;
+    overflow: hidden;
+}
+
+.searchbar-field {
+    width: 90%;
+}
+
+.searchbar {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid black;
+    height: 40px;
+    width: 28rem;
+}
+
+#searchbar {
+    border: 0;
+    border-bottom: 1px solid black;
+    border: 0;
+    outline: 0;
+    background: none;
+    width: 100%;
+    font-size: 16px;
+    color: black;
+    margin-top: 10px;
+    padding-left: 10px;
+}
+
+#searchbar-icon {
+    /* border-bottom: 1px solid black; */
+    top:0;
+    left: 0;
+    color: rgb(36,36,36);
+    width: 30px;
+    height: 30px;
+}
+
+.nav-tools {
+    margin-top: 10px;
+    color: rgb(72,72,72);
+    width: 350px;
+    display: flex;
+    justify-content: space-evenly;
+    transition: all 300ms ease-in-out 0s;
+    display:flex;
+    justify-content: space-around;
+    height: 40%;
+}
+
+.nav-tools svg {
+    
+    width: 30px;
+    height: 30px;
+}
+
+.nav-tools div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.nav-tools div:hover {
+    color: rgb(230,0,18);
+    cursor: pointer;
+}
+
+.nav-tools div svg{
+    padding-right: 5px;
+}
