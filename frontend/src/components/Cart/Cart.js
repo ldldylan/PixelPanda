@@ -3,10 +3,10 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { clearCartItems } from "../../store/cartItem";
 import { fetchCartItems } from "../../store/cartItem";
-import { receiveProducts } from "../../store/product";
+import { receiveArtwork } from "../../store/artworks";
 import { useHistory } from "react-router-dom";
 import './CartIndex.css'
-import CartEmpty from "./CartEmpty/CartEmpty";
+import EmptyCart from "./EmptyCart";
 
 const Cart = () => {
     const dispatch = useDispatch();
@@ -85,7 +85,7 @@ const Cart = () => {
             )}
             {calculateCartSize() < 1 && (
                 <>
-                    <CartEmpty />
+                    <EmptyCart />
                 </>
             )}
 

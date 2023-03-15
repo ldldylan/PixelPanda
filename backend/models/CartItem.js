@@ -5,10 +5,6 @@ const cartItemSchema = new Schema({
     artwork: {
         type: Schema.Types.ObjectId,
         ref: 'Artwork'
-    },
-    quantity: {
-        type: Number,
-        required: true
     }
 }, {
     timestamps: true

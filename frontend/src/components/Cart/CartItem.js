@@ -7,13 +7,12 @@ import './CartItem.css'
 
 const CartItem = ({ product }) => {
 
-    const { id, name, photoUrl, price, cartItemId, quantity } = product
-    const [count, setCount] = useState(quantity);
+    const { id, name, photoUrl, price, cartItemId } = product
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchUpdateCart(cartItemId, count))
-    }, [dispatch, cartItemId, count])
+        dispatch(fetchUpdateCart(cartItemId))
+    }, [dispatch, cartItemId])
 
 
     return (

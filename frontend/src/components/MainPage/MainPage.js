@@ -15,8 +15,11 @@ function MainPage() {
           <div className="main-banner"><div className="actual-banner"/></div>
         </div>
         <div className="categories">
-          <div className="cateogories-items">
-            <div></div>
+          <div className="categories-items">
+            <div>2d</div>
+            <div>3d</div>
+            <div>Audio</div>
+            <div>VFX</div>
           </div>
         </div>
         <div className="popular-assets-box">

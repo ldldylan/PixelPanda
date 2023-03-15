@@ -12,6 +12,7 @@ import Tweets from './components/Tweets/Tweets';
 import Profile from './components/Profile/Profile';
 import TweetCompose from './components/Tweets/TweetCompose';
 import CreateArtworkPage from './components/Artwork/CreateArtworkPage.jsx'
+import Cart from './components/Cart/Cart'
 import { getCurrentUser } from './store/session';
 
 function App() {
@@ -29,6 +30,7 @@ function App() {
         <AuthRoute exact path="/signup" component={SignupForm} />
         <ProtectedRoute exact path="/" component={MainPage} />
         <ProtectedRoute exact path="/artworks/create" component={CreateArtworkPage} />
+        <ProtectedRoute exact path='/cart' component={Cart}  />
         <ProtectedRoute exact path="/tweets" component={Tweets} />
         <ProtectedRoute exact path="/profile" component={Profile} />
         <ProtectedRoute exact path="/tweets/new" component={TweetCompose} />

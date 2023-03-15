@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { fetchArtworks } from '../../store/artworks';
+import './Artwork.css';
 
 export default function CreateArtworkPage(){
     const [name, setName] = useState("")
@@ -77,7 +78,7 @@ export default function CreateArtworkPage(){
     };
     
     return(
-        <>
+        <div className="create-artwork-form">
             <form>
                 <label>Name
                     <input 
@@ -111,7 +112,7 @@ export default function CreateArtworkPage(){
                 </label>
                 <button onClick={handleSubmit}>Upload New Artwork</button>
             </form>
-        </>   
+        </div>   
     )
 }
 

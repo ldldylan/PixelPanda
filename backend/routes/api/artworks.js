@@ -65,6 +65,7 @@ router.post('/', singleMulterUpload("image"), requireUser, validateArtworkInput,
           name: req.body.name,
           description: req.body.description,
           author: req.user._id,
+          price: req.body.price,
           ArtworkImageUrl
 
     });

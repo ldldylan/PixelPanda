@@ -57,9 +57,7 @@ router.get('/user/:userId', async (req, res, next) => {
 router.post('/', requireUser, validateArtworkInput, async (req, res, next) => {
   try {
       const newCartItem = new CartItem({
-          artwork: req.body.artwork,
-          quantity: req.body.quantity
-
+          artwork: req.body.artwork
     });
       let cartItem = await newCartItem.save();
       cartItem = await cartItem.populate('author', '_id username');
@@ -74,7 +72,7 @@ router.patch("/:id", async (req, res, next) => {
     CartItem.findByIdAndUpdate(
         req.params.id,
         {
-            quantity: req.body.quantity
+            // quantity: req.body.quantity
         },
         { new: true }
 

@@ -54,8 +54,8 @@ function LoginForm () {
   }
 
   const demoUser = () => {
-    setEmail('demo-user@gmail.com')
-    setPassword('password')
+    setEmail('demo-user@gmail.com');
+    setPassword('password');
   };
 
   useEffect(() => {
@@ -168,7 +168,7 @@ function LoginForm () {
         <label htmlFor="password">Password <span className="errors">{errors ? '- Invalid Credentials' : null}</span>  </label>
         <input type="password" value={password} onChange={update('password')} id="password" ref={passwordRef}/>
         <input type="submit" id="submit" value="LOGIN" ref={submitRef}/>
-        <div className="demo-login" type='submit' onClick={demoUser}>Click me for Demo</div>
+        <button className="demo-login" type='submit' onClick={demoUser}>Click me for Demo</button>
       </form>
     </div>
     
