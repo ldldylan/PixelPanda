@@ -10,10 +10,11 @@ const csurf = require('csurf');
 const { isProduction } = require('./config/keys');
 
 require('./models/User');
-require('./models/Tweet'); // <--ADD THIS LINE
-require('./models/Artwork'); // <--ADD THIS LINE
-require('./config/passport'); // <-- ADD THIS LINE 
-const passport = require('passport'); // <-- ADD THIS LINE
+require('./models/Tweet'); 
+require('./models/Artwork'); 
+require('./models/CartItem')
+require('./config/passport'); 
+const passport = require('passport'); 
 
 const usersRouter = require('./routes/api/users');
 const tweetsRouter = require('./routes/api/tweets');
