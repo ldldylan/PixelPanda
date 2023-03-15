@@ -1,10 +1,9 @@
-import {createArtwork} from '../../store/artworks'
+import {createArtwork} from '../../../store/artworks'
 import { useEffect, useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { fetchArtworks } from '../../store/artworks';
-import './Artwork.css';
-
+import { fetchArtworks } from '../../../store/artworks';
+import "./CreateArtwork.css"
 export default function CreateArtworkPage(){
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
@@ -15,7 +14,7 @@ export default function CreateArtworkPage(){
     const dispatch = useDispatch();
 
     const sessionUser = useSelector((state) => state.session.user)
-
+    // console.log(sessionUser._id)
 
     useEffect(()=>{
         dispatch(fetchArtworks())
@@ -28,10 +27,11 @@ export default function CreateArtworkPage(){
         formData.append("description", description);
         formData.append("price", price);
         formData.append("image", image);
-        console.log(name, "name")
-        console.log(description,"description")
-        console.log(price, "price")
-        console.log(image,"image")
+        formData.append("author", sessionUser._id)
+        // console.log(name, "name")
+        // console.log(description,"description")
+        // console.log(price, "price")
+        // console.log(image,"image")
         dispatch(createArtwork(formData)); 
         setImage([]);                        
         setImageUrl([]);    
@@ -63,22 +63,27 @@ export default function CreateArtworkPage(){
     // }
     const updateFile = async e => {
         const file = e.target.files[0];
+        console.log(file,"file")
         setImage(file);
         if (file) {
             const fileReader = new FileReader();
             fileReader.readAsDataURL(file);
             fileReader.onload = () => {
+                const img = document.querySelector('.Uploadpic');
                 setImageUrl(fileReader.result);
+                img.src = fileReader.result;
             };
         } else {
             setImageUrl('');
         }
-        // console.log(image, "image")
-        // console.log(imageUrl, "imageUrl")
+        
     };
-    
+    useEffect(() => {
+        console.log(image, "image")
+        console.log(imageUrl, "imageUrl")
+    }, [image, imageUrl]);
     return(
-        <div className="create-artwork-form">
+        <>
             <form>
                 <label>Name
                     <input 
@@ -103,16 +108,17 @@ export default function CreateArtworkPage(){
                 </label>
                 <label>
                     Image to Upload
+                    <div className='dotline'><img className="Uploadpic" /></div>
                     <input
+                        className='uploadButton'
                         type="file"
                         ref={fileRef}       
                         accept=".jpg, .jpeg, .png"
-                        multiple
                         onChange={updateFile} />
                 </label>
                 <button onClick={handleSubmit}>Upload New Artwork</button>
             </form>
-        </div>   
+        </>   
     )
 }
 

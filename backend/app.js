@@ -8,7 +8,9 @@ const logger = require('morgan');
 const cors = require('cors');
 const csurf = require('csurf');
 const { isProduction } = require('./config/keys');
+const bodyParser = require('body-parser');
 
+// Set a limit of 10MB for the request body
 require('./models/User');
 require('./models/Tweet'); 
 require('./models/Artwork'); 
@@ -24,6 +26,7 @@ const cartItemsRouter = require('./routes/api/cartItems')
 const csrfRouter = require('./routes/api/csrf');
 
 const app = express();
+app.use(bodyParser.json({ limit: '10mb' }));
 app.use(passport.initialize());
 app.use(logger('dev'));
 app.use(express.json());
