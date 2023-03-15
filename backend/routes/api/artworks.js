@@ -5,7 +5,7 @@ const User = mongoose.model('User');
 const Artwork = mongoose.model('Artwork');
 const { requireUser } = require('../../config/passport');
 const validateArtworkInput = require('../../validations/artworks');
-const { multipleFilesUpload, multipleMulterUpload } = require("../../awsS3");
+const { singleFileUpload, singleMulterUpload } = require("../../awsS3");
 
 router.get('/', async (req, res) => {
   try {
@@ -54,9 +54,12 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
-router.post('/', multipleMulterUpload("images"), requireUser, validateArtworkInput, async (req, res, next) => {
-    const ArtworkImageUrl = await multipleFilesUpload({ files: req.files, public: true });
-
+router.post('/', singleMulterUpload("image"), requireUser, validateArtworkInput, async (req, res, next) => {
+  // console.log(req, "req")
+  // console.log(req.file,"req")
+  // console.log(res,"res")
+  const ArtworkImageUrl = await singleFileUpload({ file: req.file, public: true });
+  // console.log(ArtworkImageUrl,"ArtworkImageUrl")
     try {
       const newArtwork = new Artwork({
           name: req.body.name,
@@ -74,7 +77,7 @@ router.post('/', multipleMulterUpload("images"), requireUser, validateArtworkInp
   }
 });
 router.patch("/:id", validateArtworkInput, async (req, res, next) => {
-    const ArtworkImageUrl = await multipleFilesUpload({ files: req.files, public: true });
+    const ArtworkImageUrl = await ({ files: req.files, public: true });
 
     Artwork.findByIdAndUpdate(
         req.params.id,

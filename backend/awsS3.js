@@ -1,8 +1,7 @@
-
 const AWS = require("aws-sdk");
 const multer = require("multer");
 const s3 = new AWS.S3({ apiVersion: "2006-03-01" });
-const NAME_OF_BUCKET = "aws - mern - pixelpanda"; // <-- Use your bucket name here
+const NAME_OF_BUCKET = "aws-mern-pixelpanda"; // <-- Use your bucket name here
 
 
 const singleFileUpload = async ({ file, public = false }) => {
@@ -11,14 +10,16 @@ const singleFileUpload = async ({ file, public = false }) => {
 
     // Set the name of the file in your S3 bucket to the date in ms plus the
     // extension name.
+    // console.log("passing1")
     const Key = new Date().getTime().toString() + path.extname(originalname);
     const uploadParams = {
         Bucket: NAME_OF_BUCKET,
         Key: public ? `public/${Key}` : Key,
         Body: buffer
     };
+    // console.log("passing2")
     const result = await s3.upload(uploadParams).promise();
-
+    // console.log("passing3")
     // Return the link if public. If private, return the name of the file in your
     // S3 bucket as the key in your database for subsequent retrieval.
     return public ? result.Location : result.Key;

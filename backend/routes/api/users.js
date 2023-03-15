@@ -69,6 +69,7 @@ router.post('/register', singleMulterUpload("image"), validateRegisterInput,asyn
 
 // POST /api/users/login
 router.post('/login', validateLoginInput,async (req, res, next) => {
+  console.log(res.body)
   passport.authenticate('local', async function(err, user) {
     if (err) return next(err);
     if (!user) {
@@ -77,11 +78,14 @@ router.post('/login', validateLoginInput,async (req, res, next) => {
       err.errors = { email: "Invalid credentials" };
       return next(err);
     }
+    console.log(res.body)
     return res.json(await loginUser(user)); // <-- THIS IS THE CHANGED LINE
   })(req, res, next);
 });
 
 router.get('/current', restoreUser, (req, res) => {
+  console.log(req.user)
+  // console.log(req)
   if (!isProduction) {
     // In development, allow React server to gain access to the CSRF token
     // whenever the current user information is first loaded into the
@@ -92,9 +96,8 @@ router.get('/current', restoreUser, (req, res) => {
   if (!req.user) return res.json(null);
   res.json({
     _id: req.user._id,
-    // username: req.user.username,
-    // profileImageUrl: req.user.profileImageUrl, 
-
+    username: req.user.username,
+    profileImageUrl: req.user.profileImageUrl, // <- ADD THIS LINE
     email: req.user.email
   });
 });

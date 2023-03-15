@@ -44,13 +44,25 @@ passport.use(new JwtStrategy(options, async (jwtPayload, done) => {
 }));
 
 exports.requireUser = passport.authenticate('jwt', { session: false });
+// exports.restoreUser = (req, res, next) => {
+//     return passport.authenticate('jwt', { session: false }, function(err, user) {
+//       if (err) return next(err);
+//       if (user) req.user = user;
+//       next();
+//     })(req, res, next);
+//   };
+
 exports.restoreUser = (req, res, next) => {
-    return passport.authenticate('jwt', { session: false }, function(err, user) {
-      if (err) return next(err);
-      if (user) req.user = user;
-      next();
-    })(req, res, next);
-  };
+  passport.authenticate('jwt', { session: false }, function (err, user) {
+    if (err) return next(err);
+    console.log('User object:', user);
+    if (user) {
+      req.user = user;
+      console.log('req.user:', req.user);
+    }
+    next();
+  })(req, res, next);
+};
 
 exports.loginUser = async function(user) {
     const userInfo = {
@@ -59,6 +71,7 @@ exports.loginUser = async function(user) {
       // profileImageUrl: user.profileImageUrl, 
       email: user.email
     };
+    console.log(userInfo,"userInfo")
     const token = await jwt.sign(
       userInfo, // payload
       secretOrKey, // sign with secret key
