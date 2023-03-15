@@ -18,6 +18,7 @@ const passport = require('passport'); // <-- ADD THIS LINE
 const usersRouter = require('./routes/api/users');
 const tweetsRouter = require('./routes/api/tweets');
 const artworksRouter = require('./routes/api/artworks');
+const cartItemsRouter = require('./routes/api/cartItems')
 
 const csrfRouter = require('./routes/api/csrf');
 
@@ -54,6 +55,7 @@ app.use('/api/users', usersRouter);
 app.use('/api/tweets', tweetsRouter);
 app.use('/api/artworks', artworksRouter)
 app.use('/api/csrf', csrfRouter);
+app.use('/api/cartitem', cartItemsRouter)
 
 // Express custom middleware for catching all unmatched requests and formatting
 // a 404 error to be sent as the response.

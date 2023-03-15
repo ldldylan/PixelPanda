@@ -1,0 +1,28 @@
+{
+  "name": "pixelpanda",
+  "version": "1.0.0",
+  "description": "PixelPanda is a game assets website that allows game artists to upload, edit, and delete their artworks online to sell. Buyers or game developers can browse the website to search for assets such as images, models, and music they need. They can also directly contact the artists to negotiate the price with the artists or send an artwork request with an offer and a deadline.",
+  "engines": {
+    "node": "16.x"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "backend-install": "npm install --prefix backend",
+    "backend": "npm run dev --prefix backend",
+    "frontend-install": "npm install --prefix frontend",
+    "frontend": "npm start --prefix frontend",
+    "frontend-build": "npm run build --prefix frontend",
+    "build": "npm run backend-install && npm run frontend-install && npm run frontend-build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ldldylan/PixelPanda.git"
+  },
+  "keywords": [],
+  "author": "Dilang Lin, Kenny Tram, James Wu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ldldylan/PixelPanda/issues"
+  },
+  "homepage": "https://github.com/ldldylan/PixelPanda#readme"
+}
