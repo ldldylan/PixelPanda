@@ -58,12 +58,14 @@ router.post('/', singleMulterUpload("image"), requireUser, validateArtworkInput,
   // console.log(req, "req")
   // console.log(req.file,"req")
   // console.log(res,"res")
+  // console.log(image,"image")
   const ArtworkImageUrl = await singleFileUpload({ file: req.file, public: true });
-  // console.log(ArtworkImageUrl,"ArtworkImageUrl")
+  console.log(ArtworkImageUrl,"ArtworkImageUrl")
     try {
       const newArtwork = new Artwork({
           name: req.body.name,
           description: req.body.description,
+          price: req.body.price,
           author: req.user._id,
           ArtworkImageUrl
 
@@ -76,13 +78,15 @@ router.post('/', singleMulterUpload("image"), requireUser, validateArtworkInput,
     next(err);
   }
 });
-router.patch("/:id", singleMulterUpload("image"), validateArtworkInput, async (req, res, next) => {
-    const ArtworkImageUrl = await ({ file: req.file, public: true });
+router.patch("/:id", singleMulterUpload("image"), requireUser, validateArtworkInput, async (req, res, next) => {
+  const ArtworkImageUrl = await singleFileUpload({ file: req.file, public: true });
   console.log(ArtworkImageUrl, "ArtworkImageUrl")
   console.log(req.params, "req.params")
+  console.log(req.user, "req.user._id")
     Artwork.findByIdAndUpdate(
         req.params.id,
         {
+          author: req.user._id,
           name: req.body.name,
           description:req.body.description,
           ArtworkImageUrl,

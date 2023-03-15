@@ -14,7 +14,7 @@ export default function CreateArtworkPage(){
     const dispatch = useDispatch();
 
     const sessionUser = useSelector((state) => state.session.user)
-
+    // console.log(sessionUser._id)
 
     useEffect(()=>{
         dispatch(fetchArtworks())
@@ -27,10 +27,11 @@ export default function CreateArtworkPage(){
         formData.append("description", description);
         formData.append("price", price);
         formData.append("image", image);
-        console.log(name, "name")
-        console.log(description,"description")
-        console.log(price, "price")
-        console.log(image,"image")
+        formData.append("author", sessionUser._id)
+        // console.log(name, "name")
+        // console.log(description,"description")
+        // console.log(price, "price")
+        // console.log(image,"image")
         dispatch(createArtwork(formData)); 
         setImage([]);                        
         setImageUrl([]);    
@@ -62,6 +63,7 @@ export default function CreateArtworkPage(){
     // }
     const updateFile = async e => {
         const file = e.target.files[0];
+        console.log(file,"file")
         setImage(file);
         if (file) {
             const fileReader = new FileReader();
@@ -72,10 +74,12 @@ export default function CreateArtworkPage(){
         } else {
             setImageUrl('');
         }
-        // console.log(image, "image")
-        // console.log(imageUrl, "imageUrl")
+        
     };
-    
+    useEffect(() => {
+        console.log(image, "image")
+        console.log(imageUrl, "imageUrl")
+    }, [image, imageUrl]);
     return(
         <>
             <form>
@@ -106,7 +110,6 @@ export default function CreateArtworkPage(){
                         type="file"
                         ref={fileRef}       
                         accept=".jpg, .jpeg, .png"
-                        multiple
                         onChange={updateFile} />
                 </label>
                 <button onClick={handleSubmit}>Upload New Artwork</button>

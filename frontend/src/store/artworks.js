@@ -58,12 +58,11 @@ export const fetchUserArtworks = id => async dispatch => {
     }
 };
 
-export const createArtwork = data => async dispatch => {
-    // debugger
+export const createArtwork = formData => async dispatch => {
     try {
         const res = await jwtFetch('/api/artworks/', {
             method: 'POST',
-            body: JSON.stringify(data)
+            body: formData
         });
 
         const artwork = await res.json();
