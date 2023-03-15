@@ -23,11 +23,11 @@ function App() {
 
   return loaded && (
     <>
-      
       <Switch>
         <AuthRoute exact path="/" component={MainPage} />
         <AuthRoute exact path="/login" component={LoginForm} />
         <AuthRoute exact path="/signup" component={SignupForm} />
+        <ProtectedRoute exact path="/" component={MainPage} />
         <ProtectedRoute exact path="/artworks/create" component={CreateArtworkPage} />
         <ProtectedRoute exact path="/tweets" component={Tweets} />
         <ProtectedRoute exact path="/profile" component={Profile} />

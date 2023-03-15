@@ -91,6 +91,10 @@
     height: 66%;
     border: 1px solid green;
     margin-bottom: 2px;
+    /* background-image: url('https://aws-mern-pixelpanda.s3.us-west-1.amazonaws.com/public/1678898915410.png'); */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .artwork-name {
@@ -128,4 +132,7 @@
 
 .asset-item.artist .artwork-preview-image {
     height: 70%;
+    background-image: url('https://aws-mern-pixelpanda.s3.us-west-1.amazonaws.com/defaultprofile.jpg');
+    background-size: contain;
+    background-position: center;
 }
