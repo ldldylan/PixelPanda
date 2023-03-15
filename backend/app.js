@@ -61,30 +61,8 @@ app.use('/api/artworks', artworksRouter)
 app.use('/api/csrf', csrfRouter);
 app.use('/api/cartitems', cartItemsRouter)
 
-// Express custom middleware for catching all unmatched requests and formatting
-// a 404 error to be sent as the response.
-app.use((req, res, next) => {
-    const err = new Error('Not Found');
-    err.statusCode = 404;
-    next(err);
-  });
-  
-  const serverErrorLogger = debug('backend:error');
-  
-  // Express custom error handler that will be called whenever a route handler or
-  // middleware throws an error or invokes the `next` function with a truthy value
-  app.use((err, req, res, next) => {
-    serverErrorLogger(err);
-    const statusCode = err.statusCode || 500;
-    res.status(statusCode);
-    res.json({
-      message: err.message,
-      statusCode,
-      errors: err.errors
-    })
-  });
 
-  // Serve static React build files statically in production
+// Serve static React build files statically in production
 if (isProduction) {
     const path = require('path');
     // Serve the frontend's index.html file at the root route
@@ -92,7 +70,7 @@ if (isProduction) {
       res.cookie('CSRF-TOKEN', req.csrfToken());
       res.sendFile(
         path.resolve(__dirname, '../frontend', 'build', 'index.html')
-      );
+        );
     });
   
     // Serve the static assets in the frontend's build folder
@@ -106,5 +84,27 @@ if (isProduction) {
       );
     });
   }
-
+  
+  // Express custom middleware for catching all unmatched requests and formatting
+  // a 404 error to be sent as the response.
+  app.use((req, res, next) => {
+      const err = new Error('Not Found');
+      err.statusCode = 404;
+      next(err);
+    });
+    
+    const serverErrorLogger = debug('backend:error');
+    
+    // Express custom error handler that will be called whenever a route handler or
+    // middleware throws an error or invokes the `next` function with a truthy value
+    app.use((err, req, res, next) => {
+      serverErrorLogger(err);
+      const statusCode = err.statusCode || 500;
+      res.status(statusCode);
+      res.json({
+        message: err.message,
+        statusCode,
+        errors: err.errors
+      })
+    });
   module.exports = app;
