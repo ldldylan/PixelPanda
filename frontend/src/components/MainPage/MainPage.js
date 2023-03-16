@@ -12,17 +12,17 @@ import AudiotrackIcon from '@mui/icons-material/Audiotrack';
 import LensBlurIcon from '@mui/icons-material/LensBlur';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { fetchArtworks } from '../../store/artworks';
 import { getArtworks } from '../../store/artworks';
 import { useSelector } from 'react-redux';
 function MainPage() {
     const dispatch=useDispatch();
- 
+    const artworks = useSelector(getArtworks);
+    const history = useHistory();
     useEffect(()=>{
       dispatch(fetchArtworks())
     },[dispatch])
-     const artworks = useSelector(getArtworks)
-  console.log(artworks)
     return (
       <>
       <NavBar />
@@ -41,7 +41,28 @@ function MainPage() {
         <div className="popular-assets-box">
           <h3>POPULAR ASSETS</h3>
           <ul className="assets">
-            <li className="asset-item">
+            {artworks.slice(0,10).map(artwork => (
+              <li key={artwork._id} 
+              className="asset-item"
+              onClick={()=> history.push(`/artworks/${artwork._id}`)}>
+                <FavoriteBorderIcon className="favorite-item-icon"/>
+                <img
+                src= {artwork.ArtworkImageUrl} 
+                style={{ 
+                  backgroundRepeat: "no-repeat", 
+                  backgroundSize: "contain",
+                  backgroundPosition: "center",
+                  objectFit: "cover" }} 
+                  className="artwork-preview-image"/>
+                <div className="artwork-name">{artwork.name}</div>
+                <div className="artwork-artist">{artwork.author.email}</div>
+                <div className="artwork-price-cart">
+                  <div className="artwork-price">{artwork.price}</div>
+                  <AddShoppingCartIcon/>
+                </div>
+              </li>
+            ))}
+            {/* <li className="asset-item">
               <FavoriteBorderIcon className="favorite-item-icon"/>
               <img 
               src="https://aws-mern-pixelpanda.s3.us-west-1.amazonaws.com/public/1678898915410.png" 
@@ -145,7 +166,7 @@ function MainPage() {
                 <div className="artwork-price">$6</div>
                 <AddShoppingCartIcon/>
               </div>
-            </li>
+            </li> */}
           </ul>
         </div>
         <div className="popular-assets-box">
