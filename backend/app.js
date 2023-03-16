@@ -14,6 +14,7 @@ const bodyParser = require('body-parser');
 require('./models/User');
 require('./models/Tweet'); 
 require('./models/Artwork'); 
+require('./models/Review');
 require('./models/CartItem')
 require('./config/passport'); 
 const passport = require('passport'); 
@@ -21,6 +22,7 @@ const passport = require('passport');
 const usersRouter = require('./routes/api/users');
 const tweetsRouter = require('./routes/api/tweets');
 const artworksRouter = require('./routes/api/artworks');
+const reviewsRouter = require('./routes/api/reviews');
 const cartItemsRouter = require('./routes/api/cartItems')
 
 const csrfRouter = require('./routes/api/csrf');
@@ -58,8 +60,9 @@ app.use(
 app.use('/api/users', usersRouter);
 app.use('/api/tweets', tweetsRouter);
 app.use('/api/artworks', artworksRouter)
+app.use('/api/reviews', reviewsRouter)
 app.use('/api/csrf', csrfRouter);
-app.use('/api/cartitems', cartItemsRouter)
+app.use('/api/cartItems', cartItemsRouter)
 
 
 // Serve static React build files statically in production

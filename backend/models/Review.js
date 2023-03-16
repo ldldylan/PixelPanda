@@ -1,16 +1,16 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const reviewSchema = new Schema({
+const reviewSchema = new Schema({ 
     author: {
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
     artworkId: {
-        type: String,
-        required: true
+        type: Schema.Types.ObjectId,
+        ref: 'Artwork'
     },
-    body: {
+    content: {
         type: String,
         required: false
     },

@@ -3,12 +3,14 @@ const { mongoURI: db } = require('../config/keys.js');
 const User = require('../models/User');
 const Tweet = require('../models/Tweet');
 const Artwork = require('../models/Artwork');
+const Review = require('../models/Review');
 const bcrypt = require('bcryptjs');
 const { faker } = require('@faker-js/faker');
 
 const NUM_SEED_USERS = 10;
 const NUM_SEED_TWEETS = 30;
 const NUM_SEED_ARTWORKS = 40;
+const NUM_SEED_REVIEWS = 80;
 // Create users
 const users = [];
 console.log('creating users...')
@@ -89,6 +91,21 @@ for (let i = 0; i < NUM_SEED_ARTWORKS; i++) {
     })
     )
   }
+console.log('creating reviews...')
+const reviews = [];
+
+for (let i = 0; i < NUM_SEED_REVIEWS; i++) {
+
+  reviews.push(
+    new Review({
+      rating: Math.floor(Math.random() * 5) + 1, 
+      content: faker.hacker.phrase(),
+      artworkId: artworks[Math.floor(Math.random() * NUM_SEED_ARTWORKS)]._id,
+      author: users[Math.floor(Math.random() * NUM_SEED_USERS)]._id
+    })
+  )
+}
+console.log(reviews)
 
 const insertSeeds = () => {
   console.log("Resetting db and seeding users and tweets...");
@@ -96,8 +113,12 @@ const insertSeeds = () => {
   User.collection.drop()
                  .then(() => Tweet.collection.drop())
                  .then(() => Artwork.collection.drop())
+                  .then(() => Review.collection.drop())
+
                  .then(() => User.insertMany(users))
                  .then(() => Tweet.insertMany(tweets))
+                 .then(() => Review.insertMany(reviews))
+
                  .then(() => Artwork.insertMany(artworks))
                  .then(() => {
                    console.log("Done!");
