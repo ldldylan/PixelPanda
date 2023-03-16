@@ -151,7 +151,7 @@
 
 .asset-item.artist .artwork-preview-image {
     height: 70%;
-    background-image: url('https://aws-mern-pixelpanda.s3.us-west-1.amazonaws.com/defaultprofile.jpg');
+    /* background-image: url('https://aws-mern-pixelpanda.s3.us-west-1.amazonaws.com/defaultprofile.jpg'); */
     background-size: contain;
     background-position: center;
 }
