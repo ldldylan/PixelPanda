@@ -6,10 +6,12 @@ import thunk from 'redux-thunk';
 import session from './session';
 import errors from './errors';
 import artworks from './artworks'
+import users from './users'
 const rootReducer = combineReducers({
   session,
   errors,
-  artworks
+  artworks,
+  users
 });
 let enhancer;
 

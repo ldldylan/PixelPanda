@@ -23,9 +23,9 @@ function NavBar () {
       return (<>
         <div>Hello World {user.email}</div>
          <div className="links-nav">
-           <Link to={'/tweets'}>All Tweets</Link>
+           <Link to={'/'}>Main Page</Link>
            <Link to={'/profile'}>Profile</Link>
-           <Link to={'/tweets/new'}>Write a Tweet</Link>
+           <Link to={'/artworks/create'}>Create an artwork</Link>
            <button onClick={logoutUser}>Logout</button>
          </div>
       </>);

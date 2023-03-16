@@ -12,17 +12,20 @@ import AudiotrackIcon from '@mui/icons-material/Audiotrack';
 import LensBlurIcon from '@mui/icons-material/LensBlur';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { fetchArtworks } from '../../store/artworks';
 import { getArtworks } from '../../store/artworks';
+import { getUsers, fetchUsers} from '../../store/users';
 import { useSelector } from 'react-redux';
 function MainPage() {
     const dispatch=useDispatch();
- 
+    const artworks = useSelector(getArtworks);
+    const users = useSelector(getUsers);
+    const history = useHistory();
     useEffect(()=>{
-      dispatch(fetchArtworks())
+      dispatch(fetchArtworks());
+      dispatch(fetchUsers());
     },[dispatch])
-     const artworks = useSelector(getArtworks)
-  console.log(artworks)
     return (
       <>
       <NavBar />
@@ -32,171 +35,57 @@ function MainPage() {
         </div>
         <div className="categories">
           <div className="categories-items">
-            <div><CropSquareIcon/> <div>2D</div></div>
-            <div><ViewInArIcon/> <div>3D</div></div>
-            <div><AudiotrackIcon/> <div>AUDIO</div></div>
-            <div><LensBlurIcon/> <div>VFX</div></div>
+            <div className="category">
+              <div className="category-wrapper"><CropSquareIcon/></div>
+              <div>2D</div>
+            </div>
+            <div className="category"><ViewInArIcon/> <div>3D</div></div>
+            <div className="category"><AudiotrackIcon/> <div>AUDIO</div></div>
+            <div className="category"><LensBlurIcon/> <div>VFX</div></div>
           </div>
         </div>
         <div className="popular-assets-box">
           <h3>POPULAR ASSETS</h3>
           <ul className="assets">
-            <li className="asset-item">
-              <FavoriteBorderIcon className="favorite-item-icon"/>
-              <img 
-              src="https://aws-mern-pixelpanda.s3.us-west-1.amazonaws.com/public/1678898915410.png" 
-              className="artwork-preview-image"/>
-              <div className="artwork-name">Billy Jeans</div>
-              <div className="artwork-artist">Michael Jackson</div>
-              <div className="artwork-price-cart">
-                <div className="artwork-price">$6</div>
-                <AddShoppingCartIcon/>
-              </div>
-            </li>
-            <li className="asset-item">
-              <FavoriteBorderIcon className="favorite-item-icon"/>
-              <img 
-              src="https://aws-mern-pixelpanda.s3.us-west-1.amazonaws.com/aws_mern/tachie+(125).png" 
-
-              className="artwork-preview-image"/>
-              <div className="artwork-name">Billy Jeans</div>
-              <div className="artwork-artist">Michael Jackson</div>
-              <div className="artwork-price-cart">
-                <div className="artwork-price">$6</div>
-                <AddShoppingCartIcon/>
-              </div>
-            </li>
-            <li className="asset-item">
-              <FavoriteBorderIcon className="favorite-item-icon"/>
-              <div className="artwork-preview-image"/>
-              <div className="artwork-name">Billy Jeans</div>
-              <div className="artwork-artist">Michael Jackson</div>
-              <div className="artwork-price-cart">
-                <div className="artwork-price">$6</div>
-                <AddShoppingCartIcon/>
-              </div>
-            </li>
-            <li className="asset-item">
-              <FavoriteBorderIcon className="favorite-item-icon"/>
-              <div className="artwork-preview-image"/>
-              <div className="artwork-name">Billy Jeans</div>
-              <div className="artwork-artist">Michael Jackson</div>
-              <div className="artwork-price-cart">
-                <div className="artwork-price">$6</div>
-                <AddShoppingCartIcon/>
-              </div>
-            </li>
-            <li className="asset-item">
-              <FavoriteBorderIcon className="favorite-item-icon"/>
-              <div className="artwork-preview-image"/>
-              <div className="artwork-name">Billy Jeans</div>
-              <div className="artwork-artist">Michael Jackson</div>
-              <div className="artwork-price-cart">
-                <div className="artwork-price">$6</div>
-                <AddShoppingCartIcon/>
-              </div>
-            </li>
-            <li className="asset-item">
-              <FavoriteBorderIcon className="favorite-item-icon"/>
-              <div className="artwork-preview-image"/>
-              <div className="artwork-name">Billy Jeans</div>
-              <div className="artwork-artist">Michael Jackson</div>
-              <div className="artwork-price-cart">
-                <div className="artwork-price">$6</div>
-                <AddShoppingCartIcon/>
-              </div>
-            </li>
-            <li className="asset-item">
-              <FavoriteBorderIcon className="favorite-item-icon"/>
-              <div className="artwork-preview-image"/>
-              <div className="artwork-name">Billy Jeans</div>
-              <div className="artwork-artist">Michael Jackson</div>
-              <div className="artwork-price-cart">
-                <div className="artwork-price">$6</div>
-                <AddShoppingCartIcon/>
-              </div>
-            </li>
-            <li className="asset-item">
-              <FavoriteBorderIcon className="favorite-item-icon"/>
-              <div className="artwork-preview-image"/>
-              <div className="artwork-name">Billy Jeans</div>
-              <div className="artwork-artist">Michael Jackson</div>
-              <div className="artwork-price-cart">
-                <div className="artwork-price">$6</div>
-                <AddShoppingCartIcon/>
-              </div>
-            </li>
-            <li className="asset-item">
-              <FavoriteBorderIcon className="favorite-item-icon"/>
-              <div className="artwork-preview-image"/>
-              <div className="artwork-name">Billy Jeans</div>
-              <div className="artwork-artist">Michael Jackson</div>
-              <div className="artwork-price-cart">
-                <div className="artwork-price">$6</div>
-                <AddShoppingCartIcon/>
-              </div>
-            </li>
-            <li className="asset-item">
-              <FavoriteBorderIcon className="favorite-item-icon"/>
-              <div className="artwork-preview-image"/>
-              <div className="artwork-name">Billy Jeans</div>
-              <div className="artwork-artist">Michael Jackson</div>
-              <div className="artwork-price-cart">
-                <div className="artwork-price">$6</div>
-                <AddShoppingCartIcon/>
-              </div>
-            </li>
+            {artworks.slice(0,10).map(artwork => (
+              <li key={artwork._id} 
+              className="asset-item"
+              onClick={()=> history.push(`/artworks/${artwork._id}`)}>
+                <FavoriteBorderIcon className="favorite-item-icon"/>
+                <img
+                src= {artwork.ArtworkImageUrl} 
+                style={{ 
+                  backgroundRepeat: "no-repeat", 
+                  backgroundSize: "contain",
+                  backgroundPosition: "center",
+                  objectFit: "cover" }} 
+                  className="artwork-preview-image"/>
+                <div className="artwork-name">{artwork.name}</div>
+                <div className="artwork-artist">{artwork.author.email}</div>
+                <div className="artwork-price-cart">
+                  <div className="artwork-price"><p>${artwork.price}</p></div>
+                  <AddShoppingCartIcon/>
+                </div>
+              </li>
+            ))}
           </ul>
         </div>
         <div className="popular-assets-box">
           <h3>POPULAR ARTISTS</h3>
           <ul className="assets">
-            <li className="asset-item artist">
-              <img src="https://aws-mern-pixelpanda.s3.us-west-1.amazonaws.com/defaultprofile.jpg"  className="artwork-preview-image"/>
-              <div className="artwork-name">Artist #1</div>
+            {users.slice(0,10).map(user => (
+              <li key={user._id} className="asset-item artist">
+                <img
+                src= {user.profileImageUrl}
+                style={{ 
+                backgroundRepeat: "no-repeat", 
+                backgroundSize: "contain",
+                backgroundPosition: "center",
+                objectFit: "cover" }} 
+                className="artwork-preview-image"/>
+                <div className="artwork-name"><p>{user.email}</p></div>
             </li>
-            <li className="asset-item artist">
-              <img src="https://aws-mern-pixelpanda.s3.us-west-1.amazonaws.com/public/1678898915410.png" className="artwork-preview-image"/>
-              <div className="artwork-name">Artist #2</div>
-            </li>
-            <li className="asset-item artist">
-              <img 
-              style={{ 
-              backgroundImage: "url('https://aws-mern-pixelpanda.s3.us-west-1.amazonaws.com/public/1678898915410.png')", 
-              backgroundRepeat: "no-repeat", 
-              backgroundSize: "contain",
-              backgroundPosition: "center" }} 
-              className="artwork-preview-image"/>
-              <div className="artwork-name">Artist #3</div>
-            </li>
-            <li className="asset-item artist">
-              <div className="artwork-preview-image"/>
-              <div className="artwork-name">Artist #4</div>
-            </li>
-            <li className="asset-item artist">
-              <div className="artwork-preview-image"/>
-              <div className="artwork-name">Artist #5</div>
-            </li>
-            <li className="asset-item artist">
-              <div className="artwork-preview-image"/>
-              <div className="artwork-name">Artist #6</div>
-            </li>
-            <li className="asset-item artist">
-              <div className="artwork-preview-image"/>
-              <div className="artwork-name">Artist #7</div>
-            </li>
-            <li className="asset-item artist">
-              <div className="artwork-preview-image"/>
-              <div className="artwork-name">Artist #8</div>
-            </li>
-            <li className="asset-item artist">
-              <div className="artwork-preview-image"/>
-              <div className="artwork-name">Artist #9</div>
-            </li>
-            <li className="asset-item artist">
-              <div className="artwork-preview-image"/>
-              <div className="artwork-name">Artist #10</div>
-            </li>
+            ))}
           </ul>
         </div>
       <Footer/>

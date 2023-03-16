@@ -11,11 +11,19 @@ const validateLoginInput = require('../../validations/login');
 const { singleFileUpload, singleMulterUpload } = require("../../awsS3");
 const DEFAULT_PROFILE_IMAGE_URL ="https://aws-mern-pixelpanda.s3.us-west-1.amazonaws.com/defaultprofile.jpg"
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+// router.get('/', function(req, res, next) {
+  router.get('/', async(req,res) => {
   // res.send('respond with a user 13131232resource');
-  res.json({
-    message: "GET /api/users"
-  });
+  // res.json({
+  //   message: "GET /api/users"
+  // });
+  try {
+    const users = await User.find();
+    return res.json(users);
+  }
+  catch(err) {
+    return res.json([]);
+  }
 });
 
 // POST /api/users/register
