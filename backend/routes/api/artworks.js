@@ -47,8 +47,8 @@ router.get('/:id', async (req, res, next) => {
       return res.json(artwork);
   }
   catch(err) {
-    const error = new Error('Artworkrtwork not found');
-    error.statusCode = 404;
+      const error = new Error('Artwork not found');
+      error.statusCode = 404;
       error.errors = { message: "No artwork found with that id" };
     return next(error);
   }

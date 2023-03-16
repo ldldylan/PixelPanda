@@ -95,6 +95,7 @@ export const cartItemErrorsReducer = (state = nullErrors, action) => {
     switch (action.type) {
         case RECEIVE_CARTITEM_ERRORS:
             return action.errors;
+        case ADD_CARTITEM:
         case CLEAR_CARTITEM_ERRORS:
             return nullErrors;
         default:
