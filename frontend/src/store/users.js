@@ -145,13 +145,14 @@ export const userErrorsReducer = (state = nullErrors, action) => {
 };
 
 const usersReducer = (state = { }, action) => {
-    const newState = {...state};
+    let newState = {...state};
     
     switch (action.type) {
         case RECEIVE_USER: 
             return newState[action.user._id] = action.user;
         case RECEIVE_USERS:
             // console.log(action);
+            newState = {};
             const users = action.users
             users.forEach(user => {
                 newState[user._id] = user
