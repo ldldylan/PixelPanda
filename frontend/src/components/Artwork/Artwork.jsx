@@ -7,31 +7,34 @@ import { useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
 import "./Artwork.css";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import { fetchArtworks } from "../../store/artworks";
+import { fetchArtworks, fetchArtwork } from "../../store/artworks";
 import { getArtwork } from "../../store/artworks";
 import { NavLink } from "react-router-dom";
 import CreateReviewPage from "../Review/Create/createReview";
 function Artwork() {
     const {artworkId} = useParams();
     const dispatch = useDispatch();
+    const params = useParams();
     // const artwork = useSelector (state => state.artworks.artwork);
     // console.log(artworkId)
 
-    const artwork = useSelector(getArtwork(artworkId));
+    const artwork = useSelector(state => state.artworks);
     // console.log(artwork)
     useEffect(()=> {
-        dispatch(fetchArtworks())
-    },[dispatch]) 
+        dispatch(fetchArtwork(artworkId));
+    },[dispatch, artworkId]) 
     return (
     <>
         <NavBar/>
         <div className="artwork">
              <div className="artwork-image-container">
-                <img style={{ 
-              backgroundImage: "url('https://aws-mern-pixelpanda.s3.us-west-1.amazonaws.com/public/1678898915410.png')", 
-              backgroundRepeat: "no-repeat", 
-              backgroundSize: "contain",
-              backgroundPosition: "center" }} 
+                <img 
+                src={artwork?.ArtworkImageUrl ? artwork.ArtworkImageUrl : null}
+                style={{ 
+                backgroundRepeat: "no-repeat", 
+                backgroundSize: "contain",
+                backgroundPosition: "center",
+                objectFit: "cover"  }} 
               className="artwork-image"/>
              </div>
              <div className="artwork-purchase">

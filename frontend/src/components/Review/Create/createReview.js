@@ -29,8 +29,8 @@ export default function CreateReviewPage() {
     //         return { headline: "", body: "", rating: "", productId: productId || "", userId: userId || "" };
     //     }
     // });
-    // return(
-    //     <></>
-    // )
+    return(
+        <></>
+    )
 
 }

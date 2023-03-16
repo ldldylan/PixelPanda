@@ -18,11 +18,14 @@ import Cart from './components/Cart/Cart'
 import { getCurrentUser } from './store/session';
 import CreateReviewPage from './components/Review/Create/createReview';
 import Checkout from './components/Cart/Checkout' 
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
   useEffect(() => {
+    AOS.init();
     dispatch(getCurrentUser()).then(() => setLoaded(true));
   }, [dispatch]);
 

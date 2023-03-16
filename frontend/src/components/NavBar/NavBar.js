@@ -1,5 +1,6 @@
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import './NavBar.css';
 import { logout } from '../../store/session';
 import SearchIcon from '@mui/icons-material/Search';
@@ -7,10 +8,13 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PersonIcon from '@mui/icons-material/Person';
 import ShoppingCart from '@mui/icons-material/ShoppingCart';
+import LogoutIcon from '@mui/icons-material/Logout';
+import BrushIcon from '@mui/icons-material/Brush';
 
 function NavBar () {
   const loggedIn = useSelector(state => !!state.session.user);
   const user = useSelector(state => state.session.user);
+  const history = useHistory();
   const dispatch = useDispatch();
   
   const logoutUser = e => {
@@ -21,13 +25,29 @@ function NavBar () {
   const getLinks = () => {
     if (loggedIn) {
       return (<>
-        <div>Hello World {user.email}</div>
+      <div className="navbar">
          <div className="links-nav">
-           <Link to={'/'}>Main Page</Link>
-           <Link to={'/profile'}>Profile</Link>
-           <Link to={'/artworks/create'}>Create an artwork</Link>
-           <button onClick={logoutUser}>Logout</button>
+          <NavLink to={{
+                pathname: "/"
+              }}>
+           <div className="navbar-logo" onClick={()=>history.push('/')}/>
+           </NavLink> 
          </div>
+         <div className="searchbar">
+          <SearchIcon id="searchbar-icon" htmlFor="searchbar"/>
+          <div className="searchbar-field">
+            <input id="searchbar" type="text" placeholder='Search artwork or artists'></input>
+          </div>
+        </div>
+        <div className="nav-tools">
+          <div><BrushIcon/> Create</div>
+          <div><PersonIcon/> Profile</div>
+          <div><LogoutIcon onClick={logoutUser}/> Logout</div>
+          <div ><FavoriteIcon/> Wish List </div>
+          
+          <div><ShoppingCart/> Cart </div>
+        </div>
+      </div>
       </>);
     } else {
       return (
@@ -46,7 +66,7 @@ function NavBar () {
         <div className="nav-tools">
           <div><FavoriteIcon/> Wish List </div>
           <div><ShoppingCart/> Cart </div>
-          <div><PersonIcon/> Profile</div>
+          <div><PersonIcon/> <Link to={'/login'}>Login</Link></div>
         </div>
       </div>);
     }

@@ -3,14 +3,14 @@ import { useSelector, useDispatch } from 'react-redux';
 import './SessionForm.css';
 import anime from 'animejs';
 import { signup, clearSessionErrors } from '../../store/session';
-
+import { useHistory } from 'react-router-dom';
 function SignupForm () {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const errors = useSelector(state => state.errors.session);
   const dispatch = useDispatch();
-
+  const history = useHistory();
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const submitRef = useRef(null);
@@ -180,7 +180,7 @@ function SignupForm () {
   return (
 <div className="login-page">
   <div className="container signup">
-    <div className="form-box">
+    <div className="form-box"  data-aos="flip-left">
       <svg className="signup" viewBox="0 0 360 350">
         <defs>
           <linearGradient
@@ -210,7 +210,7 @@ function SignupForm () {
       <form className="form" onSubmit={handleSubmit}>
         <label htmlFor="email" className="current">Email<span className="errors">{errors?.email ? ` - ${errors.email}` : null}</span></label>
         
-        <input type="email" autocomplete="off" autoFocus value={email} onChange={update('email')} id="email" ref={emailRef}/>
+        <input type="email" autoComplete="off" autoFocus value={email} onChange={update('email')} id="email" ref={emailRef}/>
         <label htmlFor="password">Password<span className="errors">{errors?.password ? ` - ${errors.password}` : null}</span></label>
         
         <input type="password" value={password} onChange={update('password')} id="password" ref={passwordRef}/>
@@ -219,6 +219,7 @@ function SignupForm () {
        </span></label>
         
         <input type="password" value={confirmPassword} onChange={update('confirmPassword')} id="confirm-password" ref={confirmPasswordRef}></input>
+        <div className="login-link" onClick={()=>history.push('/login')}>Login</div>
         <input type="submit" id="submit" value="REGISTER" ref={submitRef}/>
       </form>
     </div>
