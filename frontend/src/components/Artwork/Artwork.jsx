@@ -10,7 +10,8 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { fetchArtworks } from "../../store/artworks";
 import { getArtwork } from "../../store/artworks";
 import { NavLink } from "react-router-dom";
-import CreateReviewPage from "../Review/Create/createReview";
+import CreateReviewPage from "../Review/Create/createReviewFrom";
+import { fetchArtworkReviews } from "../../store/reviews";
 function Artwork() {
     const {artworkId} = useParams();
     const dispatch = useDispatch();
@@ -21,6 +22,7 @@ function Artwork() {
     // console.log(artwork)
     useEffect(()=> {
         dispatch(fetchArtworks())
+        dispatch(fetchArtworkReviews(artworkId))
     },[dispatch]) 
     return (
     <>

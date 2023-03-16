@@ -10,9 +10,9 @@ export const RECEIVE_ARTWORK_ERRORS = "artworks/RECEIVE_ARTWORK_ERRORS";
 export const REMOVE_ARTWORK = "artworks/REMOVE_ARTWORK"
 export const CLEAR_ARTWORK_ERRORS = "artworks/CLEAR_ARTWORK_ERRORS";
 
-const receiveArtwork = payload => ({
+const receiveArtwork = artwork => ({
     type: RECEIVE_ARTWORK,
-    payload
+    artwork
 })
 
 const receiveArtworks = artworks => ({
@@ -164,7 +164,7 @@ const artworksReducer = (state = { }, action) => {
     
     switch (action.type) {
         case RECEIVE_ARTWORK: 
-            return newState[action.payload.artwork._id] = action.payload.artwork;
+            return newState[action.artwork._id] = action.artwork;
         case RECEIVE_ARTWORKS:
             const artworks = action.artworks
             artworks.forEach(artwork => {

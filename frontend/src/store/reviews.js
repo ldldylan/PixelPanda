@@ -10,9 +10,9 @@ export const RECEIVE_REVIEW_ERRORS = "reviews/RECEIVE_REVIEW_ERRORS";
 export const REMOVE_REVIEW = "reviews/REMOVE_REVIEW"
 export const CLEAR_REVIEW_ERRORS = "reviews/CLEAR_REVIEW_ERRORS";
 
-const receiveReview = payload => ({
+const receiveReview = review => ({
     type: RECEIVE_REVIEW,
-    payload
+    review
 })
 
 const receiveReviews = reviews => ({
@@ -46,10 +46,10 @@ export const clearReviewErrors = errors => ({
     type: CLEAR_REVIEW_ERRORS,
     errors
 });
-// export const getArtwork = (id) => (state) => {
+export const getReview = (id) => (state) => {
 
-//     return state.entitles.pins ? state.entitles.pins[id] : null
-// }
+    return state.reviews ? state.reviews[id] : null
+}
 
 export const getReviews = (state) => {
     return state.reviews !== [] ? Object.values(state.reviews) : []
@@ -164,7 +164,7 @@ const reviewsReducer = (state = {}, action) => {
 
     switch (action.type) {
         case RECEIVE_REVIEW:
-            return newState[action.payload.review._id] = action.payload.review;
+            return newState[action.review._id] = action.review;
         case RECEIVE_REVIEWS:
             const reviews = action.reviews
             reviews.forEach(review => {
