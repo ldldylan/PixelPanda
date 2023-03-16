@@ -1,9 +1,9 @@
 import jwtFetch from './jwt';
 import { RECEIVE_USER_LOGOUT } from './session';
 
-export const RECEIVE_CARTITEMS = "cartItems/RECEIVE_CARTITEMS";
-export const RECEIVE_USER_CARTITEMS = "cartItems/RECEIVE_USER_CARTITEMS";
-export const RECEIVE_NEW_CARTITEM = "cartItems/RECEIVE_NEW_CARTITEM";
+export const RECEIVE_CARTITEMS = 'cartItems/RECEIVE_CARTITEMS';
+export const ADD_CARTITEM = 'cartItems/ADD_CARTITEM';
+export const REMOVE_CARTITEM = '/cartItemsREMOVE_CARTITEM';
 export const RECEIVE_CARTITEM_ERRORS = "cartItems/RECEIVE_CARTITEM_ERRORS";
 export const CLEAR_CARTITEM_ERRORS = "cartItems/CLEAR_CARTITEM_ERRORS";
 
@@ -12,14 +12,14 @@ const receiveCartItems = cartItems => ({
     cartItems
 });
 
-const receiveUserCartItems = cartItems => ({
-    type: RECEIVE_USER_CARTITEMS,
-    cartItems
+const addCartItem = cartItem => ({
+    type: ADD_CARTITEM,
+    cartItem
 });
 
-const receiveNewCartItem = cartItem => ({
-    type: RECEIVE_NEW_CARTITEM,
-    cartItem
+const removeCartItem = cartItemId => ({
+    type: REMOVE_CARTITEM,
+    cartItemId
 });
 
 const receiveErrors = errors => ({
@@ -45,11 +45,11 @@ export const fetchCartItems = () => async dispatch => {
     }
 };
 
-export const fetchUserCartItems = id => async dispatch => {
+export const fetchUserCartItems = userId => async dispatch => {
     try {
-        const res = await jwtFetch(`/api/cartItems/user/${id}`);
-        const cartItems = await res.json();
-        dispatch(receiveUserCartItems(cartItems));
+        const res = await jwtFetch(`/api/cartItems/user/${userId}`);
+        const userCartItems = await res.json();
+        dispatch(receiveCartItems(userCartItems));
     } catch (err) {
         const resBody = await err.json();
         if (resBody.statusCode === 400) {
@@ -58,23 +58,35 @@ export const fetchUserCartItems = id => async dispatch => {
     }
 };
 
-export const createCartItem = data => async dispatch => {
+export const addNewCartItem = (artworkId, userId) => async dispatch => {
     try {
-        debugger;
-        const res = await jwtFetch('/api/cartItems/', {
+        const res = await jwtFetch(`/api/cartItems/users/${userId}`, {
             method: 'POST',
-            body: JSON.stringify(data)
+            body: JSON.stringify(artworkId)
         });
+        const newCartItem = await res.json();
+        dispatch(addCartItem(newCartItem));
+    } catch (err) {
+        const resBody = await err.json();
+        if (resBody.statusCode === 400) {
+            return dispatch(receiveErrors(resBody.errors));
+        }
+    }    
+};
 
-        const cartItem = await res.json();
-
-        dispatch(receiveNewCartItem(cartItem));
+export const deleteCartItem = (cartItemId) => async dispatch => {
+    try {
+        const res = await jwtFetch(`/api/cartItems/${cartItemId}`, {
+            method: 'DELETE'
+        })
+        dispatch(removeCartItem(cartItemId))
     } catch (err) {
         const resBody = await err.json();
         if (resBody.statusCode === 400) {
             return dispatch(receiveErrors(resBody.errors));
         }
     }
+    
 };
 
 const nullErrors = null;
@@ -83,7 +95,6 @@ export const cartItemErrorsReducer = (state = nullErrors, action) => {
     switch (action.type) {
         case RECEIVE_CARTITEM_ERRORS:
             return action.errors;
-        case RECEIVE_NEW_CARTITEM:
         case CLEAR_CARTITEM_ERRORS:
             return nullErrors;
         default:
@@ -92,13 +103,15 @@ export const cartItemErrorsReducer = (state = nullErrors, action) => {
 };
 
 const cartItemsReducer = (state = { all: {}, user: {}, new: undefined }, action) => {
+    let newState = { ...state }
     switch (action.type) {
         case RECEIVE_CARTITEMS:
             return { ...state, all: action.cartItems, new: undefined };
-        case RECEIVE_USER_CARTITEMS:
-            return { ...state, user: action.cartItems, new: undefined };
-        case RECEIVE_NEW_CARTITEM:
-            return { ...state, new: action.cartItem };
+        case ADD_CARTITEM:
+            return { ...state, new: action.cartItem};
+        case REMOVE_CARTITEM:
+            delete newState[action.cartItemId]
+            return newState
         case RECEIVE_USER_LOGOUT:
             return { ...state, user: {}, new: undefined }
         default:
