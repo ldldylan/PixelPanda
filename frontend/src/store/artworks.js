@@ -162,12 +162,13 @@ export const artworkErrorsReducer = (state = nullErrors, action) => {
 };
 
 const artworksReducer = (state = { }, action) => {
-    const newState = {...state};
+    let newState = {...state};
     
     switch (action.type) {
         case RECEIVE_ARTWORK: 
             return newState[action.artwork._id] = action.artwork;
         case RECEIVE_ARTWORKS:
+            newState = {};
             const artworks = action.artworks
             artworks.forEach(artwork => {
                 newState[artwork._id] = artwork
