@@ -35,13 +35,19 @@ function MainPage() {
         </div>
         <div className="categories">
           <div className="categories-items">
-            <div className="category">
+            <div className="category" id="twoD-label">
               <div className="category-wrapper"><CropSquareIcon/></div>
-              <div>2D</div>
+              <div className="category-name" >2D</div>
             </div>
-            <div className="category"><ViewInArIcon/> <div>3D</div></div>
-            <div className="category"><AudiotrackIcon/> <div>AUDIO</div></div>
-            <div className="category"><LensBlurIcon/> <div>VFX</div></div>
+            <div className="category" id="threeD-label">
+              <div className="category-wrapper"><ViewInArIcon/></div>
+              <div className="category-name" >3D</div></div>
+            <div className="category" id="audio-label">
+              <div className="category-wrapper"><AudiotrackIcon/></div>
+              <div className="category-name" >Audio</div></div>
+            <div className="category" id="vfx-label">
+              <div className="category-wrapper"><LensBlurIcon/></div>
+              <div className="category-name" >VFX</div></div>
           </div>
         </div>
         <div className="popular-assets-box">
@@ -50,7 +56,7 @@ function MainPage() {
             {artworks.slice(0,10).map(artwork => (
               <li key={artwork._id} 
               className="asset-item"
-              onClick={()=> history.push(`/artworks/${artwork._id}`)}>
+              >
                 <FavoriteBorderIcon className="favorite-item-icon"/>
                 <img
                 src= {artwork.ArtworkImageUrl} 
@@ -59,8 +65,10 @@ function MainPage() {
                   backgroundSize: "contain",
                   backgroundPosition: "center",
                   objectFit: "cover" }} 
-                  className="artwork-preview-image"/>
-                <div className="artwork-name">{artwork.name}</div>
+                  className="artwork-preview-image"
+                  onClick={()=> history.push(`/artworks/${artwork._id}`)}/>
+                <div className="artwork-name"
+                onClick={()=> history.push(`/artworks/${artwork._id}`)}><p>{artwork.name}</p></div>
                 <div className="artwork-artist">{artwork.author.email}</div>
                 <div className="artwork-price-cart">
                   <div className="artwork-price"><p>${artwork.price}</p></div>
@@ -82,8 +90,10 @@ function MainPage() {
                 backgroundSize: "contain",
                 backgroundPosition: "center",
                 objectFit: "cover" }} 
-                className="artwork-preview-image"/>
-                <div className="artwork-name"><p>{user.email}</p></div>
+                className="artwork-preview-image"
+                onClick={()=> history.push(`/users/${user._id}`)}/>
+                <div className="artwork-name"
+                onClick={()=> history.push(`/users/${user._id}`)}><p>{user.email}</p></div>
             </li>
             ))}
           </ul>
