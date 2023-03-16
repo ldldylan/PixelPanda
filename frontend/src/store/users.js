@@ -41,10 +41,10 @@ export const clearUserErrors = errors => ({
     errors
 });
 
-// export const getUser = (id) => (state) => {
+export const getUser = (id) => (state) => {
 
-//     return state.entitles.pins ? state.entitles.pins[id] : null
-// }
+    return state.users ? state.users[id] : null
+}
 
 export const getUsers = (state) => {
     return state.users !== [] ? Object.values(state.users) : []

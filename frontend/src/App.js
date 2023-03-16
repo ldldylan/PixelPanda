@@ -13,6 +13,7 @@ import Profile from './components/Profile/Profile';
 import TweetCompose from './components/Tweets/TweetCompose';
 import CreateArtworkPage from './components/Artwork/Create/CreateArtworkPage';
 import Artwork from "./components/Artwork/Artwork.jsx";
+import User from "./components/User/User";
 import Cart from './components/Cart/Cart'
 import { getCurrentUser } from './store/session';
 import CreateReviewPage from './components/Review/Create/createReview';
@@ -33,6 +34,7 @@ function App() {
         <ProtectedRoute exact path="/" component={MainPage} />
         <ProtectedRoute exact path="/artworks/create" component={CreateArtworkPage} />
         <ProtectedRoute exact path="/artworks/:artworkId" component={Artwork}/>
+        <ProtectedRoute exact path="/users/:userId" component={User}/>
         <ProtectedRoute exact path="/reviews/create" component={CreateReviewPage} />
 
         <ProtectedRoute exact path='/cart' component={Cart}  />
