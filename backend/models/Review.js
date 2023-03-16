@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const reviewSchema = new Schema({
+const reviewSchema = new Schema({ 
     author: {
         type: Schema.Types.ObjectId,
         ref: 'User'
@@ -10,7 +10,7 @@ const reviewSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Artwork'
     },
-    body: {
+    content: {
         type: String,
         required: false
     },

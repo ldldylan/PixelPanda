@@ -5,12 +5,11 @@ const User = mongoose.model('User');
 const Artwork = mongoose.model('Artwork');
 const CartItem = mongoose.model('CartItem');
 const { requireUser } = require('../../config/passport');
-const validateArtworkInput = require('../../validations/artworks');
-
+const validateCartItemInput = require('../../validations/cartItems');
 router.get('/', async (req, res) => {
   try {
     const cartItems = await CartItem.find()
-                              .populate("author", "_id username")
+                              .populate("user", "artwork")
                               .sort({ createdAt: -1 });
       return res.json(cartItems);
   }
@@ -19,7 +18,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-router.get('/user/:userId', async (req, res, next) => {
+router.get('/users/:userId', async (req, res, next) => {
   let user;
   try {
     user = await User.findById(req.params.userId);
@@ -54,13 +53,16 @@ router.get('/user/:userId', async (req, res, next) => {
 //   }
 // });
 
-router.post('/', requireUser, validateArtworkInput, async (req, res, next) => {
+router.post('/users/:userId', requireUser, validateCartItemInput, async (req, res, next) => {
+  console.log(req.body,"req.body")
+  console.log(req.params, "req.params")
   try {
       const newCartItem = new CartItem({
+          user: req.params.userId,
           artwork: req.body.artwork
     });
       let cartItem = await newCartItem.save();
-      cartItem = await cartItem.populate('author', '_id username');
+      cartItem = await cartItem.populate('user', 'artwork');
       return res.json(cartItem);
   }
   catch(err) {
@@ -90,7 +92,7 @@ router.post('/', requireUser, validateArtworkInput, async (req, res, next) => {
 
 router.delete("/:id", async (req, res, next) => {
     // res.json({ message: "DELETE /product" });
-
+  console.log(req.params)
     CartItem.findByIdAndDelete(req.params.id)
         .then((cartItem) => {
             return res.json(cartItem);
