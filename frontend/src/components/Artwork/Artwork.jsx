@@ -1,20 +1,27 @@
 import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";
 import { useDispatch } from "react-redux";
-import { useEffect, useSelector } from "react";
+import { useEffect } from "react";
+import { useSelector } from 'react-redux';
+
 import { useParams } from "react-router-dom";
 import "./Artwork.css";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-
-
+import { fetchArtworks } from "../../store/artworks";
+import { getArtwork } from "../../store/artworks";
+import { NavLink } from "react-router-dom";
+import CreateReviewPage from "../Review/Create/createReview";
 function Artwork() {
     const {artworkId} = useParams();
     const dispatch = useDispatch();
     // const artwork = useSelector (state => state.artworks.artwork);
-    const artwork = null;
-    // useEffect(()=> {
-    //     dispatch()
-    // }) 
+    // console.log(artworkId)
+
+    const artwork = useSelector(getArtwork(artworkId));
+    // console.log(artwork)
+    useEffect(()=> {
+        dispatch(fetchArtworks())
+    },[dispatch]) 
     return (
     <>
         <NavBar/>
@@ -52,6 +59,12 @@ function Artwork() {
                 </ul>
              </div>
         </div>
+            <NavLink
+                className="link-to-create-review"
+                to={`/artworks/${artworkId}/review`}
+            >
+                Write a customer review
+            </NavLink>
         <Footer/>
     </>
     );

@@ -64,14 +64,28 @@ const seedImages = async () => {
 }
 
 const initializeImages = async () => {
-    console.log("Initializing profile avatars...");
-    await User.updateMany({}, { profileImageUrl: DEFAULT_PROFILE_IMAGE_URL });
+    // console.log("Initializing profile avatars...");
+    // await User.updateMany({}, { profileImageUrl: DEFAULT_PROFILE_IMAGE_URL });
 
     console.log("Initializing Tweet image URLs...");
     await Tweet.updateMany({}, { imageUrls: [] });
 
     console.log("Initializing Artwork image URLs...");
     await Artwork.updateMany({}, { ArtworkImageUrl: '' });
+    const users_for_image = await User.find();
+
+    for (let i = 0; i < users_for_image.length && i < 10; i++) {
+        const user = users_for_image[i];
+        await User.updateOne(
+            { _id: user._id },
+            { profileImageUrl: `https://aws-mern-pixelpanda.s3.us-west-1.amazonaws.com/profiles/profile+(${i + 1}).png` }
+        );
+        // console.log(artwork)
+        console.log('User updated successfully!');
+    }
+    // const new_artworks = await Artwork.find();
+    // console.log(new_artworks);
+    // console.log("Done!");
 
     const artworks_for_image = await Artwork.find();
 

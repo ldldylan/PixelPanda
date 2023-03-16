@@ -30,10 +30,10 @@ const receiveArtworkReviews = reviews => ({
 //     artwork
 // });
 
-const removeReview = ReviewId => {
+const removeReview = reviewId => {
     return {
         type: REMOVE_REVIEW,
-        ReviewId
+        reviewId
     }
 }
 
@@ -168,11 +168,11 @@ const reviewsReducer = (state = {}, action) => {
         case RECEIVE_REVIEWS:
             const reviews = action.reviews
             reviews.forEach(review => {
-                newState[review._id] = reviews
+                newState[review._id] = review
             })
             return newState
         case REMOVE_REVIEW:
-            delete newState[action.ReviewId]
+            delete newState[action.reviewId]
             return newState
         // case RECEIVE_USER_ARTWORKS:
         //     return { ...state, user: action.artworks, new: undefined };

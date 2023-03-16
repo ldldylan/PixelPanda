@@ -46,10 +46,10 @@ export const clearArtworkErrors = errors => ({
     type: CLEAR_ARTWORK_ERRORS,
     errors
 });
-// export const getArtwork = (id) => (state) => {
+export const getArtwork = (id) => (state) => {
 
-//     return state.entitles.pins ? state.entitles.pins[id] : null
-// }
+    return state.artworks ? state.artworks[id] : null
+}
 
 export const getArtworks = (state) => {
     return state.artworks !== [] ? Object.values(state.artworks) : []
