@@ -103,5 +103,5 @@ router.delete("/:id", async (req, res, next) => {
             error.errors = { message: "CartItem can't be found." };
             return next(error);
         });
-});
+})
 module.exports = router;
