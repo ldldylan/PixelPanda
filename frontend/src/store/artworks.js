@@ -15,7 +15,7 @@ const receiveArtwork = payload => ({
     payload
 })
 
-const receiveArtworks = artworks => ({
+export const receiveArtworks = artworks => ({
     type: RECEIVE_ARTWORKS,
     artworks
 });

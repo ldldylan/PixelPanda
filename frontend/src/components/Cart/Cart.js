@@ -1,78 +1,87 @@
-import CartItem from "./CartItem/CartItemsIndex"
+// import CartItemShow from "./CartItemShow";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { RECEIVE_CARTITEMS } from "../../store/cartItem";
-import { ADD_CARTITEM } from "../../store/cartItem";
-import { REMOVE_CARTITEM } from "../../store/cartItems";
-import { receiveArtworks } from "../../store/artworks";
+// import { RECEIVE_CARTITEMS, ADD_CARTITEM, REMOVE_CARTITEM } from "../../store/cartItems";
+import { fetchCartItems } from "../../store/cartItems";
+import { clearCart } from "../../store/cartItems";
+import { getArtworks } from "../../store/artworks";
 import { useHistory } from "react-router-dom";
 import './Cart.css'
 import EmptyCart from "./EmptyCart";
-
+import { fetchArtworks } from "../../store/artworks";
+import { getCartItems } from "../../store/cartItems";
 const Cart = () => {
     const dispatch = useDispatch();
     const history = useHistory();
-    const artworks = useSelector(receiveArtworks);
-    const [subtotal, setSubtotal] = useState(0.0);
-    const cartItems = useSelector(state => state.cartItems);
-    const carts = Object.values(cartItems)
-    const allCartItems = products.map((product) => (
-        <div key={product.id} >
-            <CartItem artwork={artwork} />
-            <hr />
-        </div>
-    ));
+    const artworks = useSelector(getArtworks);
+    const cartItems = useSelector(getCartItems);
+    console.log(cartItems,'cartItems')
+    const [subTotal, setSubTotal] = useState(0.0)
 
+    // const allCartItems = artworks.map((artwork) => (
+    //     <div key={artwork.id} >
+    //         {/* <CartItem artwork={artwor?k} /> */}
+    //         {/* <p>{artwork}</p> */}
+    //         {/* <hr /> */}
+    //     </div>
+    // ));
+    // console.log(allCartItems, "allCartItems")
+    // console.log(artworks, "artworks")
+
+    let matchingArtworks = cartItems.map(cartItem=>artworks.find(artwork=>artwork._id===cartItem.artwork))
+    
+    const calculateSubTotal = () => {
+        let sumPrice = 0
+        matchingArtworks = cartItems.map(cartItem=>artworks.find(artwork=>artwork._id === cartItem.artwork))
+        if (matchingArtworks.length){
+            matchingArtworks.forEach(artwork => {
+                sumPrice += artwork.price
+            }) 
+        }
+        setSubTotal(Math.round(sumPrice * 100) /100)
+    };
+    
     useEffect(() => {
         calculateSubTotal();
-    }, [products]);
-
+    }, [artworks]);
+    
     useEffect(() => {
+        dispatch(fetchArtworks())
         dispatch(fetchCartItems())
+        
     }, [dispatch]);
 
-    const calculateCartSize = () => {
-        let size = 0;
-        carts.map(cart => (
-            size += cart.quantity
-        ));
-        return size
-    };
-
-    const calculateSubTotal = () => {
-        let subTotal = 0;
-        products.forEach(product => {
-            subTotal += product.quantity * product.price
-        });
-        setSubtotal(Math.round(subTotal * 100) / 100)
+    const calculatecartItemsize = () => {
+        return cartItems.length
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(clearCartItems());
+        dispatch(clearCart());
         history.push('/checkout')
     };
 
-    if (!carts) return null;
+    if (!cartItems) return null;
     return (
-
         <div className="cart-bg-container">
-            {calculateCartSize() > 0 && (
+            {calculatecartItemsize() > 0 && (
                 <>
                     <div className="cart-heading">Shopping Cart</div>
                     <div className="cart-price-heading">Price</div>
                     <hr className="top-border" />
-                    <div className="card-item-products">{allCartItems}</div>
+                    {/* <div className="card-item-artworks">{allCartItems}</div> */}
+
                     <div className="sub-total-container">
-                        Subtotal ({calculateCartSize()}{" "}
-                        {calculateCartSize() > 1 ? "items" : "item"}):&nbsp;
-                        <span className="sub-total-amt">${subtotal}</span>
+                        Subtotal ({calculatecartItemsize()}{" "}
+                        {calculatecartItemsize() > 1 ? "items" : "item"}):&nbsp;
+                        <span className="sub-total-amt">${subTotal}</span>
                     </div>
+
                     <div className="checkout-container">
                         <div className="sub-total-container">
-                            Subtotal ({calculateCartSize()}{" "}
-                            {calculateCartSize() > 1 ? "items" : "item"}):&nbsp;
-                            <span className="sub-total-amt">${subtotal}</span>
+                            Subtotal ({calculatecartItemsize()}{" "}
+                            {calculatecartItemsize() > 1 ? "items" : "item"}):&nbsp;
+                            <span className="sub-total-amt">${subTotal}</span>
                         </div>
                         <form onSubmit={handleSubmit}>
                             <input
@@ -84,9 +93,9 @@ const Cart = () => {
                     </div>
                 </>
             )}
-            {calculateCartSize() < 1 && (
+            {calculatecartItemsize() < 1 && (
                 <>
-                    <EmptyCart />
+                    {/* <EmptyCart /> */}
                 </>
             )}
 

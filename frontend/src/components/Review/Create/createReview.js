@@ -22,15 +22,15 @@ export default function CreateReviewPage() {
         dispatch(fetchReviews())
         // console.log("fetct")
     }, [dispatch])
-    const review = useSelector(state => {
-        if (formType === "Edit Review") {
-            return receiveReview(reviewId)(state);
-        } else {
-            return { headline: "", body: "", rating: "", productId: productId || "", userId: userId || "" };
-        }
-    });
-    return(
-        <></>
-    )
+    // const review = useSelector(state => {
+    //     if (formType === "Edit Review") {
+    //         return receiveReview(reviewId)(state);
+    //     } else {
+    //         return { headline: "", body: "", rating: "", productId: productId || "", userId: userId || "" };
+    //     }
+    // });
+    // return(
+    //     <></>
+    // )
 
 }

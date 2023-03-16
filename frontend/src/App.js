@@ -17,6 +17,7 @@ import User from "./components/User/User";
 import Cart from './components/Cart/Cart'
 import { getCurrentUser } from './store/session';
 import CreateReviewPage from './components/Review/Create/createReview';
+import Checkout from './components/Cart/Checkout' 
 
 function App() {
   const [loaded, setLoaded] = useState(false);
@@ -36,7 +37,7 @@ function App() {
         <ProtectedRoute exact path="/artworks/:artworkId" component={Artwork}/>
         <ProtectedRoute exact path="/users/:userId" component={User}/>
         <ProtectedRoute exact path="/reviews/create" component={CreateReviewPage} />
-
+        <ProtectedRoute exact path="/checkout" component={Checkout}/>
         <ProtectedRoute exact path='/cart' component={Cart}  />
         <ProtectedRoute exact path="/tweets" component={Tweets} />
         <ProtectedRoute exact path="/profile" component={Profile} />

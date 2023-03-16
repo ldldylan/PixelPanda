@@ -28,7 +28,7 @@ users.push(
     // username: 'dilang',
     email: 'dilang@gmail.com',
     hashedPassword: bcrypt.hashSync('password', 10)
-  })
+  }) 
 )
 
 users.push(
@@ -91,8 +91,6 @@ for (let i = 0; i < NUM_SEED_ARTWORKS; i++) {
     })
     )
   }
-console.log('creating reviews...')
-const reviews = [];
 
 for (let i = 0; i < NUM_SEED_REVIEWS; i++) {
 
@@ -106,6 +104,11 @@ for (let i = 0; i < NUM_SEED_REVIEWS; i++) {
   )
 }
 console.log(reviews)
+
+console.log('creating cart items' )
+
+
+
 
 const insertSeeds = () => {
   console.log("Resetting db and seeding users and tweets...");

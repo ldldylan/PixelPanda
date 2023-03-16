@@ -6,6 +6,7 @@ export const ADD_CARTITEM = 'cartItems/ADD_CARTITEM';
 export const REMOVE_CARTITEM = '/cartItemsREMOVE_CARTITEM';
 export const RECEIVE_CARTITEM_ERRORS = "cartItems/RECEIVE_CARTITEM_ERRORS";
 export const CLEAR_CARTITEM_ERRORS = "cartItems/CLEAR_CARTITEM_ERRORS";
+export const CLEAR_CART = 'cartItems/clear_cart'
 
 const receiveCartItems = cartItems => ({
     type: RECEIVE_CARTITEMS,
@@ -22,10 +23,25 @@ const removeCartItem = cartItemId => ({
     cartItemId
 });
 
+export const getCartItem = (id) => (state) => {
+    return state.cartItems ? state.cartItems[id] : null
+}
+
+export const getCartItems = (state) => {
+    return state.cartItems !== [] ? Object.values(state.cartItems) : []
+}
+
+export const clearCart = () => {
+    return {
+        type: CLEAR_CART,
+    }
+}
+
 const receiveErrors = errors => ({
     type: RECEIVE_CARTITEM_ERRORS,
     errors
 });
+
 
 export const clearCartItemErrors = errors => ({
     type: CLEAR_CARTITEM_ERRORS,
@@ -58,11 +74,12 @@ export const fetchUserCartItems = userId => async dispatch => {
     }
 };
 
-export const addNewCartItem = (artworkId, userId) => async dispatch => {
+export const addNewCartItem = (artworkData, userId) => async dispatch => {
     try {
+        debugger
         const res = await jwtFetch(`/api/cartItems/users/${userId}`, {
             method: 'POST',
-            body: JSON.stringify(artworkId)
+            body: JSON.stringify(artworkData)
         });
         const newCartItem = await res.json();
         dispatch(addCartItem(newCartItem));
@@ -103,21 +120,29 @@ export const cartItemErrorsReducer = (state = nullErrors, action) => {
     }
 };
 
-const cartItemsReducer = (state = { all: {}, user: {}, new: undefined }, action) => {
+
+
+const cartItemsReducer = (state = {}, action) => {
     let newState = { ...state }
     switch (action.type) {
         case RECEIVE_CARTITEMS:
-            return { ...state, all: action.cartItems, new: undefined };
+            const cartItems = action.cartItems
+            cartItems.forEach(cartItem => {
+                newState[cartItem._id] = cartItem
+            })
+            return newState
         case ADD_CARTITEM:
-            return { ...state, new: action.cartItem};
+            return newState[action.cartItem._id] = action.cartItem;
+            
         case REMOVE_CARTITEM:
             delete newState[action.cartItemId]
             return newState
         case RECEIVE_USER_LOGOUT:
-            return { ...state, user: {}, new: undefined }
+            return { ...state, user: {}}
+        case CLEAR_CART:
+            return {};
         default:
             return state;
     }
 };
-
 export default cartItemsReducer;

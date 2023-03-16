@@ -67,7 +67,6 @@ export const fetchUser = (userId) => async dispatch => {
 
 export const fetchUsers = () => async dispatch => {
     try {
-        console.log('test');
         const res = await jwtFetch('/api/users');
         const users = await res.json();
         
@@ -152,7 +151,7 @@ const usersReducer = (state = { }, action) => {
         case RECEIVE_USER: 
             return newState[action.user._id] = action.user;
         case RECEIVE_USERS:
-            console.log(action);
+            // console.log(action);
             const users = action.users
             users.forEach(user => {
                 newState[user._id] = user

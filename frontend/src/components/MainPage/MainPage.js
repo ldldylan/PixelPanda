@@ -11,21 +11,48 @@ import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import AudiotrackIcon from '@mui/icons-material/Audiotrack';
 import LensBlurIcon from '@mui/icons-material/LensBlur';
 import { useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useSyncExternalStore } from 'react';
 import { useHistory } from 'react-router-dom';
 import { fetchArtworks } from '../../store/artworks';
 import { getArtworks } from '../../store/artworks';
 import { getUsers, fetchUsers} from '../../store/users';
 import { useSelector } from 'react-redux';
+import { addNewCartItem } from '../../store/cartItems';
+import { fetchCartItems } from '../../store/cartItems';
+
 function MainPage() {
     const dispatch=useDispatch();
     const artworks = useSelector(getArtworks);
     const users = useSelector(getUsers);
     const history = useHistory();
+    const currentUser = useSelector((state) => state.session.user)
+    const cartItems = useSelector((state) => state.cartItems)
+
+    // console.log(currentUser)
     useEffect(()=>{
       dispatch(fetchArtworks());
       dispatch(fetchUsers());
+      dispatch(fetchCartItems())
     },[dispatch])
+
+    console.log(cartItems, "cartItems")
+    const handleAddCartItem = artworkId => e => {
+      e.preventDefault();
+      if (currentUser) {
+        // dispatch(addNewCartItem('64135f6a41cc536e7d352a07', '64135f6941cc536e7d3529c5'))
+        // debugger
+        const artworkArray = Object.values(cartItems).map((item) => item.artwork);
+        // console.log(artworkArray, "artworkArray")
+        if (!artworkArray.includes(artworkId))
+          dispatch(addNewCartItem({artwork: artworkId}, currentUser._id));
+        else alert('Artwork is already in your cart!')
+      }
+      else {
+        // debugger
+          history.push('/login')
+      };
+    }
+
     return (
       <>
       <NavBar />
@@ -72,7 +99,9 @@ function MainPage() {
                 <div className="artwork-artist">{artwork.author.email}</div>
                 <div className="artwork-price-cart">
                   <div className="artwork-price"><p>${artwork.price}</p></div>
-                  <AddShoppingCartIcon/>
+                  <div onClick={handleAddCartItem(artwork._id)}>
+                    <AddShoppingCartIcon />
+                  </div>
                 </div>
               </li>
             ))}
