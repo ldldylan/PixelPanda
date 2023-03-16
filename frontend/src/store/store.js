@@ -7,11 +7,15 @@ import session from './session';
 import errors from './errors';
 import artworks from './artworks'
 import users from './users'
+import cartItems from './cartItems'
+import reviews from './reviews'
 const rootReducer = combineReducers({
   session,
   errors,
   artworks,
-  users
+  users,
+  cartItems,
+  reviews
 });
 let enhancer;
 
