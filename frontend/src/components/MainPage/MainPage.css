@@ -47,6 +47,8 @@
     border-radius: 6px;
 }
 
+
+
 .popular-assets-box {
     position: relative;
     margin-left: 10%;
@@ -112,8 +114,16 @@
     margin-left: 5px;
     white-space: nowrap;
     overflow: hidden;
-    text-overflow:clip;
-    width: 100%;
+    text-overflow:ellipsis;
+    max-width: calc(80%);
+}
+
+.artwork-name p {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    max-width: calc(80%);
+    flex-wrap: wrap;
 }
 
 .artwork-artist {
@@ -155,13 +165,32 @@
 
 .categories .categories-items {
     display: flex;
+    position: relative;
     justify-content: space-evenly;
     align-items: center;
     width: 20%;
     text-align: center;
     cursor: pointer;
     user-select: none;
-    /* background-color: red; */
+}
+
+.category-wrapper {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: green;
+}
+
+@keyframes bounce {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-50px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 
 .categories-items * {

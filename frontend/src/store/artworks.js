@@ -164,7 +164,7 @@ const artworksReducer = (state = { }, action) => {
     
     switch (action.type) {
         case RECEIVE_ARTWORK: 
-            return newState[action.payload.artwork.id] = action.payload.artwork;
+            return newState[action.payload.artwork._id] = action.payload.artwork;
         case RECEIVE_ARTWORKS:
             const artworks = action.artworks
             artworks.forEach(artwork => {

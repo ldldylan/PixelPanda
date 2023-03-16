@@ -29,6 +29,7 @@
     width: 100%;
     height: 100%;
     margin-top: 30px;
+    flex-wrap: wrap;
 }
 
 .artwork-image-container {
@@ -44,9 +45,14 @@
     background-color: green;
     flex-direction: column;
     height: 50%;
+    width: 40%;
+    margin-right: 30px;
+    justify-content: center;
+    align-items: center;
 }
 
 .artwork-title {
     font-size: 32px;
     font-weight: 700;
+    /* text-align: center; */
 }
