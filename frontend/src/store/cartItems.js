@@ -76,7 +76,6 @@ export const fetchUserCartItems = userId => async dispatch => {
 
 export const addNewCartItem = (artworkData, userId) => async dispatch => {
     try {
-        debugger
         const res = await jwtFetch(`/api/cartItems/users/${userId}`, {
             method: 'POST',
             body: JSON.stringify(artworkData)
