@@ -26,6 +26,8 @@ const DEFAULT_PROFILE_IMAGE_URL ="https://aws-mern-pixelpanda.s3.us-west-1.amazo
   }
 });
 
+
+
 // POST /api/users/register
 router.post('/register', singleMulterUpload("image"), validateRegisterInput,async (req, res, next) => {
   // Check to make sure no one has already registered with the proposed email or
@@ -108,6 +110,19 @@ router.get('/current', restoreUser, (req, res) => {
     profileImageUrl: req.user.profileImageUrl, // <- ADD THIS LINE
     email: req.user.email
   });
+});
+
+router.get(`/:id`, async(req, res, next) => {
+  try {
+    const user = await User.findById(req.params.id)
+    return res.json(user);
+  }
+  catch(err) {
+    const error = new Error('user513212 not found');
+    error.statusCode = 404;
+    error.errors = { message: "No user found with that id" };
+    return next(error);
+  }
 });
 
 module.exports = router;

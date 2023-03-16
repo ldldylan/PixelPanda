@@ -2,8 +2,8 @@ import { useParams, useHistory } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
-import { fetchUsers, getUser } from "../../store/users";
-import { fetchUserArtworks, getArtworks } from "../../store/artworks";
+import { fetchUser } from "../../store/users";
+import { fetchUserArtworks } from "../../store/artworks";
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
@@ -12,14 +12,14 @@ import './User.css'
 function User() {
     const dispatch = useDispatch();
     const {userId} = useParams();
-    const user = useSelector(getUser(userId))
-    // const artworks = useSelector(getArtworks);
+    const user = useSelector(state => state.users)
+    const artworks = useSelector(state => state.artworks.user);
     const history = useHistory();
 
-    // useEffect(()=>{
-    //     dispatch(fetchUsers());
-    //     // dispatch(fetchArtworks(userId));
-    // },[dispatch, userId])
+    useEffect(()=>{
+        dispatch(fetchUser(userId));
+        dispatch(fetchUserArtworks(userId));
+    },[dispatch, userId])
 
     return (<>
         <div className="user-show-page">
@@ -36,7 +36,8 @@ function User() {
             </div>
             <div className="user-artworks-container">
                 <ul className="user-artworks">
-                    {/* {artworks.map(artwork => (
+                    {console.log(artworks ? artworks : null)}
+                    {artworks ? artworks.map(artwork => (
                        <li key={artwork._id} 
                        className="asset-item"
                        >
@@ -58,7 +59,7 @@ function User() {
                            <AddShoppingCartIcon/>
                          </div>
                        </li>
-                    ))} */}
+                    )) : null }
                 </ul>
             </div>
 
