@@ -1,6 +1,6 @@
 import jwtFetch from './jwt';
 import { RECEIVE_USER_LOGOUT } from './session';
-
+import { RECEIVE_USERS } from './users';
 
 export const RECEIVE_ARTWORK = "artworks/RECEIVE_ARTWORK";
 export const RECEIVE_ARTWORKS = "artworks/RECEIVE_ARTWORKS";
@@ -10,9 +10,9 @@ export const RECEIVE_ARTWORK_ERRORS = "artworks/RECEIVE_ARTWORK_ERRORS";
 export const REMOVE_ARTWORK = "artworks/REMOVE_ARTWORK"
 export const CLEAR_ARTWORK_ERRORS = "artworks/CLEAR_ARTWORK_ERRORS";
 
-const receiveArtwork = payload => ({
+const receiveArtwork = artwork => ({
     type: RECEIVE_ARTWORK,
-    payload
+    artwork
 })
 
 const receiveArtworks = artworks => ({
@@ -57,7 +57,9 @@ export const getArtworks = (state) => {
 
 export const fetchArtwork = (artworkId) => async dispatch => {
     try {
+        
         const res = await jwtFetch(`/api/artworks/${artworkId}`);
+        
         const artwork = await res.json();
         dispatch(receiveArtwork(artwork));
     } catch (err) {
@@ -164,7 +166,7 @@ const artworksReducer = (state = { }, action) => {
     
     switch (action.type) {
         case RECEIVE_ARTWORK: 
-            return newState[action.payload.artwork._id] = action.payload.artwork;
+            return newState[action.artwork._id] = action.artwork;
         case RECEIVE_ARTWORKS:
             const artworks = action.artworks
             artworks.forEach(artwork => {
@@ -180,7 +182,7 @@ const artworksReducer = (state = { }, action) => {
         case RECEIVE_NEW_ARTWORK:
             return { ...state, new: action.artwork };
         case RECEIVE_USER_LOGOUT:
-            return { ...state, user: {}, new: undefined }
+            return { ...state, user: {}, new: undefined };
         default:
             return state;
     }

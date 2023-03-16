@@ -17,20 +17,27 @@ import { fetchArtworks } from '../../store/artworks';
 import { getArtworks } from '../../store/artworks';
 import { getUsers, fetchUsers} from '../../store/users';
 import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 function MainPage() {
     const dispatch=useDispatch();
     const artworks = useSelector(getArtworks);
     const users = useSelector(getUsers);
     const history = useHistory();
+    const sessionUser = useSelector(state=> state.session.user);
+
     useEffect(()=>{
       dispatch(fetchArtworks());
       dispatch(fetchUsers());
-    },[dispatch])
+      
+    },[dispatch, sessionUser])
+
     return (
       <>
       <NavBar />
       <div className="main-page">
-        <div className="main-banner-box">
+        <div data-aos="zoom-in-up"
+        data-aos-duration="3000"
+        className="main-banner-box">
           <div className="main-banner"><div className="actual-banner"/></div>
         </div>
         <div className="categories">
@@ -59,7 +66,7 @@ function MainPage() {
               >
                 <FavoriteBorderIcon className="favorite-item-icon"/>
                 <img
-                src= {artwork.ArtworkImageUrl} 
+                src= {artwork?.ArtworkImageUrl ? artwork.ArtworkImageUrl : null} 
                 style={{ 
                   backgroundRepeat: "no-repeat", 
                   backgroundSize: "contain",
@@ -69,7 +76,7 @@ function MainPage() {
                   onClick={()=> history.push(`/artworks/${artwork._id}`)}/>
                 <div className="artwork-name"
                 onClick={()=> history.push(`/artworks/${artwork._id}`)}><p>{artwork.name}</p></div>
-                <div className="artwork-artist">{artwork.author.email}</div>
+                <div className="artwork-artist">{artwork?.author?.email ? artwork.author.email : null}</div>
                 <div className="artwork-price-cart">
                   <div className="artwork-price"><p>${artwork.price}</p></div>
                   <AddShoppingCartIcon/>
@@ -82,7 +89,8 @@ function MainPage() {
           <h3>POPULAR ARTISTS</h3>
           <ul className="assets">
             {users.slice(0,10).map(user => (
-              <li key={user._id} className="asset-item artist">
+              <li
+              key={user._id} className="asset-item artist">
                 <img
                 src= {user.profileImageUrl}
                 style={{ 
@@ -93,7 +101,9 @@ function MainPage() {
                 className="artwork-preview-image"
                 onClick={()=> history.push(`/users/${user._id}`)}/>
                 <div className="artwork-name"
-                onClick={()=> history.push(`/users/${user._id}`)}><p>{user.email}</p></div>
+                onClick={()=> history.push(`/users/${user._id}`)}>
+                  <p>{user?.email ? user.email : null}</p>
+                  </div>
             </li>
             ))}
           </ul>

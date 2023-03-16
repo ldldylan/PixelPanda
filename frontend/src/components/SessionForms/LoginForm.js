@@ -1,5 +1,6 @@
 import { useEffect, useState,useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import './SessionForm.css';
 import anime from 'animejs';
 import { login, clearSessionErrors } from '../../store/session';
@@ -11,7 +12,7 @@ function LoginForm () {
   const errors = useSelector(state => state.errors.session);
   const loggedIn = useSelector(state => !!state.session.user);
   const dispatch = useDispatch();
-  
+  const history = useHistory();
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const submitRef = useRef(null);
@@ -140,7 +141,7 @@ function LoginForm () {
   return (
 <div className="login-page">
   <div className="container login">
-    <div className="form-box">
+    <div className="form-box" data-aos="flip-left">
       <svg className="login" viewBox="0 0 320 300">
         <defs>
           <linearGradient
@@ -172,6 +173,7 @@ function LoginForm () {
         <label htmlFor="password">Password <span className="errors">{errors ? '- Invalid Credentials' : null}</span>  </label>
         <input type="password" value={password} onChange={update('password')} id="password" ref={passwordRef}/>
         <input type="submit" id="submit" value="LOGIN" ref={submitRef}/>
+        <div className="register" onClick={()=>history.push('/signup')}>Register</div>
         <button className="demo-login" type='submit' onClick={demoUser}>Click me for Demo</button>
       </form>
     </div>

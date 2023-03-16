@@ -30,13 +30,21 @@
     height: 100%;
     margin-top: 30px;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .artwork-image-container {
-    width: 40%;
-    height: 50%;
+    width: 500px;
+    height: 500px;
     background-color: red;
     margin-left: 12%;
+    position: relative;
+}
+
+.artwork-image-container img {
+    width: 500px;
+    height: 500px;
+    position: absolute;
 }
 
 .artwork-purchase {

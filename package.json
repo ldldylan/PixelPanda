@@ -25,5 +25,8 @@
     "url": "https://github.com/ldldylan/PixelPanda/issues"
   },
   "homepage": "https://github.com/ldldylan/PixelPanda#readme",
-  "main": "index.js"
+  "main": "index.js",
+  "dependencies": {
+    "aos": "^2.3.4"
+  }
 }
