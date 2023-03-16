@@ -18,16 +18,6 @@ const Cart = () => {
     console.log(cartItems,'cartItems')
     const [subTotal, setSubTotal] = useState(0.0)
 
-    // const allCartItems = artworks.map((artwork) => (
-    //     <div key={artwork.id} >
-    //         {/* <CartItem artwork={artwor?k} /> */}
-    //         {/* <p>{artwork}</p> */}
-    //         {/* <hr /> */}
-    //     </div>
-    // ));
-    // console.log(allCartItems, "allCartItems")
-    // console.log(artworks, "artworks")
-
     let matchingArtworks = cartItems.map(cartItem=>artworks.find(artwork=>artwork._id===cartItem.artwork))
     
     const calculateSubTotal = () => {
@@ -51,10 +41,6 @@ const Cart = () => {
         
     }, [dispatch]);
 
-    const calculatecartItemsize = () => {
-        return cartItems.length
-    };
-
     const handleSubmit = (e) => {
         e.preventDefault();
         dispatch(clearCart());
@@ -64,7 +50,7 @@ const Cart = () => {
     if (!cartItems) return null;
     return (
         <div className="cart-bg-container">
-            {calculatecartItemsize() > 0 && (
+            {cartItems.length > 0 && (
                 <>
                     <div className="cart-heading">Shopping Cart</div>
                     <div className="cart-price-heading">Price</div>
@@ -72,15 +58,15 @@ const Cart = () => {
                     {/* <div className="card-item-artworks">{allCartItems}</div> */}
 
                     <div className="sub-total-container">
-                        Subtotal ({calculatecartItemsize()}{" "}
-                        {calculatecartItemsize() > 1 ? "items" : "item"}):&nbsp;
+                        Subtotal ({cartItems.length}{" "}
+                        {cartItems.length > 1 ? "items" : "item"}):&nbsp;
                         <span className="sub-total-amt">${subTotal}</span>
                     </div>
 
                     <div className="checkout-container">
                         <div className="sub-total-container">
-                            Subtotal ({calculatecartItemsize()}{" "}
-                            {calculatecartItemsize() > 1 ? "items" : "item"}):&nbsp;
+                            Subtotal ({cartItems.length}{" "}
+                            {cartItems.length > 1 ? "items" : "item"}):&nbsp;
                             <span className="sub-total-amt">${subTotal}</span>
                         </div>
                         <form onSubmit={handleSubmit}>
@@ -93,13 +79,12 @@ const Cart = () => {
                     </div>
                 </>
             )}
-            {calculatecartItemsize() < 1 && (
+            {cartItems.length < 1 && (
                 <>
-                    {/* <EmptyCart /> */}
+                    <EmptyCart/>
                 </>
             )}
-
-    //     </div>
+        </div>
     );
 };
 
