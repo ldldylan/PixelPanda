@@ -9,9 +9,9 @@ export const RECEIVE_USER_ERRORS = "users/RECEIVE_USER_ERRORS";
 export const REMOVE_USER = "users/REMOVE_USER"
 export const CLEAR_USER_ERRORS = "users/CLEAR_USER_ERRORS";
 
-const receiveUser = payload => ({
+const receiveUser = user => ({
     type: RECEIVE_USER,
-    payload
+    user
 })
 
 const receiveUsers = users => ({
@@ -41,10 +41,10 @@ export const clearUserErrors = errors => ({
     errors
 });
 
-// export const getUser = (id) => (state) => {
+export const getUser = (id) => (state) => {
 
-//     return state.entitles.pins ? state.entitles.pins[id] : null
-// }
+    return state.users ? state.users[id] : null
+}
 
 export const getUsers = (state) => {
     return state.users !== [] ? Object.values(state.users) : []
@@ -53,7 +53,9 @@ export const getUsers = (state) => {
 export const fetchUser = (userId) => async dispatch => {
     try {
         const res = await jwtFetch(`/api/users/${userId}`);
+        
         const user = await res.json();
+        
         dispatch(receiveUser(user));
     } catch (err) {
         const resBody = await err.json();
@@ -65,9 +67,10 @@ export const fetchUser = (userId) => async dispatch => {
 
 export const fetchUsers = () => async dispatch => {
     try {
+        console.log('test');
         const res = await jwtFetch('/api/users');
         const users = await res.json();
-        console.log(users);
+        
         dispatch(receiveUsers(users));
     } catch (err) {
         const resBody = await err.json();
@@ -147,7 +150,7 @@ const usersReducer = (state = { }, action) => {
     
     switch (action.type) {
         case RECEIVE_USER: 
-            return newState[action.payload.user._id] = action.payload.user;
+            return newState[action.user._id] = action.user;
         case RECEIVE_USERS:
             console.log(action);
             const users = action.users

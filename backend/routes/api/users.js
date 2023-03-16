@@ -26,6 +26,8 @@ const DEFAULT_PROFILE_IMAGE_URL ="https://aws-mern-pixelpanda.s3.us-west-1.amazo
   }
 });
 
+
+
 // POST /api/users/register
 router.post('/register', singleMulterUpload("image"), validateRegisterInput,async (req, res, next) => {
   // Check to make sure no one has already registered with the proposed email or
@@ -116,7 +118,7 @@ router.get(`/:id`, async(req, res, next) => {
     return res.json(user);
   }
   catch(err) {
-    const error = new Error('user not found');
+    const error = new Error('user513212 not found');
     error.statusCode = 404;
     error.errors = { message: "No user found with that id" };
     return next(error);
