@@ -15,7 +15,7 @@ import CreateArtworkPage from './components/Artwork/Create/CreateArtworkPage';
 import Artwork from "./components/Artwork/Artwork.jsx";
 import Cart from './components/Cart/Cart'
 import { getCurrentUser } from './store/session';
-import CreateReviewPage from './components/Review/Create/createReviewFrom';
+import CreateReviewPage from './components/Review/Create/createReviewForm';
 
 function App() {
   const [loaded, setLoaded] = useState(false);

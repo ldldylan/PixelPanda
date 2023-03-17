@@ -8,7 +8,7 @@ import { fetchArtwork, fetchArtworks, getArtwork } from '../../../store/artworks
 import { getReview } from '../../../store/reviews';
 import { useHistory } from 'react-router-dom';
 import { updateReview } from '../../../store/reviews';
-export default function CreateReviewPage(props) {
+export default function CreateReviewForm(props) {
     const sessionUser = useSelector((state) => state.session.user)
     const dispatch=useDispatch();
     const { artworkId, reviewId } = useParams()

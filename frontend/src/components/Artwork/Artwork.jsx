@@ -7,10 +7,10 @@ import { useSelector } from 'react-redux';
 import { useParams } from "react-router-dom";
 import "./Artwork.css";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import { fetchArtworks } from "../../store/artworks";
+import { fetchArtwork } from "../../store/artworks";
 import { getArtwork } from "../../store/artworks";
 import { NavLink } from "react-router-dom";
-import CreateReviewPage from "../Review/Create/createReviewFrom";
+import CreateReviewPage from "../Review/Create/createReviewForm";
 import { fetchArtworkReviews, getReview } from "../../store/reviews";
 import { getReviews } from "../../store/reviews";
 function Artwork() {
@@ -21,26 +21,26 @@ function Artwork() {
 
     // console.log(artwork)
     useEffect(()=> {
-        dispatch(fetchArtworks())
+        dispatch(fetchArtwork(artworkId))
         dispatch(fetchArtworkReviews(artworkId))
     },[dispatch]) 
     const artwork = useSelector(getArtwork(artworkId));
-    console.log(artwork,'artwork')
+    // console.log(artwork,'artwork')
 
     
-    const reviews = useSelector((state) => state.artworks.reviews);
+    const reviews = useSelector(getReviews);
     // if (!reviews) {
     //     return <div>Loading...</div>;
     // }\
-    console.log(reviews,'reviews???')
-    useEffect(()=> {
-        if (reviews !== undefined){
-        console.log(Object.values(reviews), 'Object.values')
+    // console.log(reviews,'reviews???')
+    // useEffect(()=> {
+    //     if (reviews !== undefined){
+    //     // console.log(Object.values(reviews), 'Object.values')
 
-        console.log('pass')
-        console.log(reviews[0].content,'reviews')
-    }
-    })
+    //     console.log('pass')
+    //     // console.log(reviews[0].content,'reviews')
+    // }
+    // })
     
     return (
     <>
@@ -80,7 +80,9 @@ function Artwork() {
              </div>
         </div>
         <div>test1</div>
+        {console.log(reviews, 'reviews!!!!!!!!!')}
             <div>
+                
                 {reviews?.map((review) => (
                     <div key={review.id}>
                         <p>{review.content}</p>
