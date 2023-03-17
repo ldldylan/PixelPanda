@@ -101,7 +101,7 @@ function MainPage() {
                 <div className="artwork-artist">{artwork?.author?.email ? artwork.author.email.split('@')[0] : null}</div>
                 <div className="artwork-price-cart">
                   <div className="artwork-price"><p>${artwork.price}</p></div>
-                  <div classname="artwork-cart" onClick={handleAddCartItem(artwork._id)}>
+                  <div className="artwork-cart" onClick={handleAddCartItem(artwork._id)}>
                     <AddShoppingCartIcon />
                   </div>
                 </div>
