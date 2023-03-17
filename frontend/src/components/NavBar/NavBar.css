@@ -121,3 +121,13 @@ a:visited {
     margin-left: 30px;
     cursor: pointer;
 }
+
+.nav-tools.logout{
+    display: flex;
+    position: relative;
+}
+
+.nav-tools.logout div{
+    position: absolute;
+    right: 10px;
+}
