@@ -33,9 +33,11 @@ function MainPage() {
     useEffect(()=>{
       dispatch(fetchArtworks());
       dispatch(fetchUsers());
-      dispatch(fetchCartItems())
+      dispatch(fetchCartItems());
     },[dispatch])
 
+  
+    
     const handleAddCartItem = artworkId => e => {
       e.preventDefault();
       if (sessionUser) {
@@ -83,6 +85,7 @@ function MainPage() {
               className="asset-item"
               >
                 <FavoriteBorderIcon className="favorite-item-icon"/>
+                {/* <div className="artwork-image-container"> */}
                 <img
                 src= {artwork?.ArtworkImageUrl ? artwork.ArtworkImageUrl : null} 
                 style={{ 
@@ -92,12 +95,13 @@ function MainPage() {
                   objectFit: "cover" }} 
                   className="artwork-preview-image"
                   onClick={()=> history.push(`/artworks/${artwork._id}`)}/>
+                  {/* </div> */}
                 <div className="artwork-name"
                 onClick={()=> history.push(`/artworks/${artwork._id}`)}><p>{artwork.name}</p></div>
                 <div className="artwork-artist">{artwork?.author?.email ? artwork.author.email.split('@')[0] : null}</div>
                 <div className="artwork-price-cart">
                   <div className="artwork-price"><p>${artwork.price}</p></div>
-                  <div onClick={handleAddCartItem(artwork._id)}>
+                  <div classname="artwork-cart" onClick={handleAddCartItem(artwork._id)}>
                     <AddShoppingCartIcon />
                   </div>
                 </div>

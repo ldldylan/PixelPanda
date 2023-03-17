@@ -77,7 +77,7 @@ function NavBar () {
           </div>
         </div>
         <div className="nav-tools logout">
-          <div><PersonIcon/> <Link to={'/login'}>Login</Link></div>
+          <div><Link to={'/login'}><PersonIcon/>Login</Link></div>
         </div>
       </div>);
     }

@@ -87,12 +87,15 @@ export const fetchArtworks = () => async dispatch => {
 };
 
 export const fetchUserArtworks = id => async dispatch => {
+    // debugger;
     try {
         const res = await jwtFetch(`/api/artworks/user/${id}`);
         const artworks = await res.json();
+        // debugger;
         dispatch(receiveUserArtworks(artworks));
     } catch (err) {
         const resBody = await err.json();
+        // debugger;
         if (resBody.statusCode === 400) {
             return dispatch(receiveErrors(resBody.errors));
         }
@@ -185,8 +188,13 @@ const artworksReducer = (state = {}, action) => {
         case REMOVE_ARTWORK:
             delete newState[action.ArtworkId]
             return newState
-        // case RECEIVE_USER_ARTWORKS:
-        //     return { ...state, user: action.artworks, new: undefined };
+        case RECEIVE_USER_ARTWORKS:
+            newState = {};
+            const userArtworks = action.artworks;
+            userArtworks.forEach(artwork => {
+                newState[artwork._id] = artwork
+            })
+            return newState;
         // case RECEIVE_NEW_ARTWORK:
         //     return { ...state, new: action.artwork };
         case RECEIVE_USER_LOGOUT:
