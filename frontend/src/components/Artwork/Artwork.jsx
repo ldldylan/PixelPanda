@@ -44,7 +44,7 @@ function Artwork() {
         // Submit the comment and rating data to your backend server here
     };
 
-    const artwork = useSelector(state => state.artworks);
+    const artwork = useSelector(state => state.artworks[artworkId]);
     // console.log(artwork)
     useEffect(()=> {
         dispatch(fetchArtwork(artworkId));
@@ -88,7 +88,7 @@ function Artwork() {
                         <div className="cart-fav-button">
                             <button onClick={handleButtonClick}
                             style={{ color: isFavorited ? 'red' : 'white', 
-                            backgroundColor: '#b90dbf' }}
+                            backgroundColor: '#e23ae8' }}
                             ><Favorite/></button>
                         </div>
                     </div>
