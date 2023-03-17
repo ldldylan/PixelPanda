@@ -74,7 +74,7 @@ function Artwork() {
     // })
 
     const cartItems = useSelector((state) => state.cartItems)
-    const handleAddCartItem = artworkId => e => {
+    const handleAddCartItem = (e, artworkId) => {
         e.preventDefault();
         if (sessionUser) {
             const artworkArray = Object.values(cartItems).map((item) => item.artwork);
@@ -132,7 +132,7 @@ function Artwork() {
                         </div>
                     </div>
                     <div className="artwork-cart-buy">
-                        <div className="artwork-cart" onClick={handleAddCartItem(artwork._id)}>
+                        <div className="artwork-cart" onClick={(e)=>handleAddCartItem(e, artwork._id)}>
                             <button>Add to Cart</button>
                         </div>
                         <div className="cart-fav-button">
