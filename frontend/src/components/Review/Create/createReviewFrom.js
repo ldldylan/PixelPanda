@@ -31,9 +31,9 @@ export default function CreateReviewPage(props) {
 
     useEffect(() => {
         // console.log("fetct")
-        // dispatch(fetchArtwork(artworkId))
+        dispatch(fetchArtwork(artworkId))
         // dispatch(fetchArtworks())
-        dispatch(fetchReview('6413b4a612b8d640711b50ba'))
+        // dispatch(fetchReview('6413b4a612b8d640711b50ba'))
         if (formType === 'Edit Review'){
             dispatch(fetchReview(reviewId))
         }
@@ -49,10 +49,10 @@ export default function CreateReviewPage(props) {
         if (formType === "Edit Review") {
             return getReview(reviewId)(state);
         } else {
-            return { body: "", rating: "", artworkId: artworkId || "", author: sessionUser._id || "" };
+            return { content: "", rating: "", artworkId: artworkId || "", author: sessionUser._id || "" };
         }
     });
-    const [body, setBody] = useState(review ? review.body ? review.body : '' : '');
+    const [content, setContent] = useState(review ? review.content ? review.content : '' : '');
     const [rating, setRating] = useState(review ? review.rating ? review.rating : '' : '');
     if (!artwork) return null;
 
@@ -63,20 +63,20 @@ export default function CreateReviewPage(props) {
 
         const reviewData = {
             ...review,
-            body,
+            content,
             rating,
             author,
             artworkId
         }
         setErrors([]);
         if (formType === "Edit Review") {
-            dispatch(updateReview(reviewData))
+            dispatch(updateReview(reviewData,reviewId))
                 .then(() => {
                     history.push(`/artworks/${artworkId}`)
                 })
                 // .catch(handleError);
         } else {
-            dispatch(createReview({ artworkId, author, body, rating }))
+            dispatch(createReview({ artworkId, author, content, rating }))
                 .then(() => {
                     history.push(`/artworks/${artworkId}`)
                 })
@@ -124,56 +124,56 @@ export default function CreateReviewPage(props) {
 
     <div className="create-review-star-rating-container">{stars}</div>
     return(
-        <><h1>hello</h1>
-        </>
+        // <><h1>hello</h1>
+        // </>
         
-        // <form onSubmit={handleSubmit}>
-        //     <div className="create-review-top-container">
-        //         <div className="create-review-heading">{formType}</div>
-        //         <div className=" create-review-artwork-container">
-        //             <div className="create-review-artwork-img">
-        //                 <img
-        //                     className="review-artwork-img"
-        //                     src={artwork && artwork.photoUrl}
-        //                     alt="add-review"
-        //                 />
-        //             </div>
-        //             <div className="create-review-artwork-name">
-        //                 {artwork && artwork.name.length > 80 ?
-        //                     artwork.name.slice(0, artwork.name.lastIndexOf(' ', 80)) + "..."
-        //                     : artwork.name}
-        //                 {/* {artwork && artwork.name} */}
-        //             </div>
-        //         </div>
-        //     </div>
-        //     <hr />
-        //     <div className="create-review-rating-container">
-        //         <div className="create-review-rating-heading">
-        //             Overall Rating
-        //         </div>
-        //         <div className="create-review-star-rating-container">{stars}</div>
+        <form onSubmit={handleSubmit}>
+            <div className="create-review-top-container">
+                <div className="create-review-heading">{formType}</div>
+                <div className=" create-review-artwork-container">
+                    <div className="create-review-artwork-img">
+                        <img
+                            className="review-artwork-img"
+                            src={artwork && artwork.ArtworkImageUrl}
+                            alt="add-review"
+                        />
+                    </div>
+                    <div className="create-review-artwork-name">
+                        {artwork && artwork.name.length > 80 ?
+                            artwork.name.slice(0, artwork.name.lastIndexOf(' ', 80)) + "..."
+                            : artwork.name}
+                        {/* {artwork && artwork.name} */}
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div className="create-review-rating-container">
+                <div className="create-review-rating-heading">
+                    Overall Rating
+                </div>
+                <div className="create-review-star-rating-container">{stars}</div>
 
-        //     </div>
-        //     <hr />
-        //     <label className="body-label"> Add a written review
-        //         <textarea
-        //             className="review-content"
-        //             placeholder="What did you like or dislike? What did you use this artwork for?"
-        //             value={body}
-        //             onChange={(e) => setBody(e.target.value)}
-        //         />
+            </div>
+            <hr />
+            <label className="content-label"> Add a written review
+                <textarea
+                    className="review-content"
+                    placeholder="What did you like or dislike? What did you use this artwork for?"
+                    value={content}
+                    onChange={(e) => setContent(e.target.value)}
+                />
 
-        //     </label>
-        //     <hr />
-        //     <div className="create-review-submit-container">
-        //         <input
-        //             className="create-review-submit-button"
-        //             type="Submit"
-        //             value={formType}
-        //             readOnly
-        //         />
-        //     </div>
-        // </form>
+            </label>
+            <hr />
+            <div className="create-review-submit-container">
+                <input
+                    className="create-review-submit-button"
+                    type="Submit"
+                    value={formType}
+                    readOnly
+                />
+            </div>
+        </form>
     )
 
 }

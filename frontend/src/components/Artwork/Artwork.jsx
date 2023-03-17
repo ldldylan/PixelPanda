@@ -11,19 +11,37 @@ import { fetchArtworks } from "../../store/artworks";
 import { getArtwork } from "../../store/artworks";
 import { NavLink } from "react-router-dom";
 import CreateReviewPage from "../Review/Create/createReviewFrom";
-import { fetchArtworkReviews } from "../../store/reviews";
+import { fetchArtworkReviews, getReview } from "../../store/reviews";
+import { getReviews } from "../../store/reviews";
 function Artwork() {
     const {artworkId} = useParams();
     const dispatch = useDispatch();
     // const artwork = useSelector (state => state.artworks.artwork);
     // console.log(artworkId)
 
-    const artwork = useSelector(getArtwork(artworkId));
     // console.log(artwork)
     useEffect(()=> {
         dispatch(fetchArtworks())
         dispatch(fetchArtworkReviews(artworkId))
     },[dispatch]) 
+    const artwork = useSelector(getArtwork(artworkId));
+    console.log(artwork,'artwork')
+
+    
+    const reviews = useSelector((state) => state.artworks.reviews);
+    // if (!reviews) {
+    //     return <div>Loading...</div>;
+    // }\
+    console.log(reviews,'reviews???')
+    useEffect(()=> {
+        if (reviews !== undefined){
+        console.log(Object.values(reviews), 'Object.values')
+
+        console.log('pass')
+        console.log(reviews[0].content,'reviews')
+    }
+    })
+    
     return (
     <>
         <NavBar/>
@@ -61,7 +79,17 @@ function Artwork() {
                 </ul>
              </div>
         </div>
-            <NavLink
+        <div>test1</div>
+            <div>
+                {reviews?.map((review) => (
+                    <div key={review.id}>
+                        <p>{review.content}</p>
+                        <p>{review.rating}</p>
+                    </div>
+                ))}
+            </div>     
+            <div>test2</div>
+                   <NavLink
                 className="link-to-create-review"
                 to={`/artworks/${artworkId}/review`}
             >

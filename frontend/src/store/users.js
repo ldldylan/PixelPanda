@@ -9,9 +9,9 @@ export const RECEIVE_USER_ERRORS = "users/RECEIVE_USER_ERRORS";
 export const REMOVE_USER = "users/REMOVE_USER"
 export const CLEAR_USER_ERRORS = "users/CLEAR_USER_ERRORS";
 
-const receiveUser = payload => ({
+const receiveUser = user => ({
     type: RECEIVE_USER,
-    payload
+    user
 })
 
 const receiveUsers = users => ({
@@ -147,7 +147,12 @@ const usersReducer = (state = { }, action) => {
     
     switch (action.type) {
         case RECEIVE_USER: 
-            return newState[action.payload.user._id] = action.payload.user;
+            const user = action.user
+            return {
+                ...state,
+                [user._id]: user
+            };
+            // return newState[action.payload.user._id] = action.payload.user;
         case RECEIVE_USERS:
             console.log(action);
             const users = action.users
