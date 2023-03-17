@@ -88,15 +88,19 @@ function User() {
                     >
                         {artworks[key].author._id === userId ? (<div>
                         <FavoriteBorderIcon className="favorite-item-icon"/>
+                        <div className="artwork-image-container">
                         <img
                         src= {artworks[key]?.ArtworkImageUrl ? artworks[key].ArtworkImageUrl : null} 
-                        style={{ 
+                        style={{
+                        display: "block",
+                        margin: "0 auto", 
                         backgroundRepeat: "no-repeat", 
                         backgroundSize: "contain",
                         backgroundPosition: "center",
                         objectFit: "cover" }} 
-                        className="artwork-preview-image"
+                        className="artwork-preview-image-user-show"
                         onClick={()=> history.push(`/artworks/${artworks[key]._id}`)}/>
+                        </div>
                         <div className="artwork-name"
                         onClick={()=> history.push(`/artworks/${artworks[key]._id}`)}><p>{artworks[key].name}</p></div>
                         <div className="artwork-artist">{artworks[key]?.author?.email ? artworks[key].author.email.split('@')[0] : null}</div>

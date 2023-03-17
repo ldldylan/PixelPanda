@@ -124,3 +124,8 @@
     display: flex;
     flex-wrap: wrap;
 }
+
+.user-artworks li {
+    margin-right: 5px;
+}
+
