@@ -78,7 +78,7 @@ const Cart = () => {
                                                     onClick={() => history.push(`/artworks/${cartElement._id}`)}/>
                                             </div>
                                             <div className="cart-item-details">
-
+                                                dsadsa
                                             </div>
                                         </div>
                                         <div className="cart-item-price">
