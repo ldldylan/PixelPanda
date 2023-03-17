@@ -149,40 +149,6 @@ function Artwork() {
             </div>
             
             {/* <div className="cart-separator-empty"/> */}
-            
-
-
-
-            <div className="artwork-reviews-container">
-                <div className="artwork-reviews">
-                    <div className="artwork-reviews-title">
-                        Reviews
-                    </div>
-                    <div className="artwork-reviews-list">
-                        {reviews ? Object.values(reviews).map(review => (
-                            <div className="artwork-review" key={review.id}>
-                                <div className="artwork-review-user">
-                                    {review.user.email.split('@')[0]}
-                                </div>
-                                <div className="artwork-review-rating">
-                                    {[1, 2, 3, 4, 5].map((value) => (
-                                        <span
-                                        key={value}
-                                        style={{ color: review.rating >= value ? 'orange' : 'grey' }}
-                                        >
-                                        &#9733;
-                                        </span>
-                                    ))}
-                                </div>
-                                <div className="artwork-review-comment">
-                                    {review.content}
-                                </div>
-                                <button type="button" onClick={handleDeleteReview(review.id)} className="edit-delete-buttons">
-                                    <h1>Delete</h1>
-                                </button>
-                            </div>
-                        )) :
-                                        
             <form onSubmit={handleSubmit}>
                 <textarea value={comment} onChange={handleCommentChange} placeholder="Write your comment here" />
                 <div>
