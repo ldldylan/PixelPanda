@@ -26,10 +26,10 @@ const Cart = () => {
         if (currentUser) dispatch(fetchUserCartItems(currentUser._id))
     }, [dispatch]);
     
-
+    let matchingArtworks = []
     const calculateSubTotal = () => {
         let sumPrice = 0
-        let matchingArtworks = cartItems.length === 0 ? [] : cartItems.map(cartItem => artworks.find(artwork => artwork._id === cartItem.artwork)).filter(artwork => artwork !== undefined);
+        matchingArtworks = cartItems.length === 0 ? [] : cartItems.map(cartItem => artworks.find(artwork => artwork._id === cartItem.artwork)).filter(artwork => artwork !== undefined);
         console.log(matchingArtworks.length > 0,"matchingArtworks.length > 0");console.log(matchingArtworks, 'matchingArtworks')
         if (matchingArtworks.length === 0){
             setSubTotal(0);
@@ -54,12 +54,35 @@ const Cart = () => {
     };
 
     return (
-        <div className="cart-container">
+        <div className="cart-page">
             <NavBar/>
             {Object.keys(cartItems).length > 0 && (
-                <>
-                    <div className="cart-heading">Shopping Cart</div>
-                    <div className="cart-price-heading">Price</div>
+                <div className="cart-container">
+                    <div className="cart-content">
+                        <div className="cart-item-box">
+                            <div className="cart-item-header">
+                                <div className="cart-heading">{cartItems.length} item(s) in your shopping cart</div>
+                                <div className="cart-price-heading">Total</div>
+                            </div>
+                            <div style={{marginTop: "10px", marginBottom: "10px"}}></div>
+                            <div>
+                                {matchingArtworks.map((cartElement) => (
+                                    <div className="cart-item">
+                                        <div className="cart-item-info">
+
+                                        </div>
+                                        <div className="cart-item-price">
+
+                                        </div>
+                                    </div>
+                                 ))}
+                            </div>
+                            <div style={{ marginTop: "10px", marginBottom: "10px" }}></div>
+                        </div>
+                        <div className="checkout-box">
+                            
+                        </div>
+                    </div>
                     <hr className="top-border" />
                     {/* <div className="card-item-artworks">{allCartItems}</div> */}
 
@@ -83,7 +106,7 @@ const Cart = () => {
                             ></input>
                         </form>
                     </div>
-                </>
+                </div>
             )}
             {Object.keys(cartItems).length < 1 && (
                 <div className="empty-cart-container">
