@@ -10,6 +10,7 @@ import './Cart.css'
 import { fetchArtworks } from "../../store/artworks";
 import { getCartItems } from "../../store/cartItems";
 import {fetchUserCartItems} from "../../store/cartItems";
+import {deleteAllCartItems} from "../../store/cartItems";
 
 const Cart = () => {
     const dispatch = useDispatch();
@@ -22,41 +23,44 @@ const Cart = () => {
     useEffect(() => {
         dispatch(fetchArtworks())
         if (currentUser) dispatch(fetchUserCartItems(currentUser._id))
-
     }, [dispatch]);
     
-    useEffect(() => {
-        calculateSubTotal();
-    }, [artworks]);
 
     const calculateSubTotal = () => {
         let sumPrice = 0
-        console.log(cartItems,'cartItems')
-        let matchingArtworks = cartItems.length === 0 ? [] : cartItems.map(cartItem => artworks.find(artwork => artwork._id === cartItem.artwork))
+        // console.log(cartItems,'cartItems')
+        let matchingArtworks = cartItems.length === 0 ? [] : cartItems.map(cartItem => artworks.find(artwork => artwork._id === cartItem.artwork)).filter(artwork => artwork !== undefined);
         console.log(matchingArtworks.length > 0,"matchingArtworks.length > 0");console.log(matchingArtworks, 'matchingArtworks')
-        if (matchingArtworks.length > 0){
-            matchingArtworks.forEach(artwork => {
-                sumPrice += artwork.price
-            }) 
+        if (matchingArtworks.length === 0){
+            setSubTotal(0);
+            return;
         }
         
+        matchingArtworks.forEach(artwork => {
+            if(artwork?.price) sumPrice += artwork.price
+        }) 
         setSubTotal(Math.round(sumPrice * 100) /100)
     };
-    
+
+
+    useEffect(() => {
+        calculateSubTotal();
+    }, [cartItems, artworks]);
+
     console.log(cartItems,'cartItems')
     
         // let matchingArtworks = cartItems.length === 0 ? [] : cartItems.map(cartItem => artworks.find(artwork => artwork._id === cartItem.artwork))
 
     const handleCheckout = (e) => {
         e.preventDefault();
-        dispatch(clearCart());
+        dispatch(deleteAllCartItems(currentUser._id));
         history.push('/checkout')
     };
-    
-    if (!cartItems) return null;
+    // console.log(cartItems.length, "cartItems")
+    // if (Object.keys(cartItems).length === 0) return null;
     return (
         <div className="cart-bg-container">
-            {cartItems.length > 0 && (
+            {Object.keys(cartItems).length > 0 && (
                 <>
                     <div className="cart-heading">Shopping Cart</div>
                     <div className="cart-price-heading">Price</div>
@@ -64,14 +68,14 @@ const Cart = () => {
                     {/* <div className="card-item-artworks">{allCartItems}</div> */}
 
                     <div className="sub-total-container">
-                        Subtotal ({cartItems.length}{" "}
-                        {cartItems.length > 1 ? "items" : "item"}):&nbsp;
+                        Subtotal ({Object.keys(cartItems).length}{" "}
+                        {Object.keys(cartItems).length > 1 ? "items" : "item"}):&nbsp;
                         <span className="sub-total-amt">${subTotal}</span>
                     </div>
 
                     <div className="checkout-container">
                         <div className="sub-total-container">
-                            Subtotal ({cartItems.length}{" "}
+                            Subtotal ({Object.keys(cartItems).length}{" "}
                             {cartItems.length > 1 ? "items" : "item"}):&nbsp;
                             <span className="sub-total-amt">${subTotal}</span>
                         </div>
@@ -85,7 +89,7 @@ const Cart = () => {
                     </div>
                 </>
             )}
-            {cartItems.length < 1 && (
+            {Object.keys(cartItems).length < 1 && (
                 <div className="empty-cart-container">
                 <div className="empty-cart-heading">
                     Your cart is empty

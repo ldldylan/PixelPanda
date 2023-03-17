@@ -22,18 +22,23 @@ function NavBar () {
       dispatch(logout());
   }
 
+  const directToCart = e => {
+    e.preventDefault();
+    history.push('/cart')
+  }
+
   const getLinks = () => {
     if (loggedIn) {
       return (<>
       <div className="navbar">
-         <div className="links-nav">
-          <NavLink to={{
-                pathname: "/"
-              }}>
-           <div className="navbar-logo" onClick={()=>history.push('/')}/>
-           </NavLink> 
-         </div>
-         <div className="searchbar">
+          <div className="links-nav">
+            <NavLink to={{
+                  pathname: "/"
+                }}>
+            <div className="navbar-logo" onClick={()=>history.push('/')}/>
+            </NavLink> 
+          </div>
+          <div className="searchbar">
           <SearchIcon id="searchbar-icon" htmlFor="searchbar"/>
           <div className="searchbar-field">
             <input id="searchbar" type="text" placeholder='Search artwork or artists'></input>
@@ -42,10 +47,11 @@ function NavBar () {
         <div className="nav-tools">
           <div><BrushIcon/> Create</div>
           <div><PersonIcon/> Profile</div>
-          <div><LogoutIcon onClick={logoutUser}/> Logout</div>
+          <div onClick={directToCart}><ShoppingCart/> Cart </div>
           <div ><FavoriteIcon/> Wish List </div>
           
-          <div><ShoppingCart/> Cart </div>
+          
+          <div onClick={logoutUser}><LogoutIcon/> Logout</div>
         </div>
       </div>
       </>);

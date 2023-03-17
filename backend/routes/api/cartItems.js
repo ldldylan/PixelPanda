@@ -104,4 +104,22 @@ router.delete("/:id", async (req, res, next) => {
             return next(error);
         });
 })
+
+router.delete("/users/:userId", async (req, res, next) => {
+  try {
+    const cartItems = await CartItem.find({ user: req.params.userId });
+    if (cartItems.length === 0) {
+      throw new Error('No cart items found for the user.');
+    }
+    cartItems.forEach(async (cartItem) => {
+      await cartItem.deleteOne();
+    });
+    return res.json({ message: 'Cart items deleted successfully.' });
+  } catch (err) {
+    const error = new Error("Cart items can't be deleted.");
+    error.statusCode = 422;
+    error.errors = { message: err.message };
+    return next(error);
+  }
+})
 module.exports = router;

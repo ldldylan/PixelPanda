@@ -91,6 +91,11 @@
     cursor: pointer;
 }
 
+.nav-tools div:hover a {
+    color: rgb(230,0,18);
+    cursor: pointer;
+}
+
 .nav-tools div svg{
     padding-right: 5px;
 }

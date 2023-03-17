@@ -33,7 +33,7 @@ export const getCartItems = (state) => {
 
 export const clearCart = () => {
     return {
-        type: CLEAR_CART,
+        type: CLEAR_CART
     }
 }
 
@@ -65,6 +65,7 @@ export const fetchUserCartItems = userId => async dispatch => {
     try {
         const res = await jwtFetch(`/api/cartItems/users/${userId}`);
         const userCartItems = await res.json();
+        console.log(userCartItems)
         dispatch(receiveCartItems(userCartItems));
     } catch (err) {
         const resBody = await err.json();
@@ -105,6 +106,20 @@ export const deleteCartItem = (cartItemId) => async dispatch => {
     
 };
 
+export const deleteAllCartItems = (userId) => async dispatch => {
+    try {
+        const res = await jwtFetch(`/api/cartItems/users/${userId}`, {
+            method: 'DELETE'
+        })
+        dispatch(clearCart());
+    } catch (err) {
+        const resBody = await err.json();
+        if (resBody.statusCode === 400) {
+            return dispatch(receiveErrors(resBody.errors));
+        }
+    }
+}
+
 const nullErrors = null;
 
 export const cartItemErrorsReducer = (state = nullErrors, action) => {
@@ -119,8 +134,6 @@ export const cartItemErrorsReducer = (state = nullErrors, action) => {
     }
 };
 
-
-
 const cartItemsReducer = (state = {}, action) => {
     let newState = { ...state }
     switch (action.type) {
@@ -131,7 +144,12 @@ const cartItemsReducer = (state = {}, action) => {
             })
             return newState
         case ADD_CARTITEM:
-            return newState[action.cartItem._id] = action.cartItem;
+            const cartItem = action.cartItem
+            return{
+                ...state,
+                [cartItem._id]: cartItem
+            }
+            // return newState[action.cartItem._id] = action.cartItem;
             
         case REMOVE_CARTITEM:
             delete newState[action.cartItemId]
