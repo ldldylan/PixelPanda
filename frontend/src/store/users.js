@@ -10,9 +10,7 @@ export const REMOVE_USER = "users/REMOVE_USER"
 export const CLEAR_USER_ERRORS = "users/CLEAR_USER_ERRORS";
 
 const receiveUser = user => ({
-const receiveUser = user => ({
     type: RECEIVE_USER,
-    user
     user
 })
 

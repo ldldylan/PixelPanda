@@ -16,7 +16,7 @@ import Artwork from "./components/Artwork/Artwork.jsx";
 import User from "./components/User/User";
 import Cart from './components/Cart/Cart'
 import { getCurrentUser } from './store/session';
-import CreateReviewPage from './components/Review/Create/createReviewForm';
+import CreateReviewForm from './components/Review/Create/CreateReviewForm';
 import Checkout from './components/Cart/Checkout' 
 import AOS from "aos";
 import "aos/dist/aos.css";
@@ -39,7 +39,7 @@ function App() {
         <ProtectedRoute exact path="/artworks/create" component={CreateArtworkPage} />
         <ProtectedRoute exact path="/artworks/:artworkId" component={Artwork}/>
         <ProtectedRoute exact path="/users/:userId" component={User}/>
-        <ProtectedRoute exact path="/review/:reviewId?s/create" component={CreateReviewPage} />
+        <ProtectedRoute exact path="/review/:reviewId?s/create" component={CreateReviewForm} />
         <ProtectedRoute exact path="/checkout" component={Checkout}/>
         <ProtectedRoute exact path='/cart' component={Cart}  />
         <ProtectedRoute exact path="/tweets" component={Tweets} />

@@ -9,7 +9,7 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { fetchArtworks } from "../../store/artworks";
 import { getArtwork } from "../../store/artworks";
 import { NavLink } from "react-router-dom";
-import CreateReviewPage from "../Review/Create/createReviewFrom";
+import CreateReviewForm from "../Review/Create/CreateReviewForm";
 import { fetchArtworkReviews, getReview } from "../../store/reviews";
 import { getReviews } from "../../store/reviews";
 function Artwork() {
