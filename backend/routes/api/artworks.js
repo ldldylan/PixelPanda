@@ -42,7 +42,6 @@ router.get('/user/:userId', async (req, res, next) => {
 
 router.get('/:id', async (req, res, next) => {
   try {
-    console.log('test');
       const artwork = await Artwork.findById(req.params.id)
         .populate("author", "_id email profileImageUrl");
       return res.json(artwork);

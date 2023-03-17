@@ -99,6 +99,7 @@
     background-repeat: no-repeat;
     background-position: center;
     cursor: pointer;
+    background-color: white
 }
 
 .artwork-name {
@@ -154,6 +155,7 @@
     /* background-image: url('https://aws-mern-pixelpanda.s3.us-west-1.amazonaws.com/defaultprofile.jpg'); */
     background-size: contain;
     background-position: center;
+    background-color: white;
 }
 
 .categories {
