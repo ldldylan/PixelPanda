@@ -10,7 +10,7 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { fetchArtworks, fetchArtwork } from "../../store/artworks";
 import { getArtwork } from "../../store/artworks";
 import { NavLink } from "react-router-dom";
-import CreateReviewPage from "../Review/Create/createReviewFrom";
+import CreateReviewPage from "../Review/Create/createReviewForm";
 import { fetchArtworkReviews } from "../../store/reviews";
 function Artwork() {
     const {artworkId} = useParams();

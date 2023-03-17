@@ -16,7 +16,7 @@ import Artwork from "./components/Artwork/Artwork.jsx";
 import User from "./components/User/User";
 import Cart from './components/Cart/Cart'
 import { getCurrentUser } from './store/session';
-import CreateReviewPage from './components/Review/Create/createReview';
+import CreateReviewPage from './components/Review/Create/createReviewForm';
 import Checkout from './components/Cart/Checkout' 
 import AOS from "aos";
 import "aos/dist/aos.css";

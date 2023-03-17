@@ -164,10 +164,8 @@ export const artworkErrorsReducer = (state = nullErrors, action) => {
     }
 };
 
-const artworksReducer = (state = { }, action) => {
-    let newState = {...state};
 const artworksReducer = (state = {}, action) => {
-    const newState = {...state};
+    let newState = {...state};
     
     switch (action.type) {
         case RECEIVE_ARTWORK: 
