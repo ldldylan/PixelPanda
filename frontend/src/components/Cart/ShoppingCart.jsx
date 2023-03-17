@@ -79,7 +79,8 @@ const Cart = () => {
                                             </div>
                                             <div className="cart-item-details">
                                                     <div className="cart-item-title">{cartElement?.name ? cartElement.name : null}</div>
-                                                    <div className="cart-item-author" onClick={()=> history.push(`/users/${cartElement.author.id}`)}>By artist: {cartElement?.author.email ? cartElement.author.email.split('@')[0] : null}</div>
+                                                    <div className="cart-item-author" onClick={()=> history.push(`/users/${cartElement.author._id}`)}>By artist: {cartElement?.author.email ? cartElement.author.email.split('@')[0] : null}</div>
+                                                    <div className="cart-item-delete-btn" ></div>
                                                     <div />
                                             </div>
                                             <div>
@@ -96,7 +97,20 @@ const Cart = () => {
                             <div style={{ marginTop: "10px", marginBottom: "10px" }}></div>
                         </div>
                         <div className="checkout-box">
-                            
+                            <div className="checkout-container">
+                                <div className="sub-total-container">
+                                    Subtotal ({Object.keys(cartItems).length}{" "}
+                                    {cartItems.length > 1 ? "items" : "item"}):&nbsp;
+                                    <span className="sub-total-amt">${subTotal}</span>
+                                </div>
+                                <form onSubmit={handleCheckout} className="checkout-form">
+                                    <input
+                                        type='submit'
+                                        className="checkout-btn"
+                                        value="Proceed to Checkout"
+                                    ></input>
+                                </form>
+                            </div>
                         </div>
                     </div>
                     <hr className="top-border" />
@@ -108,33 +122,20 @@ const Cart = () => {
                         <span className="sub-total-amt">${subTotal}</span>
                     </div> */}
 
-                    <div className="checkout-container">
-                        <div className="sub-total-container">
-                            Subtotal ({Object.keys(cartItems).length}{" "}
-                            {cartItems.length > 1 ? "items" : "item"}):&nbsp;
-                            <span className="sub-total-amt">${subTotal}</span>
-                        </div>
-                        <form onSubmit={handleCheckout}>
-                            <input
-                                type='submit'
-                                className="checkout-btn"
-                                value="Proceed to Checkout"
-                            ></input>
-                        </form>
-                    </div>
+                    
                 </div>
             )}
             {Object.keys(cartItems).length < 1 && (
                 <div className="empty-cart-container">
-                <div className="empty-cart-heading">
-                    Your cart is empty
-                </div>
-                <div className="empty-cart-text">
-                    Looks like you haven't added anything to your cart yet.
-                </div>
-                <div className="empty-cart-mainpage-link">
-                    <a href="/">Go to main page</a>
-                </div>
+                    <div className="empty-cart-heading">
+                        Your cart is empty
+                    </div>
+                    <div className="empty-cart-text">
+                        Looks like you haven't added anything to your cart yet.
+                    </div>
+                    <div className="empty-cart-mainpage-link">
+                        <a href="/">Go to main page</a>
+                    </div>
                 </div>
             )}
         </div>
