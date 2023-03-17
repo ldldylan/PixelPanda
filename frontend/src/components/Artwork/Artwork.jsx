@@ -17,7 +17,9 @@ import Favorite from "@mui/icons-material/Favorite";
 import { addNewCartItem } from '../../store/cartItems';
 import UpdateArtworkPage from "./Update/UpdateArtworkPage";
 import { deleteArtwork } from "../../store/artworks";
-import { deleteReview } from "../../store/reviews";
+import { deleteReview, createReview, updateReview } from "../../store/reviews";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 function Artwork() {
     const {artworkId} = useParams();
     const [comment, setComment] = useState('');
@@ -26,7 +28,7 @@ function Artwork() {
     const history = useHistory();
     const sessionUser = useSelector(state => state.session.user);
 
-    const [rating, setRating] = useState(0);
+    const [rating, setRating] = useState(1);
 
     const handleRatingChange = (value) => {
         setRating(value);
@@ -44,9 +46,18 @@ function Artwork() {
     // const artwork = useSelector (state => state.artworks.artwork);
     // console.log(artworkId)
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
+    const handleSubmit = (e) => {
+        e.preventDefault();
         // Submit the comment and rating data to your backend server here
+        const author = sessionUser._id;
+        const reviewData = {
+            content: comment, rating, author, artworkId
+        };
+
+        dispatch(createReview(reviewData))
+                .then(() => {
+                    history.push(`/artworks/${artworkId}`)
+                })
     };
 
     // const artwork = useSelector(state => state.artworks); // from kenny
@@ -90,13 +101,36 @@ function Artwork() {
     const handleDelete = (e) => {
         e.preventDefault();
         dispatch(deleteArtwork(artworkId))
-        history.push('/artworks')
+        history.push(`/users/${sessionUser._id}`)
     }
 
     const handleDeleteReview = reviewId=> (e) => {
         e.preventDefault();
         dispatch(deleteReview(reviewId))
         history.push(`/artworks/${artworkId}`)
+    }
+
+    const [showEditForm, setShowEditForm] = useState(false)
+    const [editMessage, setEditMessage] = useState(null);
+    const [editMessageText, setEditMessageText] = useState("");
+    const [editMessageRating, setEditMessageRating] = useState(1);
+    const handleShowEditForm = (review) => {
+        setEditMessage(review);
+        setEditMessageText(review.content);
+        setEditMessageRating(review.rating);
+        setShowEditForm(true);
+    };
+
+    const handleEditSubmit = (e) => {
+        e.preventDefault();
+        // Submit the comment and rating data to your backend server here
+        editMessage.content = editMessageText;
+        editMessage.rating = editMessageRating;
+
+        dispatch(updateReview(editMessage, editMessage._id))
+                .then(() => {
+                    history.push(`/artworks/${artworkId}`)
+                })
     }
 
     return (
@@ -141,30 +175,89 @@ function Artwork() {
                             backgroundColor: '#b90dbf' }}
                             ><Favorite/></button>
                         </div>
-                            <button type="button" onClick={handleDelete} className="edit-delete-buttons">
+                        {artwork.author._id === sessionUser._id ? (<button type="button" onClick={handleDelete} className="edit-delete-buttons">
                                 <h1>Delete</h1>
-                            </button>
+                            </button>) : null}
+                            
                     </div>
                 </div>
             </div>
             
             {/* <div className="cart-separator-empty"/> */}
-            <form onSubmit={handleSubmit}>
-                <textarea value={comment} onChange={handleCommentChange} placeholder="Write your comment here" />
-                <div>
-                {[1, 2, 3, 4, 5].map((value) => (
-                    <span
-                    key={value}
-                    onClick={() => handleRatingChange(value)}
-                    style={{ color: rating >= value ? 'orange' : 'grey' }}
-                    >
-                    &#9733;
-                    </span>
-                ))}
-                </div>
-                <button type="submit">Submit</button>
-            </form>
-            <div className="artwork-comments-container">
+            
+            <div className="artworks-reviews-container">
+                REVIEWS
+                <div className="line-divider review"/>
+                <ul className="artworks-reviews">
+                    {Object.keys(reviews).length === 0 ? null : reviews.map((review) => (
+                        
+                    <li key={review._id}>
+                        <div className="line-divider"/>
+                        {showEditForm && editMessage === review ? (
+                             <form className="comment-form" onSubmit={handleEditSubmit}>
+                             <div>
+                             {[1, 2, 3, 4, 5].map((value) => (
+                                 <span
+                                 key={value}
+                                 value={editMessageRating}
+                                 onClick={() => setEditMessageRating(value)}
+                                 style={{ color: editMessageRating >= value ? 'orange' : 'grey',
+                                cursor: 'pointer' }}
+                                 >
+                                 &#9733;
+                                 </span>
+                             ))}
+                             </div>
+                             <textarea value={editMessageText} className="comment-submit-box" onChange={(e)=>setEditMessageText(e.target.value)} placeholder="Write a customer review here" />
+                             <br/><button className="comment-submit-button" type="submit">Update</button>
+                         </form>
+                         ): (<>
+                        <p>
+                        {[1, 2, 3, 4, 5].map((value) => (
+                        <span
+                        style={{ color: review.rating >= value ? 'orange' : 'grey' }}
+                        >
+                        &#9733;
+                        </span>
+                    ))}
+                        </p>
+                        <p className="review-content">{review.content}</p>
+                        {review.author._id === sessionUser._id ? (<>
+                        <button type="button" className="edit-icon" onClick={() => handleShowEditForm(review)}>
+                            <EditIcon />
+                        </button>
+                        <button type="button" onClick={handleDeleteReview(review._id)} className="edit-delete-buttons">
+                            <DeleteForeverIcon/>
+                        </button></>): null}
+                        
+                        </>)}
+                    </li>
+            ))}
+                </ul>
+            </div>
+
+            <div className="artwork-comments-box">
+                
+                <form className="comment-form" onSubmit={handleSubmit}>
+                    <div>
+                    {[1, 2, 3, 4, 5].map((value) => (
+                        <span
+                        key={value}
+                        onClick={() => handleRatingChange(value)}
+                        style={{ color: rating >= value ? 'orange' : 'grey',
+                        cursor: 'pointer' }}
+                        >
+                        &#9733;
+                        </span>
+                    ))}
+                    </div>
+                    <textarea value={comment} className="comment-submit-box" onChange={(e)=>setComment(e.target.value)} placeholder="Write a customer review here" />
+                    <br/><button className="comment-submit-button" type="submit">Submit</button>
+                </form>
+
+            </div>
+
+            {/* <div className="artwork-comments-container">
                 <ul className="artwork-comments">
                     {artwork?.comments ? artwork.comments.map(comment => (
                         <li key={artwork.comments.id} className="artwork-comment">{comment}</li>
@@ -172,9 +265,9 @@ function Artwork() {
                         <li className="artwork-comment">This is good stuff</li>
                     }           
                 </ul>
-            </div>
+            </div> */}
         </div>
-        <div>test1</div>
+        {/* <div>test1</div>
         {console.log(reviews, 'reviews!!!!!!!!!')}
             <div>
                 
@@ -200,7 +293,7 @@ function Artwork() {
                 to={`/artworks/${artworkId}/review`}
             >
                 Write a customer review
-            </NavLink>
+            </NavLink> */}
             
         <Footer/>
     </>
