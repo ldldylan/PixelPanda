@@ -29,9 +29,9 @@ router.get('/users/:userId', async (req, res, next) => {
     return next(error);
   }
   try {
-      const cartItems = await CartItem.find({ author: user._id })
+      const cartItems = await CartItem.find({ user: user._id })
                               .sort({ createdAt: -1 })
-                              .populate("author", "_id username");
+                              .populate("user", "_id username");
       return res.json(cartItems);
   }
   catch(err) {

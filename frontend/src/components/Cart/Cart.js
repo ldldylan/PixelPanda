@@ -9,43 +9,50 @@ import { useHistory } from "react-router-dom";
 import './Cart.css'
 import { fetchArtworks } from "../../store/artworks";
 import { getCartItems } from "../../store/cartItems";
+import {fetchUserCartItems} from "../../store/cartItems";
+
 const Cart = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const artworks = useSelector(getArtworks);
     const cartItems = useSelector(getCartItems);
-    console.log(cartItems,'cartItems')
+    const currentUser = useSelector((state) => state.session.user)
     const [subTotal, setSubTotal] = useState(0.0)
-
-    let matchingArtworks = cartItems.map(cartItem=>artworks.find(artwork=>artwork._id===cartItem.artwork))
     
-    const calculateSubTotal = () => {
-        let sumPrice = 0
-        matchingArtworks = cartItems.map(cartItem=>artworks.find(artwork=>artwork._id === cartItem.artwork))
-        if (matchingArtworks.length){
-            matchingArtworks.forEach(artwork => {
-                sumPrice += artwork.price
-            }) 
-        }
-        setSubTotal(Math.round(sumPrice * 100) /100)
-    };
+    useEffect(() => {
+        dispatch(fetchArtworks())
+        if (currentUser) dispatch(fetchUserCartItems(currentUser._id))
+
+    }, [dispatch]);
     
     useEffect(() => {
         calculateSubTotal();
     }, [artworks]);
-    
-    useEffect(() => {
-        dispatch(fetchArtworks())
-        dispatch(fetchCartItems())
+
+    const calculateSubTotal = () => {
+        let sumPrice = 0
+        console.log(cartItems,'cartItems')
+        let matchingArtworks = cartItems.length === 0 ? [] : cartItems.map(cartItem => artworks.find(artwork => artwork._id === cartItem.artwork))
+        console.log(matchingArtworks.length > 0,"matchingArtworks.length > 0");console.log(matchingArtworks, 'matchingArtworks')
+        if (matchingArtworks.length > 0){
+            matchingArtworks.forEach(artwork => {
+                sumPrice += artwork.price
+            }) 
+        }
         
-    }, [dispatch]);
+        setSubTotal(Math.round(sumPrice * 100) /100)
+    };
+    
+    console.log(cartItems,'cartItems')
+    
+        // let matchingArtworks = cartItems.length === 0 ? [] : cartItems.map(cartItem => artworks.find(artwork => artwork._id === cartItem.artwork))
 
     const handleCheckout = (e) => {
         e.preventDefault();
         dispatch(clearCart());
         history.push('/checkout')
     };
-
+    
     if (!cartItems) return null;
     return (
         <div className="cart-bg-container">
@@ -80,10 +87,15 @@ const Cart = () => {
             )}
             {cartItems.length < 1 && (
                 <div className="empty-cart-container">
-                <div className="empty-cart-heading">Your cart is empty</div>
-                    <div className="empty-cart-text">
-                        Looks like you haven't added anything to your cart yet.
-                    </div>
+                <div className="empty-cart-heading">
+                    Your cart is empty
+                </div>
+                <div className="empty-cart-text">
+                    Looks like you haven't added anything to your cart yet.
+                </div>
+                <div className="empty-cart-mainpage-link">
+                    <a href="/">Go to main page</a>
+                </div>
                 </div>
             )}
         </div>
