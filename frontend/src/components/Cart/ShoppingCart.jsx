@@ -74,18 +74,17 @@ const Cart = () => {
                                                     backgroundSize: "contain",
                                                     backgroundPosition: "center",
                                                     objectFit: "cover"}}
-                                                    className="artwork-preview-image"
+                                                    className="cart-item-preview-image"
                                                     onClick={() => history.push(`/artworks/${cartElement._id}`)}/>
                                             </div>
                                             <div className="cart-item-details">
-                                                dsadsa
                                             </div>
                                         </div>
                                         <div className="cart-item-price">
 
                                         </div>
                                     </div>
-                                 ))}
+                                ))}
 
                             </div>
                             <div style={{ marginTop: "10px", marginBottom: "10px" }}></div>
