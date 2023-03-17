@@ -51,7 +51,7 @@ const Cart = () => {
         dispatch(deleteAllCartItems(currentUser._id));
         history.push('/checkout');
     };
-
+    console.log(matchingArtworks, "matchingArtworks")
     return(
         <div className="cart-page">
             <NavBar/>
@@ -61,7 +61,7 @@ const Cart = () => {
                         <div className="cart-item-box">
                             <div className="cart-item-header">
                                 <div className="cart-heading">{cartItems.length} item(s) in your shopping cart</div>
-                                <div className="cart-price-heading">Total</div>
+                                <div className="cart-price-heading">Price</div>
                             </div>
                             <div style={{marginTop: "10px", marginBottom: "10px"}}></div>
                             <div>
@@ -78,10 +78,16 @@ const Cart = () => {
                                                     onClick={() => history.push(`/artworks/${cartElement._id}`)}/>
                                             </div>
                                             <div className="cart-item-details">
+                                                    <div className="cart-item-title">{cartElement?.name ? cartElement.name : null}</div>
+                                                    <div className="cart-item-author" onClick={()=> history.push(`/users/${cartElement.author.id}`)}>By artist: {cartElement?.author.email ? cartElement.author.email.split('@')[0] : null}</div>
+                                                    <div />
                                             </div>
-                                        </div>
-                                        <div className="cart-item-price">
+                                            <div>
 
+                                            </div>
+                                            <div className="cart-item-price">
+                                                ${cartElement?.price ? cartElement.price : null}
+                                            </div>
                                         </div>
                                     </div>
                                 ))}
