@@ -14,13 +14,14 @@ import { fetchArtworkReviews, getReview } from "../../store/reviews";
 import { getReviews } from "../../store/reviews";
 import CreateReviewForm from "../Review/Create/CreateReviewForm";
 import Favorite from "@mui/icons-material/Favorite";
+import { addNewCartItem } from '../../store/cartItems';
 function Artwork() {
     const {artworkId} = useParams();
     const [comment, setComment] = useState('');
     const dispatch = useDispatch();
     const params = useParams();
     const history = useHistory();
-    const sessionUser = useSelector(state=>state.session.user);
+    const sessionUser = useSelector(state => state.session.user);
 
     const [rating, setRating] = useState(0);
 
@@ -68,7 +69,21 @@ function Artwork() {
     //     // console.log(reviews[0].content,'reviews')
     // }
     // })
-    
+
+    const cartItems = useSelector((state) => state.cartItems)
+    const handleAddCartItem = artworkId => e => {
+        e.preventDefault();
+        if (sessionUser) {
+            const artworkArray = Object.values(cartItems).map((item) => item.artwork);
+            if (!artworkArray.includes(artworkId))
+                dispatch(addNewCartItem({ artwork: artworkId }, sessionUser._id));
+            else alert('Artwork is already in your cart!')
+        }
+        else {
+            history.push('/login')
+        };
+    }
+
     return (
     <>
         <NavBar/>
@@ -102,7 +117,7 @@ function Artwork() {
                         </div>
                     </div>
                     <div className="artwork-cart-buy">
-                        <div className="artwork-cart">
+                        <div className="artwork-cart" onClick={handleAddCartItem(artwork._id)}>
                             <button>Add to Cart</button>
                         </div>
                         <div className="cart-fav-button">

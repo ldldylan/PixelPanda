@@ -26,10 +26,8 @@ function MainPage() {
     const artworks = useSelector(getArtworks);
     const users = useSelector(getUsers);
     const history = useHistory();
-    const currentUser = useSelector((state) => state.session.user)
     const cartItems = useSelector((state) => state.cartItems)
 
-    // console.log(currentUser)
     const sessionUser = useSelector(state=> state.session.user);
 
     useEffect(()=>{
@@ -38,20 +36,15 @@ function MainPage() {
       dispatch(fetchCartItems())
     },[dispatch])
 
-    console.log(cartItems, "cartItems")
     const handleAddCartItem = artworkId => e => {
       e.preventDefault();
-      if (currentUser) {
-        // dispatch(addNewCartItem('64135f6a41cc536e7d352a07', '64135f6941cc536e7d3529c5'))
-        // debugger
+      if (sessionUser) {
         const artworkArray = Object.values(cartItems).map((item) => item.artwork);
-        // console.log(artworkArray, "artworkArray")
         if (!artworkArray.includes(artworkId))
-          dispatch(addNewCartItem({artwork: artworkId}, currentUser._id));
+          dispatch(addNewCartItem({ artwork: artworkId }, sessionUser._id));
         else alert('Artwork is already in your cart!')
       }
       else {
-        // debugger
           history.push('/login')
       };
     }
