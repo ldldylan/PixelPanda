@@ -45,7 +45,12 @@ function NavBar () {
           </div>
         </div>
         <div className="nav-tools">
-          <div><BrushIcon/> Create</div>
+            <NavLink to={{
+              pathname: "/artworks/create"
+            }}>
+              <div onClick={() => history.push('/artworks/create')}><BrushIcon /> Create</div>
+            </NavLink> 
+          
           <div><PersonIcon/> Profile</div>
           <div onClick={directToCart}><ShoppingCart/> Cart </div>
           <div ><FavoriteIcon/> Wish List </div>

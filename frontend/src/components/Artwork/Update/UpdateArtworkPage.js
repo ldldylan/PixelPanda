@@ -1,29 +1,34 @@
-import { updateArtwork } from '../../../store/artworks'
+import { getArtwork, updateArtwork } from '../../../store/artworks'
 import { useEffect, useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
-import { fetchArtworks } from '../../../store/artworks';
+import { fetchArtwork } from '../../../store/artworks';
 import { useParams } from 'react-router-dom';
-
 export default function UpdateArtworkPage({props}) {
-    const {artwork}= props;
-    const [name, setName] = useState(artwork.name)
-    const [description, setDescription] = useState(artwork.description)
-    const [price, setPrice] = useState(artwork.price)
-    const [image, setImage] = useState([]);
-    const [imageUrl, setImageUrl] = useState(artwork.ArtworkImageUrl);
-    const fileRef = useRef(null);
+    // const {artwork}= props;
     const dispatch = useDispatch();
+    const { artworkId } = useParams();
+
+    useEffect(() => {
+        console.log("fetct")
+        dispatch(fetchArtwork(artworkId))
+    }, [dispatch])
+    console.log(artworkId, "artworkId")
+    const artwork = useSelector(getArtwork(artworkId))
+    const [name, setName] = useState(artwork ? artwork.name : '')
+    const [description, setDescription] = useState(artwork ? artwork.description : '')
+    const [price, setPrice] = useState(artwork ? artwork.price : '')
+    const [image, setImage] = useState([]);
+    const [imageUrl, setImageUrl] = useState(artwork ? artwork.ArtworkImageUrl : '');
+    const fileRef = useRef(null);
     // const artwork=use;
     const sessionUser = useSelector((state) => state.session.user)
     // console.log(sessionUser._id)
 
-    // useEffect(() => {
-    //     dispatch(fetchUserArtworks(id))
-    // }, [dispatch])
+    
     const img = document.querySelector('.Uploadpic');
-    img.src = imageUrl;
-
+    if(img) img.src = imageUrl;
+    console.log(name, "name")
     const handleSubmit = e => {
         e.preventDefault();
         const formData = new FormData();
