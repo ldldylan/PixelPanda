@@ -4,6 +4,7 @@ const User = require('../models/User');
 const Tweet = require('../models/Tweet');
 const Artwork = require('../models/Artwork');
 const Review = require('../models/Review');
+const CartItem = require('../models/CartItem');
 const bcrypt = require('bcryptjs');
 const { faker } = require('@faker-js/faker');
 
@@ -114,23 +115,24 @@ const insertSeeds = () => {
   console.log("Resetting db and seeding users and tweets...");
 
   User.collection.drop()
-                 .then(() => Tweet.collection.drop())
-                 .then(() => Artwork.collection.drop())
+                  .then(() => Tweet.collection.drop())
+                  .then(() => Artwork.collection.drop())
                   .then(() => Review.collection.drop())
+                  .then(() => CartItem.collection.drop())
 
-                 .then(() => User.insertMany(users))
-                 .then(() => Tweet.insertMany(tweets))
-                 .then(() => Review.insertMany(reviews))
+                  .then(() => User.insertMany(users))
+                  .then(() => Tweet.insertMany(tweets))
+                  .then(() => Review.insertMany(reviews))
 
-                 .then(() => Artwork.insertMany(artworks))
-                 .then(() => {
-                   console.log("Done!");
-                   mongoose.disconnect();
-                 })
-                 .catch(err => {
-                   console.error(err.stack);
-                   process.exit(1);
-                 });
+                  .then(() => Artwork.insertMany(artworks))
+                  .then(() => {
+                    console.log("Done!");
+                    mongoose.disconnect();
+                  })
+                  .catch(err => {
+                    console.error(err.stack);
+                    process.exit(1);
+                  });
 }
 
 mongoose
