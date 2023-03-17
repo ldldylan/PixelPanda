@@ -49,7 +49,8 @@ const Cart = () => {
     const handleCheckout = (e) => {
         e.preventDefault();
         dispatch(deleteAllCartItems(currentUser._id));
-        history.push('/checkout');
+        alert("Thank you for your purchase! Your order is being processed.")
+        history.push('/');
     };
     console.log(matchingArtworks, "matchingArtworks")
     return(
