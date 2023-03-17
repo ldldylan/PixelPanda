@@ -15,6 +15,8 @@ import { getReviews } from "../../store/reviews";
 import CreateReviewForm from "../Review/Create/CreateReviewForm";
 import Favorite from "@mui/icons-material/Favorite";
 import { addNewCartItem } from '../../store/cartItems';
+import UpdateArtworkPage from "./Update/UpdateArtworkPage";
+import { deleteArtwork } from "../../store/artworks";
 function Artwork() {
     const {artworkId} = useParams();
     const [comment, setComment] = useState('');
@@ -84,6 +86,12 @@ function Artwork() {
         };
     }
 
+    const handleDelete = (e) => {
+        e.preventDefault();
+        dispatch(deleteArtwork(artworkId))
+        history.push('/artworks')
+    }
+
     return (
     <>
         <NavBar/>
@@ -126,6 +134,9 @@ function Artwork() {
                             backgroundColor: '#b90dbf' }}
                             ><Favorite/></button>
                         </div>
+                            <button type="button" onClick={handleDelete} className="edit-delete-buttons">
+                                <h1>Delete</h1>
+                            </button>
                     </div>
                 </div>
             </div>
@@ -172,6 +183,13 @@ function Artwork() {
                 to={`/artworks/${artworkId}/review`}
             >
                 Write a customer review
+            </NavLink>
+            <NavLink
+                className="link-to-update-review"
+                to={`/artworks/update`}
+                artwork={artwork}
+            >
+                Update a review
             </NavLink>
         <Footer/>
     </>

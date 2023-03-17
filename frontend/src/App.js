@@ -12,6 +12,7 @@ import Tweets from './components/Tweets/Tweets';
 import Profile from './components/Profile/Profile';
 import TweetCompose from './components/Tweets/TweetCompose';
 import CreateArtworkPage from './components/Artwork/Create/CreateArtworkPage';
+import UpdateArtworkPage from './components/Artwork/Update/UpdateArtworkPage';
 import Artwork from "./components/Artwork/Artwork.jsx";
 import User from "./components/User/User";
 import Cart from './components/Cart/Cart'
@@ -37,6 +38,7 @@ function App() {
         <AuthRoute exact path="/signup" component={SignupForm} />
         <ProtectedRoute exact path="/" component={MainPage} />
         <ProtectedRoute exact path="/artworks/create" component={CreateArtworkPage} />
+        <ProtectedRoute exact path="/artworks/update/" render={(props) => <UpdateArtworkPage {...props} />} />
         <ProtectedRoute exact path="/artworks/:artworkId" component={Artwork}/>
         <ProtectedRoute exact path="/users/:userId" component={User}/>
         <ProtectedRoute exact path="/review/:reviewId?s/create" component={CreateReviewForm} />
