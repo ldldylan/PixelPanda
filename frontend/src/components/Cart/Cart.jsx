@@ -49,7 +49,7 @@ const Cart = () => {
     const handleCheckout = (e) => {
         e.preventDefault();
         dispatch(deleteAllCartItems(currentUser._id));
-        history.push('/checkout')
+        history.push('/checkout');
     };
 
     return(
@@ -96,12 +96,12 @@ const Cart = () => {
                     </div>
                     <hr className="top-border" />
                     {/* <div className="card-item-artworks">{allCartItems}</div> */}
-
+{/* 
                     <div className="sub-total-container">
                         Subtotal ({Object.keys(cartItems).length}{" "}
                         {Object.keys(cartItems).length > 1 ? "items" : "item"}):&nbsp;
                         <span className="sub-total-amt">${subTotal}</span>
-                    </div>
+                    </div> */}
 
                     <div className="checkout-container">
                         <div className="sub-total-container">
