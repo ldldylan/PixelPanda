@@ -10,7 +10,6 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { fetchArtworks, fetchArtwork } from "../../store/artworks";
 import { getArtwork } from "../../store/artworks";
 import { NavLink } from "react-router-dom";
-import CreateReviewPage from "../Review/Create/createReviewForm";
 import { fetchArtworkReviews, getReview } from "../../store/reviews";
 import { getReviews } from "../../store/reviews";
 import CreateReviewForm from "../Review/Create/CreateReviewForm";
@@ -46,7 +45,7 @@ function Artwork() {
         // Submit the comment and rating data to your backend server here
     };
 
-    const artwork = useSelector(state => state.artworks);
+    // const artwork = useSelector(state => state.artworks); // from kenny
     // console.log(artwork)
     useEffect(()=> {
         dispatch(fetchArtwork(artworkId))
@@ -153,7 +152,7 @@ function Artwork() {
                 ))}
             </div>     
             <div>test2</div>
-                   <NavLink
+                <NavLink
                 className="link-to-create-review"
                 to={`/artworks/${artworkId}/review`}
             >
