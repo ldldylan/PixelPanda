@@ -53,19 +53,19 @@ function NavBar () {
       return (
       <div className="navbar">
         <div className="links-auth">
-          <Link to={'/signup'}>Signup</Link>
-          <Link to={'/login'}>Login</Link>
-          <Link to={'/'}>Main</Link>
-        </div>
+          <NavLink to={{
+                pathname: "/"
+              }}>
+           <div className="navbar-logo" onClick={()=>history.push('/')}/>
+           </NavLink> 
+         </div>
         <div className="searchbar">
           <SearchIcon id="searchbar-icon" htmlFor="searchbar"/>
           <div className="searchbar-field">
             <input id="searchbar" type="text" placeholder='Search artwork or artists'></input>
           </div>
         </div>
-        <div className="nav-tools">
-          <div><FavoriteIcon/> Wish List </div>
-          <div><ShoppingCart/> Cart </div>
+        <div className="nav-tools logout">
           <div><PersonIcon/> <Link to={'/login'}>Login</Link></div>
         </div>
       </div>);
