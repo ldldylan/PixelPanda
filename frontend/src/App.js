@@ -39,7 +39,7 @@ function App() {
         <ProtectedRoute exact path="/artworks/create" component={CreateArtworkPage} />
         <ProtectedRoute exact path="/artworks/:artworkId" component={Artwork}/>
         <ProtectedRoute exact path="/users/:userId" component={User}/>
-        <ProtectedRoute exact path="/reviews/create" component={CreateReviewPage} />
+        <ProtectedRoute exact path="/review/:reviewId?s/create" component={CreateReviewPage} />
         <ProtectedRoute exact path="/checkout" component={Checkout}/>
         <ProtectedRoute exact path='/cart' component={Cart}  />
         <ProtectedRoute exact path="/tweets" component={Tweets} />

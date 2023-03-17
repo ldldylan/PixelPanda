@@ -10,9 +10,9 @@ export const RECEIVE_REVIEW_ERRORS = "reviews/RECEIVE_REVIEW_ERRORS";
 export const REMOVE_REVIEW = "reviews/REMOVE_REVIEW"
 export const CLEAR_REVIEW_ERRORS = "reviews/CLEAR_REVIEW_ERRORS";
 
-const receiveReview = payload => ({
+const receiveReview = review => ({
     type: RECEIVE_REVIEW,
-    payload
+    review
 })
 
 const receiveReviews = reviews => ({
@@ -46,10 +46,10 @@ export const clearReviewErrors = errors => ({
     type: CLEAR_REVIEW_ERRORS,
     errors
 });
-// export const getArtwork = (id) => (state) => {
+export const getReview = (id) => (state) => {
 
-//     return state.entitles.pins ? state.entitles.pins[id] : null
-// }
+    return state.reviews ? state.reviews[id] : null
+}
 
 export const getReviews = (state) => {
     return state.reviews !== [] ? Object.values(state.reviews) : []
@@ -94,11 +94,11 @@ export const fetchArtworkReviews = artworkId => async dispatch => {
     }
 };
 
-export const createReview = formData => async dispatch => {
+export const createReview = data => async dispatch => {
     try {
         const res = await jwtFetch('/api/reviews/', {
             method: 'POST',
-            body: formData
+            body: JSON.stringify(data)
         });
 
         const review = await res.json();
@@ -112,11 +112,11 @@ export const createReview = formData => async dispatch => {
     }
 };
 
-export const updateReview = (formData, reviewId) => async dispatch => {
+export const updateReview = (data, reviewId) => async dispatch => {
     try {
         const res = await jwtFetch(`/api/reviews/${reviewId}`, {
             method: 'PATCH',
-            body: formData
+            body: JSON.stringify(data)
         });
 
         const review = await res.json();
@@ -164,7 +164,11 @@ const reviewsReducer = (state = {}, action) => {
 
     switch (action.type) {
         case RECEIVE_REVIEW:
-            return newState[action.payload.review._id] = action.payload.review;
+            const review = action.review
+            return {
+                ...state,
+                [review._id]: review
+            };
         case RECEIVE_REVIEWS:
             const reviews = action.reviews
             reviews.forEach(review => {

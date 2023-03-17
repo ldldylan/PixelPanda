@@ -61,6 +61,9 @@ export const fetchArtwork = (artworkId) => async dispatch => {
         const res = await jwtFetch(`/api/artworks/${artworkId}`);
         
         const artwork = await res.json();
+        console.log(artwork,'artwork')
+        console.log(artwork._id, 'artwork_id')
+
         dispatch(receiveArtwork(artwork));
     } catch (err) {
         const resBody = await err.json();
@@ -163,10 +166,16 @@ export const artworkErrorsReducer = (state = nullErrors, action) => {
 
 const artworksReducer = (state = { }, action) => {
     let newState = {...state};
+const artworksReducer = (state = {}, action) => {
+    const newState = {...state};
     
     switch (action.type) {
         case RECEIVE_ARTWORK: 
-            return newState[action.artwork._id] = action.artwork;
+        const artwork=action.artwork
+            return {
+                ...state,
+                [artwork._id]: artwork
+            };
         case RECEIVE_ARTWORKS:
             newState = {};
             const artworks = action.artworks
@@ -178,10 +187,10 @@ const artworksReducer = (state = { }, action) => {
         case REMOVE_ARTWORK:
             delete newState[action.ArtworkId]
             return newState
-        case RECEIVE_USER_ARTWORKS:
-            return { ...state, user: action.artworks, new: undefined };
-        case RECEIVE_NEW_ARTWORK:
-            return { ...state, new: action.artwork };
+        // case RECEIVE_USER_ARTWORKS:
+        //     return { ...state, user: action.artworks, new: undefined };
+        // case RECEIVE_NEW_ARTWORK:
+        //     return { ...state, new: action.artwork };
         case RECEIVE_USER_LOGOUT:
             return { ...state, user: {}, new: undefined };
         default:
