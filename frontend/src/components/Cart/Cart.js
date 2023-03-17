@@ -7,7 +7,6 @@ import { clearCart } from "../../store/cartItems";
 import { getArtworks } from "../../store/artworks";
 import { useHistory } from "react-router-dom";
 import './Cart.css'
-import EmptyCart from "./EmptyCart";
 import { fetchArtworks } from "../../store/artworks";
 import { getCartItems } from "../../store/cartItems";
 const Cart = () => {
@@ -41,7 +40,7 @@ const Cart = () => {
         
     }, [dispatch]);
 
-    const handleSubmit = (e) => {
+    const handleCheckout = (e) => {
         e.preventDefault();
         dispatch(clearCart());
         history.push('/checkout')
@@ -69,7 +68,7 @@ const Cart = () => {
                             {cartItems.length > 1 ? "items" : "item"}):&nbsp;
                             <span className="sub-total-amt">${subTotal}</span>
                         </div>
-                        <form onSubmit={handleSubmit}>
+                        <form onSubmit={handleCheckout}>
                             <input
                                 type='submit'
                                 className="checkout-btn"
@@ -80,9 +79,12 @@ const Cart = () => {
                 </>
             )}
             {cartItems.length < 1 && (
-                <>
-                    <EmptyCart/>
-                </>
+                <div className="empty-cart-container">
+                <div className="empty-cart-heading">Your cart is empty</div>
+                    <div className="empty-cart-text">
+                        Looks like you haven't added anything to your cart yet.
+                    </div>
+                </div>
             )}
         </div>
     );
