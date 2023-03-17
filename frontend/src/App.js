@@ -15,7 +15,7 @@ import CreateArtworkPage from './components/Artwork/Create/CreateArtworkPage';
 import UpdateArtworkPage from './components/Artwork/Update/UpdateArtworkPage';
 import Artwork from "./components/Artwork/Artwork.jsx";
 import User from "./components/User/User";
-import Cart from './components/Cart/Cart'
+import Cart from './components/Cart/ShoppingCart'
 import { getCurrentUser } from './store/session';
 import CreateReviewForm from './components/Review/Create/CreateReviewForm';
 import Checkout from './components/Cart/Checkout' 
