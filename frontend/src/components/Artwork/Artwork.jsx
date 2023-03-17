@@ -94,6 +94,7 @@ function Artwork() {
                     </div>
                 </div>
             </div>
+            
             {/* <div className="cart-separator-empty"/> */}
             <form onSubmit={handleSubmit}>
                 <textarea value={comment} onChange={handleCommentChange} placeholder="Write your comment here" />

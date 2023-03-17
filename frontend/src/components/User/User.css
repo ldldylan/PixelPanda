@@ -1,0 +1,126 @@
+.user {
+    display: flex;
+    width: 100%;
+    margin-top: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.user-main {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    height: 350px;
+}
+
+.user-image-container {
+    display: flex;
+    width: 300px;
+    height: 350px;
+    
+    position: relative;
+    /* margin-right: 5%; */
+    overflow: hidden;
+    /* flex-direction: column; */
+    background-color: red;
+}
+
+.user-image-container img {
+    width: 300px;
+    height: 300px;
+    position: absolute; 
+    /* box-shadow:inset 0 0 0px 5px #121212;
+    border-bottom: 5px solid #121212; */
+    background-color: var(--off-white);
+    outline: 8px solid #121212;
+    outline-offset: -8px;
+    user-select: none;
+}
+
+/* .user-image-container img:active {
+    position: absolute;
+    transform: scale(1.5);
+    transform-origin: center;
+    margin: auto;
+} */
+
+.user-info {
+    margin-left: 5%;
+    position: relative;
+    /* margin-left: 30px; */
+    display: flex;
+    /* background-color: green; */
+    flex-direction: column;
+    height: 300px;
+    width: 20%;
+    /* margin-right: 30px; */
+}
+
+.user-name {
+    font-size: 32px;
+    font-weight: 700;
+    /* text-align: center; */
+    margin-top: 80px;
+    text-transform: uppercase;
+}
+
+.user-author {
+    /* text-transform: uppercase; */
+    margin-top: 30px;
+    font-weight: 700;
+    font-size: 32px;
+    text-align: center;
+}
+
+.user-image-container button.like-user-button {
+    position: absolute;
+    bottom: 0;
+    height: 50px;
+    color: var(--off-white);
+    background-color: rgb(33,150,243);
+    border: none;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 2px;
+    width: 150px;
+    left:0;
+}
+
+.user-image-container button.msg-user-button {
+    position: absolute;
+    bottom: 0;
+    height: 50px;
+    color: var(--off-white);
+    background-color: rgb(33,150,243);
+    border: none;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 2px;
+    width: 150px;
+    right: 0;
+}
+
+.user-artworks-container {
+    /* display: flex; */
+    /* background-color: red; */
+    width: 70%;
+    font-weight: 700;
+    font-size: 32px;
+    margin-top: 50px;
+    margin-bottom: 14%;
+}
+
+.divider.user-show {
+    width: 100%;
+    height: 1px;
+    background-color: #121212;
+    margin-top: 0;
+    margin-bottom: 50px;
+}
+
+.user-artworks {
+    display: flex;
+    flex-wrap: wrap;
+}

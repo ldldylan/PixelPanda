@@ -35,10 +35,10 @@ function MainPage() {
     useEffect(()=>{
       dispatch(fetchArtworks());
       dispatch(fetchUsers());
-      dispatch(fetchCartItems())
+      dispatch(fetchCartItems());
     },[dispatch])
-
-    console.log(cartItems, "cartItems")
+  
+    
     const handleAddCartItem = artworkId => e => {
       e.preventDefault();
       if (currentUser) {
@@ -104,7 +104,7 @@ function MainPage() {
                 <div className="artwork-artist">{artwork?.author?.email ? artwork.author.email.split('@')[0] : null}</div>
                 <div className="artwork-price-cart">
                   <div className="artwork-price"><p>${artwork.price}</p></div>
-                  <div onClick={handleAddCartItem(artwork._id)}>
+                  <div classname="artwork-cart" onClick={handleAddCartItem(artwork._id)}>
                     <AddShoppingCartIcon />
                   </div>
                 </div>
