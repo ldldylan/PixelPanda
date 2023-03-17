@@ -85,6 +85,7 @@
     letter-spacing: 2px;
     width: 150px;
     left:0;
+    border-right: 1px solid black;
 }
 
 .user-image-container button.msg-user-button {
