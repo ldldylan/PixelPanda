@@ -92,8 +92,8 @@ for (let i = 0; i < NUM_SEED_ARTWORKS; i++) {
     )
   }
 
-for (let i = 0; i < NUM_SEED_REVIEWS; i++) {
-
+const reviews = [];
+  for (let i = 0; i < NUM_SEED_REVIEWS; i++) {
   reviews.push(
     new Review({
       rating: Math.floor(Math.random() * 5) + 1, 
