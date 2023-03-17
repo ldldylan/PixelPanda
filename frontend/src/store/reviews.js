@@ -47,11 +47,19 @@ export const clearReviewErrors = errors => ({
     errors
 });
 export const getReview = (id) => (state) => {
-
+    
     return state.reviews ? state.reviews[id] : null
 }
 
 export const getReviews = (state) => {
+    // console.log(state, 'state')
+
+    // if (state === undefined) {
+    //     return [];
+    // }
+    // console.log(state, 'state')
+
+    // console.log(state.reviews, 'state.reviews')
     return state.reviews.length !== 0 ? Object.values(state.reviews) : [];
 }
 
@@ -85,7 +93,7 @@ export const fetchArtworkReviews = artworkId => async dispatch => {
     try {
         const res = await jwtFetch(`/api/reviews/artworks/${artworkId}`);
         const reviews = await res.json();
-        console.log(reviews, 'reviews')
+        // console.log(reviews, 'reviews')
         dispatch(receiveReviews(reviews));
     } catch (err) {
         const resBody = await err.json();

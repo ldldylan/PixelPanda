@@ -10,6 +10,9 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { fetchArtworks, fetchArtwork } from "../../store/artworks";
 import { getArtwork } from "../../store/artworks";
 import { NavLink } from "react-router-dom";
+import CreateReviewPage from "../Review/Create/createReviewForm";
+import { fetchArtworkReviews, getReview } from "../../store/reviews";
+import { getReviews } from "../../store/reviews";
 import CreateReviewForm from "../Review/Create/CreateReviewForm";
 import Favorite from "@mui/icons-material/Favorite";
 function Artwork() {
@@ -46,8 +49,27 @@ function Artwork() {
     const artwork = useSelector(state => state.artworks);
     // console.log(artwork)
     useEffect(()=> {
-        dispatch(fetchArtwork(artworkId));
-    },[dispatch, sessionUser, artworkId]) 
+        dispatch(fetchArtwork(artworkId))
+        dispatch(fetchArtworkReviews(artworkId))
+    },[dispatch]) 
+    const artwork = useSelector(getArtwork(artworkId));
+    // console.log(artwork,'artwork')
+
+    
+    const reviews = useSelector(getReviews);
+    // if (!reviews) {
+    //     return <div>Loading...</div>;
+    // }\
+    // console.log(reviews,'reviews???')
+    // useEffect(()=> {
+    //     if (reviews !== undefined){
+    //     // console.log(Object.values(reviews), 'Object.values')
+
+    //     console.log('pass')
+    //     // console.log(reviews[0].content,'reviews')
+    // }
+    // })
+    
     return (
     <>
         <NavBar/>
@@ -119,7 +141,19 @@ function Artwork() {
                 </ul>
             </div>
         </div>
-            <NavLink
+        <div>test1</div>
+        {console.log(reviews, 'reviews!!!!!!!!!')}
+            <div>
+                
+                {reviews?.map((review) => (
+                    <div key={review.id}>
+                        <p>{review.content}</p>
+                        <p>{review.rating}</p>
+                    </div>
+                ))}
+            </div>     
+            <div>test2</div>
+                   <NavLink
                 className="link-to-create-review"
                 to={`/artworks/${artworkId}/review`}
             >
