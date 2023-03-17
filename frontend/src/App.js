@@ -43,7 +43,7 @@ function App() {
         <ProtectedRoute exact path="/users/:userId" component={User}/>
         <ProtectedRoute exact path="/artworks/:artworkId/review/:reviewId?" component={CreateReviewForm} />
         <ProtectedRoute exact path="/checkout" component={Checkout}/>
-        <ProtectedRoute exact path='/cart' component={Cart}  />
+        <ProtectedRoute exact path='/cart' component={Cart} />
         <ProtectedRoute exact path="/tweets" component={Tweets} />
         <ProtectedRoute exact path="/profile" component={Profile} />
         <ProtectedRoute exact path="/tweets/new" component={TweetCompose} />
