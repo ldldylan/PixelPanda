@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { fetchUser } from "../../store/users";
-import { fetchUserArtworks } from "../../store/artworks";
+import artworksReducer, { fetchUserArtworks } from "../../store/artworks";
 import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -19,7 +19,7 @@ function User() {
     const dispatch = useDispatch();
     const {userId} = useParams();
     const user = useSelector(state => state.users)
-    const artworks = useSelector(state => state.artworks);
+    const artworks = useSelector((state) => state.artworks);
     const history = useHistory();
     const currentUser = useSelector((state) => state.session.user)
     const cartItems = useSelector((state) => state.cartItems)
@@ -81,30 +81,32 @@ function User() {
                 {user?.email ? user.email.split('@')[0] : "Mysterious Artist"}'s Artworks
                 <div className="divider user-show"/>
                 <ul className="user-artworks">
-                
-                    {Object.keys(artworks).length === 0 ? null : artworks.map(artwork => (
-                    <li key={artwork._id} 
+                    {/* {console.log(artworks ? artworks : null)} */}
+                    {Object.keys(artworks).length === 0 ? null : Object.keys(artworks).map(key => (
+                    <li key={artworks[key]._id} 
                     className="asset-item"
                     >
+                        {artworks[key].author._id === userId ? (<div>
                         <FavoriteBorderIcon className="favorite-item-icon"/>
                         <img
-                        src= {artwork?.ArtworkImageUrl ? artwork.ArtworkImageUrl : null} 
+                        src= {artworks[key]?.ArtworkImageUrl ? artworks[key].ArtworkImageUrl : null} 
                         style={{ 
                         backgroundRepeat: "no-repeat", 
                         backgroundSize: "contain",
                         backgroundPosition: "center",
                         objectFit: "cover" }} 
                         className="artwork-preview-image"
-                        onClick={()=> history.push(`/artworks/${artwork._id}`)}/>
+                        onClick={()=> history.push(`/artworks/${artworks[key]._id}`)}/>
                         <div className="artwork-name"
-                        onClick={()=> history.push(`/artworks/${artwork._id}`)}><p>{artwork.name}</p></div>
-                        <div className="artwork-artist">{artwork?.author?.email ? artwork.author.email.split('@')[0] : null}</div>
+                        onClick={()=> history.push(`/artworks/${artworks[key]._id}`)}><p>{artworks[key].name}</p></div>
+                        <div className="artwork-artist">{artworks[key]?.author?.email ? artworks[key].author.email.split('@')[0] : null}</div>
                         <div className="artwork-price-cart">
-                        <div className="artwork-price"><p>${artwork.price}</p></div>
-                        <div onClick={handleAddCartItem(artwork._id)}>
+                        <div className="artwork-price"><p>${artworks[key].price}</p></div>
+                        <div onClick={handleAddCartItem(artworks[key]._id)}>
                             <AddShoppingCartIcon />
                         </div>
                         </div>
+                        </div>) : null}
                     </li>
                     ))}
                 </ul>

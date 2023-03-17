@@ -109,7 +109,7 @@
     font-weight: 700;
     font-size: 32px;
     margin-top: 50px;
-    margin-bottom: 14%;
+    min-height: 1000px;
 }
 
 .divider.user-show {
