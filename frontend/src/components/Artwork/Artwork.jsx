@@ -17,6 +17,7 @@ import Favorite from "@mui/icons-material/Favorite";
 import { addNewCartItem } from '../../store/cartItems';
 import UpdateArtworkPage from "./Update/UpdateArtworkPage";
 import { deleteArtwork } from "../../store/artworks";
+import { deleteReview } from "../../store/reviews";
 function Artwork() {
     const {artworkId} = useParams();
     const [comment, setComment] = useState('');
@@ -90,6 +91,12 @@ function Artwork() {
         e.preventDefault();
         dispatch(deleteArtwork(artworkId))
         history.push('/artworks')
+    }
+
+    const handleDeleteReview = reviewId=> (e) => {
+        e.preventDefault();
+        dispatch(deleteReview(reviewId))
+        history.push(`/artworks/${artworkId}`)
     }
 
     return (
@@ -171,9 +178,18 @@ function Artwork() {
             <div>
                 
                 {reviews?.map((review) => (
-                    <div key={review.id}>
+                    <div key={review._id}>
                         <p>{review.content}</p>
                         <p>{review.rating}</p>
+                        <NavLink
+                            className="link-to-edit-review"
+                            to={`/artworks/${artworkId}/review/${review._id}`}
+                        >
+                            Edit
+                        </NavLink>
+                        <button type="button" onClick={handleDeleteReview(review._id)} className="edit-delete-buttons">
+                            <h1>Delete</h1>
+                        </button>
                     </div>
                 ))}
             </div>     
@@ -184,13 +200,7 @@ function Artwork() {
             >
                 Write a customer review
             </NavLink>
-            <NavLink
-                className="link-to-update-review"
-                to={`/artworks/update`}
-                artwork={artwork}
-            >
-                Update a review
-            </NavLink>
+            
         <Footer/>
     </>
     );
