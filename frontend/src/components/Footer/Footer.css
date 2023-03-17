@@ -2,13 +2,12 @@
     padding-top: 15px;
     padding-bottom:15px;
     width: 100%;
-    height: 100%;
     color: var(--off-white);
     background-color: rgb(36,36,36);
     display: flex;
     justify-content: center;
     align-items: center;
-    max-height: 220px;
+    height: 30px;
 }
 
 .footer-content {

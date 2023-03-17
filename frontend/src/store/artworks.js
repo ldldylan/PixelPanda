@@ -168,12 +168,7 @@ const artworksReducer = (state = { }, action) => {
         case RECEIVE_ARTWORK: 
             return newState[action.artwork._id] = action.artwork;
         case RECEIVE_ARTWORKS:
-            const artworks = action.artworks
-            artworks.forEach(artwork => {
-                newState[artwork._id] = artwork
-            })
-            return newState
-            // return { ...state, all: action.artworks, new: undefined };
+            return action.artworks;
         case REMOVE_ARTWORK:
             delete newState[action.ArtworkId]
             return newState

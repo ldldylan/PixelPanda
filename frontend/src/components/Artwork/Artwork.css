@@ -36,7 +36,6 @@
 .artwork-image-container {
     width: 500px;
     height: 500px;
-    background-color: red;
     margin-left: 12%;
     position: relative;
 }
@@ -50,17 +49,56 @@
 .artwork-purchase {
     margin-left: 30px;
     display: flex;
-    background-color: green;
+    /* background-color: green; */
     flex-direction: column;
-    height: 50%;
-    width: 40%;
-    margin-right: 30px;
-    justify-content: center;
-    align-items: center;
+    height: 40%;
+    width: 20%;
+    /* margin-right: 30px; */
+    margin-left: 50px;
 }
 
 .artwork-title {
     font-size: 32px;
     font-weight: 700;
     /* text-align: center; */
+    margin-top: 80px;
+    text-transform: uppercase;
+}
+
+.artwork-author {
+    margin-top: 5px;
+    color: var(--text-link);
+    cursor: pointer;
+}
+
+.artwork-price {
+    margin-top: 15px;
+    font-weight: 700;
+    font-size: 28px;
+}
+
+.artwork-about {
+    margin-top: 20px;
+    font-weight:700;
+}
+
+.artwork-desc {
+    margin-top: 10px;
+}
+
+.artwork-cart-buy button {
+    height: 50px;
+    color: var(--off-white);
+    background-color: rgb(33,150,243);
+    border: none;
+    font-size: 16px;
+    font-weight: 700;
+    gap: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 16px;
+    white-space: nowrap;
+    line-height: normal;
+    cursor: pointer;
 }

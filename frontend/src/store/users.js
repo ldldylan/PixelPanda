@@ -152,12 +152,7 @@ const usersReducer = (state = { }, action) => {
         case RECEIVE_USER: 
             return newState[action.user._id] = action.user;
         case RECEIVE_USERS:
-            console.log(action);
-            const users = action.users
-            users.forEach(user => {
-                newState[user._id] = user
-            })
-            return newState
+            return action.users;
         case RECEIVE_NEW_USER:
             return { ...state, new: action.user };
         case RECEIVE_USER_LOGOUT:

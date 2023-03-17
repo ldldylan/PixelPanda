@@ -30,7 +30,7 @@ function MainPage() {
       dispatch(fetchUsers());
       
     },[dispatch, sessionUser])
-
+    console.log(artworks);
     return (
       <>
       <NavBar />
@@ -76,7 +76,7 @@ function MainPage() {
                   onClick={()=> history.push(`/artworks/${artwork._id}`)}/>
                 <div className="artwork-name"
                 onClick={()=> history.push(`/artworks/${artwork._id}`)}><p>{artwork.name}</p></div>
-                <div className="artwork-artist">{artwork?.author?.email ? artwork.author.email : null}</div>
+                <div className="artwork-artist">{artwork?.author?.email ? artwork.author.email.split('@')[0] : null}</div>
                 <div className="artwork-price-cart">
                   <div className="artwork-price"><p>${artwork.price}</p></div>
                   <AddShoppingCartIcon/>
@@ -102,7 +102,7 @@ function MainPage() {
                 onClick={()=> history.push(`/users/${user._id}`)}/>
                 <div className="artwork-name"
                 onClick={()=> history.push(`/users/${user._id}`)}>
-                  <p>{user?.email ? user.email : null}</p>
+                  <p>{user?.email ? user.email.split('@')[0] : null}</p>
                   </div>
             </li>
             ))}
