@@ -94,11 +94,11 @@ export const fetchArtworkReviews = artworkId => async dispatch => {
     }
 };
 
-export const createReview = formData => async dispatch => {
+export const createReview = data => async dispatch => {
     try {
         const res = await jwtFetch('/api/reviews/', {
             method: 'POST',
-            body: formData
+            body: JSON.stringify(data)
         });
 
         const review = await res.json();
@@ -112,11 +112,11 @@ export const createReview = formData => async dispatch => {
     }
 };
 
-export const updateReview = (formData, reviewId) => async dispatch => {
+export const updateReview = (data, reviewId) => async dispatch => {
     try {
         const res = await jwtFetch(`/api/reviews/${reviewId}`, {
             method: 'PATCH',
-            body: formData
+            body: JSON.stringify(data)
         });
 
         const review = await res.json();
@@ -164,7 +164,11 @@ const reviewsReducer = (state = {}, action) => {
 
     switch (action.type) {
         case RECEIVE_REVIEW:
-            return newState[action.review._id] = action.review;
+            const review = action.review
+            return {
+                ...state,
+                [review._id]: review
+            };
         case RECEIVE_REVIEWS:
             const reviews = action.reviews
             reviews.forEach(review => {
