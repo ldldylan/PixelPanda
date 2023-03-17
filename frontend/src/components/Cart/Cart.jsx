@@ -20,22 +20,21 @@ const Cart = () => {
     const cartItems = useSelector(getCartItems);
     const currentUser = useSelector((state) => state.session.user)
     const [subTotal, setSubTotal] = useState(0.0)
+    const [matchingArtworks, setMatchingArtworks] = useState([]);
+    
     
     useEffect(() => {
         dispatch(fetchArtworks())
         if (currentUser) dispatch(fetchUserCartItems(currentUser._id))
     }, [dispatch]);
     
-    let matchingArtworks = []
     const calculateSubTotal = () => {
         let sumPrice = 0
-        matchingArtworks = cartItems.length === 0 ? [] : cartItems.map(cartItem => artworks.find(artwork => artwork._id === cartItem.artwork)).filter(artwork => artwork !== undefined);
-        console.log(matchingArtworks.length > 0,"matchingArtworks.length > 0");console.log(matchingArtworks, 'matchingArtworks')
+        cartItems.length === 0 ? setMatchingArtworks([]) : setMatchingArtworks(cartItems.map(cartItem => artworks.find(artwork => artwork._id === cartItem.artwork)).filter(artwork => artwork !== undefined))
         if (matchingArtworks.length === 0){
             setSubTotal(0);
             return;
         }
-        
         matchingArtworks.forEach(artwork => {
             if(artwork?.price) sumPrice += artwork.price
         }) 
@@ -53,7 +52,7 @@ const Cart = () => {
         history.push('/checkout')
     };
 
-    return (
+    return(
         <div className="cart-page">
             <NavBar/>
             {Object.keys(cartItems).length > 0 && (
@@ -67,15 +66,27 @@ const Cart = () => {
                             <div style={{marginTop: "10px", marginBottom: "10px"}}></div>
                             <div>
                                 {matchingArtworks.map((cartElement) => (
-                                    <div className="cart-item">
+                                    <div key={cartElement._id} className="cart-item">
                                         <div className="cart-item-info">
+                                            <div className="cart-item-img">
+                                                <img src={cartElement?.ArtworkImageUrl ? cartElement.ArtworkImageUrl : null} style={{
+                                                    backgroundRepeat: "no-repeat",
+                                                    backgroundSize: "contain",
+                                                    backgroundPosition: "center",
+                                                    objectFit: "cover"}}
+                                                    className="artwork-preview-image"
+                                                    onClick={() => history.push(`/artworks/${cartElement._id}`)}/>
+                                            </div>
+                                            <div className="cart-item-details">
 
+                                            </div>
                                         </div>
                                         <div className="cart-item-price">
 
                                         </div>
                                     </div>
                                  ))}
+
                             </div>
                             <div style={{ marginTop: "10px", marginBottom: "10px" }}></div>
                         </div>
@@ -122,7 +133,7 @@ const Cart = () => {
                 </div>
             )}
         </div>
-    );
+    )
 };
 
 export default Cart
