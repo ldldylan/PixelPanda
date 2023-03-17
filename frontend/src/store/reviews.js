@@ -47,12 +47,20 @@ export const clearReviewErrors = errors => ({
     errors
 });
 export const getReview = (id) => (state) => {
-
+    
     return state.reviews ? state.reviews[id] : null
 }
 
 export const getReviews = (state) => {
-    return state.reviews !== [] ? Object.values(state.reviews) : []
+    // console.log(state, 'state')
+
+    // if (state === undefined) {
+    //     return [];
+    // }
+    // console.log(state, 'state')
+
+    // console.log(state.reviews, 'state.reviews')
+    return state.reviews.length !== 0 ? Object.values(state.reviews) : [];
 }
 
 export const fetchReview = (reviewId) => async dispatch => {
@@ -83,9 +91,10 @@ export const fetchReviews = () => async dispatch => {
 
 export const fetchArtworkReviews = artworkId => async dispatch => {
     try {
-        const res = await jwtFetch(`/api/reviews/artwork/${artworkId}`);
+        const res = await jwtFetch(`/api/reviews/artworks/${artworkId}`);
         const reviews = await res.json();
-        dispatch(receiveArtworkReviews(reviews));
+        // console.log(reviews, 'reviews')
+        dispatch(receiveReviews(reviews));
     } catch (err) {
         const resBody = await err.json();
         if (resBody.statusCode === 400) {
@@ -96,7 +105,7 @@ export const fetchArtworkReviews = artworkId => async dispatch => {
 
 export const createReview = data => async dispatch => {
     try {
-        const res = await jwtFetch('/api/reviews/', {
+        const res = await jwtFetch(`/api/reviews/artwork/${data.artworkId}`, {
             method: 'POST',
             body: JSON.stringify(data)
         });
@@ -178,6 +187,11 @@ const reviewsReducer = (state = {}, action) => {
         case REMOVE_REVIEW:
             delete newState[action.reviewId]
             return newState
+        // case RECEIVE_ARTWORK_REVIEWS:
+        //     const artReviews = action.reviews
+        //     artReviews.forEach(review => {
+        //         newState[review._id] = review
+        //     })
         // case RECEIVE_USER_ARTWORKS:
         //     return { ...state, user: action.artworks, new: undefined };
         // case RECEIVE_NEW_ARTWORK:

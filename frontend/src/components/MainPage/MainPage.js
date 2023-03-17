@@ -26,10 +26,8 @@ function MainPage() {
     const artworks = useSelector(getArtworks);
     const users = useSelector(getUsers);
     const history = useHistory();
-    const currentUser = useSelector((state) => state.session.user)
     const cartItems = useSelector((state) => state.cartItems)
 
-    // console.log(currentUser)
     const sessionUser = useSelector(state=> state.session.user);
 
     useEffect(()=>{
@@ -37,21 +35,18 @@ function MainPage() {
       dispatch(fetchUsers());
       dispatch(fetchCartItems());
     },[dispatch])
+
   
     
     const handleAddCartItem = artworkId => e => {
       e.preventDefault();
-      if (currentUser) {
-        // dispatch(addNewCartItem('64135f6a41cc536e7d352a07', '64135f6941cc536e7d3529c5'))
-        // debugger
+      if (sessionUser) {
         const artworkArray = Object.values(cartItems).map((item) => item.artwork);
-        // console.log(artworkArray, "artworkArray")
         if (!artworkArray.includes(artworkId))
-          dispatch(addNewCartItem({artwork: artworkId}, currentUser._id));
+          dispatch(addNewCartItem({ artwork: artworkId }, sessionUser._id));
         else alert('Artwork is already in your cart!')
       }
       else {
-        // debugger
           history.push('/login')
       };
     }
@@ -106,7 +101,7 @@ function MainPage() {
                 <div className="artwork-artist">{artwork?.author?.email ? artwork.author.email.split('@')[0] : null}</div>
                 <div className="artwork-price-cart">
                   <div className="artwork-price"><p>${artwork.price}</p></div>
-                  <div classname="artwork-cart" onClick={handleAddCartItem(artwork._id)}>
+                  <div className="artwork-cart" onClick={handleAddCartItem(artwork._id)}>
                     <AddShoppingCartIcon />
                   </div>
                 </div>

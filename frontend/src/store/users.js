@@ -149,7 +149,12 @@ const usersReducer = (state = { }, action) => {
     
     switch (action.type) {
         case RECEIVE_USER: 
-            return newState[action.user._id] = action.user;
+            const user = action.user
+            return {
+                ...state,
+                [user._id]: user
+            };
+            // return newState[action.payload.user._id] = action.payload.user;
         case RECEIVE_USERS:
             // console.log(action);
             newState = {};

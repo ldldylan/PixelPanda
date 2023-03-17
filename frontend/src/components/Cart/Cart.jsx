@@ -11,6 +11,7 @@ import { fetchArtworks } from "../../store/artworks";
 import { getCartItems } from "../../store/cartItems";
 import {fetchUserCartItems} from "../../store/cartItems";
 import {deleteAllCartItems} from "../../store/cartItems";
+import NavBar from "../NavBar/NavBar";
 
 const Cart = () => {
     const dispatch = useDispatch();
@@ -19,23 +20,21 @@ const Cart = () => {
     const cartItems = useSelector(getCartItems);
     const currentUser = useSelector((state) => state.session.user)
     const [subTotal, setSubTotal] = useState(0.0)
+    const [matchingArtworks, setMatchingArtworks] = useState([]);
+    
     
     useEffect(() => {
         dispatch(fetchArtworks())
         if (currentUser) dispatch(fetchUserCartItems(currentUser._id))
     }, [dispatch]);
     
-
     const calculateSubTotal = () => {
         let sumPrice = 0
-        // console.log(cartItems,'cartItems')
-        let matchingArtworks = cartItems.length === 0 ? [] : cartItems.map(cartItem => artworks.find(artwork => artwork._id === cartItem.artwork)).filter(artwork => artwork !== undefined);
-        console.log(matchingArtworks.length > 0,"matchingArtworks.length > 0");console.log(matchingArtworks, 'matchingArtworks')
+        cartItems.length === 0 ? setMatchingArtworks([]) : setMatchingArtworks(cartItems.map(cartItem => artworks.find(artwork => artwork._id === cartItem.artwork)).filter(artwork => artwork !== undefined))
         if (matchingArtworks.length === 0){
             setSubTotal(0);
             return;
         }
-        
         matchingArtworks.forEach(artwork => {
             if(artwork?.price) sumPrice += artwork.price
         }) 
@@ -47,23 +46,54 @@ const Cart = () => {
         calculateSubTotal();
     }, [cartItems, artworks]);
 
-    console.log(cartItems,'cartItems')
-    
-        // let matchingArtworks = cartItems.length === 0 ? [] : cartItems.map(cartItem => artworks.find(artwork => artwork._id === cartItem.artwork))
-
     const handleCheckout = (e) => {
         e.preventDefault();
         dispatch(deleteAllCartItems(currentUser._id));
         history.push('/checkout')
     };
-    // console.log(cartItems.length, "cartItems")
-    // if (Object.keys(cartItems).length === 0) return null;
-    return (
-        <div className="cart-bg-container">
+
+    return(
+        <div className="cart-page">
+            <NavBar/>
             {Object.keys(cartItems).length > 0 && (
-                <>
-                    <div className="cart-heading">Shopping Cart</div>
-                    <div className="cart-price-heading">Price</div>
+                <div className="cart-container">
+                    <div className="cart-content">
+                        <div className="cart-item-box">
+                            <div className="cart-item-header">
+                                <div className="cart-heading">{cartItems.length} item(s) in your shopping cart</div>
+                                <div className="cart-price-heading">Total</div>
+                            </div>
+                            <div style={{marginTop: "10px", marginBottom: "10px"}}></div>
+                            <div>
+                                {matchingArtworks.map((cartElement) => (
+                                    <div key={cartElement._id} className="cart-item">
+                                        <div className="cart-item-info">
+                                            <div className="cart-item-img">
+                                                <img src={cartElement?.ArtworkImageUrl ? cartElement.ArtworkImageUrl : null} style={{
+                                                    backgroundRepeat: "no-repeat",
+                                                    backgroundSize: "contain",
+                                                    backgroundPosition: "center",
+                                                    objectFit: "cover"}}
+                                                    className="artwork-preview-image"
+                                                    onClick={() => history.push(`/artworks/${cartElement._id}`)}/>
+                                            </div>
+                                            <div className="cart-item-details">
+
+                                            </div>
+                                        </div>
+                                        <div className="cart-item-price">
+
+                                        </div>
+                                    </div>
+                                 ))}
+
+                            </div>
+                            <div style={{ marginTop: "10px", marginBottom: "10px" }}></div>
+                        </div>
+                        <div className="checkout-box">
+                            
+                        </div>
+                    </div>
                     <hr className="top-border" />
                     {/* <div className="card-item-artworks">{allCartItems}</div> */}
 
@@ -87,7 +117,7 @@ const Cart = () => {
                             ></input>
                         </form>
                     </div>
-                </>
+                </div>
             )}
             {Object.keys(cartItems).length < 1 && (
                 <div className="empty-cart-container">
@@ -103,7 +133,7 @@ const Cart = () => {
                 </div>
             )}
         </div>
-    );
+    )
 };
 
 export default Cart

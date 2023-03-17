@@ -18,7 +18,7 @@ import './User.css'
 function User() {
     const dispatch = useDispatch();
     const {userId} = useParams();
-    const user = useSelector(state => state.users)
+    const user = useSelector(state => state.users[userId])
     const artworks = useSelector((state) => state.artworks);
     const history = useHistory();
     const currentUser = useSelector((state) => state.session.user)

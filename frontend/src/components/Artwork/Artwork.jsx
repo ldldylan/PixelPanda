@@ -10,16 +10,21 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { fetchArtworks, fetchArtwork } from "../../store/artworks";
 import { getArtwork } from "../../store/artworks";
 import { NavLink } from "react-router-dom";
-import CreateReviewPage from "../Review/Create/createReviewForm";
-import { fetchArtworkReviews } from "../../store/reviews";
+import { fetchArtworkReviews, getReview } from "../../store/reviews";
+import { getReviews } from "../../store/reviews";
+import CreateReviewForm from "../Review/Create/CreateReviewForm";
 import Favorite from "@mui/icons-material/Favorite";
+import { addNewCartItem } from '../../store/cartItems';
+import UpdateArtworkPage from "./Update/UpdateArtworkPage";
+import { deleteArtwork } from "../../store/artworks";
+import { deleteReview } from "../../store/reviews";
 function Artwork() {
     const {artworkId} = useParams();
     const [comment, setComment] = useState('');
     const dispatch = useDispatch();
     const params = useParams();
     const history = useHistory();
-    const sessionUser = useSelector(state=>state.session.user);
+    const sessionUser = useSelector(state => state.session.user);
 
     const [rating, setRating] = useState(0);
 
@@ -44,11 +49,56 @@ function Artwork() {
         // Submit the comment and rating data to your backend server here
     };
 
-    const artwork = useSelector(state => state.artworks[artworkId]);
+    // const artwork = useSelector(state => state.artworks); // from kenny
     // console.log(artwork)
     useEffect(()=> {
-        dispatch(fetchArtwork(artworkId));
-    },[dispatch, artworkId]) 
+        dispatch(fetchArtwork(artworkId))
+        dispatch(fetchArtworkReviews(artworkId))
+    },[dispatch]) 
+    const artwork = useSelector(getArtwork(artworkId));
+    // console.log(artwork,'artwork')
+
+    
+    const reviews = useSelector(getReviews);
+    // if (!reviews) {
+    //     return <div>Loading...</div>;
+    // }\
+    // console.log(reviews,'reviews???')
+    // useEffect(()=> {
+    //     if (reviews !== undefined){
+    //     // console.log(Object.values(reviews), 'Object.values')
+
+    //     console.log('pass')
+    //     // console.log(reviews[0].content,'reviews')
+    // }
+    // })
+
+    const cartItems = useSelector((state) => state.cartItems)
+    const handleAddCartItem = artworkId => e => {
+        e.preventDefault();
+        if (sessionUser) {
+            const artworkArray = Object.values(cartItems).map((item) => item.artwork);
+            if (!artworkArray.includes(artworkId))
+                dispatch(addNewCartItem({ artwork: artworkId }, sessionUser._id));
+            else alert('Artwork is already in your cart!')
+        }
+        else {
+            history.push('/login')
+        };
+    }
+
+    const handleDelete = (e) => {
+        e.preventDefault();
+        dispatch(deleteArtwork(artworkId))
+        history.push('/artworks')
+    }
+
+    const handleDeleteReview = reviewId=> (e) => {
+        e.preventDefault();
+        dispatch(deleteReview(reviewId))
+        history.push(`/artworks/${artworkId}`)
+    }
+
     return (
     <>
         <NavBar/>
@@ -82,15 +132,18 @@ function Artwork() {
                         </div>
                     </div>
                     <div className="artwork-cart-buy">
-                        <div className="artwork-cart">
+                        <div className="artwork-cart" onClick={handleAddCartItem(artwork._id)}>
                             <button>Add to Cart</button>
                         </div>
                         <div className="cart-fav-button">
                             <button onClick={handleButtonClick}
                             style={{ color: isFavorited ? 'red' : 'white', 
-                            backgroundColor: '#e23ae8' }}
+                            backgroundColor: '#b90dbf' }}
                             ><Favorite/></button>
                         </div>
+                            <button type="button" onClick={handleDelete} className="edit-delete-buttons">
+                                <h1>Delete</h1>
+                            </button>
                     </div>
                 </div>
             </div>
@@ -121,12 +174,34 @@ function Artwork() {
                 </ul>
             </div>
         </div>
-            <NavLink
+        <div>test1</div>
+        {console.log(reviews, 'reviews!!!!!!!!!')}
+            <div>
+                
+                {reviews?.map((review) => (
+                    <div key={review._id}>
+                        <p>{review.content}</p>
+                        <p>{review.rating}</p>
+                        <NavLink
+                            className="link-to-edit-review"
+                            to={`/artworks/${artworkId}/review/${review._id}`}
+                        >
+                            Edit
+                        </NavLink>
+                        <button type="button" onClick={handleDeleteReview(review._id)} className="edit-delete-buttons">
+                            <h1>Delete</h1>
+                        </button>
+                    </div>
+                ))}
+            </div>     
+            <div>test2</div>
+                <NavLink
                 className="link-to-create-review"
                 to={`/artworks/${artworkId}/review`}
             >
                 Write a customer review
             </NavLink>
+            
         <Footer/>
     </>
     );
