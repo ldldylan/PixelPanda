@@ -46,7 +46,7 @@ function NavBar () {
         </div>
         <div className="nav-tools">
           <div><BrushIcon/> Create</div>
-          <div><PersonIcon/> Profile</div>
+          <div onClick={()=>history.push(`/users/${user._id}`)}><PersonIcon/> Profile</div>
           <div onClick={directToCart}><ShoppingCart/> Cart </div>
           <div ><FavoriteIcon/> Wish List </div>
           
