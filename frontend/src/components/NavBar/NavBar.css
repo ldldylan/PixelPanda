@@ -70,7 +70,7 @@
     transition: all 300ms ease-in-out 0s;
     display:flex;
     justify-content: space-around;
-    height: 40%;
+    height: 70%;
 }
 
 .nav-tools svg {

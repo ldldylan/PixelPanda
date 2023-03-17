@@ -11,6 +11,7 @@ import { fetchArtworks } from "../../store/artworks";
 import { getCartItems } from "../../store/cartItems";
 import {fetchUserCartItems} from "../../store/cartItems";
 import {deleteAllCartItems} from "../../store/cartItems";
+import NavBar from "../NavBar/NavBar";
 
 const Cart = () => {
     const dispatch = useDispatch();
@@ -28,7 +29,6 @@ const Cart = () => {
 
     const calculateSubTotal = () => {
         let sumPrice = 0
-        // console.log(cartItems,'cartItems')
         let matchingArtworks = cartItems.length === 0 ? [] : cartItems.map(cartItem => artworks.find(artwork => artwork._id === cartItem.artwork)).filter(artwork => artwork !== undefined);
         console.log(matchingArtworks.length > 0,"matchingArtworks.length > 0");console.log(matchingArtworks, 'matchingArtworks')
         if (matchingArtworks.length === 0){
@@ -47,19 +47,15 @@ const Cart = () => {
         calculateSubTotal();
     }, [cartItems, artworks]);
 
-    console.log(cartItems,'cartItems')
-    
-        // let matchingArtworks = cartItems.length === 0 ? [] : cartItems.map(cartItem => artworks.find(artwork => artwork._id === cartItem.artwork))
-
     const handleCheckout = (e) => {
         e.preventDefault();
         dispatch(deleteAllCartItems(currentUser._id));
         history.push('/checkout')
     };
-    // console.log(cartItems.length, "cartItems")
-    // if (Object.keys(cartItems).length === 0) return null;
+
     return (
-        <div className="cart-bg-container">
+        <div className="cart-container">
+            <NavBar/>
             {Object.keys(cartItems).length > 0 && (
                 <>
                     <div className="cart-heading">Shopping Cart</div>
