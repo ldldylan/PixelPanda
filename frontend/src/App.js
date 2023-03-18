@@ -38,7 +38,7 @@ function App() {
         <AuthRoute exact path="/signup" component={SignupForm} />
         <ProtectedRoute exact path="/" component={MainPage} />
         <ProtectedRoute exact path="/artworks/create" component={CreateArtworkPage} />
-        <ProtectedRoute exact path="/artworks/update/" render={(props) => <UpdateArtworkPage {...props} />} />
+        {/* <ProtectedRoute exact path="/artworks/update/" render={(props) => <UpdateArtworkPage {...props} />} /> */}
         <ProtectedRoute exact path="/artworks/:artworkId" component={Artwork}/>
         <ProtectedRoute exact path="/users/:userId" component={User}/>
         <ProtectedRoute exact path="/artworks/:artworkId/review/:reviewId?" component={CreateReviewForm} />

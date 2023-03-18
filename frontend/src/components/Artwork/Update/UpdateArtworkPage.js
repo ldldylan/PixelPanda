@@ -4,17 +4,18 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { fetchArtwork } from '../../../store/artworks';
 import { useParams } from 'react-router-dom';
-export default function UpdateArtworkPage({props}) {
-    // const {artwork}= props;
+export default function UpdateArtworkPage(props) {
+    const {artwork}= props;
+    console.log(artwork, "artwork")
     const dispatch = useDispatch();
-    const { artworkId } = useParams();
+    // const { artworkId } = useParams();
 
-    useEffect(() => {
-        console.log("fetct")
-        dispatch(fetchArtwork(artworkId))
-    }, [dispatch])
-    console.log(artworkId, "artworkId")
-    const artwork = useSelector(getArtwork(artworkId))
+    // useEffect(() => {
+    //     console.log("fetct")
+    //     // dispatch(fetchArtwork(artworkId))
+    // }, [dispatch])
+    // console.log(artworkId, "artworkId")
+    // const artwork = useSelector(getArtwork(artworkId))
     const [name, setName] = useState(artwork ? artwork.name : '')
     const [description, setDescription] = useState(artwork ? artwork.description : '')
     const [price, setPrice] = useState(artwork ? artwork.price : '')
