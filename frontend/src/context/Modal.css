@@ -57,7 +57,7 @@
   background-color: rgba(0, 0, 0, 0);
 }
 
-#modal-content {
+/* #modal-content {
   position: absolute;
   background-color: white;
   overflow: none;
@@ -68,7 +68,7 @@
   background-color: white;
   color: var(--brand);
   border-radius: 15px;
-}
+} */
 
 .edit-server#modal-content {
   position: absolute;

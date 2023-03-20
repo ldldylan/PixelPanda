@@ -81,7 +81,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    background-color: var(--interactive);
+    /* background-color: var(--interactive); */
 }
 
 .favorite-item-icon {
