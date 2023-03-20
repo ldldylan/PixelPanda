@@ -15,10 +15,10 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    width: 700px;
+    width: 500px;
     background-color: var(--white-form-input-bg);
     color: var(--white-form-text-color);
-    padding: 20px;
+    padding: 50px;
     border-radius: 25px;
 }
 
