@@ -86,7 +86,29 @@ function Artwork() {
     //     // console.log(reviews[0].content,'reviews')
     // }
     // })
+    const [showEditForm, setShowEditForm] = useState(false)
+    const [editMessage, setEditMessage] = useState(null);
+    const [editMessageText, setEditMessageText] = useState("");
+    const [editMessageRating, setEditMessageRating] = useState(1);
+    const handleShowEditForm = (review) => {
+        setEditMessage(review);
+        setEditMessageText(review.content);
+        setEditMessageRating(review.rating);
+        setShowEditForm(true);
+    };
 
+    const handleEditSubmit = (e) => {
+        e.preventDefault();
+        // Submit the comment and rating data to your backend server here
+        editMessage.content = editMessageText;
+        editMessage.rating = editMessageRating;
+
+        dispatch(updateReview(editMessage, editMessage._id))
+                .then(() => {
+                    history.push(`/artworks/${artworkId}`)
+                })
+    }
+    
     const cartItems = useSelector((state) => state.cartItems)
     if (!artwork) return null;
 
@@ -115,28 +137,6 @@ function Artwork() {
         history.push(`/artworks/${artworkId}`)
     }
 
-    const [showEditForm, setShowEditForm] = useState(false)
-    const [editMessage, setEditMessage] = useState(null);
-    const [editMessageText, setEditMessageText] = useState("");
-    const [editMessageRating, setEditMessageRating] = useState(1);
-    const handleShowEditForm = (review) => {
-        setEditMessage(review);
-        setEditMessageText(review.content);
-        setEditMessageRating(review.rating);
-        setShowEditForm(true);
-    };
-
-    const handleEditSubmit = (e) => {
-        e.preventDefault();
-        // Submit the comment and rating data to your backend server here
-        editMessage.content = editMessageText;
-        editMessage.rating = editMessageRating;
-
-        dispatch(updateReview(editMessage, editMessage._id))
-                .then(() => {
-                    history.push(`/artworks/${artworkId}`)
-                })
-    }
 
     return (
     <>
@@ -181,7 +181,8 @@ function Artwork() {
                             backgroundColor: '#b90dbf' }}
                             ><Favorite/></button>
                         </div>
-                        {artwork.author._id === sessionUser._id ? (<button type="button" onClick={handleDelete} className="edit-delete-buttons">
+                        {artwork.author._id === sessionUser._id ? (<>
+                        <button type="button" onClick={handleDelete} className="edit-delete-buttons">
                                 <h1>Delete</h1>
                             </button>
                             <button className='Editbutton' onClick={() => setShowModal(true)}>Edit</button>
@@ -191,6 +192,7 @@ function Artwork() {
                                     <UpdateArtworkPage artwork={artwork} />
                                 </Modal>
                             )}
+                            </>) : null }
                     </div>
                 </div>
             </div>
