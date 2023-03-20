@@ -33,11 +33,8 @@
     display: flex;
     justify-content: space-between;
     border-bottom: 0;
-    /* padding-bottom: 26px; */
     font-size: 25px;
     font-weight: 600;
-    /* -ms-flex-direction: column; */
-    /* flex-direction: column; */
 }
 
 .cart-heading {
@@ -52,7 +49,6 @@
     width: 100%;
     display: flex;
     position: relative;
-    /* justify-content: space-between; */
 }
 
 .cart-item-img {

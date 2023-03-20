@@ -1,9 +1,6 @@
-// import CartItemShow from "./CartItemShow";
+
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { RECEIVE_CARTITEMS, ADD_CARTITEM, REMOVE_CARTITEM } from "../../store/cartItems";
-import { fetchCartItems } from "../../store/cartItems";
-import { clearCart } from "../../store/cartItems";
 import { getArtworks } from "../../store/artworks";
 import { useHistory } from "react-router-dom";
 import './Cart.css'
