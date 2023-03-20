@@ -3,10 +3,10 @@ import { useEffect, useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { fetchArtwork } from '../../../store/artworks';
-import { useHistory, useParams } from 'react-router-dom';
-export default function UpdateArtworkPage(props) {
-    const {artwork}= props;
-    console.log(artwork, "artwork")
+import { useParams } from 'react-router-dom';
+// import 'UpdateArtworkPage.css';
+export default function UpdateArtworkPage({props}) {
+    // const {artwork}= props;
     const dispatch = useDispatch();
     // const { artworkId } = useParams();
 
@@ -111,6 +111,7 @@ export default function UpdateArtworkPage(props) {
     return (
         <>
             <form>
+                <label>Submit an Artwork</label>
                 <label>Name
                     <input
                         value={name}

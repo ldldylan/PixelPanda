@@ -55,13 +55,13 @@
     position: absolute; 
 }
 
-.artwork-image-container img:active {
+/* .artwork-image-container img:active {
     position: absolute;
     transform: scale(1.5);
     transform-origin: center;
     margin: auto;
 }
-
+ */
 
 
 

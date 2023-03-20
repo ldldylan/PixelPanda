@@ -81,7 +81,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-    background-color: var(--off-white);
+    background-color: var(--interactive);
 }
 
 .favorite-item-icon {
@@ -184,6 +184,10 @@
     position: absolute;
     bottom: 0px;
     right: 0px;
+}
+
+.asset-item.artist .artwork-name.artist{
+    height: 200%;
 }
 
 .asset-item.artist .artwork-preview-image {
