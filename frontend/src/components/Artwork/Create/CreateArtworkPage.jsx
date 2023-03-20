@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { fetchArtworks } from '../../../store/artworks';
 import "./CreateArtwork.css"
-export default function CreateArtworkPage(){
+export default function CreateArtworkPage({onClose}){
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
     const [price, setPrice] = useState(0)
@@ -39,6 +39,7 @@ export default function CreateArtworkPage(){
         setName('');
         setDescription('');
         fileRef.current.value = null;
+        onClose();
     };
 
     // const updateFiles = async e => {
@@ -71,6 +72,7 @@ export default function CreateArtworkPage(){
             fileReader.onload = () => {
                 const img = document.querySelector('.Uploadpic');
                 setImageUrl(fileReader.result);
+                img.style.display = 'block';
                 img.src = fileReader.result;
             };
         } else {
@@ -84,39 +86,46 @@ export default function CreateArtworkPage(){
     }, [image, imageUrl]);
     return(
         <>
-            <form>
+            <form className="artwork-edit-form">
+                <div className="artwork-edit-title">
+                    <label>Submit an Artwork</label>
+                </div>
                 <label>Name
                     <input 
                         value={name}
+                        className="artwork-edit-input"
                         placeholder="Enter a name for this artwork"
                         onChange={(e) => setName(e.target.value)}>
                     </input>
                 </label>
                 <label>Description
-                    <input
+                    <textarea
+                    className="artwork-edit-textarea"
                     value={description} onChange={(e) => {
                         setDescription(e.target.value)
                     }} placeholder={`Enter description for this artwork`}>
-                        </input>
+                        </textarea>
                 </label>
                 <label>Price
                     <input 
                         value={price}
+                        className="artwork-edit-input"
                         placeholder="Enter a price for this artwork"
                         onChange={(e) => setPrice(e.target.value)}>
                     </input>
                 </label>
-                <label>
-                    Image to Upload
+                <input
+                    className='uploadButton'
+                    type="file"
+                    ref={fileRef}       
+                    accept=".jpg, .jpeg, .png"
+                    onChange={updateFile} />
+                <div className="upload-box">
+                    {/* Image to Upload */}
                     <div className='dotline'><img className="Uploadpic" /></div>
-                    <input
-                        className='uploadButton'
-                        type="file"
-                        ref={fileRef}       
-                        accept=".jpg, .jpeg, .png"
-                        onChange={updateFile} />
-                </label>
-                <button onClick={handleSubmit}>Upload New Artwork</button>
+                </div>
+                <button className="submit-artwork-button" onClick={handleSubmit}>Upload New Artwork</button>
+                
             </form>
         </>   
     )

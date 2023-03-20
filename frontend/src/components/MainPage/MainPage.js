@@ -11,7 +11,7 @@ import ViewInArIcon from '@mui/icons-material/ViewInAr';
 import AudiotrackIcon from '@mui/icons-material/Audiotrack';
 import LensBlurIcon from '@mui/icons-material/LensBlur';
 import { useDispatch } from 'react-redux';
-import { useEffect, useSyncExternalStore } from 'react';
+import { useState ,useEffect, useSyncExternalStore } from 'react';
 import { useHistory } from 'react-router-dom';
 import { fetchArtworks } from '../../store/artworks';
 import { getArtworks } from '../../store/artworks';
@@ -19,6 +19,7 @@ import { getUsers, fetchUsers} from '../../store/users';
 import { useSelector } from 'react-redux';
 import { addNewCartItem } from '../../store/cartItems';
 import { fetchCartItems } from '../../store/cartItems';
+
 
 import { useParams } from 'react-router-dom';
 function MainPage() {
@@ -29,6 +30,8 @@ function MainPage() {
     const cartItems = useSelector((state) => state.cartItems)
 
     const sessionUser = useSelector(state=> state.session.user);
+
+   
 
     useEffect(()=>{
       dispatch(fetchArtworks());
@@ -124,7 +127,7 @@ function MainPage() {
                 objectFit: "cover" }} 
                 className="artwork-preview-image"
                 onClick={()=> history.push(`/users/${user._id}`)}/>
-                <div className="artwork-name"
+                <div className="artwork-name artist"
                 onClick={()=> history.push(`/users/${user._id}`)}>
                   <p>{user?.email ? user.email.split('@')[0] : null}</p>
                   </div>
