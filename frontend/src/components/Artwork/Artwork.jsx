@@ -20,9 +20,12 @@ import { deleteArtwork } from "../../store/artworks";
 import { deleteReview, createReview, updateReview } from "../../store/reviews";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import {Modal} from '../context/Modal';
 function Artwork() {
     const {artworkId} = useParams();
     const [comment, setComment] = useState('');
+    const [showModal, setShowModal] = useState(false);
+
     const dispatch = useDispatch();
     const params = useParams();
     const history = useHistory();
@@ -67,14 +70,14 @@ function Artwork() {
         dispatch(fetchArtworkReviews(artworkId))
     },[dispatch]) 
     const artwork = useSelector(getArtwork(artworkId));
-    // console.log(artwork,'artwork')
+    console.log(artwork,'artwork')
 
-    
+   
     const reviews = useSelector(getReviews);
     // if (!reviews) {
     //     return <div>Loading...</div>;
     // }\
-    // console.log(reviews,'reviews???')
+    console.log(showModal,'showModal???')
     // useEffect(()=> {
     //     if (reviews !== undefined){
     //     // console.log(Object.values(reviews), 'Object.values')
@@ -85,7 +88,9 @@ function Artwork() {
     // })
 
     const cartItems = useSelector((state) => state.cartItems)
-    const handleAddCartItem = (e, artworkId) => {
+    if (!artwork) return null;
+
+    const handleAddCartItem = artworkId => e => {
         e.preventDefault();
         if (sessionUser) {
             const artworkArray = Object.values(cartItems).map((item) => item.artwork);
@@ -136,6 +141,7 @@ function Artwork() {
     return (
     <>
         <NavBar/>
+            {/* {artwork &&<UpdateArtworkPage artwork={artwork} />} */}
         <div className="artwork">
             <div className="artwork-main">
                 <div className="artwork-image-container">
@@ -177,8 +183,14 @@ function Artwork() {
                         </div>
                         {artwork.author._id === sessionUser._id ? (<button type="button" onClick={handleDelete} className="edit-delete-buttons">
                                 <h1>Delete</h1>
-                            </button>) : null}
-                            
+                            </button>
+                            <button className='Editbutton' onClick={() => setShowModal(true)}>Edit</button>
+                            {showModal&&artwork && (
+                                <Modal onClose={() => setShowModal(false)}>
+                                    {console.log(artwork,'artwork......')}
+                                    <UpdateArtworkPage artwork={artwork} />
+                                </Modal>
+                            )}
                     </div>
                 </div>
             </div>
