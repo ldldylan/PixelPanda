@@ -1,5 +1,10 @@
+.cart-page {
+    width: 100%;
+    height: 100%;
+}
+
 .cart-container{
-    max-width: 960px;
+    max-width: 1160px;
     position: relative;
     margin: auto;
     width: 100%;
@@ -99,7 +104,7 @@
     text-align: right;
     font-size: 25px;
 
-    margin-left: 30px;
+    margin-left: 170px;
 }
 
 .checkout-box {
@@ -148,10 +153,49 @@
     text-align:center;
 }
 
-/* .empty-cart-container {
+.empty-cart-container {
     display:flex;
     justify-content: center;
     align-items: center;
     font-size: 32px;
-    font-weight: 700;
-} */
+    font-weight: 500;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    color: var(--text-muted);
+}
+
+.panda-box-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-repeat: no-repeat;
+    
+}
+
+.empty-cart-heading{
+    font-size: 32px;
+    font-weight: 500;
+    margin-bottom: 20px;
+    margin-top: 10px;
+}
+
+.empty-cart-text{
+    line-height: 1;
+    font-size: 28px;
+}
+
+.panda-box {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 450px;
+    height: 502px;
+    background-repeat: no-repeat;
+    background-image: url('/assets/panda_empty_box_bw.png');
+    /* object-fit: cover; */
+    background-size: contain;
+    background-position: center;
+    opacity: 0.8;
+    margin-left: 10px;
+}

@@ -102,7 +102,7 @@ const Cart = () => {
                                 <div className="sub-total-container">
                                     Subtotal ({Object.keys(cartItems).length}{" "}
                                     {cartItems.length > 1 ? "items" : "item"}):&nbsp;
-                                    <span className="sub-total-amt">${subTotal}</span>
+                                    ${subTotal}
                                 </div>
                                 <form onSubmit={handleCheckout} className="checkout-form">
                                     <input
@@ -128,15 +128,18 @@ const Cart = () => {
             )}
             {Object.keys(cartItems).length < 1 && (
                 <div className="empty-cart-container">
+                    <div className="panda-box-container">
+                    <a href="/"><div className="panda-box"></div></a>
+                    </div>
                     <div className="empty-cart-heading">
                         Your cart is empty
                     </div>
                     <div className="empty-cart-text">
                         Looks like you haven't added anything to your cart yet.
                     </div>
-                    <div className="empty-cart-mainpage-link">
+                    {/* <div className="empty-cart-mainpage-link">
                         <a href="/">Go to main page</a>
-                    </div>
+                    </div> */}
                 </div>
             )}
         </div>
