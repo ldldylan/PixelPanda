@@ -35,7 +35,7 @@ function App() {
       <Switch>
         <AuthRoute exact path="/" component={MainPage} />
         <AuthRoute exact path="/login" component={LoginForm} />
-        <AuthRoute exact path="/signup" component={SignupForm} />
+        <AuthRoute exact path="/signup" component={SignupForm} />/?
         <ProtectedRoute exact path="/" component={MainPage} />
         <ProtectedRoute exact path="/artworks/create" component={CreateArtworkPage} />
         {/* <ProtectedRoute exact path="/artworks/update/" render={(props) => <UpdateArtworkPage {...props} />} /> */}

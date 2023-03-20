@@ -3,7 +3,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { fetchArtwork } from '../../../store/artworks';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 export default function UpdateArtworkPage(props) {
     const {artwork}= props;
     console.log(artwork, "artwork")
@@ -22,13 +22,18 @@ export default function UpdateArtworkPage(props) {
     const [image, setImage] = useState([]);
     const [imageUrl, setImageUrl] = useState(artwork ? artwork.ArtworkImageUrl : '');
     const fileRef = useRef(null);
+    const history = useHistory();
     // const artwork=use;
     const sessionUser = useSelector((state) => state.session.user)
     // console.log(sessionUser._id)
 
     
-    const img = document.querySelector('.Uploadpic');
+    const img = document.querySelector('.UpdateUploadpic');
+    
+    useEffect(() => {   
+
     if(img) img.src = imageUrl;
+    }, [imageUrl])
     console.log(name, "name")
     const handleSubmit = e => {
         e.preventDefault();
@@ -49,13 +54,17 @@ export default function UpdateArtworkPage(props) {
         // console.log(description,"description")
         // console.log(price, "price")
         // console.log(image,"image")
-        dispatch(updateArtwork(formData, sessionUser._id));
+        dispatch(updateArtwork(formData, artwork._id));
+        
         setImage([]);
         setImageUrl([]);
         setPrice(0)
         setName('');
         setDescription('');
         fileRef.current.value = null;
+        console.log("done")
+        history.push('/')
+        console.log("done2")
     };
 
 
@@ -125,7 +134,7 @@ export default function UpdateArtworkPage(props) {
                 </label>
                 <label>
                     Image to Upload
-                    <div className='dotline'><img className="Uploadpic" /></div>
+                    <div className='updatepic'><img className="UpdateUploadpic" /></div>
                     <input
                         type="file"
                         ref={fileRef}
