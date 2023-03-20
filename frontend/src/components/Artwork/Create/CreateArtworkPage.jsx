@@ -87,6 +87,7 @@ export default function CreateArtworkPage({onClose}){
     return(
         <>
             <form className="artwork-edit-form">
+                {console.log('modal')}
                 <div className="artwork-edit-title">
                     <label>Submit an Artwork</label>
                 </div>

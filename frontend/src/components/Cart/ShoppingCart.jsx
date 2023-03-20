@@ -9,6 +9,7 @@ import { getCartItems } from "../../store/cartItems";
 import {fetchUserCartItems} from "../../store/cartItems";
 import {deleteAllCartItems} from "../../store/cartItems";
 import NavBar from "../NavBar/NavBar";
+import Footer from "../Footer/Footer";
 
 const Cart = () => {
     const dispatch = useDispatch();
@@ -139,6 +140,7 @@ const Cart = () => {
                     </div> */}
                 </div>
             )}
+            <Footer/>
         </div>
     )
 };
