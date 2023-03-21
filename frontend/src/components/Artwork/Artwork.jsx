@@ -21,6 +21,8 @@ import { deleteReview, createReview, updateReview } from "../../store/reviews";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import {Modal} from '../context/Modal';
+// import Modal from '../../context/Modal';
+
 function Artwork() {
     const {artworkId} = useParams();
     const [comment, setComment] = useState('');
@@ -56,7 +58,8 @@ function Artwork() {
         const reviewData = {
             content: comment, rating, author, artworkId
         };
-
+        setComment("");
+        setRating(1); 
         dispatch(createReview(reviewData))
                 .then(() => {
                     history.push(`/artworks/${artworkId}`)
@@ -70,7 +73,7 @@ function Artwork() {
         dispatch(fetchArtworkReviews(artworkId))
     },[dispatch]) 
     const artwork = useSelector(getArtwork(artworkId));
-    console.log(artwork,'artwork')
+    // console.log(artwork,'artwork')
 
    
     const reviews = useSelector(getReviews);
@@ -102,7 +105,7 @@ function Artwork() {
         // Submit the comment and rating data to your backend server here
         editMessage.content = editMessageText;
         editMessage.rating = editMessageRating;
-
+        console.log(editMessage); 
         dispatch(updateReview(editMessage, editMessage._id))
                 .then(() => {
                     history.push(`/artworks/${artworkId}`)
@@ -222,7 +225,7 @@ function Artwork() {
                                  </span>
                              ))}
                              </div>
-                             <textarea value={editMessageText} className="comment-submit-box" onChange={(e)=>setEditMessageText(e.target.value)} placeholder="Write a customer review here" />
+                             <textarea value={editMessageText} className="comment-submit-box" onChange={(e)=>setEditMessageText(e.target.value)} required placeholder="Write a customer review here" />
                              <br/><button className="comment-submit-button" type="submit">Update</button>
                          </form>
                          ): (<>
@@ -242,7 +245,7 @@ function Artwork() {
                         </button>
                         <button type="button" onClick={handleDeleteReview(review._id)} className="edit-delete-buttons">
                             <DeleteForeverIcon/>
-                        </button></>): null}
+                        </button></>): null }
                         
                         </>)}
                     </li>
@@ -265,7 +268,7 @@ function Artwork() {
                         </span>
                     ))}
                     </div>
-                    <textarea value={comment} className="comment-submit-box" onChange={(e)=>setComment(e.target.value)} placeholder="Write a customer review here" />
+                    <textarea required value={comment} className="comment-submit-box" onChange={(e)=>setComment(e.target.value)} placeholder="Write a customer review here" />
                     <br/><button className="comment-submit-button" type="submit">Submit</button>
                 </form>
 

@@ -129,7 +129,6 @@ export const updateReview = (data, reviewId) => async dispatch => {
         });
 
         const review = await res.json();
-
         dispatch(receiveReview(review));
     } catch (err) {
         const resBody = await err.json();

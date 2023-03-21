@@ -6,7 +6,9 @@ import './NavBar.css';
 import { logout } from '../../store/session';
 import SearchIcon from '@mui/icons-material/Search';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { Modal } from '../../context/Modal';
+// import { Modal } from '../../context/Modal';
+
+import { Modal } from '../context/Modal';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PersonIcon from '@mui/icons-material/Person';
 import ShoppingCart from '@mui/icons-material/ShoppingCart';
