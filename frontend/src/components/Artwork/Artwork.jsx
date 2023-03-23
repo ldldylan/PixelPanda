@@ -174,20 +174,21 @@ function Artwork() {
                         </div>
                     </div>
                     <div className="artwork-cart-buy">
-                        <div className="artwork-cart" onClick={handleAddCartItem(artwork._id)}>
-                            <button>Add to Cart</button>
+                        <div className="cart-and-fav">
+                            <div className="artwork-cart" onClick={handleAddCartItem(artwork._id)}>
+                                <button id='add-cart-button'>Add to Cart</button>
+                            </div>
+                            <div className="cart-fav-button">
+                                <button id='fav-button' onClick={handleButtonClick}
+                                style={{ color: isFavorited ? 'red' : 'white', 
+                                backgroundColor: '#b90dbf' }}
+                                ><Favorite/></button>
+                            </div>
                         </div>
-                        <div className="cart-fav-button">
-                            <button onClick={handleButtonClick}
-                            style={{ color: isFavorited ? 'red' : 'white', 
-                            backgroundColor: '#b90dbf' }}
-                            ><Favorite/></button>
-                        </div>
+                        <div className="edit-and-delete">
                         {artwork.author._id === sessionUser._id ? (<>
-                        <button type="button" onClick={handleDelete} className="edit-delete-buttons">
-                                <h1>Delete</h1>
-                            </button>
-                            <button className='Editbutton' onClick={() => setShowModal(true)}>Edit</button>
+                            <button id='edit-button' onClick={() => setShowModal(true)}>Edit</button>
+                            <button id='delete-button' onClick={handleDelete} >Delete</button>
                             {showModal&&artwork && (
                                 <Modal onClose={() => setShowModal(false)}>
                                     {console.log(artwork,'artwork......')}
@@ -195,6 +196,7 @@ function Artwork() {
                                 </Modal>
                             )}
                             </>) : null }
+                        </div>
                     </div>
                 </div>
             </div>
@@ -239,12 +241,14 @@ function Artwork() {
                         </p>
                         <p className="review-content">{review.content}</p>
                         {review.author._id === sessionUser._id ? (<>
-                        <button type="button" className="edit-icon" onClick={() => handleShowEditForm(review)}>
-                            <EditIcon />
-                        </button>
-                        <button type="button" onClick={handleDeleteReview(review._id)} className="edit-delete-buttons">
-                            <DeleteForeverIcon/>
-                        </button></>): null }
+                            <button type="button" className="edit-icon" onClick={() => handleShowEditForm(review)}>
+                                <EditIcon />
+                            </button>
+                            <button type="button" onClick={handleDeleteReview(review._id)} className="edit-delete-buttons">
+                                <DeleteForeverIcon/>
+                            </button>
+                        </>)
+                        : null }
                         
                         </>)}
                     </li>
