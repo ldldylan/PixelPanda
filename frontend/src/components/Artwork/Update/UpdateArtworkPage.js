@@ -6,7 +6,7 @@ import { fetchArtwork } from '../../../store/artworks';
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 // import 'UpdateArtworkPage.css';
-export default function UpdateArtworkPage({props}) {
+export default function UpdateArtworkPage(props) {
     const {artwork}= props;
     const dispatch = useDispatch();
     // const { artworkId } = useParams();

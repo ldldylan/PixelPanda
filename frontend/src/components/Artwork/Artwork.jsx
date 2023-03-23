@@ -20,8 +20,8 @@ import { deleteArtwork } from "../../store/artworks";
 import { deleteReview, createReview, updateReview } from "../../store/reviews";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+// import {Modal} from '../context/Modal';
 import {Modal} from '../context/Modal';
-// import Modal from '../../context/Modal';
 
 function Artwork() {
     const {artworkId} = useParams();
@@ -139,7 +139,6 @@ function Artwork() {
         dispatch(deleteReview(reviewId))
         history.push(`/artworks/${artworkId}`)
     }
-
 
     return (
     <>
