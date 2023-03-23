@@ -111,17 +111,18 @@ export default function UpdateArtworkPage(props) {
     }, [image, imageUrl]);
     return (
         <>
-            <form>
-                <label>Submit an Artwork</label>
+            <form className='artwork-edit-form'>
+                <label className="artwork-edit-title">Edit an Artwork</label>
                 <label>Name
                     <input
+                        className="artwork-edit-input"
                         value={name}
                         placeholder={name}
                         onChange={(e) => setName(e.target.value)}>
                     </input>
                 </label>
                 <label>Description
-                    <input
+                    <input className="artwork-edit-textarea"
                         value={description} onChange={(e) => {
                             setDescription(e.target.value)
                         }} placeholder={description}>
@@ -129,21 +130,23 @@ export default function UpdateArtworkPage(props) {
                 </label>
                 <label>Price
                     <input
+                        className="artwork-edit-input"
                         value={price}
                         placeholder={price}
                         onChange={(e) => setPrice(e.target.value)}>
                     </input>
                 </label>
                 <label>
-                    Image to Upload
+                    {/* Image to Upload */}
                     <div className='updatepic'><img className="UpdateUploadpic" /></div>
                     <input
+                        className='uploadButton'
                         type="file"
                         ref={fileRef}
                         accept=".jpg, .jpeg, .png"
                         onChange={updateFile} />
                 </label>
-                <button onClick={handleSubmit}>Update New Artwork</button>
+                <button className="submit-artwork-button" onClick={handleSubmit}>Update Artwork</button>
             </form>
         </>
     )
