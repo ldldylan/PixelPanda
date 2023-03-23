@@ -138,7 +138,7 @@ export const updateArtwork = (formData,artworkId) => async dispatch => {
     }
 };
 
-export const deleteArtwork =  artworkId => async dispatch => {
+export const deleteArtwork = artworkId => async dispatch => {
     try {
         const res = await jwtFetch(`/api/artworks/${artworkId}`, {
             method: 'DELETE'

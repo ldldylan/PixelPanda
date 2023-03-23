@@ -103,9 +103,10 @@ router.post('/artwork/:artworkId', requireUser, validateReviewInput, async (req,
     // console.log(req.user,"req.user")
     // console.log(req.params.artworkId,"req.params.artworkId")
     // console.log(req.body, "req.body")
-
+    
     try {
         const newReview = new Review({
+            // author: req.user._id,
             author: req.user._id,
             artworkId: req.params.artworkId,
             content: req.body.content,
@@ -123,18 +124,19 @@ router.post('/artwork/:artworkId', requireUser, validateReviewInput, async (req,
 });
 
 router.patch("/:id", requireUser, validateReviewInput, async (req, res, next) => {
-    console.log(req.params, "req.params");
-    console.log(req.user, "req.user._id");
+    // console.log(req.params, "req.params");
+    // console.log(req.user, "req.user._id");
     Review.findByIdAndUpdate(
         req.params.id,
         {
-            author: req.user._id,
-            artworkId: req.artworkId,
+            // author: req.user._id,
+            // author: req.user._id,
+            // artworkId: req.artworkId,
             content: req.body.content,
             rating: req.body.rating
         },
         { new: true }
-    )
+    ).populate('author', '_id email profileImageUrl')
         .then((review) => {
             return res.json(review);
         })

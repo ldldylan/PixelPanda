@@ -1,9 +1,6 @@
-// import CartItemShow from "./CartItemShow";
+
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { RECEIVE_CARTITEMS, ADD_CARTITEM, REMOVE_CARTITEM } from "../../store/cartItems";
-import { fetchCartItems } from "../../store/cartItems";
-import { clearCart } from "../../store/cartItems";
 import { getArtworks } from "../../store/artworks";
 import { useHistory } from "react-router-dom";
 import './Cart.css'
@@ -12,6 +9,8 @@ import { getCartItems } from "../../store/cartItems";
 import {fetchUserCartItems} from "../../store/cartItems";
 import {deleteAllCartItems} from "../../store/cartItems";
 import NavBar from "../NavBar/NavBar";
+import Footer from "../Footer/Footer";
+import { deleteCartItem } from "../../store/cartItems";
 
 const Cart = () => {
     const dispatch = useDispatch();
@@ -45,17 +44,23 @@ const Cart = () => {
     useEffect(() => {
         calculateSubTotal();
     }, [cartItems, artworks]);
-
+    
     const handleCheckout = (e) => {
         e.preventDefault();
         dispatch(deleteAllCartItems(currentUser._id));
         alert("Thank you for your purchase! Your order is being processed.")
         history.push('/');
     };
-    console.log(matchingArtworks, "matchingArtworks")
+    
+    const handleDeteCartItem = cartElementId => (e) => {
+        e.preventDefault();
+        dispatch(deleteCartItem(cartElementId))
+        history.push('/cart')
+    }
     return(
+        <>
+        <NavBar/>
         <div className="cart-page">
-            <NavBar/>
             {Object.keys(cartItems).length > 0 && (
                 <div className="cart-container">
                     <div className="cart-content">
@@ -81,8 +86,7 @@ const Cart = () => {
                                             <div className="cart-item-details">
                                                     <div className="cart-item-title">{cartElement?.name ? cartElement.name : null}</div>
                                                     <div className="cart-item-author" onClick={()=> history.push(`/users/${cartElement.author._id}`)}>By artist: {cartElement?.author.email ? cartElement.author.email.split('@')[0] : null}</div>
-                                                    <div className="cart-item-delete-btn" ></div>
-                                                    <div />
+                                                    <div className="cart-item-delete-btn" onClick={handleDeteCartItem(cartElement._id)}>remove item from cart</div>
                                             </div>
                                             <div>
 
@@ -143,7 +147,10 @@ const Cart = () => {
                 </div>
             )}
         </div>
+        <Footer/>
+        </>
     )
 };
 
 export default Cart
+

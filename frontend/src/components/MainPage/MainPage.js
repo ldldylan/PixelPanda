@@ -19,8 +19,6 @@ import { getUsers, fetchUsers} from '../../store/users';
 import { useSelector } from 'react-redux';
 import { addNewCartItem } from '../../store/cartItems';
 import { fetchCartItems } from '../../store/cartItems';
-
-
 import { useParams } from 'react-router-dom';
 function MainPage() {
     const dispatch=useDispatch();
@@ -28,10 +26,7 @@ function MainPage() {
     const users = useSelector(getUsers);
     const history = useHistory();
     const cartItems = useSelector((state) => state.cartItems)
-
     const sessionUser = useSelector(state=> state.session.user);
-
-   
 
     useEffect(()=>{
       dispatch(fetchArtworks());
@@ -39,8 +34,6 @@ function MainPage() {
       dispatch(fetchCartItems());
     },[dispatch])
 
-  
-    
     const handleAddCartItem = artworkId => e => {
       e.preventDefault();
       if (sessionUser) {
@@ -52,6 +45,15 @@ function MainPage() {
       else {
           history.push('/login')
       };
+    }
+
+    const artworksArray = artworks.slice()
+    function shuffle(array) {
+      for (let i = array.length; i; i--) {
+          let j = Math.floor(Math.random() * i);
+          [array[i - 1], array[j]] = [array[j], array[i - 1]];
+      }
+      return array;
     }
 
     return (
@@ -83,7 +85,7 @@ function MainPage() {
         <div className="popular-assets-box">
           <h3>POPULAR ASSETS</h3>
           <ul className="assets">
-            {artworks.slice(0,10).map(artwork => (
+            {shuffle(artworksArray).slice(0,10).map(artwork => (
               <li key={artwork._id} 
               className="asset-item"
               >

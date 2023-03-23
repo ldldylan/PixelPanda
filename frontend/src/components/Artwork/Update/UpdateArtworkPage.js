@@ -4,31 +4,37 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { fetchArtwork } from '../../../store/artworks';
 import { useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 // import 'UpdateArtworkPage.css';
-export default function UpdateArtworkPage({props}) {
-    // const {artwork}= props;
+export default function UpdateArtworkPage(props) {
+    const {artwork}= props;
     const dispatch = useDispatch();
-    const { artworkId } = useParams();
+    // const { artworkId } = useParams();
 
-    useEffect(() => {
-        console.log("fetct")
-        dispatch(fetchArtwork(artworkId))
-    }, [dispatch])
-    console.log(artworkId, "artworkId")
-    const artwork = useSelector(getArtwork(artworkId))
+    // useEffect(() => {
+    //     console.log("fetct")
+    //     // dispatch(fetchArtwork(artworkId))
+    // }, [dispatch])
+    // console.log(artworkId, "artworkId")
+    // const artwork = useSelector(getArtwork(artworkId))
     const [name, setName] = useState(artwork ? artwork.name : '')
     const [description, setDescription] = useState(artwork ? artwork.description : '')
     const [price, setPrice] = useState(artwork ? artwork.price : '')
     const [image, setImage] = useState([]);
     const [imageUrl, setImageUrl] = useState(artwork ? artwork.ArtworkImageUrl : '');
     const fileRef = useRef(null);
+    const history = useHistory();
     // const artwork=use;
     const sessionUser = useSelector((state) => state.session.user)
     // console.log(sessionUser._id)
 
     
-    const img = document.querySelector('.Uploadpic');
+    const img = document.querySelector('.UpdateUploadpic');
+    
+    useEffect(() => {   
+
     if(img) img.src = imageUrl;
+    }, [imageUrl])
     console.log(name, "name")
     const handleSubmit = e => {
         e.preventDefault();
@@ -49,13 +55,17 @@ export default function UpdateArtworkPage({props}) {
         // console.log(description,"description")
         // console.log(price, "price")
         // console.log(image,"image")
-        dispatch(updateArtwork(formData, sessionUser._id));
+        dispatch(updateArtwork(formData, artwork._id));
+        
         setImage([]);
         setImageUrl([]);
         setPrice(0)
         setName('');
         setDescription('');
         fileRef.current.value = null;
+        console.log("done")
+        history.push('/')
+        console.log("done2")
     };
 
 
@@ -101,17 +111,18 @@ export default function UpdateArtworkPage({props}) {
     }, [image, imageUrl]);
     return (
         <>
-            <form>
-                <label>Submit an Artwork</label>
+            <form className='artwork-edit-form'>
+                <label className="artwork-edit-title">Edit an Artwork</label>
                 <label>Name
                     <input
+                        className="artwork-edit-input"
                         value={name}
                         placeholder={name}
                         onChange={(e) => setName(e.target.value)}>
                     </input>
                 </label>
                 <label>Description
-                    <input
+                    <input className="artwork-edit-textarea"
                         value={description} onChange={(e) => {
                             setDescription(e.target.value)
                         }} placeholder={description}>
@@ -119,21 +130,23 @@ export default function UpdateArtworkPage({props}) {
                 </label>
                 <label>Price
                     <input
+                        className="artwork-edit-input"
                         value={price}
                         placeholder={price}
                         onChange={(e) => setPrice(e.target.value)}>
                     </input>
                 </label>
                 <label>
-                    Image to Upload
-                    <div className='dotline'><img className="Uploadpic" /></div>
+                    {/* Image to Upload */}
+                    <div className='updatepic'><img className="UpdateUploadpic" /></div>
                     <input
+                        className='uploadButton'
                         type="file"
                         ref={fileRef}
                         accept=".jpg, .jpeg, .png"
                         onChange={updateFile} />
                 </label>
-                <button onClick={handleSubmit}>Update New Artwork</button>
+                <button className="submit-artwork-button" onClick={handleSubmit}>Update Artwork</button>
             </form>
         </>
     )

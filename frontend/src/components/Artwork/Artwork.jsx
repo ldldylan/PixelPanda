@@ -20,9 +20,14 @@ import { deleteArtwork } from "../../store/artworks";
 import { deleteReview, createReview, updateReview } from "../../store/reviews";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+// import {Modal} from '../context/Modal';
+import {Modal} from '../context/Modal';
+
 function Artwork() {
     const {artworkId} = useParams();
     const [comment, setComment] = useState('');
+    const [showModal, setShowModal] = useState(false);
+
     const dispatch = useDispatch();
     const params = useParams();
     const history = useHistory();
@@ -36,7 +41,7 @@ function Artwork() {
 
     const handleCommentChange = (event) => {
         setComment(event.target.value);
-      };
+    };
 
     const [isFavorited, setIsFavorited] = useState(false);
 
@@ -53,7 +58,8 @@ function Artwork() {
         const reviewData = {
             content: comment, rating, author, artworkId
         };
-
+        setComment("");
+        setRating(1); 
         dispatch(createReview(reviewData))
                 .then(() => {
                     history.push(`/artworks/${artworkId}`)
@@ -69,12 +75,12 @@ function Artwork() {
     const artwork = useSelector(getArtwork(artworkId));
     // console.log(artwork,'artwork')
 
-    
+
     const reviews = useSelector(getReviews);
     // if (!reviews) {
     //     return <div>Loading...</div>;
     // }\
-    // console.log(reviews,'reviews???')
+    console.log(showModal,'showModal???')
     // useEffect(()=> {
     //     if (reviews !== undefined){
     //     // console.log(Object.values(reviews), 'Object.values')
@@ -83,9 +89,33 @@ function Artwork() {
     //     // console.log(reviews[0].content,'reviews')
     // }
     // })
+    const [showEditForm, setShowEditForm] = useState(false)
+    const [editMessage, setEditMessage] = useState(null);
+    const [editMessageText, setEditMessageText] = useState("");
+    const [editMessageRating, setEditMessageRating] = useState(1);
+    const handleShowEditForm = (review) => {
+        setEditMessage(review);
+        setEditMessageText(review.content);
+        setEditMessageRating(review.rating);
+        setShowEditForm(true);
+    };
 
+    const handleEditSubmit = (e) => {
+        e.preventDefault();
+        // Submit the comment and rating data to your backend server here
+        editMessage.content = editMessageText;
+        editMessage.rating = editMessageRating;
+        console.log(editMessage); 
+        dispatch(updateReview(editMessage, editMessage._id))
+                .then(() => {
+                    history.push(`/artworks/${artworkId}`)
+                })
+    }
+    
     const cartItems = useSelector((state) => state.cartItems)
-    const handleAddCartItem = (e, artworkId) => {
+    if (!artwork) return null;
+
+    const handleAddCartItem = artworkId => e => {
         e.preventDefault();
         if (sessionUser) {
             const artworkArray = Object.values(cartItems).map((item) => item.artwork);
@@ -110,32 +140,10 @@ function Artwork() {
         history.push(`/artworks/${artworkId}`)
     }
 
-    const [showEditForm, setShowEditForm] = useState(false)
-    const [editMessage, setEditMessage] = useState(null);
-    const [editMessageText, setEditMessageText] = useState("");
-    const [editMessageRating, setEditMessageRating] = useState(1);
-    const handleShowEditForm = (review) => {
-        setEditMessage(review);
-        setEditMessageText(review.content);
-        setEditMessageRating(review.rating);
-        setShowEditForm(true);
-    };
-
-    const handleEditSubmit = (e) => {
-        e.preventDefault();
-        // Submit the comment and rating data to your backend server here
-        editMessage.content = editMessageText;
-        editMessage.rating = editMessageRating;
-
-        dispatch(updateReview(editMessage, editMessage._id))
-                .then(() => {
-                    history.push(`/artworks/${artworkId}`)
-                })
-    }
-
     return (
     <>
         <NavBar/>
+            {/* {artwork &&<UpdateArtworkPage artwork={artwork} />} */}
         <div className="artwork">
             <div className="artwork-main">
                 <div className="artwork-image-container">
@@ -166,19 +174,29 @@ function Artwork() {
                         </div>
                     </div>
                     <div className="artwork-cart-buy">
-                        <div className="artwork-cart" onClick={(e)=>handleAddCartItem(e, artwork._id)}>
-                            <button>Add to Cart</button>
+                        <div className="cart-and-fav">
+                            <div className="artwork-cart" onClick={handleAddCartItem(artwork._id)}>
+                                <button id='add-cart-button'>Add to Cart</button>
+                            </div>
+                            <div className="cart-fav-button">
+                                <button id='fav-button' onClick={handleButtonClick}
+                                style={{ color: isFavorited ? 'red' : 'white', 
+                                backgroundColor: '#b90dbf' }}
+                                ><Favorite/></button>
+                            </div>
                         </div>
-                        <div className="cart-fav-button">
-                            <button onClick={handleButtonClick}
-                            style={{ color: isFavorited ? 'red' : 'white', 
-                            backgroundColor: '#b90dbf' }}
-                            ><Favorite/></button>
+                        <div className="edit-and-delete">
+                        {artwork.author._id === sessionUser._id ? (<>
+                            <button id='edit-button' onClick={() => setShowModal(true)}>Edit</button>
+                            <button id='delete-button' onClick={handleDelete} >Delete</button>
+                            {showModal&&artwork && (
+                                <Modal onClose={() => setShowModal(false)}>
+                                    {console.log(artwork,'artwork......')}
+                                    <UpdateArtworkPage artwork={artwork} />
+                                </Modal>
+                            )}
+                            </>) : null }
                         </div>
-                        {artwork.author._id === sessionUser._id ? (<button type="button" onClick={handleDelete} className="edit-delete-buttons">
-                                <h1>Delete</h1>
-                            </button>) : null}
-                            
                     </div>
                 </div>
             </div>
@@ -194,24 +212,24 @@ function Artwork() {
                     <li key={review._id}>
                         <div className="line-divider"/>
                         {showEditForm && editMessage === review ? (
-                             <form className="comment-form" onSubmit={handleEditSubmit}>
-                             <div>
-                             {[1, 2, 3, 4, 5].map((value) => (
-                                 <span
-                                 key={value}
-                                 value={editMessageRating}
-                                 onClick={() => setEditMessageRating(value)}
-                                 style={{ color: editMessageRating >= value ? 'orange' : 'grey',
-                                cursor: 'pointer' }}
-                                 >
-                                 &#9733;
-                                 </span>
-                             ))}
-                             </div>
-                             <textarea value={editMessageText} className="comment-submit-box" onChange={(e)=>setEditMessageText(e.target.value)} placeholder="Write a customer review here" />
-                             <br/><button className="comment-submit-button" type="submit">Update</button>
-                         </form>
-                         ): (<>
+                                <form className="comment-form" onSubmit={handleEditSubmit}>
+                                <div>
+                                {[1, 2, 3, 4, 5].map((value) => (
+                                    <span
+                                    key={value}
+                                    value={editMessageRating}
+                                    onClick={() => setEditMessageRating(value)}
+                                    style={{ color: editMessageRating >= value ? 'orange' : 'grey',
+                                    cursor: 'pointer' }}
+                                    >
+                                    &#9733;
+                                    </span>
+                                ))}
+                                </div>
+                                <textarea value={editMessageText} className="comment-submit-box" onChange={(e)=>setEditMessageText(e.target.value)} required placeholder="Write a customer review here" />
+                                <br/><button className="comment-submit-button" type="submit">Update</button>
+                            </form>
+                            ): (<>
                         <p>
                         {[1, 2, 3, 4, 5].map((value) => (
                         <span
@@ -223,12 +241,14 @@ function Artwork() {
                         </p>
                         <p className="review-content">{review.content}</p>
                         {review.author._id === sessionUser._id ? (<>
-                        <button type="button" className="edit-icon" onClick={() => handleShowEditForm(review)}>
-                            <EditIcon />
-                        </button>
-                        <button type="button" onClick={handleDeleteReview(review._id)} className="edit-delete-buttons">
-                            <DeleteForeverIcon/>
-                        </button></>): null}
+                            <button type="button" className="edit-icon" onClick={() => handleShowEditForm(review)}>
+                                <EditIcon />
+                            </button>
+                            <button type="button" onClick={handleDeleteReview(review._id)} className="edit-delete-buttons">
+                                <DeleteForeverIcon/>
+                            </button>
+                        </>)
+                        : null }
                         
                         </>)}
                     </li>
@@ -251,7 +271,7 @@ function Artwork() {
                         </span>
                     ))}
                     </div>
-                    <textarea value={comment} className="comment-submit-box" onChange={(e)=>setComment(e.target.value)} placeholder="Write a customer review here" />
+                    <textarea required value={comment} className="comment-submit-box" onChange={(e)=>setComment(e.target.value)} placeholder="Write a customer review here" />
                     <br/><button className="comment-submit-button" type="submit">Submit</button>
                 </form>
 
