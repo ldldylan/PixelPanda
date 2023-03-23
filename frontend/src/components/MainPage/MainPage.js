@@ -54,7 +54,7 @@ function MainPage() {
           [array[i - 1], array[j]] = [array[j], array[i - 1]];
       }
       return array;
-  }
+    }
 
     return (
       <>

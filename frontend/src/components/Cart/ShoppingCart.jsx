@@ -43,14 +43,14 @@ const Cart = () => {
     useEffect(() => {
         calculateSubTotal();
     }, [cartItems, artworks]);
-
+    
     const handleCheckout = (e) => {
         e.preventDefault();
         dispatch(deleteAllCartItems(currentUser._id));
         alert("Thank you for your purchase! Your order is being processed.")
         history.push('/');
     };
-    console.log(matchingArtworks, "matchingArtworks")
+    
     return(
         <div className="cart-page">
             <NavBar/>
