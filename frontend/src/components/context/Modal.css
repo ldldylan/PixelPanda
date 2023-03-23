@@ -24,8 +24,8 @@
   line-height: 2;
   position: absolute;
   background-color:white;
-    width: 487px;
-    height: 640px;
+    width: 595px;
+    height: 610px;
     border-radius: 25px;
     display: flex;
     flex-direction: column;
@@ -84,6 +84,7 @@
     cursor: pointer;
     font-family: Arial Rounded MT Bold;
     font-size: 30px;
+    margin-top: 10px;
     margin-left: 90%;
     margin-bottom: 120%;
 }
