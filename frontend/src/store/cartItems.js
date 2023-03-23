@@ -3,7 +3,7 @@ import { RECEIVE_USER_LOGOUT } from './session';
 
 export const RECEIVE_CARTITEMS = 'cartItems/RECEIVE_CARTITEMS';
 export const ADD_CARTITEM = 'cartItems/ADD_CARTITEM';
-export const REMOVE_CARTITEM = '/cartItemsREMOVE_CARTITEM';
+export const REMOVE_CARTITEM = 'cartItems/REMOVE_CARTITEM';
 export const RECEIVE_CARTITEM_ERRORS = "cartItems/RECEIVE_CARTITEM_ERRORS";
 export const CLEAR_CARTITEM_ERRORS = "cartItems/CLEAR_CARTITEM_ERRORS";
 export const CLEAR_CART = 'cartItems/clear_cart'
@@ -91,12 +91,11 @@ export const addNewCartItem = (artworkData, userId) => async dispatch => {
     }    
 };
 
-export const deleteCartItem = (cartItemId) => async dispatch => {
+export const deleteCartItem = cartItemId => async dispatch => {
     try {
         const res = await jwtFetch(`/api/cartItems/${cartItemId}`, {
             method: 'DELETE'
         })
-        debugger
         dispatch(removeCartItem(cartItemId))
     } catch (err) {
         const resBody = await err.json();

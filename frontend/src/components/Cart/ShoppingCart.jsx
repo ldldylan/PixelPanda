@@ -10,7 +10,7 @@ import {fetchUserCartItems} from "../../store/cartItems";
 import {deleteAllCartItems} from "../../store/cartItems";
 import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";
-import deleteCartItem from "../../store/cartItems";
+import { deleteCartItem } from "../../store/cartItems";
 
 const Cart = () => {
     const dispatch = useDispatch();
@@ -58,8 +58,9 @@ const Cart = () => {
         history.push('/cart')
     }
     return(
+        <>
+        <NavBar/>
         <div className="cart-page">
-            <NavBar/>
             {Object.keys(cartItems).length > 0 && (
                 <div className="cart-container">
                     <div className="cart-content">
@@ -145,8 +146,9 @@ const Cart = () => {
                     </div> */}
                 </div>
             )}
-            <Footer/>
         </div>
+        <Footer/>
+        </>
     )
 };
 
