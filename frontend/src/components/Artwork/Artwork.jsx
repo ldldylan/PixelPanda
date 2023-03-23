@@ -41,7 +41,7 @@ function Artwork() {
 
     const handleCommentChange = (event) => {
         setComment(event.target.value);
-      };
+    };
 
     const [isFavorited, setIsFavorited] = useState(false);
 
@@ -75,7 +75,7 @@ function Artwork() {
     const artwork = useSelector(getArtwork(artworkId));
     // console.log(artwork,'artwork')
 
-   
+
     const reviews = useSelector(getReviews);
     // if (!reviews) {
     //     return <div>Loading...</div>;
@@ -211,24 +211,24 @@ function Artwork() {
                     <li key={review._id}>
                         <div className="line-divider"/>
                         {showEditForm && editMessage === review ? (
-                             <form className="comment-form" onSubmit={handleEditSubmit}>
-                             <div>
-                             {[1, 2, 3, 4, 5].map((value) => (
-                                 <span
-                                 key={value}
-                                 value={editMessageRating}
-                                 onClick={() => setEditMessageRating(value)}
-                                 style={{ color: editMessageRating >= value ? 'orange' : 'grey',
-                                cursor: 'pointer' }}
-                                 >
-                                 &#9733;
-                                 </span>
-                             ))}
-                             </div>
-                             <textarea value={editMessageText} className="comment-submit-box" onChange={(e)=>setEditMessageText(e.target.value)} required placeholder="Write a customer review here" />
-                             <br/><button className="comment-submit-button" type="submit">Update</button>
-                         </form>
-                         ): (<>
+                                <form className="comment-form" onSubmit={handleEditSubmit}>
+                                <div>
+                                {[1, 2, 3, 4, 5].map((value) => (
+                                    <span
+                                    key={value}
+                                    value={editMessageRating}
+                                    onClick={() => setEditMessageRating(value)}
+                                    style={{ color: editMessageRating >= value ? 'orange' : 'grey',
+                                    cursor: 'pointer' }}
+                                    >
+                                    &#9733;
+                                    </span>
+                                ))}
+                                </div>
+                                <textarea value={editMessageText} className="comment-submit-box" onChange={(e)=>setEditMessageText(e.target.value)} required placeholder="Write a customer review here" />
+                                <br/><button className="comment-submit-button" type="submit">Update</button>
+                            </form>
+                            ): (<>
                         <p>
                         {[1, 2, 3, 4, 5].map((value) => (
                         <span
