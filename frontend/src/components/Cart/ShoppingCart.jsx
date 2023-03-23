@@ -10,6 +10,7 @@ import {fetchUserCartItems} from "../../store/cartItems";
 import {deleteAllCartItems} from "../../store/cartItems";
 import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";
+import deleteCartItem from "../../store/cartItems";
 
 const Cart = () => {
     const dispatch = useDispatch();
@@ -51,6 +52,11 @@ const Cart = () => {
         history.push('/');
     };
     
+    const handleDeteCartItem = cartElementId => (e) => {
+        e.preventDefault();
+        dispatch(deleteCartItem(cartElementId))
+        history.push('/cart')
+    }
     return(
         <div className="cart-page">
             <NavBar/>
@@ -79,8 +85,7 @@ const Cart = () => {
                                             <div className="cart-item-details">
                                                     <div className="cart-item-title">{cartElement?.name ? cartElement.name : null}</div>
                                                     <div className="cart-item-author" onClick={()=> history.push(`/users/${cartElement.author._id}`)}>By artist: {cartElement?.author.email ? cartElement.author.email.split('@')[0] : null}</div>
-                                                    <div className="cart-item-delete-btn" ></div>
-                                                    <div />
+                                                    <div className="cart-item-delete-btn" onClick={handleDeteCartItem(cartElement._id)}>remove item from cart</div>
                                             </div>
                                             <div>
 

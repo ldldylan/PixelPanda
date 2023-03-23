@@ -93,6 +93,16 @@
     cursor: pointer;
 }
 
+.cart-item-delete-btn {
+    font-size: 15px;
+    color: #0066C0;
+}
+
+.cart-item-delete-btn:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
 .cart-item-price {
     /* background-color: yellow; */
     min-width: 80px;

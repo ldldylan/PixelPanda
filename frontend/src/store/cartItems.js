@@ -96,6 +96,7 @@ export const deleteCartItem = (cartItemId) => async dispatch => {
         const res = await jwtFetch(`/api/cartItems/${cartItemId}`, {
             method: 'DELETE'
         })
+        debugger
         dispatch(removeCartItem(cartItemId))
     } catch (err) {
         const resBody = await err.json();
