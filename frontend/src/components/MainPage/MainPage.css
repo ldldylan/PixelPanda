@@ -47,8 +47,6 @@
     border-radius: 6px;
 }
 
-
-
 .popular-assets-box {
     position: relative;
     margin-top: 1%;
@@ -90,7 +88,7 @@
     right: 15px;
     cursor: pointer;
     font-size: 35px;
-    z-index: 2;
+    /* z-index: 2; */
 }
 
 .artwork-image-container{
