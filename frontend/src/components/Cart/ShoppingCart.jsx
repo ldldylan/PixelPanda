@@ -29,10 +29,9 @@ const Cart = () => {
     
     const calculateSubTotal = () => {
         let sumPrice = 0
-        // cartItems.length === 0 ? setMatchingArtworks([]) : setMatchingArtworks(cartItems.map(cartItem => artworks.find(artwork => artwork._id === cartItem.artwork)).filter(artwork => artwork !== undefined))
         const matchingArtworks = cartItems
-        .map((cartItem) => artworks.find((artwork) => artwork._id === cartItem.artwork))
-        .filter((artwork) => artwork !== undefined);
+            .map((cartItem) => artworks.find((artwork) => artwork._id === cartItem.artwork))
+            .filter((artwork) => artwork !== undefined);
         setMatchingArtworks(matchingArtworks);
         if (matchingArtworks.length === 0){
             setSubTotal(0);
@@ -46,12 +45,11 @@ const Cart = () => {
 
     };
 
-
     useEffect(() => {
         calculateSubTotal();
         
     }, [cartItems, artworks]);
-   
+
     const handleCheckout = (e) => {
         e.preventDefault();
         dispatch(deleteAllCartItems(currentUser._id));
