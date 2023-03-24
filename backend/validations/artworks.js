@@ -14,8 +14,14 @@ const validateArtworkInput = [
     // .exists({ checkFalsy: true })
     .isLength({ min: 0, max: 140 })
     .withMessage('Artwork description must be between 0 and 140 characters'),
+
+  check('price')
+    .exists({ checkFalsy: true })
+    .isInt({ min: 0, max: 1000000 }),
+
   handleValidationErrors
   
+
 ];
 
 module.exports = validateArtworkInput;
