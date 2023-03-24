@@ -16,7 +16,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import BrushIcon from '@mui/icons-material/Brush';
 import CreateArtworkPage from '../Artwork/Create/CreateArtworkPage';
 
-function NavBar () {
+function NavBar ({ updateShouldFetchArtworks }) {
   const loggedIn = useSelector(state => !!state.session.user);
   const user = useSelector(state => state.session.user);
   const history = useHistory();
@@ -59,7 +59,7 @@ function NavBar () {
                } ><BrushIcon/>Create</div>{showCreateArtworkModal && (
                 <Modal onClose={() => setShowCreateArtworkModal(false)}
                 className="create-server">
-                  <CreateArtworkPage onClose={() => setShowCreateArtworkModal(false)} 
+                  <CreateArtworkPage onClose={() => setShowCreateArtworkModal(false) } updateShouldFetchArtworks={updateShouldFetchArtworks} 
                   />
                 </Modal>
               )}

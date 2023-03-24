@@ -26,9 +26,19 @@ function User() {
 
     useEffect(()=>{
         dispatch(fetchUser(userId));
-        dispatch(fetchUserArtworks(userId));
         dispatch(fetchCartItems());
     },[dispatch, userId])
+    
+    const [shouldFetchArtworks, setShouldFetchArtworks] = useState(true);
+    const updateShouldFetchArtworks = (newValue) => {
+        setShouldFetchArtworks(newValue);
+    };
+    useEffect(() => {
+        if (shouldFetchArtworks) {
+            dispatch(fetchUserArtworks(userId));
+            setShouldFetchArtworks(false);
+        }
+    }, [dispatch, shouldFetchArtworks, userId]);
 
     const [isLiked, setIsLiked] = useState(false);
     const handleLikeClick = () => {
@@ -38,22 +48,18 @@ function User() {
     const handleAddCartItem = artworkId => e => {
         e.preventDefault();
         if (currentUser) {
-            // dispatch(addNewCartItem('64135f6a41cc536e7d352a07', '64135f6941cc536e7d3529c5'))
-            // debugger
             const artworkArray = Object.values(cartItems).map((item) => item.artwork);
-            // console.log(artworkArray, "artworkArray")
             if (!artworkArray.includes(artworkId))
             dispatch(addNewCartItem({artwork: artworkId}, currentUser._id));
             else alert('Artwork is already in your cart!')
         }
         else {
-            // debugger
             history.push('/login')
         };
     }
 
     return (<>
-        <NavBar/>
+        <NavBar updateShouldFetchArtworks={updateShouldFetchArtworks}/>
         <div className="user">
             <div className="user-main">
                 <div className="user-image-container">
