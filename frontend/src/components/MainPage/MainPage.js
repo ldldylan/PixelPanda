@@ -32,7 +32,7 @@ function MainPage() {
       dispatch(fetchArtworks());
       dispatch(fetchUsers());
       dispatch(fetchCartItems());
-    },[dispatch])
+    },[dispatch, sessionUser])
 
     const handleAddCartItem = artworkId => e => {
       e.preventDefault();
