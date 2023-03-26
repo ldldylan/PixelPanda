@@ -5,6 +5,11 @@
     flex-direction: column;
     justify-content: space-between;
 }
+
+.checkout-image {
+    /* background-image: url('../../assets/pandanewbg.png'); */
+}
+
 .checkout-container {
     width: 100%;
 }
