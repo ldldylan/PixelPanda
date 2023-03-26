@@ -5,9 +5,10 @@
 }
 
 .links-auth {
-    /* position: absolute; */
+    position: relative;
     z-index: 3;
     width: 550px;
+    overflow: hidden;
 }
 
 .navbar {
@@ -19,14 +20,12 @@
     height: 60px;
     z-index: 10;
     border-bottom: 1px solid grey;
-    overflow: hidden;
     background-color: rgb(36,36,36);
 }
 
 .searchbar-field {
     width: 90%;
-    
-
+    /* position: relative; */
 }
 
 .searchbar {
@@ -35,7 +34,7 @@
     border-bottom: 1px solid var(--off-white);
     height: 40px;
     width: 28rem;
-    
+    position: relative;
     /* margin-top: 5px; */
 }
 
@@ -66,14 +65,19 @@
 .searchbar-results {
     background-color: white;
     color: black;
-    /* position: relative; */
-    z-index: 2;
+    position: absolute;
+    z-index: 9999 ;
+    width: 18rem;
+    left:-15px;
+    top: 40px;
+    border-radius: 2px;
+    overflow: visible;
 }
 .searchbar-result-name {
-    z-index: 3;
     cursor:pointer;
-    position: absolute;
-    display: flex;
+    background-color: white;
+    color: black;
+    /* position: absolute; */
 }
 
 /* .searchbar-results {
