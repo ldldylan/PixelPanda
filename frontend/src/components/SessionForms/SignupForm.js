@@ -70,7 +70,8 @@ function SignupForm () {
         email,
         password
       };
-      dispatch(signup(user)); 
+      dispatch(signup(user));
+      history.push('/'); 
     }
   }
 
