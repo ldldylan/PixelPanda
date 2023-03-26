@@ -12,7 +12,6 @@ const bodyParser = require('body-parser');
 
 // Set a limit of 10MB for the request body
 require('./models/User');
-require('./models/Tweet'); 
 require('./models/Artwork'); 
 require('./models/Review');
 require('./models/CartItem')
@@ -20,7 +19,6 @@ require('./config/passport');
 const passport = require('passport'); 
 
 const usersRouter = require('./routes/api/users');
-const tweetsRouter = require('./routes/api/tweets');
 const artworksRouter = require('./routes/api/artworks');
 const reviewsRouter = require('./routes/api/reviews');
 const cartItemsRouter = require('./routes/api/cartItems')
@@ -58,7 +56,6 @@ app.use(
 
 // Attach Express routers
 app.use('/api/users', usersRouter);
-app.use('/api/tweets', tweetsRouter);
 app.use('/api/artworks', artworksRouter)
 app.use('/api/reviews', reviewsRouter)
 app.use('/api/csrf', csrfRouter);
