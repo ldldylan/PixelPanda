@@ -43,8 +43,9 @@ function NavBar () {
         return artwork.name.toLowerCase().includes(searchValue.toLowerCase());
       });
       setFilteredResults(filteredArtworks);
-    } else {
-      setFilteredResults(artworks);
+    } 
+    else {
+      setShowSearchResults(false);
     }
   }
   
@@ -81,7 +82,36 @@ function NavBar () {
           <div className="searchbar">
           <SearchIcon id="searchbar-icon" htmlFor="searchbar"/>
           <div className="searchbar-field">
-            <input id="searchbar" type="text" placeholder='Search artwork or artists'></input>
+            
+
+            <input 
+            id="searchbar" 
+            type="text"  
+            placeholder='Search artworks'
+            value={searchInput}
+            onChange={(e) => {
+              setShowSearchResults(true);
+              searchItems(e.target.value);
+            }}
+          />
+
+           {showSearchResults && (
+            // <SearchResult onClose={() => setShowSearchResults(false)}>
+              <div className="searchbar-results">
+                {filteredResults.slice(0,10).map((artwork) => {
+                  return (
+                      <div className="searchbar-result-name">
+                        <NavLink to={`/artworks/${artwork._id}`}>
+                          {artwork.name}
+                        </NavLink>
+                      </div>
+                  )
+                }
+                )}
+              </div>
+            // </SearchResult>
+           )}
+
           </div>
         </div>
         <div className="nav-tools">
@@ -130,13 +160,16 @@ function NavBar () {
               searchItems(e.target.value);
             }}
           />
+
            {showSearchResults && (
             // <SearchResult onClose={() => setShowSearchResults(false)}>
               <div className="searchbar-results">
-                {filteredResults.map((artwork) => {
+                {filteredResults.slice(0,10).map((artwork) => {
                   return (
                       <div className="searchbar-result-name">
-                        {artwork.name}
+                        <NavLink to={`/artworks/${artwork._id}`}>
+                          {artwork.name}
+                        </NavLink>
                       </div>
                   )
                 }

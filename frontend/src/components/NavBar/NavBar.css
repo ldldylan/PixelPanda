@@ -2,6 +2,8 @@
     /* position: absolute; */
     z-index: 3;
     width: 550px;
+    overflow: hidden;
+    position: relative;
 }
 
 .links-auth {
@@ -67,17 +69,32 @@
     color: black;
     position: absolute;
     z-index: 9999 ;
-    width: 18rem;
-    left:-15px;
+    width: 28rem;
+    left:0;
     top: 40px;
-    border-radius: 2px;
+    border-radius: 6px;
     overflow: visible;
 }
 .searchbar-result-name {
     cursor:pointer;
     background-color: white;
     color: black;
+    padding-left: 8px;
+    text-overflow: ellipsis;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    font-weight: 500;
     /* position: absolute; */
+}
+
+.searchbar-result-name a {
+    color: black;
+    text-decoration: none;
+}
+
+.searchbar-result-name a:visited {
+    color: black;
+    text-decoration: none;
 }
 
 /* .searchbar-results {
