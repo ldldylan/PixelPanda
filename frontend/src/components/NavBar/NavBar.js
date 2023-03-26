@@ -85,6 +85,7 @@ function NavBar () {
             
 
             <input 
+            autoComplete='off'
             id="searchbar" 
             type="text"  
             placeholder='Search artworks'
@@ -151,6 +152,7 @@ function NavBar () {
             
 
             <input 
+            autoComplete='off'
             id="searchbar" 
             type="text"  
             placeholder='Search artworks'
