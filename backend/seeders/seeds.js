@@ -8,7 +8,7 @@ const bcrypt = require('bcryptjs');
 const { faker } = require('@faker-js/faker');
 
 const NUM_SEED_USERS = 10;
-const NUM_SEED_ARTWORKS = 40;
+const NUM_SEED_ARTWORKS = 50;
 const NUM_SEED_REVIEWS = 80;
 // Create users
 const users = [];
@@ -58,6 +58,7 @@ for (let i = 1; i < NUM_SEED_USERS; i++) {
   )
 }
 
+
 console.log('creating artworks...')
 // Create artworks
 const artworks = [];
@@ -67,13 +68,19 @@ for (let i = 0; i < NUM_SEED_ARTWORKS; i++) {
   const adjective2 = faker.hacker.adjective();
   const noun = faker.hacker.noun();
   const artworkName = `${adjective1} ${adjective2} ${noun}`;
-
+  let category;
+  if(i<40){
+    category = 'chinese'
+  }else if(i<50){
+    category = 'fantasy'
+  }
   artworks.push(
     new Artwork ({
       name: artworkName,
       description: faker.hacker.phrase(),
       price: parseFloat((Math.random() * 99 + 1).toFixed(2)),
-      author: users[Math.floor(Math.random() * NUM_SEED_USERS)]._id
+      author: users[Math.floor(Math.random() * NUM_SEED_USERS)]._id,
+      category: category
       // ArtworkImageUrl
     })
     )
@@ -98,7 +105,6 @@ console.log('creating cart items' )
 
 
 const insertSeeds = () => {
-  console.log("Resetting db and seeding users.");
 
   User.collection.drop()
                   .then(() => Artwork.collection.drop())
