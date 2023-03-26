@@ -59,6 +59,7 @@ function MainPage() {
     return (
       <>
       <NavBar />
+      
       <div className="main-page">
         <div data-aos="zoom-in-up"
         data-aos-duration="3000"

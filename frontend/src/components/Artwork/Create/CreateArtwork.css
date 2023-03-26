@@ -18,7 +18,7 @@
     width: 500px;
     background-color: white;
     color: var(--white-form-text-color);
-    padding: 50px;
+    /* padding: 50px; */
     border-radius: 25px;
 }
 

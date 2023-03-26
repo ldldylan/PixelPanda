@@ -1,7 +1,8 @@
 import { Link, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import ReactDOM from "react-dom";
 import './NavBar.css';
 import { logout } from '../../store/session';
 import SearchIcon from '@mui/icons-material/Search';
@@ -9,6 +10,7 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 // import { Modal } from '../../context/Modal';
 
 import { Modal } from '../context/Modal';
+import { SearchResult } from '../context/SearchResult';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import PersonIcon from '@mui/icons-material/Person';
 import ShoppingCart from '@mui/icons-material/ShoppingCart';
@@ -17,13 +19,34 @@ import BrushIcon from '@mui/icons-material/Brush';
 import CreateArtworkPage from '../Artwork/Create/CreateArtworkPage';
 
 function NavBar () {
-  const loggedIn = useSelector(state => !!state.session.user);
-  const user = useSelector(state => state.session.user);
   const history = useHistory();
   const dispatch = useDispatch();
 
-
+  const loggedIn = useSelector(state => !!state.session.user);
+  const user = useSelector(state => state.session.user);
+  const artworks = useSelector(state => Object.values(state.artworks));
+  
   const [showCreateArtworkModal, setShowCreateArtworkModal] = useState(false);
+  const [showSearchResults, setShowSearchResults] = useState(false);
+  const [searchInput, setSearchInput] = useState('');
+  const [filteredResults, setFilteredResults] = useState([]);
+
+  const searchResultsPortal = document.createElement("div");
+
+  const searchItems = (searchValue) => {
+    console.log('searching for: ', searchValue,'...');
+    setSearchInput(searchValue);
+    
+    if (searchValue !== '') {
+      console.log(artworks);
+      const filteredArtworks = artworks.filter((artwork) => {
+        return artwork.name.toLowerCase().includes(searchValue.toLowerCase());
+      });
+      setFilteredResults(filteredArtworks);
+    } else {
+      setFilteredResults(artworks);
+    }
+  }
   
   const logoutUser = e => {
       e.preventDefault();
@@ -34,6 +57,15 @@ function NavBar () {
     e.preventDefault();
     history.push('/cart')
   }
+
+  useEffect(() => {
+    document.body.appendChild(searchResultsPortal);
+
+    // remove the portal element from the document body when the component unmounts
+    return () => {
+      document.body.removeChild(searchResultsPortal);
+    };
+  }, [searchResultsPortal]);
 
   const getLinks = () => {
     if (loggedIn) {
@@ -83,10 +115,36 @@ function NavBar () {
            <div className="navbar-logo" onClick={()=>history.push('/')}/>
            </NavLink> 
          </div>
-        <div className="searchbar">
+         <div className="searchbar">
           <SearchIcon id="searchbar-icon" htmlFor="searchbar"/>
           <div className="searchbar-field">
-            <input id="searchbar" type="text" placeholder='Search artwork or artists'></input>
+            
+
+            <input 
+            id="searchbar" 
+            type="text"  
+            placeholder='Search artworks'
+            value={searchInput}
+            onChange={(e) => {
+              setShowSearchResults(true);
+              searchItems(e.target.value);
+            }}
+          />
+           {showSearchResults && (
+            // <SearchResult onClose={() => setShowSearchResults(false)}>
+              <div className="searchbar-results">
+                {filteredResults.map((artwork) => {
+                  return (
+                      <div className="searchbar-result-name">
+                        {artwork.name}
+                      </div>
+                  )
+                }
+                )}
+              </div>
+            // </SearchResult>
+           )}
+
           </div>
         </div>
         <div className="nav-tools logout">
@@ -99,6 +157,7 @@ function NavBar () {
   return (
     <>
       { getLinks() }
+      
     </>
   );
 }
