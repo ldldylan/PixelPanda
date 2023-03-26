@@ -1,7 +1,7 @@
 import { Link, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import ReactDOM from "react-dom";
 import './NavBar.css';
 import { logout } from '../../store/session';
@@ -18,40 +18,42 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import BrushIcon from '@mui/icons-material/Brush';
 import CreateArtworkPage from '../Artwork/Create/CreateArtworkPage';
 
-function NavBar () {
+function NavBar() {
   const history = useHistory();
   const dispatch = useDispatch();
 
   const loggedIn = useSelector(state => !!state.session.user);
   const user = useSelector(state => state.session.user);
   const artworks = useSelector(state => Object.values(state.artworks));
-  
+
   const [showCreateArtworkModal, setShowCreateArtworkModal] = useState(false);
   const [showSearchResults, setShowSearchResults] = useState(false);
   const [searchInput, setSearchInput] = useState('');
   const [filteredResults, setFilteredResults] = useState([]);
 
+  const searchResultsRef = useRef(null);
+
   const searchResultsPortal = document.createElement("div");
 
   const searchItems = (searchValue) => {
-    console.log('searching for: ', searchValue,'...');
+    console.log('searching for: ', searchValue, '...');
     setSearchInput(searchValue);
-    
+
     if (searchValue !== '') {
       console.log(artworks);
       const filteredArtworks = artworks.filter((artwork) => {
         return artwork.name.toLowerCase().includes(searchValue.toLowerCase());
       });
       setFilteredResults(filteredArtworks);
-    } 
+    }
     else {
       setShowSearchResults(false);
     }
   }
-  
+
   const logoutUser = e => {
-      e.preventDefault();
-      dispatch(logout());
+    e.preventDefault();
+    dispatch(logout());
   }
 
   const directToCart = e => {
@@ -68,131 +70,145 @@ function NavBar () {
     };
   }, [searchResultsPortal]);
 
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (!searchResultsRef.current.contains(e.currentTarget)) {
+        setShowSearchResults(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [searchResultsRef]);
+
   const getLinks = () => {
     if (loggedIn) {
       return (<>
-      <div className="navbar">
+        <div className="navbar">
           <div className="links-nav">
             <NavLink to={{
-                  pathname: "/"
-                }}>
-            <div className="navbar-logo" onClick={()=>history.push('/')}/>
-            </NavLink> 
+              pathname: "/"
+            }}>
+              <div className="navbar-logo" onClick={() => history.push('/')} />
+            </NavLink>
           </div>
-          <div className="searchbar">
-          <SearchIcon id="searchbar-icon" htmlFor="searchbar"/>
-          <div className="searchbar-field">
-            
+          <div className="searchbar" ref={searchResultsRef}>
+            <SearchIcon id="searchbar-icon" htmlFor="searchbar" />
+            <div className="searchbar-field">
 
-            <input 
-            autoComplete='off'
-            id="searchbar" 
-            type="text"  
-            placeholder='Search artworks'
-            value={searchInput}
-            onChange={(e) => {
-              setShowSearchResults(true);
-              searchItems(e.target.value);
-            }}
-          />
 
-           {showSearchResults && (
-            // <SearchResult onClose={() => setShowSearchResults(false)}>
-              <div className="searchbar-results">
-                {filteredResults.slice(0,10).map((artwork) => {
-                  return (
+              <input
+                autoComplete='off'
+                id="searchbar"
+                type="text"
+                placeholder='Search artworks'
+                value={searchInput}
+                onChange={(e) => {
+                  setShowSearchResults(true);
+                  searchItems(e.target.value);
+                }}
+              />
+
+              {showSearchResults && (
+                // <SearchResult onClose={() => setShowSearchResults(false)}>
+                <div className="searchbar-results">
+                  {filteredResults.slice(0, 10).map((artwork) => {
+                    return (
                       <div className="searchbar-result-name">
                         <NavLink to={`/artworks/${artwork._id}`}>
                           {artwork.name}
                         </NavLink>
                       </div>
-                  )
-                }
-                )}
-              </div>
-            // </SearchResult>
-           )}
+                    )
+                  }
+                  )}
+                </div>
+                // </SearchResult>
+              )}
 
+            </div>
           </div>
-        </div>
-        <div className="nav-tools">
-              <div
-               onClick={
-                ()=>  setShowCreateArtworkModal(true)
-               } ><BrushIcon/>Create</div>{showCreateArtworkModal && (
+          <div className="nav-tools">
+            <div
+              onClick={
+                () => setShowCreateArtworkModal(true)
+              } ><BrushIcon />Create</div>{showCreateArtworkModal && (
                 <Modal onClose={() => setShowCreateArtworkModal(false)}
-                className="create-server">
-                  <CreateArtworkPage onClose={() => setShowCreateArtworkModal(false)} 
+                  className="create-server">
+                  <CreateArtworkPage onClose={() => setShowCreateArtworkModal(false)}
                   />
                 </Modal>
               )}
-          
-          <div onClick={()=>history.push(`/users/${user._id}`)}><PersonIcon/> Profile</div>
-          <div onClick={directToCart}><ShoppingCart/> Cart </div>
-          <div ><FavoriteIcon/> Wish List </div>
-          
-          
-          <div onClick={logoutUser}><LogoutIcon/> Logout</div>
+
+            <div onClick={() => history.push(`/users/${user._id}`)}><PersonIcon /> Profile</div>
+            <div onClick={directToCart}><ShoppingCart /> Cart </div>
+            <div ><FavoriteIcon /> Wish List </div>
+
+
+            <div onClick={logoutUser}><LogoutIcon /> Logout</div>
+          </div>
         </div>
-      </div>
       </>);
     } else {
       return (
-      <div className="navbar">
-        <div className="links-auth">
-          <NavLink to={{
-                pathname: "/"
-              }}>
-           <div className="navbar-logo" onClick={()=>history.push('/')}/>
-           </NavLink> 
-         </div>
-         <div className="searchbar">
-          <SearchIcon id="searchbar-icon" htmlFor="searchbar"/>
-          <div className="searchbar-field">
-            
+        <div className="navbar">
+          <div className="links-auth">
+            <NavLink to={{
+              pathname: "/"
+            }}>
+              <div className="navbar-logo" onClick={() => history.push('/')} />
+            </NavLink>
+          </div>
+          <div className="searchbar" ref={searchResultsRef}>
+            <SearchIcon id="searchbar-icon" htmlFor="searchbar" />
+            <div className="searchbar-field">
 
-            <input 
-            autoComplete='off'
-            id="searchbar" 
-            type="text"  
-            placeholder='Search artworks'
-            value={searchInput}
-            onChange={(e) => {
-              setShowSearchResults(true);
-              searchItems(e.target.value);
-            }}
-          />
 
-           {showSearchResults && (
-            // <SearchResult onClose={() => setShowSearchResults(false)}>
-              <div className="searchbar-results">
-                {filteredResults.slice(0,10).map((artwork) => {
-                  return (
+              <input
+                autoComplete='off'
+                id="searchbar"
+                type="text"
+                placeholder='Search artworks'
+                value={searchInput}
+                onChange={(e) => {
+                  setShowSearchResults(true);
+                  searchItems(e.target.value);
+                }}
+              />
+
+              {showSearchResults && (
+                // <SearchResult onClose={() => setShowSearchResults(false)}>
+                <div className="searchbar-results">
+                  {filteredResults.slice(0, 10).map((artwork) => {
+                    return (
                       <div className="searchbar-result-name">
                         <NavLink to={`/artworks/${artwork._id}`}>
                           {artwork.name}
                         </NavLink>
                       </div>
-                  )
-                }
-                )}
-              </div>
-            // </SearchResult>
-           )}
+                    )
+                  }
+                  )}
+                </div>
+                // </SearchResult>
+              )}
 
+            </div>
           </div>
-        </div>
-        <div className="nav-tools logout">
-          <div><Link to={'/login'}><PersonIcon/>Login</Link></div>
-        </div>
-      </div>);
+          <div className="nav-tools logout">
+            <div><Link to={'/login'}><PersonIcon />Login</Link></div>
+          </div>
+        </div>);
     }
   }
 
   return (
     <>
-      { getLinks() }
-      
+      {getLinks()}
+
     </>
   );
 }
