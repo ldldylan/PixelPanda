@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-
 const Schema = mongoose.Schema;
 
 const artworkSchema = new Schema({
@@ -24,7 +23,11 @@ const artworkSchema = new Schema({
   price: {
     type: Number,
     require: false
-  }
+  },
+  category: {
+    type: String,
+    require: false
+  },
 }, {
   timestamps: true
 });

@@ -3,10 +3,6 @@ const handleValidationErrors = require('./handleValidationErrors');
 const mongoose = require('mongoose');
 const CartItem = mongoose.model('CartItem');
 
-// validateTweetInput is a combination Express middleware that uses the `check`
-// middleware to validate the keys in the body of a request to create/edit
-// a tweet
-
 const validateCartItemInput = [
     // check('user')
     //     .exists({ checkFalsy: false }),

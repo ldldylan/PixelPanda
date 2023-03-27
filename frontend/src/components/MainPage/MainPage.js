@@ -70,17 +70,17 @@ function MainPage() {
           <div className="categories-items">
             <div className="category" id="twoD-label">
               <div className="category-wrapper"><CropSquareIcon/></div>
-              <div className="category-name" >2D</div>
+              <div className="category-name" >Chinese</div>
             </div>
             <div className="category" id="threeD-label">
               <div className="category-wrapper"><ViewInArIcon/></div>
-              <div className="category-name" >3D</div></div>
+              <div className="category-name" >Japanese</div></div>
             <div className="category" id="audio-label">
               <div className="category-wrapper"><AudiotrackIcon/></div>
-              <div className="category-name" >Audio</div></div>
+              <div className="category-name" >Pixel</div></div>
             <div className="category" id="vfx-label">
               <div className="category-wrapper"><LensBlurIcon/></div>
-              <div className="category-name" >VFX</div></div>
+              <div className="category-name">Fantasy</div></div>
           </div>
         </div>
         <div className="popular-assets-box">

@@ -22,6 +22,10 @@
     border-radius: 25px;
 }
 
+textarea {
+    resize: none;
+}
+
 .artwork-edit-title {
     font-weight: 700;
     font-size: 32px;
@@ -124,3 +128,4 @@
 
 
 }
+
