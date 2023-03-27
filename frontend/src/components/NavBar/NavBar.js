@@ -25,6 +25,7 @@ function NavBar() {
   const loggedIn = useSelector(state => !!state.session.user);
   const user = useSelector(state => state.session.user);
   const artworks = useSelector(state => Object.values(state.artworks));
+  const artists = useSelector(state => Object.values(state.users)); 
 
   const [showCreateArtworkModal, setShowCreateArtworkModal] = useState(false);
   const [showSearchResults, setShowSearchResults] = useState(false);
@@ -36,7 +37,6 @@ function NavBar() {
   const searchResultsPortal = document.createElement("div");
 
   const searchItems = (searchValue) => {
-    console.log('searching for: ', searchValue, '...');
     setSearchInput(searchValue);
 
     if (searchValue !== '') {
@@ -44,10 +44,11 @@ function NavBar() {
         return artwork.name.toLowerCase().includes(searchValue.toLowerCase());
       });
       if (filteredArtworks.length < 10) {
-        const filteredArtists = artworks.filter((artwork) => {
-          return artwork.author.toLowerCase().includes(searchValue.toLowerCase());
+        const filteredArtists = artists.filter((artist) => {
+          return artist.email.toLowerCase().includes(searchValue.toLowerCase());
         });
         filteredArtworks.push(...filteredArtists);
+        console.log(filteredArtworks);
       }
       setFilteredResults(filteredArtworks);
     }
@@ -77,7 +78,7 @@ function NavBar() {
 
   useEffect(() => {
     const handleClickOutside = (e) => {
-      if (!searchResultsRef.current.contains(e.currentTarget)) {
+      if (searchResultsRef.current && !searchResultsRef.current.contains(e.target)) {
         setShowSearchResults(false);
       }
     };
@@ -120,16 +121,27 @@ function NavBar() {
               {showSearchResults && (
                 // <SearchResult onClose={() => setShowSearchResults(false)}>
                 <div className="searchbar-results">
-                  {filteredResults.slice(0, 10).map((artwork) => {
-                    return (
-                      <div className="searchbar-result-name">
-                        <NavLink to={`/artworks/${artwork._id}`}>
-                          {artwork.name}
+                  {filteredResults.slice(0, 10).map((result) => {
+                    let searchResult;
+                    if (result.price) {
+                      searchResult = (
+                        <NavLink to={`/artworks/${result._id}`}>
+                          <div className="searchbar-result-name">
+                            {result.name}
+                          </div>
                         </NavLink>
-                      </div>
-                    )
-                  }
-                  )}
+                      );
+                    } else {
+                      searchResult = (
+                        <NavLink to={`/users/${result._id}`}>
+                          <div className="searchbar-result-name">
+                            {result.email.split('@')[0]}
+                          </div>
+                        </NavLink>
+                      );
+                    }
+                    return searchResult;
+                  })}
                 </div>
                 // </SearchResult>
               )}
@@ -187,16 +199,27 @@ function NavBar() {
               {showSearchResults && (
                 // <SearchResult onClose={() => setShowSearchResults(false)}>
                 <div className="searchbar-results">
-                  {filteredResults.slice(0, 10).map((artwork) => {
-                    return (
-                      <div className="searchbar-result-name">
-                        <NavLink to={`/artworks/${artwork._id}`}>
-                          {artwork.name}
+                  {filteredResults.slice(0, 10).map((result) => {
+                    let searchResult;
+                    if (result.price) {
+                      searchResult = (
+                        <NavLink to={`/artworks/${result._id}`}>
+                          <div className="searchbar-result-name">
+                            {result.name}
+                          </div>
                         </NavLink>
-                      </div>
-                    )
-                  }
-                  )}
+                      );
+                    } else {
+                      searchResult = (
+                        <NavLink to={`/users/${result._id}`}>
+                          <div className="searchbar-result-name">
+                            {result.email.split('@')[0]}
+                          </div>
+                        </NavLink>
+                      );
+                    }
+                    return searchResult;
+                  })}
                 </div>
                 // </SearchResult>
               )}
