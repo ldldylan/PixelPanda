@@ -1,4 +1,5 @@
 npm install @mui/icons-material @mui/material @emotion/styled @emotion/react
 npm install animejs
 npm install aos --save
- 
+npm install --save @stripe/react-stripe-js @stripe/stripe-js
+
