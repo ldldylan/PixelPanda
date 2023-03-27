@@ -27,6 +27,8 @@
   "homepage": "https://github.com/ldldylan/PixelPanda#readme",
   "main": "index.js",
   "dependencies": {
+    "@stripe/react-stripe-js": "^2.1.0",
+    "@stripe/stripe-js": "^1.52.0",
     "aos": "^2.3.4"
   }
 }
