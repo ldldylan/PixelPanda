@@ -4,6 +4,7 @@
     width: 550px;
     overflow: hidden;
     position: relative;
+    
 }
 
 .links-auth {
@@ -15,7 +16,7 @@
 
 .navbar {
     display: flex;
-    position: fixed;
+    /* position: relative; */
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
