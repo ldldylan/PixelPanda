@@ -40,6 +40,7 @@ function NavBar() {
     setSearchInput(searchValue);
 
     if (searchValue !== '') {
+      setShowSearchResults(true)
       const filteredArtworks = artworks.filter((artwork) => {
         return artwork.name.toLowerCase().includes(searchValue.toLowerCase());
       });
