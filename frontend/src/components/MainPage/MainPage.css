@@ -6,6 +6,7 @@
     position: relative;
     flex-direction: column;
     background-color: whitesmoke;
+    min-height: 100vh;
 }
 
 ::-webkit-scrollbar {
