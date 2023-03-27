@@ -18,7 +18,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import BrushIcon from '@mui/icons-material/Brush';
 import CreateArtworkPage from '../Artwork/Create/CreateArtworkPage';
 
-function NavBar({ updateShouldFetchArtworks }) {
+function NavBar ({ updateShouldFetchArtworks }) {
   const history = useHistory();
   const dispatch = useDispatch();
 
