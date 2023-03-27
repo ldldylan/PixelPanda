@@ -98,6 +98,11 @@
     text-decoration: none;
 }
 
+.searchbar-result-name:hover {
+    background-color: var(--interactive-hover);
+    cursor: pointer;
+}
+
 /* .searchbar-results {
     position: absolute;
     background-color: white;

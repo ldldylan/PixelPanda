@@ -40,10 +40,15 @@ function NavBar() {
     setSearchInput(searchValue);
 
     if (searchValue !== '') {
-      console.log(artworks);
       const filteredArtworks = artworks.filter((artwork) => {
         return artwork.name.toLowerCase().includes(searchValue.toLowerCase());
       });
+      if (filteredArtworks.length < 10) {
+        const filteredArtists = artworks.filter((artwork) => {
+          return artwork.author.toLowerCase().includes(searchValue.toLowerCase());
+        });
+        filteredArtworks.push(...filteredArtists);
+      }
       setFilteredResults(filteredArtworks);
     }
     else {
@@ -106,8 +111,8 @@ function NavBar() {
                 type="text"
                 placeholder='Search artworks'
                 value={searchInput}
+                onClick= {() => setShowSearchResults(true)}
                 onChange={(e) => {
-                  setShowSearchResults(true);
                   searchItems(e.target.value);
                 }}
               />
@@ -173,8 +178,8 @@ function NavBar() {
                 type="text"
                 placeholder='Search artworks'
                 value={searchInput}
+                onClick= {() => setShowSearchResults(true)}
                 onChange={(e) => {
-                  setShowSearchResults(true);
                   searchItems(e.target.value);
                 }}
               />
