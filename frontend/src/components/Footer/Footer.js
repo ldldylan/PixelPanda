@@ -8,11 +8,15 @@ function Footer() {
       <div className="footer">
         <div className="footer-content">
             Copyright @ 2023 Pixel Panda   
-            <div>About · <GitHubIcon/> <LinkedInIcon/></div>
+            <div>
+              <div>About</div>
+              <a href="https://github.com/ldldylan/PixelPanda" target="_blank"><GitHubIcon/></a>
+              <div><LinkedInIcon/></div>
+            </div>
         </div>
       </div>
     );
 
-};
+};  
 
 export default Footer;

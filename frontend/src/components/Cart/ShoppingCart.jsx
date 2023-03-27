@@ -25,37 +25,47 @@ const Cart = () => {
     useEffect(() => {
         dispatch(fetchArtworks())
         if (currentUser) dispatch(fetchUserCartItems(currentUser._id))
-    }, [dispatch]);
+    }, [dispatch, currentUser]);
     
     const calculateSubTotal = () => {
         let sumPrice = 0
-        cartItems.length === 0 ? setMatchingArtworks([]) : setMatchingArtworks(cartItems.map(cartItem => artworks.find(artwork => artwork._id === cartItem.artwork)).filter(artwork => artwork !== undefined))
+        const matchingArtworks = cartItems
+            .map((cartItem) => artworks.find((artwork) => artwork._id === cartItem.artwork))
+            .filter((artwork) => artwork !== undefined);
+        setMatchingArtworks(matchingArtworks);
         if (matchingArtworks.length === 0){
             setSubTotal(0);
             return;
         }
+
         matchingArtworks.forEach(artwork => {
             if(artwork?.price) sumPrice += artwork.price
         }) 
         setSubTotal(Math.round(sumPrice * 100) /100)
-    };
 
+    };
 
     useEffect(() => {
         calculateSubTotal();
+        
     }, [cartItems, artworks]);
-    
+
     const handleCheckout = (e) => {
         e.preventDefault();
         dispatch(deleteAllCartItems(currentUser._id));
+        history.push('/checkout')
         alert("Thank you for your purchase! Your order is being processed.")
         history.push('/');
     };
     
-    const handleDeteCartItem = cartElementId => (e) => {
+    const handleDeteCartItem = cartArtworkId => (e) => {
         e.preventDefault();
-        dispatch(deleteCartItem(cartElementId))
-        history.push('/cart')
+        for(let i=0;i<cartItems.length;i++){
+            if(cartItems[i].artwork === cartArtworkId){
+                dispatch(deleteCartItem(cartItems[i]._id))
+                history.push('/cart')
+            }
+        }
     }
     return(
         <>
@@ -71,28 +81,28 @@ const Cart = () => {
                             </div>
                             <div style={{marginTop: "10px", marginBottom: "10px"}}></div>
                             <div>
-                                {matchingArtworks.map((cartElement) => (
-                                    <div key={cartElement._id} className="cart-item">
+                                {matchingArtworks.map((cartArtwork) => (
+                                    <div key={cartArtwork._id} className="cart-item">
                                         <div className="cart-item-info">
                                             <div className="cart-item-img">
-                                                <img src={cartElement?.ArtworkImageUrl ? cartElement.ArtworkImageUrl : null} style={{
+                                                <img src={cartArtwork?.ArtworkImageUrl ? cartArtwork.ArtworkImageUrl : null} style={{
                                                     backgroundRepeat: "no-repeat",
                                                     backgroundSize: "contain",
                                                     backgroundPosition: "center",
                                                     objectFit: "cover"}}
                                                     className="cart-item-preview-image"
-                                                    onClick={() => history.push(`/artworks/${cartElement._id}`)}/>
+                                                    onClick={() => history.push(`/artworks/${cartArtwork._id}`)}/>
                                             </div>
                                             <div className="cart-item-details">
-                                                    <div className="cart-item-title">{cartElement?.name ? cartElement.name : null}</div>
-                                                    <div className="cart-item-author" onClick={()=> history.push(`/users/${cartElement.author._id}`)}>By artist: {cartElement?.author.email ? cartElement.author.email.split('@')[0] : null}</div>
-                                                    <div className="cart-item-delete-btn" onClick={handleDeteCartItem(cartElement._id)}>remove item from cart</div>
+                                                    <div className="cart-item-title">{cartArtwork?.name ? cartArtwork.name : null}</div>
+                                                    <div className="cart-item-author" onClick={()=> history.push(`/users/${cartArtwork.author._id}`)}>By artist: {cartArtwork?.author.email ? cartArtwork.author.email.split('@')[0] : null}</div>
+                                                    <div className="cart-item-delete-btn" onClick={handleDeteCartItem(cartArtwork._id)}>remove item from cart</div>
                                             </div>
                                             <div>
 
                                             </div>
                                             <div className="cart-item-price">
-                                                ${cartElement?.price ? cartElement.price : null}
+                                                ${cartArtwork?.price ? cartArtwork.price : null}
                                             </div>
                                         </div>
                                     </div>

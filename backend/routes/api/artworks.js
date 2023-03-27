@@ -67,7 +67,7 @@ router.post('/', singleMulterUpload("image"), requireUser, validateArtworkInput,
           description: req.body.description,
           price: req.body.price,
           author: req.user._id,
-          price: req.body.price,
+          category: req.body.category,
           ArtworkImageUrl
 
     });
@@ -96,7 +96,8 @@ router.patch("/:id", singleMulterUpload("image"), requireUser, validateArtworkIn
       name: req.body.name,
       description: req.body.description,
       ArtworkImageUrl,
-      price: req.body.price
+      price: req.body.price,
+      category: req.body.category,
     },
     { new: true }
   )

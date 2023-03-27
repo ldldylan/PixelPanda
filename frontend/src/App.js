@@ -8,9 +8,7 @@ import NavBar from './components/NavBar/NavBar';
 import MainPage from './components/MainPage/MainPage';
 import LoginForm from './components/SessionForms/LoginForm';
 import SignupForm from './components/SessionForms/SignupForm';
-import Tweets from './components/Tweets/Tweets';
 import Profile from './components/Profile/Profile';
-import TweetCompose from './components/Tweets/TweetCompose';
 import CreateArtworkPage from './components/Artwork/Create/CreateArtworkPage';
 import UpdateArtworkPage from './components/Artwork/Update/UpdateArtworkPage';
 import Artwork from "./components/Artwork/Artwork.jsx";
@@ -45,9 +43,7 @@ function App() {
         <ProtectedRoute exact path="/artworks/:artworkId/review/:reviewId?" component={CreateReviewForm} />
         <ProtectedRoute exact path="/checkout" component={Checkout}/>
         <ProtectedRoute exact path='/cart' component={Cart} />
-        <ProtectedRoute exact path="/tweets" component={Tweets} />
         <ProtectedRoute exact path="/profile" component={Profile} />
-        <ProtectedRoute exact path="/tweets/new" component={TweetCompose} />
       </Switch>
     </>
   );
