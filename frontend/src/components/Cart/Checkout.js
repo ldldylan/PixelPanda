@@ -6,10 +6,10 @@ export default function Checkout() {
     return(
         <div className="checkout-page">
             <NavBar />
-            <div className="checkout-image"/>
             <div className="checkout-container">
                 Order Placed! Thank you for your purchase!
             </div>
+            <div className="checkout-image"/>
             <div className="checkout-footer"><Footer/></div>
         </div>
     )

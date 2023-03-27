@@ -7,9 +7,14 @@
 }
 
 .checkout-image {
-    background-image: '../../assets/pandanewbg.png';
+    background-image: url('../../../assets/pandanewbg.png');
+    background-position: center;
     width: 100%;
-    height: 100%;
+    height: 50%;
+    align-items: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
 }
 
 .checkout-container {
