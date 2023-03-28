@@ -10,7 +10,7 @@ import {fetchUserCartItems} from "../../store/cartItems";
 import {deleteAllCartItems} from "../../store/cartItems";
 import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";
-import { deleteCartItem } from "../../store/cartItems";
+import { deleteCartItem, clearCart } from "../../store/cartItems";
 
 const Cart = () => {
     const dispatch = useDispatch();
