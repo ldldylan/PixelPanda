@@ -87,7 +87,7 @@ export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!image) {
+        if (image.length === 0) {
             alert('Please upload an image');
             return;
         }
@@ -106,7 +106,8 @@ export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }
         else errorData.description = "Please enter a description";
 
         if (price && !isNaN(price)) {
-            const formattedPrice = Number(parseFloat(price).toFixed(2));
+            const formattedPrice = parseFloat(parseFloat(price).toFixed(2));
+            console.log(formattedPrice);
             formData.append("price", formattedPrice);
         }
         else errorData.price = "Please enter a price";
@@ -132,7 +133,7 @@ export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }
                 setPrice(0)
                 setName('');
                 setDescription('');
-        setCategory("chinese");
+                setCategory("");
                 fileRef.current.value = null;
                 onClose();
             });
@@ -148,7 +149,7 @@ export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }
             if (!validFileTypes.includes(file.type)) {
                 alert("Please choose a valid file type: jpg, jpeg, or png");
                 e.target.value = null;
-                setImage(null);
+                setImage([]);
                 setImageUrl(''); 
                 const img = document.querySelector('.Uploadpic');
                 img.style.display = 'none';
