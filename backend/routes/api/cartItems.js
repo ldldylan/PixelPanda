@@ -9,11 +9,11 @@ const validateCartItemInput = require('../../validations/cartItems');
 router.get('/', async (req, res) => {
   try {
     const cartItems = await CartItem.find()
-                              .populate("user", "artwork")
-                              .sort({ createdAt: -1 });
-      return res.json(cartItems);
+      .populate("user", "artwork")
+      .sort({ createdAt: -1 });
+    return res.json(cartItems);
   }
-  catch(err) {
+  catch (err) {
     return res.json([]);
   }
 });
@@ -22,19 +22,19 @@ router.get('/users/:userId', async (req, res, next) => {
   let user;
   try {
     user = await User.findById(req.params.userId);
-  } catch(err) {
+  } catch (err) {
     const error = new Error('User not found');
     error.statusCode = 404;
     error.errors = { message: "No user found with that id" };
     return next(error);
   }
   try {
-      const cartItems = await CartItem.find({ user: user._id })
-                              .sort({ createdAt: -1 })
-                              .populate("user", "_id username");
-      return res.json(cartItems);
+    const cartItems = await CartItem.find({ user: user._id })
+      .sort({ createdAt: -1 })
+      .populate("user", "_id username");
+    return res.json(cartItems);
   }
-  catch(err) {
+  catch (err) {
     return res.json([]);
   }
 })
@@ -54,18 +54,18 @@ router.get('/users/:userId', async (req, res, next) => {
 // });
 
 router.post('/users/:userId', requireUser, validateCartItemInput, async (req, res, next) => {
-  console.log(req.body,"req.body")
+  console.log(req.body, "req.body")
   console.log(req.params, "req.params")
   try {
-      const newCartItem = new CartItem({
-          user: req.params.userId,
-          artwork: req.body.artwork
+    const newCartItem = new CartItem({
+      user: req.params.userId,
+      artwork: req.body.artwork
     });
-      let cartItem = await newCartItem.save();
-      cartItem = await cartItem.populate('user', 'artwork');
-      return res.json(cartItem);
+    let cartItem = await newCartItem.save();
+    cartItem = await cartItem.populate('user', 'artwork');
+    return res.json(cartItem);
   }
-  catch(err) {
+  catch (err) {
     next(err);
   }
 });
@@ -91,18 +91,18 @@ router.post('/users/:userId', requireUser, validateCartItemInput, async (req, re
 // })
 
 router.delete("/:id", async (req, res, next) => {
-    // res.json({ message: "DELETE /product" });
+  // res.json({ message: "DELETE /product" });
   console.log(req.params)
-    CartItem.findByIdAndDelete(req.params.id)
-        .then((cartItem) => {
-            return res.json(cartItem);
-        })
-        .catch((err) => {
-            const error = new Error("CartItem can't be deleted.");
-            error.statusCode = 422;
-            error.errors = { message: "CartItem can't be found." };
-            return next(error);
-        });
+  CartItem.findByIdAndDelete(req.params.id)
+    .then((cartItem) => {
+      return res.json(cartItem);
+    })
+    .catch((err) => {
+      const error = new Error("CartItem can't be deleted.");
+      error.statusCode = 422;
+      error.errors = { message: "CartItem can't be found." };
+      return next(error);
+    });
 })
 
 router.delete("/users/:userId", async (req, res, next) => {

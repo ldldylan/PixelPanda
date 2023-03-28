@@ -18,14 +18,14 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import BrushIcon from '@mui/icons-material/Brush';
 import CreateArtworkPage from '../Artwork/Create/CreateArtworkPage';
 
-function NavBar ({ updateShouldFetchArtworks }) {
+function NavBar({ updateShouldFetchArtworks }) {
   const history = useHistory();
   const dispatch = useDispatch();
 
   const loggedIn = useSelector(state => !!state.session.user);
   const user = useSelector(state => state.session.user);
   const artworks = useSelector(state => Object.values(state.artworks));
-  const artists = useSelector(state => Object.values(state.users)); 
+  const artists = useSelector(state => Object.values(state.users));
 
   const [showCreateArtworkModal, setShowCreateArtworkModal] = useState(false);
   const [showSearchResults, setShowSearchResults] = useState(false);
@@ -113,7 +113,7 @@ function NavBar ({ updateShouldFetchArtworks }) {
                 type="text"
                 placeholder='Search artworks'
                 value={searchInput}
-                onClick= {() => setShowSearchResults(true)}
+                onClick={() => setShowSearchResults(true)}
                 onChange={(e) => {
                   searchItems(e.target.value);
                 }}
@@ -155,8 +155,8 @@ function NavBar ({ updateShouldFetchArtworks }) {
                 () => setShowCreateArtworkModal(true)
               } ><BrushIcon />Create</div>{showCreateArtworkModal && (
                 <Modal onClose={() => setShowCreateArtworkModal(false)}
-                className="create-server">
-                  <CreateArtworkPage onClose={() => setShowCreateArtworkModal(false) } updateShouldFetchArtworks={updateShouldFetchArtworks} 
+                  className="create-server">
+                  <CreateArtworkPage onClose={() => setShowCreateArtworkModal(false)} updateShouldFetchArtworks={updateShouldFetchArtworks}
                   />
                 </Modal>
               )}
@@ -191,7 +191,7 @@ function NavBar ({ updateShouldFetchArtworks }) {
                 type="text"
                 placeholder='Search artworks'
                 value={searchInput}
-                onClick= {() => setShowSearchResults(true)}
+                onClick={() => setShowSearchResults(true)}
                 onChange={(e) => {
                   searchItems(e.target.value);
                 }}
