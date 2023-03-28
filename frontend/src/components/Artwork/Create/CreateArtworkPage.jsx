@@ -10,6 +10,7 @@ export default function CreateArtworkPage({onClose, updateShouldFetchArtworks}){
     const [price, setPrice] = useState(0)
     const [image, setImage] = useState([]);
     const [imageUrl, setImageUrl] = useState([]);
+    const [category, setCategory] = useState("chinese")
     const fileRef = useRef(null);
     const dispatch = useDispatch();
 
@@ -20,6 +21,9 @@ export default function CreateArtworkPage({onClose, updateShouldFetchArtworks}){
         dispatch(fetchArtworks())
     }, [dispatch])
 
+    const handleChange = (event) => {
+        setCategory(event.target.value);
+    };
     const handleSubmit = e => {
         e.preventDefault();
         const formData = new FormData();
@@ -28,6 +32,8 @@ export default function CreateArtworkPage({onClose, updateShouldFetchArtworks}){
         formData.append("price", price);
         formData.append("image", image);
         formData.append("author", sessionUser._id)
+        formData.append("category", category);
+
         // console.log(name, "name")
         // console.log(description,"description")
         // console.log(price, "price")
@@ -42,6 +48,7 @@ export default function CreateArtworkPage({onClose, updateShouldFetchArtworks}){
         setPrice(0)                 
         setName('');
         setDescription('');
+        setCategory("chinese");
         fileRef.current.value = null;
         onClose();
     };
@@ -118,6 +125,17 @@ export default function CreateArtworkPage({onClose, updateShouldFetchArtworks}){
                         onChange={(e) => setPrice(e.target.value)}>
                     </input>
                 </label>
+                <div className="dropdown">
+                    <select value={category} onChange={handleChange}>
+                        <option value="" disabled selected>
+                            Select category
+                        </option>
+                        <option value="chinese">chinese</option>
+                        <option value="japanese">japanese</option>
+                        <option value="pixel">pixel</option>
+                        <option value="fantasy">fantasy</option>
+                    </select>
+                </div>
                 <input
                     className='uploadButton'
                     type="file"

@@ -129,3 +129,44 @@ textarea {
 
 }
 
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.dropdown select {
+
+    appearance: none;
+    border: none;
+    background-color: #f5f5f5;
+    padding: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    outline: none;
+}
+
+
+
+.dropdown::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+    background-color: transparent;
+}
+
+.dropdown select:hover {
+    background-color: #3904e5;
+}
+
+.dropdown select:focus {
+    background-color: #e70c0c;
+}
+
+.dropdown select option {
+    background-color: #0de03b;
+    color: #333333;
+}
