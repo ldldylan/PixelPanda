@@ -192,6 +192,14 @@
     font-size: 28px;
 }
 
+.empty-cart-mainpage-link{
+    margin-top: 20px;
+}
+
+.empty-cart-mainpage-link a{
+    color :rgb(74, 74, 220);
+}
+
 .panda-box {
     display: flex;
     justify-content: center;
