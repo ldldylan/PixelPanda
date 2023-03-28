@@ -15,7 +15,6 @@ export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }
         name: "",
         description: "",
         price: "",
-        image: "",
         category: ""
     });
     const fileRef = useRef(null);
@@ -97,7 +96,6 @@ export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }
             name: "",
             description: "",
             price: "",
-            image: "",
             category: ""
         }
 
@@ -108,13 +106,12 @@ export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }
         else errorData.description = "Please enter a description";
 
         if (price && !isNaN(price)) {
-            const formattedPrice = parseFloat(price).toFixed(2);
+            const formattedPrice = Number(parseFloat(price).toFixed(2));
             formData.append("price", formattedPrice);
         }
         else errorData.price = "Please enter a price";
 
-        if (image) formData.append("image", image);
-        else errorData.image = "Please upload an image";
+        formData.append("image", image);
 
         if (category) formData.append("category", category);
         else errorData.category = "Please select a category";
