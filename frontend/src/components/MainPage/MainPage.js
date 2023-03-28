@@ -76,8 +76,8 @@ function MainPage() {
             <div className="category" id="japanese-label">
               <div className="category-wrapper"><div id='japanese-icon'/></div>
               <div className="category-name" >Japanese</div></div>
-            <div className="category" id="audio-label">
-              <div className="category-wrapper"><AudiotrackIcon/></div>
+            <div className="category" id="pixel-label">
+              <div className="category-wrapper"><div id='pixel-icon'/></div>
               <div className="category-name" >Pixel</div></div>
             <div className="category" id="vfx-label">
               <div className="category-wrapper"><LensBlurIcon/></div>

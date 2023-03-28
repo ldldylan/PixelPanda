@@ -242,6 +242,15 @@
     position: absolute;
 }
 
+#pixel-icon {
+    background-image: url("/assets/panda-icon.png");
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
+}
+
 .category {
     position: relative;
     width: 60px;
@@ -284,12 +293,12 @@
     background-color: #7f21f3;
 }
 
-#audio-label:hover .category-name{
-    color: #f37f21;
+#pixel-label:hover .category-name{
+    color: #2196f3;
 }
 
-#audio-label:hover .category-wrapper {
-    background-color: #f37f21;
+#pixel-label:hover .category-wrapper {
+    background-color: #2196f3;
 }
 
 #vfx-label:hover .category-name{
