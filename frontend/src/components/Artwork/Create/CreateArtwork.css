@@ -81,6 +81,19 @@ textarea {
     border-radius: 5px;
 }
 
+.category-label{
+    display: flex;
+    align-items: center;
+    width: 400px;
+    margin-bottom: 20px;
+}
+
+.artwork-edit-category {
+    height: 26px;
+    font-size: 16px;
+    margin-left: 12px;
+}
+
 .Uploadpic {
     display: none;
     width: 300px;
@@ -188,3 +201,10 @@ textarea {
     border-color: rgb(207, 207, 203);
     border-radius: 10px;
 } */
+
+.artwork-edit-form .error span{
+    font-weight: 500;
+    color: var(--danger);
+    font-size: 13px;
+    margin-left: 2px;
+}
