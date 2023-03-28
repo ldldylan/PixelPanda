@@ -61,8 +61,6 @@ export const fetchArtwork = (artworkId) => async dispatch => {
         const res = await jwtFetch(`/api/artworks/${artworkId}`);
         
         const artwork = await res.json();
-        console.log(artwork,'artwork')
-        console.log(artwork._id, 'artwork_id')
 
         dispatch(receiveArtwork(artwork));
     } catch (err) {

@@ -97,7 +97,7 @@ export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }
             description: "",
             price: "",
             category: ""
-        }
+        };
 
         if (name.trim()) formData.append("name", name.trim());
         else errorData.name = "Please enter a name";
@@ -107,7 +107,6 @@ export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }
 
         if (price && !isNaN(price)) {
             const formattedPrice = parseFloat(parseFloat(price).toFixed(2));
-            console.log(formattedPrice);
             formData.append("price", formattedPrice);
         }
         else errorData.price = "Please enter a price";
@@ -120,9 +119,8 @@ export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }
         formData.append("author", sessionUser._id)
 
         setErrors(errorData);
-        console.log(formData);
-        console.log(errors);
-        if (errorData.name || errorData.description || errorData.price || errorData.image || errorData.category) return;
+
+        if (errorData.name || errorData.description || errorData.price || errorData.category) return;
         else {
             dispatch(createArtwork(formData)).then(() => {
                 if (updateShouldFetchArtworks) {
@@ -150,7 +148,7 @@ export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }
                 alert("Please choose a valid file type: jpg, jpeg, or png");
                 e.target.value = null;
                 setImage([]);
-                setImageUrl(''); 
+                setImageUrl('');
                 const img = document.querySelector('.Uploadpic');
                 img.style.display = 'none';
                 img.src = "";
@@ -191,8 +189,8 @@ export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }
                     <textarea
                         className="artwork-edit-textarea"
                         required
-                        value={description} 
-                        onChange={(e) => {setDescription(e.target.value)}}
+                        value={description}
+                        onChange={(e) => { setDescription(e.target.value) }}
                         placeholder={`Enter description for this artwork`}>
                     </textarea>
                 </label>
@@ -226,13 +224,13 @@ export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }
                     <select name="category"
                         className="artwork-edit-category"
                         required
-                        value={category} 
-                        onChange={(e) => {setCategory(e.target.value)}}>
-                            <option value="" disabled defaultValue>Select a category</option>
-                            <option value="Japanese">Japanese</option>
-                            <option value="Chinese">Chinese</option>
-                            <option value="Pixel">Pixel</option>
-                            <option value="Fantasy">Fantasy</option>
+                        value={category}
+                        onChange={(e) => { setCategory(e.target.value) }}>
+                        <option value="" disabled defaultValue>Select a category</option>
+                        <option value="japanese">Japanese</option>
+                        <option value="chinese">Chinese</option>
+                        <option value="pixel">Pixel</option>
+                        <option value="fantasy">Fantasy</option>
                     </select>
                     <span>{errors.category}</span>
                 </label>
