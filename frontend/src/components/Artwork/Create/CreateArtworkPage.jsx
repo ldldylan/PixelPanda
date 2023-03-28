@@ -202,7 +202,7 @@ export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }
                         required
                         onPaste={handlePaste}
                         onKeyDown={handleKeyDown}
-                        onChange={(e) => setPrice(e.target.value)}>
+                        onChange={(e) => setPrice(parseFloat(e.target.value))}>
                     </input>
                 </label>
                 

@@ -70,6 +70,10 @@ function MainPage() {
         </div>
         <div className="categories">
           <div className="categories-items">
+            <div className="category" id="popular-label">
+              <div className="category-wrapper"><div id='popular-icon'/></div>
+              <div className="category-name" >Popular</div>
+            </div>
             <div className="category" id="chinese-label">
               <div className="category-wrapper"><div id='chinese-icon'/></div>
               <div className="category-name" >Chinese</div>
