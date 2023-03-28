@@ -56,22 +56,12 @@ const initializeImages = async () => {
                 { _id: artwork._id },
                 { ArtworkImageUrl: `https://aws-mern-pixelpanda.s3.us-west-1.amazonaws.com/aws_mern/japanese/japanese${i - 49}.png` }
             );
-        } else {
+        } else  {
             await Artwork.updateOne(
                 { _id: artwork._id },
                 { ArtworkImageUrl: `https://aws-mern-pixelpanda.s3.us-west-1.amazonaws.com/aws_mern/pixel/${i - 59}.png` }
             );
-        } else if (i < 60) {
-            await Artwork.updateOne(
-                { _id: artwork._id },
-                { ArtworkImageUrl: `https://aws-mern-pixelpanda.s3.us-west-1.amazonaws.com/aws_mern/japanese/japanese${i - 49}.png` }
-            );
-        } else {
-            await Artwork.updateOne(
-                { _id: artwork._id },
-                { ArtworkImageUrl: `https://aws-mern-pixelpanda.s3.us-west-1.amazonaws.com/aws_mern/pixel/${i - 60}.png` }
-            );
-        }
+        };
         // console.log(artwork)
         console.log('Artwork updated successfully!');
     }
