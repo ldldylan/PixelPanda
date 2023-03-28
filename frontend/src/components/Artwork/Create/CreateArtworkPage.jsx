@@ -145,26 +145,6 @@ export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }
 
     };
 
-    // const updateFiles = async e => {
-    //     const files = e.target.files;
-    //     setImage(files);
-    //     if (files.length !== 0) {
-    //         let filesLoaded = 0;
-    //         const urls = [];
-    //         Array.from(files).forEach((file, index) => {
-    //             const fileReader = new FileReader();
-    //             fileReader.readAsDataURL(file);
-    //             fileReader.onload = () => {
-    //                 urls[index] = fileReader.result;
-    //                 if (++filesLoaded === files.length)
-    //                     setImageUrl(urls);
-    //             }
-    //         });
-    //     }
-    //     else setImageUrl([]);
-    //     console.log(image, "image")
-
-    // }
     const updateFile = async e => {
         const file = e.target.files[0];
 
@@ -230,18 +210,6 @@ export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }
                         onChange={(e) => setPrice(e.target.value)}>
                     </input>
                 </label>
-                <div className="dropdown">
-                    <label htmlFor="category-select">Category:</label>
-                    <select id="category-select" value={category} onChange={handleChange}>
-                        <option value="" disabled>
-                            Select category
-                        </option>
-                        <option value="chinese">Chinese</option>
-                        <option value="japanese">Japanese</option>
-                        <option value="pixel">Pixel</option>
-                        <option value="fantasy">Fantasy</option>
-                    </select>
-                </div>
                 
                 <div className="upload-box">
                     {/* Image to Upload */}
