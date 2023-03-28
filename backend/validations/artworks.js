@@ -17,9 +17,6 @@ const validateArtworkInput = [
     .exists({ checkFalsy: true })
     .isInt({ min: 0, max: 1000000 }),
 
-  check('ArtworkImageUrl')
-    .exists({ checkFalsy: true }),
-
   handleValidationErrors
   
 
