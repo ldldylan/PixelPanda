@@ -151,13 +151,13 @@ const Cart = () => {
                     <div className="empty-cart-text">
                         Looks like you haven't added anything to your cart yet.
                     </div>
-                    {/* <div className="empty-cart-mainpage-link">
-                        <a href="/">Go to main page</a>
-                    </div> */}
+                    <div className="empty-cart-mainpage-link">
+                        <a href="/">👉Start shopping👈</a>
+                    </div>
                 </div>
             )}
         </div>
-        <Footer/>
+        <Footer id='cart-page-footer'/>
         </>
     )
 };

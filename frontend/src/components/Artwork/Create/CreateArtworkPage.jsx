@@ -172,6 +172,7 @@ export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }
     return (
         <>
             <form className="artwork-edit-form">
+
                 <div className="artwork-edit-title">
                     <label>Submit an Artwork</label>
                 </div>
@@ -201,13 +202,12 @@ export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }
                         required
                         onPaste={handlePaste}
                         onKeyDown={handleKeyDown}
-                        onChange={(e) => setPrice(e.target.value)}>
+                        onChange={(e) => setPrice(parseFloat(e.target.value))}>
                     </input>
                 </label>
 
 
-
-                <label className={errors.category ? "error category-label" : "category-label"} htmlFor="category">Category:
+                <label className= {errors.category ? "error category-label" : "category-label"} htmlFor="category">Category:
                     <select name="category"
                         className="artwork-edit-category"
                         required
@@ -221,18 +221,21 @@ export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }
                     </select>
                     <span>{errors.category}</span>
                 </label>
-
-                <div className="upload-box">
+                
+              <div className="upload-box">
                     {/* Image to Upload */}
                     <div className='dotline'><img className="Uploadpic" /></div>
+                    <input
+                        className='uploadButton'
+                        type="file"
+                        ref={fileRef}
+                        accept=".jpg, .jpeg, .png"
+                        onChange={updateFile} />
+                    <p><i class="fa-solid fa-cloud-arrow-up"></i></p>
+                    <p className='uploadins'>click to upload</p>
+                    <p className='recommend'>We recommend using high-quality .jpg files under 20MB</p>
                 </div>
-
-                <input
-                    className='uploadButton'
-                    type="file"
-                    ref={fileRef}
-                    accept=".jpg, .jpeg, .png"
-                    onChange={updateFile} />
+                
                 <button className="submit-artwork-button" onClick={handleSubmit}>Upload New Artwork</button>
 
             </form>

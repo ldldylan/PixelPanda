@@ -2,14 +2,14 @@
 import './MainPage.css';
 import NavBar from '../NavBar/NavBar';
 import Footer from '../Footer/Footer';
-import ShoppingCart from '@mui/icons-material/ShoppingCart';
+// import ShoppingCart from '@mui/icons-material/ShoppingCart';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+// import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import CropSquareIcon from '@mui/icons-material/CropSquare';
-import ViewInArIcon from '@mui/icons-material/ViewInAr';
-import AudiotrackIcon from '@mui/icons-material/Audiotrack';
-import LensBlurIcon from '@mui/icons-material/LensBlur';
+// import CropSquareIcon from '@mui/icons-material/CropSquare';
+// import ViewInArIcon from '@mui/icons-material/ViewInAr';
+// import AudiotrackIcon from '@mui/icons-material/Audiotrack';
+// import LensBlurIcon from '@mui/icons-material/LensBlur';
 import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
@@ -70,6 +70,10 @@ function MainPage() {
         </div>
         <div className="categories">
           <div className="categories-items">
+            <div className="category" id="popular-label">
+              <div className="category-wrapper"><div id='popular-icon'/></div>
+              <div className="category-name" >Popular</div>
+            </div>
             <div className="category" id="chinese-label">
               <div className="category-wrapper"><div id='chinese-icon'/></div>
               <div className="category-name" >Chinese</div>

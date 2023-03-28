@@ -16,7 +16,7 @@ function Footer() {
             <div>Copyright @ 2023 Pixel Panda</div>
           </div>
           <div className="footer-content">
-            <div>About Us</div>
+            <div><Link to={'/about'}>About Us</Link></div>
             <a href="https://github.com/ldldylan/PixelPanda" target="_blank"><GitHubIcon/></a>
           </div>
         </div>
