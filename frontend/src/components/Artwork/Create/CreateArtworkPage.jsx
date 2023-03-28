@@ -117,8 +117,6 @@ export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }
         else errorData.category = "Please select a category";
 
         formData.append("author", sessionUser._id)
-        formData.append("category", category);
-
 
         setErrors(errorData);
         console.log(formData);
