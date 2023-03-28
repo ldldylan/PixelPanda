@@ -224,6 +224,24 @@
     align-items: center;
 }
 
+#chinese-icon {
+    background-image: url("/assets/taiji-icon.png");
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
+}
+
+#japanese-icon {
+    background-image: url("/assets/torii-gate-icon.png");
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
+}
+
 .category {
     position: relative;
     width: 60px;
@@ -250,19 +268,19 @@
 .category:hover .category-name {
 }
 
-#twoD-label:hover .category-name{
+#chinese-label:hover .category-name{
     color: #2196f3;
 }
 
-#twoD-label:hover .category-wrapper {
+#chinese-label:hover .category-wrapper {
     background-color: #2196f3;
 }
 
-#threeD-label:hover .category-name{
+#japanese-label:hover .category-name{
     color: #7f21f3;
 }
 
-#threeD-label:hover .category-wrapper {
+#japanese-label:hover .category-wrapper {
     background-color: #7f21f3;
 }
 

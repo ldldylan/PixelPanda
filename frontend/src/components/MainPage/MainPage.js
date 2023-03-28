@@ -21,6 +21,7 @@ import { addNewCartItem } from '../../store/cartItems';
 import { fetchCartItems } from '../../store/cartItems';
 import { useParams } from 'react-router-dom';
 import { notInitialized } from 'react-redux/es/utils/useSyncExternalStore';
+
 function MainPage() {
     const dispatch=useDispatch();
     const artworks = useSelector(getArtworks);
@@ -68,12 +69,12 @@ function MainPage() {
         </div>
         <div className="categories">
           <div className="categories-items">
-            <div className="category" id="twoD-label">
-              <div className="category-wrapper"><CropSquareIcon/></div>
+            <div className="category" id="chinese-label">
+              <div className="category-wrapper"><div id='chinese-icon'/></div>
               <div className="category-name" >Chinese</div>
             </div>
-            <div className="category" id="threeD-label">
-              <div className="category-wrapper"><ViewInArIcon/></div>
+            <div className="category" id="japanese-label">
+              <div className="category-wrapper"><div id='japanese-icon'/></div>
               <div className="category-name" >Japanese</div></div>
             <div className="category" id="audio-label">
               <div className="category-wrapper"><AudiotrackIcon/></div>
