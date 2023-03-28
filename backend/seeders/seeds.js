@@ -8,7 +8,7 @@ const bcrypt = require('bcryptjs');
 const { faker } = require('@faker-js/faker');
 
 const NUM_SEED_USERS = 10;
-const NUM_SEED_ARTWORKS = 50;
+const NUM_SEED_ARTWORKS = 71;
 const NUM_SEED_REVIEWS = 80;
 // Create users
 const users = [];
@@ -73,6 +73,10 @@ for (let i = 0; i < NUM_SEED_ARTWORKS; i++) {
     category = 'chinese'
   }else if(i<50){
     category = 'fantasy'
+  } else if (i < 60) {
+    category = 'japanese'
+  } else{
+    category = 'pixel'
   }
   artworks.push(
     new Artwork ({
