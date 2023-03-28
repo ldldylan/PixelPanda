@@ -5,7 +5,7 @@
     /* overflow: hidden scroll; */
     position: relative;
     flex-direction: column;
-    background-color: whitesmoke;
+    background-color: white;
     min-height: 100vh;
 }
 
