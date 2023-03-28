@@ -242,6 +242,15 @@
     position: absolute;
 }
 
+#fantasy-icon {
+    background-image: url("/assets/dragon-icon.png");
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
+}
+
 #pixel-icon {
     background-image: url("/assets/panda-icon.png");
     height: 100%;
@@ -278,19 +287,19 @@
 }
 
 #chinese-label:hover .category-name{
-    color: #2196f3;
+    color: #e80404;
 }
 
 #chinese-label:hover .category-wrapper {
-    background-color: #2196f3;
+    background-color: #e80404;
 }
 
 #japanese-label:hover .category-name{
-    color: #7f21f3;
+    color: #de44f5;
 }
 
 #japanese-label:hover .category-wrapper {
-    background-color: #7f21f3;
+    background-color: #de44f5;
 }
 
 #pixel-label:hover .category-name{
@@ -301,12 +310,12 @@
     background-color: #2196f3;
 }
 
-#vfx-label:hover .category-name{
-    color: #94f321;
+#fantasy-label:hover .category-name{
+    color: #29e990;
 }
 
-#vfx-label:hover .category-wrapper {
-    background-color: #94f321;
+#fantasy-label:hover .category-wrapper {
+    background-color: #29e990;
 }
 
 

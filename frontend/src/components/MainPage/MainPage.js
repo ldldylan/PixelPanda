@@ -79,8 +79,8 @@ function MainPage() {
             <div className="category" id="pixel-label">
               <div className="category-wrapper"><div id='pixel-icon'/></div>
               <div className="category-name" >Pixel</div></div>
-            <div className="category" id="vfx-label">
-              <div className="category-wrapper"><LensBlurIcon/></div>
+            <div className="category" id="fantasy-label">
+              <div className="category-wrapper"><div id='fantasy-icon'/></div>
               <div className="category-name">Fantasy</div></div>
           </div>
         </div>
