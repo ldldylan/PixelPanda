@@ -136,16 +136,17 @@ export default function CreateArtworkPage({onClose, updateShouldFetchArtworks}){
                         <option value="fantasy">fantasy</option>
                     </select>
                 </div>
-                <input
-                    className='uploadButton'
-                    type="file"
-                    ref={fileRef}       
-                    accept=".jpg, .jpeg, .png"
-                    onChange={updateFile} />
+                
                 <div className="upload-box">
                     {/* Image to Upload */}
                     <div className='dotline'><img className="Uploadpic" /></div>
                 </div>
+                <input
+                    className='uploadButton'
+                    type="file"
+                    ref={fileRef}
+                    accept=".jpg, .jpeg, .png"
+                    onChange={updateFile} />
                 <button className="submit-artwork-button" onClick={handleSubmit}>Upload New Artwork</button>
                 
             </form>
