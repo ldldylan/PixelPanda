@@ -174,6 +174,7 @@ export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }
     return (
         <>
             <form className="artwork-edit-form">
+
                 <div className="artwork-edit-title">
                     <label>Submit an Artwork</label>
                 </div>
@@ -206,10 +207,17 @@ export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }
                         onChange={(e) => setPrice(parseFloat(e.target.value))}>
                     </input>
                 </label>
-                
+
                 <div className="upload-box">
                     {/* Image to Upload */}
                     <div className='dotline'><img className="Uploadpic" /></div>
+                    <input
+                        className='uploadButton'
+                        type="file"
+                        ref={fileRef}
+                        accept=".jpg, .jpeg, .png"
+                        onChange={updateFile} />
+                    <p><i class="fa-solid fa-cloud-arrow-up"></i></p>
                 </div>
                 
                 <label className= {errors.category ? "error category-label" : "category-label"} htmlFor="category">Category:
@@ -226,12 +234,7 @@ export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }
                     </select>
                     <span>{errors.category}</span>
                 </label>
-                <input
-                    className='uploadButton'
-                    type="file"
-                    ref={fileRef}
-                    accept=".jpg, .jpeg, .png"
-                    onChange={updateFile} />
+                
                 <button className="submit-artwork-button" onClick={handleSubmit}>Upload New Artwork</button>
 
             </form>
