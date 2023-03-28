@@ -20,6 +20,7 @@ import { useSelector } from 'react-redux';
 import { addNewCartItem } from '../../store/cartItems';
 import { fetchCartItems } from '../../store/cartItems';
 import { useParams } from 'react-router-dom';
+import { notInitialized } from 'react-redux/es/utils/useSyncExternalStore';
 function MainPage() {
     const dispatch=useDispatch();
     const artworks = useSelector(getArtworks);
@@ -32,7 +33,7 @@ function MainPage() {
       dispatch(fetchArtworks());
       dispatch(fetchUsers());
       dispatch(fetchCartItems());
-    },[dispatch, sessionUser])
+    },[dispatch])
 
     const handleAddCartItem = artworkId => e => {
       e.preventDefault();
@@ -55,7 +56,6 @@ function MainPage() {
       }
       return array;
     }
-
     return (
       <>
       <NavBar />
@@ -87,7 +87,7 @@ function MainPage() {
           <h3>POPULAR ASSETS</h3>
           <ul className="assets">
             {shuffle(artworksArray).slice(0,10).map(artwork => (
-              <li key={artwork._id} 
+              <li key={artwork?._id ? artwork._id : null} 
               className="asset-item"
               >
                 <FavoriteBorderIcon className="favorite-item-icon"/>
@@ -100,14 +100,14 @@ function MainPage() {
                   backgroundPosition: "center",
                   objectFit: "cover" }} 
                   className="artwork-preview-image"
-                  onClick={()=> history.push(`/artworks/${artwork._id}`)}/>
+                  onClick={artwork ? ()=> history.push(`/artworks/${artwork._id}`) : null}/>
                   {/* </div> */}
                 <div className="artwork-name"
-                onClick={()=> history.push(`/artworks/${artwork._id}`)}><p>{artwork.name}</p></div>
+                onClick={()=> history.push(`/artworks/${artwork._id}`)}><p>{artwork?.name ? artwork.name : null}</p></div>
                 <div className="artwork-artist">{artwork?.author?.email ? artwork.author.email.split('@')[0] : null}</div>
                 <div className="artwork-price-cart">
-                  <div className="artwork-price"><p>${artwork.price}</p></div>
-                  <div className="artwork-cart" onClick={handleAddCartItem(artwork._id)}>
+                  <div className="artwork-price"><p>${artwork?.price ? artwork.price : null}</p></div>
+                  <div className="artwork-cart" onClick={artwork?._id ? handleAddCartItem(artwork._id) : null}>
                     <AddShoppingCartIcon />
                   </div>
                 </div>
@@ -120,18 +120,18 @@ function MainPage() {
           <ul className="assets">
             {users.slice(0,10).map(user => (
               <li
-              key={user._id} className="asset-item artist">
+              key={user?._id ? user._id : null} className="asset-item artist">
                 <img
-                src= {user.profileImageUrl}
+                src= {user?.profileImageUrl ? user.profileImageUrl : null}
                 style={{ 
                 backgroundRepeat: "no-repeat", 
                 backgroundSize: "contain",
                 backgroundPosition: "center",
                 objectFit: "cover" }} 
                 className="artwork-preview-image"
-                onClick={()=> history.push(`/users/${user._id}`)}/>
+                onClick={user?._id ? ()=> history.push(`/users/${user._id}`) : null}/>
                 <div className="artwork-name artist"
-                onClick={()=> history.push(`/users/${user._id}`)}>
+                onClick={user?._id ? ()=> history.push(`/users/${user._id}`) : null}>
                   <p>{user?.email ? user.email.split('@')[0] : null}</p>
                   </div>
             </li>

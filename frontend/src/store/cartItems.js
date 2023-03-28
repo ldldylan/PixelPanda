@@ -155,7 +155,7 @@ const cartItemsReducer = (state = {}, action) => {
             delete newState[action.cartItemId]
             return newState
         case RECEIVE_USER_LOGOUT:
-            return { ...state, user: {}}
+            return { ...state}
         case CLEAR_CART:
             return {};
         default:
