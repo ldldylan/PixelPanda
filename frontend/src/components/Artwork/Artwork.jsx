@@ -80,7 +80,6 @@ function Artwork() {
     // if (!reviews) {
     //     return <div>Loading...</div>;
     // }\
-    console.log(showModal, 'showModal???')
     // useEffect(()=> {
     //     if (reviews !== undefined){
     //     // console.log(Object.values(reviews), 'Object.values')
@@ -105,7 +104,6 @@ function Artwork() {
         // Submit the comment and rating data to your backend server here
         editMessage.content = editMessageText;
         editMessage.rating = editMessageRating;
-        console.log(editMessage);
         dispatch(updateReview(editMessage, editMessage._id))
             .then(() => {
                 history.push(`/artworks/${artworkId}`)
@@ -146,15 +144,9 @@ function Artwork() {
             {/* {artwork &&<UpdateArtworkPage artwork={artwork} />} */}
             <div className="artwork">
                 <div className="artwork-main">
-                    <div className="artwork-image-container">
+                    <div className="show-artwork-image-container">
                         <img
                             src={artwork?.ArtworkImageUrl ? artwork.ArtworkImageUrl : null}
-                            style={{
-                                backgroundRepeat: "no-repeat",
-                                backgroundSize: "contain",
-                                backgroundPosition: "center",
-                                objectFit: "cover"
-                            }}
                             className="artwork-image" />
                     </div>
                     <div className="artwork-purchase">
@@ -194,8 +186,7 @@ function Artwork() {
                                     <button id='delete-button' onClick={handleDelete} >Delete</button>
                                     {showModal && artwork && (
                                         <Modal onClose={() => setShowModal(false)}>
-                                            {console.log(artwork, 'artwork......')}
-                                            <UpdateArtworkPage artwork={artwork} />
+                                            <UpdateArtworkPage onClose={() => setShowModal(false)} artwork={artwork} />
                                         </Modal>
                                     )}
                                 </>) : null}
