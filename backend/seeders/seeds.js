@@ -73,9 +73,9 @@ for (let i = 0; i < NUM_SEED_ARTWORKS; i++) {
     category = 'chinese'
   }else if(i<50){
     category = 'fantasy'
-  } else if (i < 60) {
+  }else if(i<60){
     category = 'japanese'
-  } else{
+  }else {
     category = 'pixel'
   }
   artworks.push(

@@ -18,6 +18,7 @@ router.get('/', async (req, res) => {
     return res.json([]);
     
   }
+  
 });
 
 router.get('/user/:userId', async (req, res, next) => {
