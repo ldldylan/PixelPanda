@@ -126,6 +126,7 @@ export default function CreateArtworkPage({onClose, updateShouldFetchArtworks}){
                     </input>
                 </label>
                 <div className="dropdown">
+                    <label htmlFor="category-select">Category:</label>
                     <select value={category} onChange={handleChange}>
                         <option value="" disabled selected>
                             Select category
