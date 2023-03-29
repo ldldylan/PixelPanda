@@ -67,6 +67,10 @@ function NavBar({ updateShouldFetchArtworks }) {
     e.preventDefault();
     history.push('/cart')
   }
+  const directToWishlist = e => {
+    e.preventDefault();
+    history.push('/wishlist')
+  }
 
   useEffect(() => {
     document.body.appendChild(searchResultsPortal);
@@ -163,7 +167,7 @@ function NavBar({ updateShouldFetchArtworks }) {
 
             <div onClick={() => history.push(`/users/${user._id}`)}><PersonIcon /> Profile</div>
             <div onClick={directToCart}><ShoppingCart /> Cart </div>
-            <div ><FavoriteIcon /> Wish List </div>
+            <div onClick={directToWishlist} ><FavoriteIcon /> Wish List </div>
 
 
             <div onClick={logoutUser}><LogoutIcon /> Logout</div>

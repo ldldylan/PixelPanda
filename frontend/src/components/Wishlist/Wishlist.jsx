@@ -3,22 +3,20 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getArtworks } from "../../store/artworks";
 import { useHistory } from "react-router-dom";
-import './Cart.css'
+import './Wishlist.css'
 import { fetchArtworks } from "../../store/artworks";
-import { getCartItems } from "../../store/cartItems";
-import {fetchUserCartItems} from "../../store/cartItems";
-import {deleteAllCartItems, checkoutCartItems} from "../../store/cartItems";
+import { getWishlistItems } from "../../store/wishlistItems";
+import {fetchUserWishlistItems} from "../../store/wishlistItems";
 import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";
-import { deleteCartItem, clearCart } from "../../store/cartItems";
+import { deleteWishlistItem, clearWishlist } from "../../store/wishlistItems";
 import Loading from '../Loading/Loading'
-import { fetchUserWishlistItems } from "../../store/wishlistItems";
 
-const Cart = () => {
+const Wishlist = () => {
     const dispatch = useDispatch();
     const history = useHistory();
     const artworks = useSelector(getArtworks);
-    const cartItems = useSelector(getCartItems);
+    const wishlistItems = useSelector(getWishlistItems);
     const currentUser = useSelector((state) => state.session.user)
     const [subTotal, setSubTotal] = useState(0.0)
     const [matchingArtworks, setMatchingArtworks] = useState([]);
@@ -28,7 +26,7 @@ const Cart = () => {
     useEffect(() => {
         Promise.all([
             dispatch(fetchArtworks()),
-            currentUser ? dispatch(fetchUserCartItems(currentUser._id)) : null,
+            currentUser ? dispatch(fetchUserWishlistItems(currentUser._id)) : null,
         ]).then(() => {
             setLoaded(true);
         });
@@ -36,8 +34,8 @@ const Cart = () => {
     
     const calculateSubTotal = () => {
         let sumPrice = 0
-        const matchingArtworks = cartItems
-            .map((cartItem) => artworks.find((artwork) => artwork._id === cartItem.artwork))
+        const matchingArtworks = wishlistItems
+            .map((wishlistItem) => artworks.find((artwork) => artwork._id === wishlistItem.artwork))
             .filter((artwork) => artwork !== undefined);
         setMatchingArtworks(matchingArtworks);
         console.log(matchingArtworks);
@@ -56,23 +54,22 @@ const Cart = () => {
     useEffect(() => {
         calculateSubTotal();
         
-    }, [cartItems, artworks]);
+    }, [wishlistItems, artworks]);
 
     const handleCheckout = (e) => {
         e.preventDefault();
-        dispatch(checkoutCartItems(matchingArtworks));
-        // dispatch(deleteAllCartItems(currentUser._id));
+        // dispatch(deleteAllWishlistItems(currentUser._id));
         // history.push('/checkout')
         // alert("Thank you for your purchase! Your order is being processed.")
         // history.push('/');
     };
     
-    const handleDeteCartItem = cartArtworkId => (e) => {
+    const handleDeteWishlistItem = wishlistArtworkId => (e) => {
         e.preventDefault();
-        for(let i=0;i<cartItems.length;i++){
-            if(cartItems[i].artwork === cartArtworkId){
-                dispatch(deleteCartItem(cartItems[i]._id))
-                history.push('/cart')
+        for (let i = 0; i <wishlistItems.length;i++){
+            if (wishlistItems[i].artwork === wishlistArtworkId){
+                dispatch(deleteWishlistItem(wishlistItems[i]._id))
+                history.push('/wishlist')
             }
         }
     }
@@ -88,39 +85,39 @@ const Cart = () => {
     return(
         <>
         <NavBar/>
-        <div className="cart-page">
-            {Object.keys(cartItems).length > 0 && (
-                <div className="cart-container">
-                    <div className="cart-content">
-                        <div className="cart-item-box">
-                            <div className="cart-item-header">
-                                <div className="cart-heading">{cartItems.length} item(s) in your shopping cart</div>
-                                <div className="cart-price-heading">Price</div>
+            <div className="wishlist-page">
+            {Object.keys(wishlistItems).length > 0 && (
+                <div className="wishlist-container">
+                    <div className="wishlist-content">
+                        <div className="wishlist-item-box">
+                            <div className="wishlist-item-header">
+                                <div className="wishlist-heading">{wishlistItems.length} item(s) in your shopping wishlist</div>
+                                <div className="wishlist-price-heading">Price</div>
                             </div>
                             <div style={{marginTop: "10px", marginBottom: "10px"}}></div>
                             <div>
-                                {matchingArtworks.map((cartArtwork) => (
-                                    <div key={cartArtwork._id} className="cart-item">
-                                        <div className="cart-item-info">
-                                            <div className="cart-item-img">
-                                                <img src={cartArtwork?.ArtworkImageUrl ? cartArtwork.ArtworkImageUrl : null} style={{
+                                {matchingArtworks.map((wishlistArtwork) => (
+                                    <div key={wishlistArtwork._id} className="wishlist-item">
+                                        <div className="wishlist-item-info">
+                                            <div className="wishlist-item-img">
+                                                <img src={wishlistArtwork?.ArtworkImageUrl ? wishlistArtwork.ArtworkImageUrl : null} style={{
                                                     backgroundRepeat: "no-repeat",
                                                     backgroundSize: "contain",
                                                     backgroundPosition: "center",
                                                     objectFit: "cover"}}
-                                                    className="cart-item-preview-image"
-                                                    onClick={() => history.push(`/artworks/${cartArtwork._id}`)}/>
+                                                    className="wishlist-item-preview-image"
+                                                    onClick={() => history.push(`/artworks/${wishlistArtwork._id}`)}/>
                                             </div>
-                                            <div className="cart-item-details">
-                                                    <div className="cart-item-title">{cartArtwork?.name ? cartArtwork.name : null}</div>
-                                                    <div className="cart-item-author" onClick={()=> history.push(`/users/${cartArtwork.author._id}`)}>By artist: {cartArtwork?.author.email ? cartArtwork.author.email.split('@')[0] : null}</div>
-                                                    <div className="cart-item-delete-btn" onClick={handleDeteCartItem(cartArtwork._id)}>remove item from cart</div>
+                                            <div className="wishlist-item-details">
+                                                    <div className="wishlist-item-title">{wishlistArtwork?.name ? wishlistArtwork.name : null}</div>
+                                                    <div className="wishlist-item-author" onClick={()=> history.push(`/users/${wishlistArtwork.author._id}`)}>By artist: {wishlistArtwork?.author.email ? wishlistArtwork.author.email.split('@')[0] : null}</div>
+                                                    <div className="wishlist-item-delete-btn" onClick={handleDeteWishlistItem(wishlistArtwork._id)}>remove item from wishlist</div>
                                             </div>
                                             <div>
 
                                             </div>
-                                            <div className="cart-item-price">
-                                                ${cartArtwork?.price ? cartArtwork.price.toFixed(2) : null}
+                                            <div className="wishlist-item-price">
+                                                ${wishlistArtwork?.price ? wishlistArtwork.price.toFixed(2) : null}
                                             </div>
                                         </div>
                                     </div>
@@ -132,8 +129,8 @@ const Cart = () => {
                         <div className="checkout-box">
                             <div className="checkout-container">
                                 <div className="sub-total-container">
-                                    Subtotal ({Object.keys(cartItems).length}{" "}
-                                    {cartItems.length > 1 ? "items" : "item"}):&nbsp;
+                                    Subtotal ({Object.keys(wishlistItems).length}{" "}
+                                    {wishlistItems.length > 1 ? "items" : "item"}):&nbsp;
                                     ${subTotal}
                                 </div>
                                 <form onSubmit={handleCheckout} className="checkout-form">
@@ -147,39 +144,39 @@ const Cart = () => {
                         </div>
                     </div>
                     <hr className="top-border" />
-                    {/* <div className="card-item-artworks">{allCartItems}</div> */}
+                    {/* <div className="card-item-artworks">{allWishlistItems}</div> */}
 {/* 
                     <div className="sub-total-container">
-                        Subtotal ({Object.keys(cartItems).length}{" "}
-                        {Object.keys(cartItems).length > 1 ? "items" : "item"}):&nbsp;
+                        Subtotal ({Object.keys(wishlistItems).length}{" "}
+                        {Object.keys(wishlistItems).length > 1 ? "items" : "item"}):&nbsp;
                         <span className="sub-total-amt">${subTotal}</span>
                     </div> */}
 
                     
                 </div>
             )}
-            {Object.keys(cartItems).length < 1 && (
-                <div className="empty-cart-container">
+            {Object.keys(wishlistItems).length < 1 && (
+                <div className="empty-wishlist-container">
                     <div className="panda-box-container">
                     <a href="/"><div className="panda-box"></div></a>
                     </div>
-                    <div className="empty-cart-heading">
-                        Your cart is empty
+                    <div className="empty-wishlist-heading">
+                        Your wishlist is empty
                     </div>
-                    <div className="empty-cart-text">
-                        Looks like you haven't added anything to your cart yet.
+                    <div className="empty-wishlist-text">
+                        Looks like you haven't added anything to your wishlist yet.
                     </div>
-                    <div className="empty-cart-mainpage-link">
+                    <div className="empty-wishlist-mainpage-link">
                         <a href="/">👉Start shopping👈</a>
                     </div>
                 </div>
             )}
         </div>
-        <div id='cart-page-footer'><Footer/></div>
+        <div id='wishlist-page-footer'><Footer/></div>
         </>
     )
     }
 };
 
-export default Cart
+export default Wishlist
 

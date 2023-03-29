@@ -22,7 +22,7 @@ import PaymentSuccess from './components/Payment/PaymentSuccess';
 import PaymentFail from './components/Payment/PaymentFail';
 import About from './components/AboutPage/About';
 import "aos/dist/aos.css";
-
+import Wishlist from './components/Wishlist/Wishlist';
 function App() {
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
@@ -46,6 +46,7 @@ function App() {
         <ProtectedRoute exact path="/artworks/:artworkId/review/:reviewId?" component={CreateReviewForm} />
         <ProtectedRoute exact path="/checkout" component={Checkout}/>
         <ProtectedRoute exact path='/cart' component={Cart} />
+        <ProtectedRoute exact path='/wishlist' component={Wishlist} />
         <ProtectedRoute exact path="/profile" component={Profile} />
         <ProtectedRoute exact path="/about" component={About}/>
         <ProtectedRoute exact path='/success' component={PaymentSuccess} />
