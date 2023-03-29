@@ -196,7 +196,7 @@ const artworksReducer = (state = {}, action) => {
         // case RECEIVE_NEW_ARTWORK:
         //     return { ...state, new: action.artwork };
         case RECEIVE_USER_LOGOUT:
-            return { ...state, user: {}, new: undefined };
+            return { ...state};
         default:
             return state;
     }
