@@ -36,33 +36,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-// const stripe = require("stripe")(process.env.STRIPE_SECRET_ACCESS_KEY);
-
-// app.get("/api/config/stripe", (req, res) => {
-//   res.send(process.env.STRIPE_PUBLISHABLE_KEY);
-// });
-
-// app.post("/create-payment-intent", async (req, res) => {
-//   try {
-//     const paymentIntent = await stripe.paymentIntents.create({
-//       currency: "EUR",
-//       amount: 1999,
-//       automatic_payment_methods: { enabled: true },
-//     });
-
-//     // Send publishable key and PaymentIntent details to client
-//     res.send({
-//       clientSecret: paymentIntent.client_secret,
-//     });
-//   } catch (e) {
-//     return res.status(400).send({
-//       error: {
-//         message: e.message,
-//       },
-//     });
-//   }
-// });
-
 // Security Middleware
 if (!isProduction) {
   // Enable CORS only in development because React will be on the React
