@@ -32,7 +32,7 @@ function MainPage() {
   const cartItems = useSelector((state) => state.cartItems)
   const sessionUser = useSelector(state => state.session.user);
   const [loaded, setLoaded] = useState(false);
-
+  const [currentType, setCurrentType] = useState('chinese');
   useEffect(() => {
 
     Promise.all([
@@ -45,6 +45,7 @@ function MainPage() {
     
   }, [dispatch])
 
+  
   const handleAddCartItem = artworkId => e => {
     e.preventDefault();
     if (sessionUser) {
@@ -58,7 +59,20 @@ function MainPage() {
     };
   }
 
-  const artworksArray = artworks.slice()
+  let artworksArray;
+  if(currentType==="all"){
+    artworksArray=artworks.slice()
+  } else if(currentType==="chinese"){
+    artworksArray = artworks.slice().filter(artwork=>artwork.category==="chinese")
+  } else if (currentType === "japanese") {
+    artworksArray = artworks.slice().filter(artwork => artwork.category === "japanese")
+  } else if (currentType === "pixel") {
+    artworksArray = artworks.slice().filter(artwork => artwork.category === "pixel")
+  } else if (currentType === "fantasy") {
+    artworksArray = artworks.slice().filter(artwork => artwork.category === "fantasy")
+  }
+  // console.log(artworksArray,"artworksArray")
+  // console.log(currentType,"currentType")  
   function shuffle(array) {
     for (let i = array.length; i; i--) {
       let j = Math.floor(Math.random() * i);
@@ -88,21 +102,21 @@ function MainPage() {
         </div>
         <div className="categories">
           <div className="categories-items">
-            <div className="category" id="popular-label">
+            <div className="category" id="popular-label" onClick={() => setCurrentType('all')}>
               <div className="category-wrapper"><div id='popular-icon'/></div>
-              <div className="category-name" >Popular</div>
+              <div className="category-name">Popular</div>
             </div>
-            <div className="category" id="chinese-label">
+            <div className="category" id="chinese-label" onClick={() => setCurrentType('chinese')}>
               <div className="category-wrapper"><div id='chinese-icon'/></div>
               <div className="category-name" >Chinese</div>
             </div>
-            <div className="category" id="japanese-label">
+            <div className="category" id="japanese-label" onClick={() => setCurrentType('japanese')}>
               <div className="category-wrapper"><div id='japanese-icon'/></div>
               <div className="category-name" >Japanese</div></div>
-            <div className="category" id="pixel-label">
+            <div className="category" id="pixel-label" onClick={() => setCurrentType('pixel')}>
               <div className="category-wrapper"><div id='pixel-icon'/></div>
               <div className="category-name" >Pixel</div></div>
-            <div className="category" id="fantasy-label">
+            <div className="category" id="fantasy-label" onClick={() => setCurrentType('fantasy')}>
               <div className="category-wrapper"><div id='fantasy-icon'/></div>
               <div className="category-name">Fantasy</div></div>
           </div>
