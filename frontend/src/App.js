@@ -19,6 +19,8 @@ import CreateReviewForm from './components/Review/Create/CreateReviewForm';
 import Checkout from './components/Cart/Checkout' 
 import AOS from "aos";
 import About from './components/About/About';
+import PaymentSuccess from './components/Payment/PaymentSuccess';
+import PaymentFail from './components/Payment/PaymentFail';
 import "aos/dist/aos.css";
 
 function App() {
@@ -46,6 +48,8 @@ function App() {
         <ProtectedRoute exact path='/cart' component={Cart} />
         <ProtectedRoute exact path="/profile" component={Profile} />
         <ProtectedRoute exact path="/about" component={About}/>
+        <ProtectedRoute exact path='/success' component={PaymentSuccess} />
+        <ProtectedRoute exact path='/fail' component={PaymentFail} />
       </Switch>
     </>
   );

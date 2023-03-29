@@ -22,8 +22,11 @@ const usersRouter = require('./routes/api/users');
 const artworksRouter = require('./routes/api/artworks');
 const reviewsRouter = require('./routes/api/reviews');
 const cartItemsRouter = require('./routes/api/cartItems')
+const stripeRouter = require('./routes/api/stripe');
 
 const csrfRouter = require('./routes/api/csrf');
+
+
 
 const app = express();
 app.use(bodyParser.json({ limit: '10mb' }));
@@ -33,6 +36,32 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+// const stripe = require("stripe")(process.env.STRIPE_SECRET_ACCESS_KEY);
+
+// app.get("/api/config/stripe", (req, res) => {
+//   res.send(process.env.STRIPE_PUBLISHABLE_KEY);
+// });
+
+// app.post("/create-payment-intent", async (req, res) => {
+//   try {
+//     const paymentIntent = await stripe.paymentIntents.create({
+//       currency: "EUR",
+//       amount: 1999,
+//       automatic_payment_methods: { enabled: true },
+//     });
+
+//     // Send publishable key and PaymentIntent details to client
+//     res.send({
+//       clientSecret: paymentIntent.client_secret,
+//     });
+//   } catch (e) {
+//     return res.status(400).send({
+//       error: {
+//         message: e.message,
+//       },
+//     });
+//   }
+// });
 
 // Security Middleware
 if (!isProduction) {
@@ -56,10 +85,11 @@ app.use(
 
 // Attach Express routers
 app.use('/api/users', usersRouter);
-app.use('/api/artworks', artworksRouter)
-app.use('/api/reviews', reviewsRouter)
+app.use('/api/artworks', artworksRouter);
+app.use('/api/reviews', reviewsRouter);
 app.use('/api/csrf', csrfRouter);
-app.use('/api/cartItems', cartItemsRouter)
+app.use('/api/cartItems', cartItemsRouter);
+app.use('/api/stripe', stripeRouter);
 
 
 // Serve static React build files statically in production
