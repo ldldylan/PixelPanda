@@ -26,16 +26,16 @@ function User() {
     const cartItems = useSelector((state) => state.cartItems)
     const [loaded, setLoaded] = useState(false);
 
-    useEffect(()=>{
+    useEffect(() => {
         Promise.all([
 
-        dispatch(fetchUser(userId)),
-        dispatch(fetchCartItems()),
+            dispatch(fetchUser(userId)),
+            dispatch(fetchCartItems()),
         ]).then(() => {
             setLoaded(true);
         })
-    },[dispatch, userId])
-    
+    }, [dispatch, userId])
+
     const [shouldFetchArtworks, setShouldFetchArtworks] = useState(true);
     const updateShouldFetchArtworks = (newValue) => {
         setShouldFetchArtworks(newValue);
@@ -73,72 +73,72 @@ function User() {
 
         )
     } else {
-    return (<>
-        <NavBar updateShouldFetchArtworks={updateShouldFetchArtworks} />
-        <div className="user">
-            <div className="user-main">
-                <div className="user-image-container">
-                    <img
-                        src={user?.profileImageUrl ? user.profileImageUrl : null}
-                        style={{
-                            backgroundRepeat: "no-repeat",
-                            backgroundSize: "contain",
-                            backgroundPosition: "center",
-                            objectFit: "cover"
-                        }}
-                        className="user-image" />
-                    <button className="msg-user-button"><EmailIcon /></button>
-                    <button className="like-user-button"
-                        onClick={handleLikeClick}
-                        style={{ color: isLiked ? 'blue' : 'white' }}><ThumbUpIcon /></button>
-                </div>
-                <div className="user-info">
-                    <div className="user-author">
-                        Welcome to <br />
-                        {user?.email ? user.email.split('@')[0] : "Mysterious Artist"}'s profile page
+        return (<>
+            <NavBar updateShouldFetchArtworks={updateShouldFetchArtworks} />
+            <div className="user">
+                <div className="user-main">
+                    <div className="user-image-container">
+                        <img
+                            src={user?.profileImageUrl ? user.profileImageUrl : null}
+                            style={{
+                                backgroundRepeat: "no-repeat",
+                                backgroundSize: "contain",
+                                backgroundPosition: "center",
+                                objectFit: "cover"
+                            }}
+                            className="user-image" />
+                        <button className="msg-user-button"><EmailIcon /></button>
+                        <button className="like-user-button"
+                            onClick={handleLikeClick}
+                            style={{ color: isLiked ? 'blue' : 'white' }}><ThumbUpIcon /></button>
+                    </div>
+                    <div className="user-info">
+                        <div className="user-author">
+                            Welcome to <br />
+                            {user?.email ? user.email.split('@')[0] : "Mysterious Artist"}'s profile page
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div className="user-artworks-container">
-                {user?.email ? user.email.split('@')[0] : "Mysterious Artist"}'s Artworks
-                <div className="divider user-show" />
-                <ul className="user-artworks">
-                    {/* {console.log(artworks ? artworks : null)} */}
-                    {Object.keys(artworks).length === 0 ? null : Object.keys(artworks).map(key => (
-                        <li key={artworks[key]._id}>
-                            {artworks[key].author._id === userId ? (
-            
-                            <div>
-                                <FavoriteBorderIcon className="favorite-item-icon" />
-                                <div className="artwork-image-container">
-                                    <img
-                                        src={artworks[key]?.ArtworkImageUrl ? artworks[key].ArtworkImageUrl : null}
-                                        style={{
-                                            display: "block",
-                                            margin: "0 auto",
-                                            backgroundRepeat: "no-repeat",
-                                            backgroundSize: "contain",
-                                            backgroundPosition: "center",
-                                            objectFit: "cover"
-                                        }}
-                                        className="artwork-preview-image-user-show"
-                                        onClick={() => history.push(`/artworks/${artworks[key]._id}`)} />
-                                </div>
-                                <div className="artwork-name"
-                                    onClick={() => history.push(`/artworks/${artworks[key]._id}`)}><p>{artworks[key].name}</p></div>
-                                <div className="artwork-artist">{artworks[key]?.author?.email ? artworks[key].author.email.split('@')[0] : null}</div>
-                                <div className="artwork-price-cart">
-                                    <div className="artwork-price"><p>${artworks[key].price}</p></div>
-                                    <div onClick={handleAddCartItem(artworks[key]._id)}>
-                                        <AddShoppingCartIcon />
+                <div className="user-artworks-container">
+                    {user?.email ? user.email.split('@')[0] : "Mysterious Artist"}'s Artworks
+                    <div className="divider user-show" />
+                    <ul className="user-artworks">
+                        {/* {console.log(artworks ? artworks : null)} */}
+                        {Object.keys(artworks).length === 0 ? null : Object.keys(artworks).map(key => (
+                            artworks[key].author._id === userId ? (
+                                <li key={artworks[key]._id} className="asset-item">
+                                    <div>
+                                        <FavoriteBorderIcon className="favorite-item-icon" />
+                                        <div className="artwork-image-container">
+                                            <img
+                                                src={artworks[key]?.ArtworkImageUrl ?? null}
+                                                style={{
+                                                    display: "block",
+                                                    margin: "0 auto",
+                                                    backgroundRepeat: "no-repeat",
+                                                    backgroundSize: "contain",
+                                                    backgroundPosition: "center",
+                                                    objectFit: "cover"
+                                                }}
+                                                className="artwork-preview-image-user-show"
+                                                onClick={() => history.push(`/artworks/${artworks[key]._id}`)} />
+                                        </div>
+                                        <div className="artwork-name"
+                                            onClick={() => history.push(`/artworks/${artworks[key]._id}`)}><p>{artworks[key].name}</p></div>
+                                        <div className="artwork-artist">{artworks[key]?.author?.email?.split('@')[0] ?? null}</div>
+                                        <div className="artwork-price-cart">
+                                            <div className="artwork-price"><p>${artworks[key].price}</p></div>
+                                            <div onClick={() => handleAddCartItem(artworks[key]._id)}>
+                                                <AddShoppingCartIcon />
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>) : null}
-                        </li>
-                    ))}
-                </ul>
-            </div>
-            {/* <div className="user-profile">
+                                </li>
+                            ) : null
+                        ))}
+                    </ul>
+                </div>
+                {/* <div className="user-profile">
                 <label className="email-profile">Email: <span>{user?.email ? user.email.split('@')[0] : ""}</span></label>
                 <img
                 src= {user?.profileImageUrl ? user.profileImageUrl : null}
@@ -178,9 +178,9 @@ function User() {
                 </ul>
             </div> */}
 
-        </div>
-        <Footer />
-    </>);
+            </div>
+            <Footer />
+        </>);
     }
 }
 
