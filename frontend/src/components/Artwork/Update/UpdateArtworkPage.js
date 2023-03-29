@@ -42,7 +42,7 @@ export default function UpdateArtworkPage(props) {
     useEffect(() => {
 
         if (img) img.src = imageUrl;
-    }, [imageUrl])
+    }, [imageUrl, name, description, price, category])
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -78,13 +78,14 @@ export default function UpdateArtworkPage(props) {
         }
 
         setErrors(errorData);
-        // console.log(name, "name")
-        // console.log(description,"description")
-        // console.log(price, "price")
-        // console.log(image,"image")
+
         if (errorData.name || errorData.description || errorData.price || errorData.image || errorData.category) return;
         else {
-
+            artwork.name = name;
+            artwork.description = description;
+            artwork.price = price;
+            artwork.category = category;
+            artwork.ArtworkImageUrl = imageUrl;
             dispatch(updateArtwork(formData, artwork._id));
             setImage([]);
             setImageUrl([]);
@@ -92,7 +93,6 @@ export default function UpdateArtworkPage(props) {
             setName('');
             setDescription('');
             fileRef.current.value = null;
-            history.push(`/artworks/${artwork._id}`)
             onClose();
         }
 
