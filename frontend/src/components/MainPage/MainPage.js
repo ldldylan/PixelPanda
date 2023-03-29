@@ -127,7 +127,7 @@ function MainPage() {
           </div>
         </div>
         <div className="popular-assets-box">
-          <h3>{currentCategory} ASSETS</h3>
+          <div className='popular-assets-box-header'><h3>{currentCategory} ASSETS</h3><div id='swap-button'><div id='swap-icon'></div><div id='swap-text'>Swap</div></div></div>
           <ul className="assets">
             {shuffle(artworksArray).slice(0, 10).map(artwork => (
               <li key={artwork._id ? artwork._id : null}

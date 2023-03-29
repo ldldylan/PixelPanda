@@ -59,6 +59,28 @@
     /* height: 900px; */
     margin-bottom: 3%;
 }
+
+.popular-assets-box-header {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+#swap-button {
+    display: flex;
+    flex-direction: row;
+    width: 5.5%;
+}
+
+#swap-icon {
+    background-image: url('../../../assets/swap-icon.png');
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    border:none;
+}
+
 .assets {
     margin-top: 20px;
     position: relative;
