@@ -39,20 +39,29 @@ const initializeImages = async () => {
 
     const artworks_for_image = await Artwork.find();
 
-    for (let i = 0; i < artworks_for_image.length && i < 50; i++) {
+    for (let i = 0; i < artworks_for_image.length && i < 71; i++) {
         const artwork = artworks_for_image[i];
-        if(i<40){
+        if (i < 40) {
             await Artwork.updateOne(
                 { _id: artwork._id },
                 { ArtworkImageUrl: `https://aws-mern-pixelpanda.s3.us-west-1.amazonaws.com/aws_mern/tachie+(${i + 100}).png` }
             );
-        }else{
+        } else if (i < 50) {
             await Artwork.updateOne(
                 { _id: artwork._id },
-                { ArtworkImageUrl: `https://aws-mern-pixelpanda.s3.us-west-1.amazonaws.com/aws_mern/fantasy/fantasy${i-39}.png` }
+                { ArtworkImageUrl: `https://aws-mern-pixelpanda.s3.us-west-1.amazonaws.com/aws_mern/fantasy/fantasy${i - 39}.png` }
             );
-        }
-        
+        } else if (i < 60) {
+            await Artwork.updateOne(
+                { _id: artwork._id },
+                { ArtworkImageUrl: `https://aws-mern-pixelpanda.s3.us-west-1.amazonaws.com/aws_mern/japanese/japanese${i - 49}.png` }
+            );
+        } else  {
+            await Artwork.updateOne(
+                { _id: artwork._id },
+                { ArtworkImageUrl: `https://aws-mern-pixelpanda.s3.us-west-1.amazonaws.com/aws_mern/pixel/${i - 59}.png` }
+            );
+        };
         // console.log(artwork)
         console.log('Artwork updated successfully!');
     }

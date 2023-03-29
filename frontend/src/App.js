@@ -18,6 +18,7 @@ import { getCurrentUser } from './store/session';
 import CreateReviewForm from './components/Review/Create/CreateReviewForm';
 import Checkout from './components/Cart/Checkout' 
 import AOS from "aos";
+import About from './components/About/About';
 import "aos/dist/aos.css";
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
         <ProtectedRoute exact path="/checkout" component={Checkout}/>
         <ProtectedRoute exact path='/cart' component={Cart} />
         <ProtectedRoute exact path="/profile" component={Profile} />
+        <ProtectedRoute exact path="/about" component={About}/>
       </Switch>
     </>
   );

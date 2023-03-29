@@ -61,8 +61,6 @@ export const fetchArtwork = (artworkId) => async dispatch => {
         const res = await jwtFetch(`/api/artworks/${artworkId}`);
         
         const artwork = await res.json();
-        console.log(artwork,'artwork')
-        console.log(artwork._id, 'artwork_id')
 
         dispatch(receiveArtwork(artwork));
     } catch (err) {
@@ -198,7 +196,7 @@ const artworksReducer = (state = {}, action) => {
         // case RECEIVE_NEW_ARTWORK:
         //     return { ...state, new: action.artwork };
         case RECEIVE_USER_LOGOUT:
-            return { ...state, user: {}, new: undefined };
+            return { ...state};
         default:
             return state;
     }

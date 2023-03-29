@@ -16,7 +16,9 @@ router.get('/', async (req, res) => {
   }
   catch(err) {
     return res.json([]);
+    
   }
+  
 });
 
 router.get('/user/:userId', async (req, res, next) => {

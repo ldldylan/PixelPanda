@@ -88,7 +88,7 @@ export const addNewCartItem = (artworkData, userId) => async dispatch => {
         if (resBody.statusCode === 400) {
             return dispatch(receiveErrors(resBody.errors));
         }
-    }    
+    }
 };
 
 export const deleteCartItem = cartItemId => async dispatch => {
@@ -103,7 +103,7 @@ export const deleteCartItem = cartItemId => async dispatch => {
             return dispatch(receiveErrors(resBody.errors));
         }
     }
-    
+
 };
 
 export const deleteAllCartItems = (userId) => async dispatch => {
@@ -145,17 +145,17 @@ const cartItemsReducer = (state = {}, action) => {
             return newState
         case ADD_CARTITEM:
             const cartItem = action.cartItem
-            return{
+            return {
                 ...state,
                 [cartItem._id]: cartItem
             }
-            // return newState[action.cartItem._id] = action.cartItem;
-            
+        // return newState[action.cartItem._id] = action.cartItem;
+
         case REMOVE_CARTITEM:
             delete newState[action.cartItemId]
             return newState
         case RECEIVE_USER_LOGOUT:
-            return { ...state, user: {}}
+            return { ...state }
         case CLEAR_CART:
             return {};
         default:

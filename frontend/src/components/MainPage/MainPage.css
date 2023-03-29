@@ -5,7 +5,7 @@
     /* overflow: hidden scroll; */
     position: relative;
     flex-direction: column;
-    background-color: whitesmoke;
+    background-color: white;
     min-height: 100vh;
 }
 
@@ -105,7 +105,6 @@
     left: 30%;
     transform: translate(-50%, -50%);
     margin-bottom: 2px;
-    /* background-image: url('https://aws-mern-pixelpanda.s3.us-west-1.amazonaws.com/public/1678898915410.png'); */
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -122,7 +121,6 @@
     max-height: 250px;
     min-height: 250px;
     margin-bottom: 2px;
-    /* background-image: url('https://aws-mern-pixelpanda.s3.us-west-1.amazonaws.com/public/1678898915410.png'); */
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -224,6 +222,51 @@
     align-items: center;
 }
 
+#popular-icon {
+    background-image: url("/assets/fire-icon.png");
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
+}
+
+#chinese-icon {
+    background-image: url("/assets/taiji-icon.png");
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
+}
+
+#japanese-icon {
+    background-image: url("/assets/torii-gate-icon.png");
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
+}
+
+#fantasy-icon {
+    background-image: url("/assets/dragon-icon.png");
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
+}
+
+#pixel-icon {
+    background-image: url("/assets/panda-icon.png");
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
+}
+
 .category {
     position: relative;
     width: 60px;
@@ -250,36 +293,44 @@
 .category:hover .category-name {
 }
 
-#twoD-label:hover .category-name{
+#popular-label:hover .category-name{
+    color: #878400;
+}
+
+#popular-label:hover .category-wrapper {
+    background-color: #878400;
+}
+
+#chinese-label:hover .category-name{
+    color: #e80404;
+}
+
+#chinese-label:hover .category-wrapper {
+    background-color: #e80404;
+}
+
+#japanese-label:hover .category-name{
+    color: #de44f5;
+}
+
+#japanese-label:hover .category-wrapper {
+    background-color: #de44f5;
+}
+
+#pixel-label:hover .category-name{
     color: #2196f3;
 }
 
-#twoD-label:hover .category-wrapper {
+#pixel-label:hover .category-wrapper {
     background-color: #2196f3;
 }
 
-#threeD-label:hover .category-name{
-    color: #7f21f3;
+#fantasy-label:hover .category-name{
+    color: #29e990;
 }
 
-#threeD-label:hover .category-wrapper {
-    background-color: #7f21f3;
-}
-
-#audio-label:hover .category-name{
-    color: #f37f21;
-}
-
-#audio-label:hover .category-wrapper {
-    background-color: #f37f21;
-}
-
-#vfx-label:hover .category-name{
-    color: #94f321;
-}
-
-#vfx-label:hover .category-wrapper {
-    background-color: #94f321;
+#fantasy-label:hover .category-wrapper {
+    background-color: #29e990;
 }
 
 

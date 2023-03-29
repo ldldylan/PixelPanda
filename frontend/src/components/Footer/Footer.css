@@ -1,27 +1,57 @@
 .footer {
     padding-top: 15px;
-    padding-bottom:15px;
+    padding-bottom: 15px;
     width: 100%;
     color: var(--off-white);
-    background-color: rgb(36,36,36);
+    background-color: rgb(36, 36, 36);
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .footer-socials{
+    width: 53%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 40px;
+    height: 30px;
+  }
+
+  .footer-content {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 200px;
+  }
+
+  .footer-content div:hover{
+    color: rgb(230, 0, 18);
+    cursor: pointer;
+  }
+  
+  .signup-button-container {
+    display: flex;
+    margin-right: 10px;
+    
+  }
+  
+  .signup-button-container div a {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 30px;
-    margin-top: 10px;
-}
-
-.footer-content {
-    width: 70%;
-    /* background-color: red; */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.footer-content div {
-    display: flex;
-    width: 20%;
-    justify-content: space-evenly;
-    align-items: center;
-}
+    
+  }
+  
+  .signup-button-container div a:hover {
+    color: rgb(230, 0, 18);
+  }
+  
+  .signup-button-container svg {
+    margin-right: 5px;
+    width: 30px;
+    height: 30px;
+  }

@@ -4,11 +4,13 @@ import './SessionForm.css';
 import anime from 'animejs';
 import { signup, clearSessionErrors } from '../../store/session';
 import { useHistory } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 function SignupForm () {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const errors = useSelector(state => state.errors.session);
+  const loggedIn = useSelector(state => !!state.session.user);
   const dispatch = useDispatch();
   const history = useHistory();
   const emailRef = useRef(null);
@@ -163,20 +165,24 @@ function SignupForm () {
       });
     }
 
-    emailElement.addEventListener('focus', handleEmailFocus);
-    passwordElement.addEventListener('focus', handlePasswordFocus);
-    confirmPasswordElement.addEventListener('focus', handleConfirmPasswordFocus);
-    submitElement.addEventListener('focus', handleSubmitFocus);
+    if (emailElement && passwordElement && confirmPasswordElement && submitElement) {
+      emailElement.addEventListener('focus', handleEmailFocus);
+      passwordElement.addEventListener('focus', handlePasswordFocus);
+      confirmPasswordElement.addEventListener('focus', handleConfirmPasswordFocus);
+      submitElement.addEventListener('focus', handleSubmitFocus);
+    }
 
     return () => {
-      emailElement.removeEventListener('focus', handleEmailFocus);
-      passwordElement.removeEventListener('focus', handlePasswordFocus);
-      confirmPasswordElement.addEventListener('focus', handleConfirmPasswordFocus);
-      submitElement.removeEventListener('focus', handleSubmitFocus);
+      if (emailElement && passwordElement && confirmPasswordElement && submitElement) {
+        emailElement.removeEventListener('focus', handleEmailFocus);
+        passwordElement.removeEventListener('focus', handlePasswordFocus);
+        confirmPasswordElement.addEventListener('focus', handleConfirmPasswordFocus);
+        submitElement.removeEventListener('focus', handleSubmitFocus);
+      }
     };
   }, []);
 
-  
+  if(loggedIn) return <Redirect to='/'/>;
 
   return (
 <div className="login-page">
