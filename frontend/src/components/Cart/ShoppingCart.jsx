@@ -11,6 +11,7 @@ import {deleteAllCartItems, checkoutCartItems} from "../../store/cartItems";
 import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";
 import { deleteCartItem, clearCart } from "../../store/cartItems";
+import Loading from '../Loading/Loading'
 
 const Cart = () => {
     const dispatch = useDispatch();
@@ -20,11 +21,16 @@ const Cart = () => {
     const currentUser = useSelector((state) => state.session.user)
     const [subTotal, setSubTotal] = useState(0.0)
     const [matchingArtworks, setMatchingArtworks] = useState([]);
-    
+    const [loaded, setLoaded] = useState(false);
+
     
     useEffect(() => {
-        dispatch(fetchArtworks())
-        if (currentUser) dispatch(fetchUserCartItems(currentUser._id))
+        Promise.all([
+            dispatch(fetchArtworks()),
+            currentUser ? dispatch(fetchUserCartItems(currentUser._id)) : null,
+        ]).then(() => {
+            setLoaded(true);
+        });
     }, [dispatch, currentUser]);
     
     const calculateSubTotal = () => {
@@ -69,6 +75,15 @@ const Cart = () => {
             }
         }
     }
+    if (!loaded) {
+        return (
+            <>
+                <NavBar />
+                <Loading />
+            </>
+
+        )
+    } else {
     return(
         <>
         <NavBar/>
@@ -162,6 +177,7 @@ const Cart = () => {
         <div id='cart-page-footer'><Footer/></div>
         </>
     )
+    }
 };
 
 export default Cart

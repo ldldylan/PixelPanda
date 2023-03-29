@@ -21,6 +21,7 @@ import { addNewCartItem } from '../../store/cartItems';
 import { fetchCartItems } from '../../store/cartItems';
 import { useParams } from 'react-router-dom';
 import { notInitialized } from 'react-redux/es/utils/useSyncExternalStore';
+import Loading from '../Loading/Loading'
 
 
 function MainPage() {
@@ -30,11 +31,18 @@ function MainPage() {
   const history = useHistory();
   const cartItems = useSelector((state) => state.cartItems)
   const sessionUser = useSelector(state => state.session.user);
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    dispatch(fetchArtworks());
-    dispatch(fetchUsers());
-    dispatch(fetchCartItems());
+
+    Promise.all([
+    dispatch(fetchArtworks()),
+    dispatch(fetchUsers()),
+    dispatch(fetchCartItems()),
+    ]).then(() => {
+      setLoaded(true);
+    })
+    
   }, [dispatch])
 
   const handleAddCartItem = artworkId => e => {
@@ -58,6 +66,16 @@ function MainPage() {
     }
     return array;
   }
+
+  if (!loaded) {
+    return (
+      <>
+      <NavBar />
+      <Loading />
+      </>
+      
+    )
+  } else {
   return (
     <>
       <NavBar />
@@ -149,6 +167,7 @@ function MainPage() {
         <Footer />
       </div>
     </>);
+  }
 }
 
 export default MainPage;

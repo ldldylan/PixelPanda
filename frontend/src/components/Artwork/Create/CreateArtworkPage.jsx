@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { fetchArtworks } from '../../../store/artworks';
 import "./CreateArtwork.css"
+
 export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }) {
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
