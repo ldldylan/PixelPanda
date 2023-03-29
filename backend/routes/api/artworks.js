@@ -34,7 +34,7 @@ router.get('/user/:userId', async (req, res, next) => {
   try {
       const artworks = await Artwork.find({ author: user._id })
                               .sort({ createdAt: -1 })
-          .populate("author", "_id username profileImageUrl");
+          .populate("author", "_id email profileImageUrl");
       return res.json(artworks);
   }
   catch(err) {

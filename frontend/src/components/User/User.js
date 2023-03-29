@@ -30,6 +30,7 @@ function User() {
         Promise.all([
 
             dispatch(fetchUser(userId)),
+            dispatch(fetchUserArtworks(userId)),
             dispatch(fetchCartItems()),
         ]).then(() => {
             setLoaded(true);
@@ -125,7 +126,7 @@ function User() {
                                         </div>
                                         <div className="artwork-name"
                                             onClick={() => history.push(`/artworks/${artworks[key]._id}`)}><p>{artworks[key].name}</p></div>
-                                        <div className="artwork-artist">{artworks[key]?.author?.email?.split('@')[0] ?? null}</div>
+                                        <div className="artwork-artist">{artworks[key]?.author?.email?.split('@')[0] ? artworks[key]?.author.email.split('@')[0] : null}</div>
                                         <div className="artwork-price-cart">
                                             <div className="artwork-price"><p>${artworks[key].price.toFixed(2)}</p></div>
                                             <div onClick={() => handleAddCartItem(artworks[key]._id)}>
