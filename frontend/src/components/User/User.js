@@ -100,6 +100,7 @@ function User() {
                         </div>
                     </div>
                 </div>
+
                 <div className="user-artworks-container">
                     {user?.email ? user.email.split('@')[0] : "Mysterious Artist"}'s Artworks
                     <div className="divider user-show" />
@@ -133,6 +134,7 @@ function User() {
                                                 <AddShoppingCartIcon />
                                             </div>
                                         </div>
+
                                     </div>
                                 </li>
                             ) : null

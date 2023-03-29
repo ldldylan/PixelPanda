@@ -3,10 +3,10 @@ import NavBar from '../NavBar/NavBar';
 import Footer from '../Footer/Footer';
 function About(){
     return (<>
-        <NavBar/>
         <div className='about-page'>
+            <NavBar/>
             <div className='team-member'>
-                
+                dsadsa
             </div>
             <div className='team-member'>
                 
@@ -14,9 +14,9 @@ function About(){
             <div className='team-member'>
                 
             </div>
-        </div>
-        <div id='about-page-footer'>
-            <Footer/>
+            <div id='about-page-footer'>
+                <Footer/>
+            </div>
         </div>
     </>)
 }
