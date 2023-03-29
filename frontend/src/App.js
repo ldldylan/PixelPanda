@@ -18,6 +18,8 @@ import { getCurrentUser } from './store/session';
 import CreateReviewForm from './components/Review/Create/CreateReviewForm';
 import Checkout from './components/Cart/Checkout' 
 import AOS from "aos";
+import PaymentSuccess from './components/Payment/PaymentSuccess';
+import PaymentFail from './components/Payment/PaymentFail';
 import About from './components/AboutPage/About';
 import "aos/dist/aos.css";
 
@@ -46,6 +48,8 @@ function App() {
         <ProtectedRoute exact path='/cart' component={Cart} />
         <ProtectedRoute exact path="/profile" component={Profile} />
         <ProtectedRoute exact path="/about" component={About}/>
+        <ProtectedRoute exact path='/success' component={PaymentSuccess} />
+        <ProtectedRoute exact path='/fail' component={PaymentFail} />
       </Switch>
     </>
   );

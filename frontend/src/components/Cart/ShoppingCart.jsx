@@ -7,7 +7,7 @@ import './Cart.css'
 import { fetchArtworks } from "../../store/artworks";
 import { getCartItems } from "../../store/cartItems";
 import {fetchUserCartItems} from "../../store/cartItems";
-import {deleteAllCartItems} from "../../store/cartItems";
+import {deleteAllCartItems, checkoutCartItems} from "../../store/cartItems";
 import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";
 import { deleteCartItem, clearCart } from "../../store/cartItems";
@@ -33,6 +33,7 @@ const Cart = () => {
             .map((cartItem) => artworks.find((artwork) => artwork._id === cartItem.artwork))
             .filter((artwork) => artwork !== undefined);
         setMatchingArtworks(matchingArtworks);
+        console.log(matchingArtworks);
         if (matchingArtworks.length === 0){
             setSubTotal(0);
             return;
@@ -52,10 +53,11 @@ const Cart = () => {
 
     const handleCheckout = (e) => {
         e.preventDefault();
-        dispatch(deleteAllCartItems(currentUser._id));
-        history.push('/checkout')
-        alert("Thank you for your purchase! Your order is being processed.")
-        history.push('/');
+        dispatch(checkoutCartItems(matchingArtworks));
+        // dispatch(deleteAllCartItems(currentUser._id));
+        // history.push('/checkout')
+        // alert("Thank you for your purchase! Your order is being processed.")
+        // history.push('/');
     };
     
     const handleDeteCartItem = cartArtworkId => (e) => {

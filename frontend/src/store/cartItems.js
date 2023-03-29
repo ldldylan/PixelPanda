@@ -1,6 +1,8 @@
 import jwtFetch from './jwt';
+import { loadStripe } from '@stripe/stripe-js';
 import { RECEIVE_USER_LOGOUT } from './session';
 
+const STRIPE_PUBLISHABLE_KEY = 'pk_test_51MqM6cGsS1Xf3D6rufkufB86jmVjJmFhGhHcmDS7eL09uvHKxhgoQ8EpkIUUcXtLYSj2ju5Zu3nx7EuSHQuZUMra00rW4Zmi4H';
 export const RECEIVE_CARTITEMS = 'cartItems/RECEIVE_CARTITEMS';
 export const ADD_CARTITEM = 'cartItems/ADD_CARTITEM';
 export const REMOVE_CARTITEM = 'cartItems/REMOVE_CARTITEM';
@@ -105,6 +107,17 @@ export const deleteCartItem = cartItemId => async dispatch => {
     }
 
 };
+
+export const checkoutCartItems = (cartItems) => async dispatch => {
+    const stripe = await loadStripe(STRIPE_PUBLISHABLE_KEY);
+    const res = await jwtFetch(`/api/stripe/`, {
+        method: 'POST',
+        body: JSON.stringify({ cartItems })
+    })
+    const session = await res.json();
+    stripe.redirectToCheckout({ sessionId: session.id });
+}
+        
 
 export const deleteAllCartItems = (userId) => async dispatch => {
     try {
