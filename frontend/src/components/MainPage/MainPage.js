@@ -33,6 +33,7 @@ function MainPage() {
   const sessionUser = useSelector(state => state.session.user);
   const [loaded, setLoaded] = useState(false);
   const [currentType, setCurrentType] = useState('chinese');
+  let currentCategory = 'POPULAR'
   useEffect(() => {
 
     Promise.all([
@@ -63,13 +64,17 @@ function MainPage() {
   if(currentType==="all"){
     artworksArray=artworks.slice()
   } else if(currentType==="chinese"){
-    artworksArray = artworks.slice().filter(artwork=>artwork.category==="chinese")
+    currentCategory = 'CHINESE';
+    artworksArray = artworks.slice().filter(artwork=>artwork.category==="chinese");
   } else if (currentType === "japanese") {
-    artworksArray = artworks.slice().filter(artwork => artwork.category === "japanese")
+    currentCategory = 'JAPANESE';
+    artworksArray = artworks.slice().filter(artwork => artwork.category === "japanese");
   } else if (currentType === "pixel") {
-    artworksArray = artworks.slice().filter(artwork => artwork.category === "pixel")
+    currentCategory = 'PIXEL';
+    artworksArray = artworks.slice().filter(artwork => artwork.category === "pixel");
   } else if (currentType === "fantasy") {
-    artworksArray = artworks.slice().filter(artwork => artwork.category === "fantasy")
+    currentCategory = 'FANTASY';
+    artworksArray = artworks.slice().filter(artwork => artwork.category === "fantasy");
   }
   // console.log(artworksArray,"artworksArray")
   // console.log(currentType,"currentType")  
@@ -122,7 +127,7 @@ function MainPage() {
           </div>
         </div>
         <div className="popular-assets-box">
-          <h3>POPULAR ASSETS</h3>
+          <h3>{currentCategory} ASSETS</h3>
           <ul className="assets">
             {shuffle(artworksArray).slice(0, 10).map(artwork => (
               <li key={artwork._id ? artwork._id : null}
