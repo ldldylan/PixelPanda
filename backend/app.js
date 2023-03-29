@@ -14,14 +14,17 @@ const bodyParser = require('body-parser');
 require('./models/User');
 require('./models/Artwork'); 
 require('./models/Review');
-require('./models/CartItem')
+require('./models/CartItem');
+require('./models/WishlistItem');
 require('./config/passport'); 
-const passport = require('passport'); 
 
+const passport = require('passport'); 
 const usersRouter = require('./routes/api/users');
 const artworksRouter = require('./routes/api/artworks');
 const reviewsRouter = require('./routes/api/reviews');
 const cartItemsRouter = require('./routes/api/cartItems')
+const wishlistItemsRouter = require('./routes/api/wishlistItems')
+
 const stripeRouter = require('./routes/api/stripe');
 
 const csrfRouter = require('./routes/api/csrf');
@@ -62,6 +65,7 @@ app.use('/api/artworks', artworksRouter);
 app.use('/api/reviews', reviewsRouter);
 app.use('/api/csrf', csrfRouter);
 app.use('/api/cartItems', cartItemsRouter);
+app.use('/api/wishlistItems', wishlistItemsRouter);
 app.use('/api/stripe', stripeRouter);
 
 

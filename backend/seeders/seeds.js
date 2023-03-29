@@ -4,12 +4,14 @@ const User = require('../models/User');
 const Artwork = require('../models/Artwork');
 const Review = require('../models/Review');
 const CartItem = require('../models/CartItem');
+const WishlistItem = require('../models/WishlistItem');
 const bcrypt = require('bcryptjs');
 const { faker } = require('@faker-js/faker');
 
 const NUM_SEED_USERS = 10;
 const NUM_SEED_ARTWORKS = 71;
 const NUM_SEED_REVIEWS = 160;
+const NUM_SEED_WISHLIST_ITEMS = 20;
 // Create users
 const users = [];
 console.log('creating users...')
@@ -103,7 +105,16 @@ const reviews = [];
 }
 console.log(reviews)
 
-console.log('creating cart items' )
+console.log('creating wishlist items' )
+const wishlistItems = [];
+  for (let i = 0; i < NUM_SEED_WISHLIST_ITEMS; i++) {
+  wishlistItems.push(
+    new WishlistItem({
+      user: users[Math.floor(Math.random() * NUM_SEED_USERS)]._id,
+      artwork: artworks[Math.floor(Math.random() * NUM_SEED_ARTWORKS)]._id
+    })
+  )
+}
 
 
 
@@ -114,9 +125,11 @@ const insertSeeds = () => {
                   .then(() => Artwork.collection.drop())
                   .then(() => Review.collection.drop())
                   .then(() => CartItem.collection.drop())
+                  .then(() => WishlistItem.collection.drop())
 
                   .then(() => User.insertMany(users))
                   .then(() => Review.insertMany(reviews))
+                  .then(() => WishlistItem.insertMany(wishlistItems))
 
                   .then(() => Artwork.insertMany(artworks))
                   .then(() => {
