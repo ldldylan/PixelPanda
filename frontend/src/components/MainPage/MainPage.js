@@ -93,7 +93,7 @@ function MainPage() {
           <h3>POPULAR ASSETS</h3>
           <ul className="assets">
             {shuffle(artworksArray).slice(0, 10).map(artwork => (
-              <li key={artwork?._id ? artwork._id : null}
+              <li key={artwork._id ? artwork._id : null}
                 className="asset-item"
               >
                 <FavoriteBorderIcon className="favorite-item-icon" />
