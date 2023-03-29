@@ -168,7 +168,7 @@ export const reviewErrorsReducer = (state = nullErrors, action) => {
 };
 
 const reviewsReducer = (state = {}, action) => {
-    const newState = { ...state };
+    let newState = { ...state };
 
     switch (action.type) {
         case RECEIVE_REVIEW:
@@ -178,6 +178,7 @@ const reviewsReducer = (state = {}, action) => {
                 [review._id]: review
             };
         case RECEIVE_REVIEWS:
+            newState = {};
             const reviews = action.reviews
             reviews.forEach(review => {
                 newState[review._id] = review
@@ -187,6 +188,7 @@ const reviewsReducer = (state = {}, action) => {
             delete newState[action.reviewId]
             return newState
         // case RECEIVE_ARTWORK_REVIEWS:
+        //     // newState={};
         //     const artReviews = action.reviews
         //     artReviews.forEach(review => {
         //         newState[review._id] = review
