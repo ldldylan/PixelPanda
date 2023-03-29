@@ -22,6 +22,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 // import {Modal} from '../context/Modal';
 import { Modal } from '../context/Modal';
+import Loading from '../Loading/Loading'
+
 
 function Artwork() {
     const { artworkId } = useParams();
@@ -32,6 +34,7 @@ function Artwork() {
     const params = useParams();
     const history = useHistory();
     const sessionUser = useSelector(state => state.session.user);
+    const [loaded, setLoaded] = useState(false);
 
     const [rating, setRating] = useState(1);
 
@@ -69,7 +72,11 @@ function Artwork() {
     // const artwork = useSelector(state => state.artworks); // from kenny
     // console.log(artwork)
     useEffect(() => {
+        Promise.all([
         dispatch(fetchArtworks())
+        ]).then(() => {
+            setLoaded(true);
+        })
     }, [dispatch])
     useEffect(() => {
         console.log('pass',artworkId)
@@ -140,7 +147,15 @@ function Artwork() {
         dispatch(deleteReview(reviewId))
         history.push(`/artworks/${artworkId}`)
     }
+    if (!loaded) {
+        return (
+            <>
+                <NavBar />
+                <Loading />
+            </>
 
+        )
+    } else {
     return (
         <>
             <NavBar />
@@ -319,6 +334,7 @@ function Artwork() {
             <Footer />
         </>
     );
+    }
 }
 
 export default Artwork;

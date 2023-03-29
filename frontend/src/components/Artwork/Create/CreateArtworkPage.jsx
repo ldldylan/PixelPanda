@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { fetchArtworks } from '../../../store/artworks';
 import "./CreateArtwork.css"
+
 export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }) {
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
@@ -215,7 +216,7 @@ export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }
                         ref={fileRef}
                         accept=".jpg, .jpeg, .png"
                         onChange={updateFile} />
-                    <p><i class="fa-solid fa-cloud-arrow-up"></i></p>
+                    <p><i className="fa-solid fa-cloud-arrow-up"></i></p>
                     <p className='uploadins'>click to upload</p>
                     <p className='recommend'>We recommend using high-quality .jpg files under 20MB</p>
                 </div>
