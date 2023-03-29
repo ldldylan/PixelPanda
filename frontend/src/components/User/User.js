@@ -90,10 +90,10 @@ function User() {
                 <ul className="user-artworks">
                     {/* {console.log(artworks ? artworks : null)} */}
                     {Object.keys(artworks).length === 0 ? null : Object.keys(artworks).map(key => (
-                        <li key={artworks[key]._id}
-                            className="asset-item"
-                        >
-                            {artworks[key].author._id === userId ? (<div>
+                        <li key={artworks[key]._id}>
+                            {artworks[key].author._id === userId ? (
+            
+                            <div>
                                 <FavoriteBorderIcon className="favorite-item-icon" />
                                 <div className="artwork-image-container">
                                     <img

@@ -49,7 +49,6 @@ function App() {
         <ProtectedRoute exact path="/profile" component={Profile} />
         <ProtectedRoute exact path="/about" component={About}/>
         <ProtectedRoute exact path='/success' component={PaymentSuccess} />
-        <ProtectedRoute exact path='/fail' component={PaymentFail} />
       </Switch>
     </>
   );

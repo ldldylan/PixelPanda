@@ -114,6 +114,7 @@ export const checkoutCartItems = (cartItems) => async dispatch => {
         method: 'POST',
         body: JSON.stringify({ cartItems })
     })
+    console.log(stripe);
     const session = await res.json();
     stripe.redirectToCheckout({ sessionId: session.id });
 }

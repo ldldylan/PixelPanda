@@ -15,7 +15,7 @@ router.post('/', async (req, res) => {
                     name: cartItem.name,
                     images: [cartItem.ArtworkImageUrl],
                 },
-                unit_amount: cartItem.price * 100,
+                unit_amount: parseFloat((cartItem.price * 100).toFixed(2)),
             },
             adjustable_quantity: {
                 enabled: false,
@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
     mode: 'payment',
     payment_method_types: ['card'],
     success_url: `${process.env.CLIENT_URL}/checkout`,
-    cancel_url: `${process.env.CLIENT_URL}/fail`,
+    cancel_url: `${process.env.CLIENT_URL}/cart`,
     });
     res.send(session);
 });
