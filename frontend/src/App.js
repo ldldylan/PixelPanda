@@ -18,7 +18,7 @@ import { getCurrentUser } from './store/session';
 import CreateReviewForm from './components/Review/Create/CreateReviewForm';
 import Checkout from './components/Cart/Checkout' 
 import AOS from "aos";
-import About from './components/About/About';
+import About from './components/AboutPage/About';
 import "aos/dist/aos.css";
 
 function App() {

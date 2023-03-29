@@ -1,7 +1,7 @@
 import './About.css';
 import NavBar from '../NavBar/NavBar';
 import Footer from '../Footer/Footer';
-export default function About(){
+function About(){
     return (<>
         <NavBar/>
         <div className='about-page'>
@@ -20,3 +20,4 @@ export default function About(){
         </div>
     </>)
 }
+export default About;
