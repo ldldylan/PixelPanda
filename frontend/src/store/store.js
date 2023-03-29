@@ -9,13 +9,15 @@ import artworks from './artworks'
 import users from './users'
 import cartItems from './cartItems'
 import reviews from './reviews'
+import wishlist from './wishlistItems'
 const rootReducer = combineReducers({
   session,
   errors,
   artworks,
   users,
   cartItems,
-  reviews
+  reviews,
+  wishlist
 });
 let enhancer;
 

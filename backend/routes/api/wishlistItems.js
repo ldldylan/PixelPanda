@@ -93,7 +93,7 @@ router.post('/users/:userId', requireUser, validateWishlistItemInput, async (req
 router.delete("/:id", async (req, res, next) => {
     // res.json({ message: "DELETE /product" });
     console.log(req.params)
-    CartItem.findByIdAndDelete(req.params.id)
+    WishlistItem.findByIdAndDelete(req.params.id)
         .then((wishlistItem) => {
             return res.json(wishlistItem);
         })
