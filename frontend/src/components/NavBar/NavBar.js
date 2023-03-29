@@ -34,8 +34,6 @@ function NavBar({ updateShouldFetchArtworks }) {
 
   const searchResultsRef = useRef(null);
 
-  const searchResultsPortal = document.createElement("div");
-
   const searchItems = (searchValue) => {
     setSearchInput(searchValue);
 
@@ -67,15 +65,6 @@ function NavBar({ updateShouldFetchArtworks }) {
     e.preventDefault();
     history.push('/cart')
   }
-
-  useEffect(() => {
-    document.body.appendChild(searchResultsPortal);
-
-    // remove the portal element from the document body when the component unmounts
-    return () => {
-      document.body.removeChild(searchResultsPortal);
-    };
-  }, [searchResultsPortal]);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
