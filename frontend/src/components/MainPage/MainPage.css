@@ -222,6 +222,15 @@
     align-items: center;
 }
 
+#popular-icon {
+    background-image: url("/assets/fire-icon.png");
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: contain;
+    position: absolute;
+}
+
 #chinese-icon {
     background-image: url("/assets/taiji-icon.png");
     height: 100%;
@@ -282,6 +291,14 @@
 }
 
 .category:hover .category-name {
+}
+
+#popular-label:hover .category-name{
+    color: #878400;
+}
+
+#popular-label:hover .category-wrapper {
+    background-color: #878400;
 }
 
 #chinese-label:hover .category-name{
