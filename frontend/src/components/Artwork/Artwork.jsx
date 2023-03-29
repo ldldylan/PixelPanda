@@ -175,7 +175,7 @@ function Artwork() {
                             {artwork?.author?.email ? artwork.author.email.split('@')[0] : "Mysterious Artist"}
                         </div>
                         <div className="artwork-price">
-                            ${artwork?.price ? artwork.price : "3.50"}
+                            ${artwork?.price ? artwork.price.toFixed(2) : "3.50"}
                         </div>
                         <div className="divider" />
                         <div className="artwork-about">

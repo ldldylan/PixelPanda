@@ -131,7 +131,7 @@ function MainPage() {
                   onClick={() => history.push(`/artworks/${artwork._id}`)}><p>{artwork?.name ? artwork.name : null}</p></div>
                 <div className="artwork-artist">{artwork?.author?.email ? artwork.author.email.split('@')[0] : null}</div>
                 <div className="artwork-price-cart">
-                  <div className="artwork-price"><p>${artwork?.price ? artwork.price : null}</p></div>
+                  <div className="artwork-price"><p>${artwork?.price ? artwork.price.toFixed(2) : null}</p></div>
                   <div className="artwork-cart" onClick={artwork?._id ? handleAddCartItem(artwork._id) : null}>
                     <AddShoppingCartIcon />
                   </div>

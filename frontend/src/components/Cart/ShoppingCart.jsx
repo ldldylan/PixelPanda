@@ -119,7 +119,7 @@ const Cart = () => {
 
                                             </div>
                                             <div className="cart-item-price">
-                                                ${cartArtwork?.price ? cartArtwork.price : null}
+                                                ${cartArtwork?.price ? cartArtwork.price.toFixed(2) : null}
                                             </div>
                                         </div>
                                     </div>

@@ -99,6 +99,7 @@ function User() {
                         </div>
                     </div>
                 </div>
+
                 <div className="user-artworks-container">
                     {user?.email ? user.email.split('@')[0] : "Mysterious Artist"}'s Artworks
                     <div className="divider user-show" />
@@ -127,57 +128,18 @@ function User() {
                                             onClick={() => history.push(`/artworks/${artworks[key]._id}`)}><p>{artworks[key].name}</p></div>
                                         <div className="artwork-artist">{artworks[key]?.author?.email?.split('@')[0] ?? null}</div>
                                         <div className="artwork-price-cart">
-                                            <div className="artwork-price"><p>${artworks[key].price}</p></div>
+                                            <div className="artwork-price"><p>${artworks[key].price.toFixed(2)}</p></div>
                                             <div onClick={() => handleAddCartItem(artworks[key]._id)}>
                                                 <AddShoppingCartIcon />
                                             </div>
                                         </div>
+
                                     </div>
                                 </li>
                             ) : null
                         ))}
                     </ul>
                 </div>
-                {/* <div className="user-profile">
-                <label className="email-profile">Email: <span>{user?.email ? user.email.split('@')[0] : ""}</span></label>
-                <img
-                src= {user?.profileImageUrl ? user.profileImageUrl : null}
-                style={{ 
-                backgroundRepeat: "no-repeat", 
-                backgroundSize: "contain",
-                backgroundPosition: "center",
-                objectFit: "cover" }} 
-                className="artwork-preview-image"/>
-            </div>
-            <div className="user-artworks-container">
-                <ul className="user-artworks">
-                    {console.log(artworks ? artworks : null)}
-                    {artworks ? artworks.map(artwork => (
-                       <li key={artwork._id} 
-                       className="asset-item"
-                       >
-                         <FavoriteBorderIcon className="favorite-item-icon"/>
-                         <img
-                         src= {artwork.ArtworkImageUrl} 
-                         style={{ 
-                           backgroundRepeat: "no-repeat", 
-                           backgroundSize: "contain",
-                           backgroundPosition: "center",
-                           objectFit: "cover" }} 
-                           className="artwork-preview-image"
-                           onClick={()=> history.push(`/artworks/${artwork._id}`)}/>
-                         <div className="artwork-name"
-                         onClick={()=> history.push(`/artworks/${artwork._id}`)}><p>{artwork.name}</p></div>
-                         <div className="artwork-artist">{artwork.author.email}</div>
-                         <div className="artwork-price-cart">
-                           <div className="artwork-price"><p>${artwork.price}</p></div>
-                           <AddShoppingCartIcon/>
-                         </div>
-                       </li>
-                    )) : null }
-                </ul>
-            </div> */}
-
             </div>
             <Footer />
         </>);
