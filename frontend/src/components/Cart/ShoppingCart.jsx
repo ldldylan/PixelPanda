@@ -157,7 +157,7 @@ const Cart = () => {
                 </div>
             )}
         </div>
-        <Footer id='cart-page-footer'/>
+        <div id='cart-page-footer'><Footer/></div>
         </>
     )
 };
