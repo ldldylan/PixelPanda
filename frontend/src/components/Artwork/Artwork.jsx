@@ -69,9 +69,12 @@ function Artwork() {
     // const artwork = useSelector(state => state.artworks); // from kenny
     // console.log(artwork)
     useEffect(() => {
-        dispatch(fetchArtwork(artworkId))
-        dispatch(fetchArtworkReviews(artworkId))
+        dispatch(fetchArtworks())
     }, [dispatch])
+    useEffect(() => {
+        console.log('pass',artworkId)
+        dispatch(fetchArtworkReviews(artworkId))
+    }, [artworkId, dispatch])
     const artwork = useSelector(getArtwork(artworkId));
     // console.log(artwork,'artwork')
 
