@@ -9,7 +9,7 @@ const { faker } = require('@faker-js/faker');
 
 const NUM_SEED_USERS = 10;
 const NUM_SEED_ARTWORKS = 71;
-const NUM_SEED_REVIEWS = 80;
+const NUM_SEED_REVIEWS = 160;
 // Create users
 const users = [];
 console.log('creating users...')
