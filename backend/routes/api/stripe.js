@@ -60,8 +60,8 @@ router.post('/', async (req, res) => {
         mode: 'payment',
         payment_method_types: ['card'],
         success_url: success_url,
-        cancel_url: cancel_url
+        cancel_url: cancel_url,
     });
-    res.send({ session });
+    res.send(session);
 });
 module.exports = router;
