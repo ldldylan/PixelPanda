@@ -6,13 +6,16 @@ function About(){
         <div className='about-page'>
             <NavBar/>
             <div className='team-member'>
-                dsadsa
+                <div className='member-image'></div>
+                <div className='member-text'></div>
             </div>
             <div className='team-member'>
-                
+                <div className='member-image'></div>
+                <div className='member-text'></div>
             </div>
             <div className='team-member'>
-                
+                <div className='member-image'></div>
+                <div className='member-text'></div>
             </div>
             <div id='about-page-footer'>
                 <Footer/>
