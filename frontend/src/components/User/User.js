@@ -14,6 +14,7 @@ import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import { addNewCartItem } from '../../store/cartItems';
 import { fetchCartItems } from '../../store/cartItems';
 import './User.css'
+import Loading from '../Loading/Loading'
 
 function User() {
     const dispatch = useDispatch();
@@ -23,10 +24,16 @@ function User() {
     const history = useHistory();
     const currentUser = useSelector((state) => state.session.user)
     const cartItems = useSelector((state) => state.cartItems)
+    const [loaded, setLoaded] = useState(false);
 
     useEffect(()=>{
-        dispatch(fetchUser(userId));
-        dispatch(fetchCartItems());
+        Promise.all([
+
+        dispatch(fetchUser(userId)),
+        dispatch(fetchCartItems()),
+        ]).then(() => {
+            setLoaded(true);
+        })
     },[dispatch, userId])
     
     const [shouldFetchArtworks, setShouldFetchArtworks] = useState(true);
@@ -57,7 +64,15 @@ function User() {
             history.push('/login')
         };
     }
+    if (!loaded) {
+        return (
+            <>
+                <NavBar />
+                <Loading />
+            </>
 
+        )
+    } else {
     return (<>
         <NavBar updateShouldFetchArtworks={updateShouldFetchArtworks}/>
         <div className="user">
@@ -164,6 +179,7 @@ function User() {
         </div>
         <Footer/>
     </>);
+    }
 }
 
 export default User;
