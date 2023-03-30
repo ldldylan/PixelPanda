@@ -27,7 +27,14 @@ function User() {
     const [loaded, setLoaded] = useState(false);
     const [showToolTip, setShowToolTip] = useState(false);
     const [timeoutId, setTimeoutId] = useState(null);
+    const [favorites, setFavorites] = useState({});
 
+    const toggleFavorite = (artworkId) => {
+        setFavorites(prevFavorites => ({
+            ...prevFavorites,
+            [artworkId]: !prevFavorites[artworkId]
+        }));
+    }
 
     useEffect(() => {
         Promise.all([
@@ -44,12 +51,12 @@ function User() {
     const updateShouldFetchArtworks = (newValue) => {
         setShouldFetchArtworks(newValue);
     };
-    useEffect(() => {
-        if (shouldFetchArtworks) {
-            dispatch(fetchUserArtworks(userId));
-            setShouldFetchArtworks(false);
-        }
-    }, [dispatch, shouldFetchArtworks, userId]);
+    // useEffect(() => {
+    //     if (shouldFetchArtworks) {
+    //         dispatch(fetchUserArtworks(userId));
+    //         setShouldFetchArtworks(false);
+    //     }
+    // }, [dispatch, shouldFetchArtworks, userId]);
 
     const [isLiked, setIsLiked] = useState(false);
     const handleLikeClick = () => {
@@ -114,7 +121,7 @@ function User() {
                             artworks[key].author._id === userId ? (
                                 <li key={artworks[key]._id} className="asset-item">
                                     <div>
-                                        <FavoriteBorderIcon className="favorite-item-icon" />
+                                        {/* <FavoriteBorderIcon className="favorite-item-icon" /> */}
                                         <div className="artwork-image-container">
                                             <img
                                                 src={artworks[key]?.ArtworkImageUrl ?? null}
@@ -128,6 +135,11 @@ function User() {
                                                 }}
                                                 className="artwork-preview-image-user-show"
                                                 onClick={() => history.push(`/artworks/${artworks[key]._id}`)} />
+                                        </div>
+                                        <div onClick={() => toggleFavorite(artworks[key]._id)}>
+                                            {favorites[artworks[key]._id] ?
+                                                <FavoriteIcon style={{ color: "red" }} className="favorite-item-icon" fontSize="40" /> :
+                                                <FavoriteBorderIcon className="favorite-item-icon" fontSize="40px" />}
                                         </div>
                                         <div className="artwork-name"
                                             onClick={() => history.push(`/artworks/${artworks[key]._id}`)}><p>{artworks[key].name}</p></div>

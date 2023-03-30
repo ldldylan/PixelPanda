@@ -113,7 +113,8 @@
     top: 10px;
     right: 15px;
     cursor: pointer;
-    font-size: 35px;
+    font-size: 40px;
+    /* color: red; */
     /* z-index: 2; */
 }
 
@@ -368,6 +369,10 @@
     padding: 10px;
     z-index: 20;
     margin-left: 20px;
+}
+
+#swap-text {
+    user-select: none;
 }
 
 

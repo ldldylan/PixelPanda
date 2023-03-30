@@ -4,7 +4,7 @@ import NavBar from '../NavBar/NavBar';
 import Footer from '../Footer/Footer';
 // import ShoppingCart from '@mui/icons-material/ShoppingCart';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-// import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 // import CropSquareIcon from '@mui/icons-material/CropSquare';
 // import ViewInArIcon from '@mui/icons-material/ViewInAr';
@@ -26,7 +26,8 @@ import Loading from '../Loading/Loading'
 
 function MainPage() {
   const dispatch = useDispatch();
-  const artworks = useSelector(getArtworks);
+  const originalArtworks = useSelector(getArtworks);
+  // let artworks = useSelector(getArtworks);
   const users = useSelector(getUsers);
   const history = useHistory();
   const cartItems = useSelector((state) => state.cartItems)
@@ -35,30 +36,39 @@ function MainPage() {
   const [currentType, setCurrentType] = useState('popular');
   const [clickedSwap, setClickedSwap] = useState(false);
   const [artworksArray, setArtworksArray] = useState([]);
+  const [artworks, setArtworks] = useState(originalArtworks);
   const [showToolTip, setShowToolTip] = useState(false);
   const [timeoutId, setTimeoutId] = useState(null);
+  const [favorites, setFavorites] = useState({});
+  
+  const toggleFavorite = (artworkId) => {
+    setFavorites(prevFavorites => ({
+      ...prevFavorites,
+      [artworkId]: !prevFavorites[artworkId]
+    }));
+  }
 
   let currentCategory = 'POPULAR'
 
-  if (artworksArray.length === 0 && artworks.length !== 0) {
-    setArtworksArray(artworks.slice())
-  }
+  // if (artworksArray.length === 0 && artworks.length !== 0) {
+  //   setArtworksArray(artworks.slice())
+  // }
 
   function changeCategory() {
     if (currentType === "popular") {
-      setArtworksArray(artworks.slice())
+      setArtworks(originalArtworks);
     } else if (currentType === "chinese") {
       currentCategory = 'CHINESE';
-      setArtworksArray(artworks.slice().filter(artwork => artwork.category === "chinese"))
+      setArtworks(originalArtworks.filter(artwork => artwork.category === "chinese"))
     } else if (currentType === "japanese") {
       currentCategory = 'JAPANESE';
-      setArtworksArray(artworks.slice().filter(artwork => artwork.category === "japanese"))
+      setArtworks(originalArtworks.filter(artwork => artwork.category === "japanese"))
     } else if (currentType === "pixel") {
       currentCategory = 'PIXEL';
-      setArtworksArray(artworks.slice().filter(artwork => artwork.category === "pixel"))
+      setArtworks(originalArtworks.filter(artwork => artwork.category === "pixel"))
     } else if (currentType === "fantasy") {
       currentCategory = 'FANTASY';
-      setArtworksArray(artworks.slice().filter(artwork => artwork.category === "fantasy"))
+      setArtworks(originalArtworks.filter(artwork => artwork.category === "fantasy"))
     }
   }
 
@@ -92,13 +102,13 @@ function MainPage() {
 
   function shuffle(shouldSwap) {
     if (shouldSwap) {
-      const shuffledArray = [...artworksArray];
+      const shuffledArray = [...artworks];
       for (let i = shuffledArray.length; i; i--) {
         let j = Math.floor(Math.random() * i);
         [shuffledArray[i - 1], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i - 1]];
       }
-      if (shuffledArray !== artworksArray) {
-        setArtworksArray(shuffledArray);
+      if (shuffledArray !== artworks) {
+        setArtworks(shuffledArray);
       }
       setClickedSwap(false);
     }
@@ -110,7 +120,7 @@ function MainPage() {
 
   useEffect(() => {
     if (clickedSwap) {
-      shuffle(artworksArray, true);
+      shuffle(artworks, true);
     }
   }, [clickedSwap])
 
@@ -157,11 +167,16 @@ function MainPage() {
           <div className="popular-assets-box">
             <div className='popular-assets-box-header'><h3>{currentCategory} ASSETS</h3><div id='swap-button' onClick={e => setClickedSwap(true)}><div id='swap-icon'></div><div id='swap-text'>Swap</div></div></div>
             <ul className="assets">
-              {artworksArray.slice(0, 10).map(artwork => (
+              {artworks.slice(0, 10).map(artwork => (
                 <li key={artwork._id ? artwork._id : null}
                   className="asset-item"
                 >
-                  <FavoriteBorderIcon className="favorite-item-icon" />
+                  {/* <FavoriteBorderIcon className="favorite-item-icon" fontSize='35px'/> */}
+                  <div onClick={() => toggleFavorite(artwork._id)}>
+                    {favorites[artwork._id] ?
+                      <FavoriteIcon style={{ color: "red" }} className="favorite-item-icon" fontSize="40" /> :
+                      <FavoriteBorderIcon className="favorite-item-icon" fontSize="40px" />}
+                  </div>
                   <img
                     src={artwork?.ArtworkImageUrl ? artwork.ArtworkImageUrl : null}
                     style={{
@@ -178,7 +193,7 @@ function MainPage() {
                   <div className="artwork-price-cart">
                     <div className="artwork-price"><p>${artwork?.price ? artwork.price.toFixed(2) : null}</p></div>
                     <div className="artwork-cart"
-                      onClick={artwork?._id ? (e) => { 
+                      onClick={artwork?._id ? (e) => {
                         clearTimeout(timeoutId);
                         handleAddCartItem(e, artwork._id);
                         setShowToolTip(true);
