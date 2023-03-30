@@ -35,7 +35,8 @@ function Artwork() {
     const history = useHistory();
     const sessionUser = useSelector(state => state.session.user);
     const [loaded, setLoaded] = useState(false);
-
+    const [showToolTip, setShowToolTip] = useState(false);
+    const [timeoutId, setTimeoutId] = useState(null);
     const [rating, setRating] = useState(1);
 
     const handleRatingChange = (value) => {
@@ -73,13 +74,13 @@ function Artwork() {
     // console.log(artwork)
     useEffect(() => {
         Promise.all([
-        dispatch(fetchArtworks())
+            dispatch(fetchArtworks())
         ]).then(() => {
             setLoaded(true);
         })
     }, [dispatch])
     useEffect(() => {
-        console.log('pass',artworkId)
+        console.log('pass', artworkId)
         dispatch(fetchArtworkReviews(artworkId))
     }, [artworkId, dispatch])
     const artwork = useSelector(getArtwork(artworkId));
@@ -123,7 +124,7 @@ function Artwork() {
     const cartItems = useSelector((state) => state.cartItems)
     if (!artwork) return null;
 
-    const handleAddCartItem = artworkId => e => {
+    const handleAddCartItem = (e, artworkId) => {
         e.preventDefault();
         if (sessionUser) {
             const artworkArray = Object.values(cartItems).map((item) => item.artwork);
@@ -156,144 +157,153 @@ function Artwork() {
 
         )
     } else {
-    return (
-        <>
-            <NavBar />
-            {/* {artwork &&<UpdateArtworkPage artwork={artwork} />} */}
-            <div className="artwork">
-                <div className="artwork-main">
-                    <div className="show-artwork-image-container">
-                        <img
-                            src={artwork?.ArtworkImageUrl ? artwork.ArtworkImageUrl : null}
-                            className="artwork-image" />
-                    </div>
-                    <div className="artwork-purchase">
-                        <div className="artwork-title">
-                            {artwork?.name ? artwork.name : "Untitled"}
+        return (
+            <>
+                <NavBar />
+                {/* {artwork &&<UpdateArtworkPage artwork={artwork} />} */}
+                {showToolTip && <div className="tooltip">Artwork added to cart!</div>}
+                <div className="artwork">
+                    <div className="artwork-main">
+                        <div className="show-artwork-image-container">
+                            <img
+                                src={artwork?.ArtworkImageUrl ? artwork.ArtworkImageUrl : null}
+                                className="artwork-image" />
                         </div>
-                        <div className="artwork-author" onClick={() => history.push(`/users/${artwork.author._id}`)}>
-                            {artwork?.author?.email ? artwork.author.email.split('@')[0] : "Mysterious Artist"}
-                        </div>
-                        <div className="artwork-price">
-                            ${artwork?.price ? artwork.price.toFixed(2) : "3.50"}
-                        </div>
-                        <div className="divider" />
-                        <div className="artwork-about">
-                            About this item:
-                            <div className="artwork-desc">
-                                {artwork?.description ? artwork.description : "I don't know but I'm sure it is a great product"}
+                        <div className="artwork-purchase">
+                            <div className="artwork-title">
+                                {artwork?.name ? artwork.name : "Untitled"}
                             </div>
-                        </div>
-                        <div className="artwork-cart-buy">
-                            <div className="cart-and-fav">
-                                <div className="artwork-cart" onClick={handleAddCartItem(artwork._id)}>
-                                    <button id='add-cart-button'>Add to Cart</button>
-                                </div>
-                                <div className="cart-fav-button">
-                                    <button id='fav-button' onClick={handleButtonClick}
-                                        style={{
-                                            color: isFavorited ? 'red' : 'white',
-                                            backgroundColor: '#b90dbf'
-                                        }}
-                                    ><Favorite /></button>
+                            <div className="artwork-author" onClick={() => history.push(`/users/${artwork.author._id}`)}>
+                                {artwork?.author?.email ? artwork.author.email.split('@')[0] : "Mysterious Artist"}
+                            </div>
+                            <div className="artwork-price">
+                                ${artwork?.price ? artwork.price.toFixed(2) : "3.50"}
+                            </div>
+                            <div className="divider" />
+                            <div className="artwork-about">
+                                About this item:
+                                <div className="artwork-desc">
+                                    {artwork?.description ? artwork.description : "I don't know but I'm sure it is a great product"}
                                 </div>
                             </div>
-                            <div className="edit-and-delete">
-                                {artwork.author._id === sessionUser._id ? (<>
-                                    <button id='edit-button' onClick={() => setShowModal(true)}>Edit</button>
-                                    <button id='delete-button' onClick={handleDelete} >Delete</button>
-                                    {showModal && artwork && (
-                                        <Modal onClose={() => setShowModal(false)}>
-                                            <UpdateArtworkPage onClose={() => setShowModal(false)} artwork={artwork} />
-                                        </Modal>
-                                    )}
-                                </>) : null}
+                            <div className="artwork-cart-buy">
+                                <div className="cart-and-fav">
+                                    <div className="artwork-cart" onClick={artwork?._id ? (e) => {
+                                        clearTimeout(timeoutId);
+                                        handleAddCartItem(e, artwork._id);
+                                        setShowToolTip(true);
+                                        const newTimeoutId = setTimeout(() => {
+                                            setShowToolTip(false);
+                                        }, 2500);
+                                        setTimeoutId(newTimeoutId);
+                                    } : null}>
+                                        <button id='add-cart-button'>Add to Cart</button>
+                                    </div>
+                                    <div className="cart-fav-button">
+                                        <button id='fav-button' onClick={handleButtonClick}
+                                            style={{
+                                                color: isFavorited ? 'red' : 'white',
+                                                backgroundColor: '#b90dbf'
+                                            }}
+                                        ><Favorite /></button>
+                                    </div>
+                                </div>
+                                <div className="edit-and-delete">
+                                    {artwork.author._id === sessionUser._id ? (<>
+                                        <button id='edit-button' onClick={() => setShowModal(true)}>Edit</button>
+                                        <button id='delete-button' onClick={handleDelete} >Delete</button>
+                                        {showModal && artwork && (
+                                            <Modal onClose={() => setShowModal(false)}>
+                                                <UpdateArtworkPage onClose={() => setShowModal(false)} artwork={artwork} />
+                                            </Modal>
+                                        )}
+                                    </>) : null}
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                {/* <div className="cart-separator-empty"/> */}
+                    {/* <div className="cart-separator-empty"/> */}
 
-                <div className="artworks-reviews-container">
-                    REVIEWS
-                    <div className="line-divider review" />
-                    <ul className="artworks-reviews">
-                        {Object.keys(reviews).length === 0 ? null : reviews.map((review) => (
+                    <div className="artworks-reviews-container">
+                        REVIEWS
+                        <div className="line-divider review" />
+                        <ul className="artworks-reviews">
+                            {Object.keys(reviews).length === 0 ? null : reviews.map((review) => (
 
-                            <li key={review._id}>
-                                <div className="line-divider" />
-                                {showEditForm && editMessage === review ? (
-                                    <form className="comment-form" onSubmit={handleEditSubmit}>
-                                        <div>
+                                <li key={review._id}>
+                                    <div className="line-divider" />
+                                    {showEditForm && editMessage === review ? (
+                                        <form className="comment-form" onSubmit={handleEditSubmit}>
+                                            <div>
+                                                {[1, 2, 3, 4, 5].map((value) => (
+                                                    <span
+                                                        key={value}
+                                                        value={editMessageRating}
+                                                        onClick={() => setEditMessageRating(value)}
+                                                        style={{
+                                                            color: editMessageRating >= value ? 'orange' : 'grey',
+                                                            cursor: 'pointer'
+                                                        }}
+                                                    >
+                                                        &#9733;
+                                                    </span>
+                                                ))}
+                                            </div>
+                                            <textarea value={editMessageText} className="comment-submit-box" onChange={(e) => setEditMessageText(e.target.value)} required placeholder="Write a customer review here" />
+                                            <br /><button className="comment-submit-button" type="submit">Update</button>
+                                        </form>
+                                    ) : (<>
+                                        <p>
                                             {[1, 2, 3, 4, 5].map((value) => (
                                                 <span
-                                                    key={value}
-                                                    value={editMessageRating}
-                                                    onClick={() => setEditMessageRating(value)}
-                                                    style={{
-                                                        color: editMessageRating >= value ? 'orange' : 'grey',
-                                                        cursor: 'pointer'
-                                                    }}
+                                                    style={{ color: review.rating >= value ? 'orange' : 'grey' }}
                                                 >
                                                     &#9733;
                                                 </span>
                                             ))}
-                                        </div>
-                                        <textarea value={editMessageText} className="comment-submit-box" onChange={(e) => setEditMessageText(e.target.value)} required placeholder="Write a customer review here" />
-                                        <br /><button className="comment-submit-button" type="submit">Update</button>
-                                    </form>
-                                ) : (<>
-                                    <p>
-                                        {[1, 2, 3, 4, 5].map((value) => (
-                                            <span
-                                                style={{ color: review.rating >= value ? 'orange' : 'grey' }}
-                                            >
-                                                &#9733;
-                                            </span>
-                                        ))}
-                                    </p>
-                                    <p className="review-content">{review.content}</p>
-                                    {review.author._id === sessionUser._id ? (<>
-                                        <button type="button" className="edit-icon" onClick={() => handleShowEditForm(review)}>
-                                            <EditIcon />
-                                        </button>
-                                        <button type="button" onClick={handleDeleteReview(review._id)} className="edit-delete-buttons">
-                                            <DeleteForeverIcon />
-                                        </button>
-                                    </>)
-                                        : null}
+                                        </p>
+                                        <p className="review-content">{review.content}</p>
+                                        {review.author._id === sessionUser._id ? (<>
+                                            <button type="button" className="edit-icon" onClick={() => handleShowEditForm(review)}>
+                                                <EditIcon />
+                                            </button>
+                                            <button type="button" onClick={handleDeleteReview(review._id)} className="edit-delete-buttons">
+                                                <DeleteForeverIcon />
+                                            </button>
+                                        </>)
+                                            : null}
 
-                                </>)}
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-
-                <div className="artwork-comments-box">
-
-                    <form className="comment-form" onSubmit={handleSubmit}>
-                        <div>
-                            {[1, 2, 3, 4, 5].map((value) => (
-                                <span
-                                    key={value}
-                                    onClick={() => handleRatingChange(value)}
-                                    style={{
-                                        color: rating >= value ? 'orange' : 'grey',
-                                        cursor: 'pointer'
-                                    }}
-                                >
-                                    &#9733;
-                                </span>
+                                    </>)}
+                                </li>
                             ))}
-                        </div>
-                        <textarea required value={comment} className="comment-submit-box" onChange={(e) => setComment(e.target.value)} placeholder="Write a customer review here" />
-                        <br /><button className="comment-submit-button" type="submit">Submit</button>
-                    </form>
+                        </ul>
+                    </div>
 
-                </div>
+                    <div className="artwork-comments-box">
 
-                {/* <div className="artwork-comments-container">
+                        <form className="comment-form" onSubmit={handleSubmit}>
+                            <div>
+                                {[1, 2, 3, 4, 5].map((value) => (
+                                    <span
+                                        key={value}
+                                        onClick={() => handleRatingChange(value)}
+                                        style={{
+                                            color: rating >= value ? 'orange' : 'grey',
+                                            cursor: 'pointer'
+                                        }}
+                                    >
+                                        &#9733;
+                                    </span>
+                                ))}
+                            </div>
+                            <textarea required value={comment} className="comment-submit-box" onChange={(e) => setComment(e.target.value)} placeholder="Write a customer review here" />
+                            <br /><button className="comment-submit-button" type="submit">Submit</button>
+                        </form>
+
+                    </div>
+
+                    {/* <div className="artwork-comments-container">
                 <ul className="artwork-comments">
                     {artwork?.comments ? artwork.comments.map(comment => (
                         <li key={artwork.comments.id} className="artwork-comment">{comment}</li>
@@ -302,8 +312,8 @@ function Artwork() {
                     }           
                 </ul>
             </div> */}
-            </div>
-            {/* <div>test1</div>
+                </div>
+                {/* <div>test1</div>
         {console.log(reviews, 'reviews!!!!!!!!!')}
             <div>
                 
@@ -331,9 +341,9 @@ function Artwork() {
                 Write a customer review
             </NavLink> */}
 
-            <Footer />
-        </>
-    );
+                <Footer />
+            </>
+        );
     }
 }
 

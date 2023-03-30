@@ -35,13 +35,16 @@ function MainPage() {
   const [currentType, setCurrentType] = useState('popular');
   const [clickedSwap, setClickedSwap] = useState(false);
   const [artworksArray, setArtworksArray] = useState([]);
+  const [showToolTip, setShowToolTip] = useState(false);
+  const [timeoutId, setTimeoutId] = useState(null);
+
   let currentCategory = 'POPULAR'
 
-  if (artworksArray.length === 0 && artworks.length!==0){
+  if (artworksArray.length === 0 && artworks.length !== 0) {
     setArtworksArray(artworks.slice())
   }
 
-  function changeCategory(){
+  function changeCategory() {
     if (currentType === "popular") {
       setArtworksArray(artworks.slice())
     } else if (currentType === "chinese") {
@@ -61,10 +64,10 @@ function MainPage() {
 
   useEffect(() => {
     Promise.all([
-    dispatch(fetchArtworks()),
-    dispatch(fetchUsers()),
-    dispatch(fetchCartItems()),
-    ]).then(()=>{
+      dispatch(fetchArtworks()),
+      dispatch(fetchUsers()),
+      dispatch(fetchCartItems()),
+    ]).then(() => {
       changeCategory();
     }).then(() => {
       setLoaded(true);
@@ -72,7 +75,7 @@ function MainPage() {
   }, [dispatch])
 
 
-  const handleAddCartItem = artworkId => e => {
+  const handleAddCartItem = (e, artworkId) => {
     e.preventDefault();
     if (sessionUser) {
       const artworkArray = Object.values(cartItems).map((item) => item.artwork);
@@ -84,8 +87,8 @@ function MainPage() {
       history.push('/login')
     };
   }
-  
-  
+
+
 
   function shuffle(shouldSwap) {
     if (shouldSwap) {
@@ -94,14 +97,14 @@ function MainPage() {
         let j = Math.floor(Math.random() * i);
         [shuffledArray[i - 1], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i - 1]];
       }
-      if(shuffledArray!==artworksArray){
+      if (shuffledArray !== artworksArray) {
         setArtworksArray(shuffledArray);
       }
       setClickedSwap(false);
     }
   }
 
-  useEffect(()=>{
+  useEffect(() => {
     changeCategory()
   }, [currentType])
 
@@ -124,6 +127,7 @@ function MainPage() {
       <>
         <NavBar />
         <div className="main-page">
+          {showToolTip && <div className="tooltip">Artwork added to cart!</div>}
           <div data-aos="zoom-in-up"
             data-aos-duration="3000"
             className="main-banner-box">
@@ -158,7 +162,7 @@ function MainPage() {
                   className="asset-item"
                 >
                   <FavoriteBorderIcon className="favorite-item-icon" />
-                    <img
+                  <img
                     src={artwork?.ArtworkImageUrl ? artwork.ArtworkImageUrl : null}
                     style={{
                       backgroundRepeat: "no-repeat",
@@ -168,12 +172,21 @@ function MainPage() {
                     }}
                     className="artwork-preview-image"
                     onClick={artwork ? () => history.push(`/artworks/${artwork._id}`) : null} />
-                    <div className="artwork-name"
+                  <div className="artwork-name"
                     onClick={() => history.push(`/artworks/${artwork._id}`)}><p>{artwork?.name ? artwork.name : null}</p></div>
                   <div className="artwork-artist">{artwork?.author?.email ? artwork.author.email.split('@')[0] : null}</div>
                   <div className="artwork-price-cart">
                     <div className="artwork-price"><p>${artwork?.price ? artwork.price.toFixed(2) : null}</p></div>
-                    <div className="artwork-cart" onClick={artwork?._id ? handleAddCartItem(artwork._id) : null}>
+                    <div className="artwork-cart"
+                      onClick={artwork?._id ? (e) => { 
+                        clearTimeout(timeoutId);
+                        handleAddCartItem(e, artwork._id);
+                        setShowToolTip(true);
+                        const newTimeoutId = setTimeout(() => {
+                          setShowToolTip(false);
+                        }, 2500);
+                        setTimeoutId(newTimeoutId);
+                      } : null}>
                       <AddShoppingCartIcon />
                     </div>
                   </div>

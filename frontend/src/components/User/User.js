@@ -25,6 +25,9 @@ function User() {
     const currentUser = useSelector((state) => state.session.user)
     const cartItems = useSelector((state) => state.cartItems)
     const [loaded, setLoaded] = useState(false);
+    const [showToolTip, setShowToolTip] = useState(false);
+    const [timeoutId, setTimeoutId] = useState(null);
+
 
     useEffect(() => {
         Promise.all([
@@ -53,7 +56,7 @@ function User() {
         setIsLiked(!isLiked);
     };
 
-    const handleAddCartItem = artworkId => e => {
+    const handleAddCartItem = (e, artworkId) => {
         e.preventDefault();
         if (currentUser) {
             const artworkArray = Object.values(cartItems).map((item) => item.artwork);
@@ -76,6 +79,7 @@ function User() {
     } else {
         return (<>
             <NavBar updateShouldFetchArtworks={updateShouldFetchArtworks} />
+            {showToolTip && <div className="tooltip">Artwork added to cart!</div>}
             <div className="user">
                 <div className="user-main">
                     <div className="user-image-container">
@@ -130,7 +134,16 @@ function User() {
                                         <div className="artwork-artist">{artworks[key]?.author?.email?.split('@')[0] ? artworks[key]?.author.email.split('@')[0] : null}</div>
                                         <div className="artwork-price-cart">
                                             <div className="artwork-price"><p>${artworks[key].price.toFixed(2)}</p></div>
-                                            <div onClick={() => handleAddCartItem(artworks[key]._id)}>
+                                            <div className="artwork-cart"
+                                                onClick={artworks[key]?._id ? (e) => {
+                                                    clearTimeout(timeoutId);
+                                                    handleAddCartItem(e, artworks[key]._id);
+                                                    setShowToolTip(true);
+                                                    const newTimeoutId = setTimeout(() => {
+                                                        setShowToolTip(false);
+                                                    }, 2500);
+                                                    setTimeoutId(newTimeoutId);
+                                                } : null}>
                                                 <AddShoppingCartIcon />
                                             </div>
                                         </div>

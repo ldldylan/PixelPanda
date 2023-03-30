@@ -11,9 +11,10 @@ export default function Checkout() {
     const dispatch = useDispatch();
     const history = useHistory();
     useEffect(() => {
-        dispatch(deleteAllCartItems(currentUser._id));
-        alert("Thank you for your purchase! Your order is being processed.");
-        history.push('/');
+        Promise.all([dispatch(deleteAllCartItems(currentUser._id))]).then(() => {
+            alert("Thank you for your purchase! Your order is being processed.");
+            history.push('/');
+        });
     }, [dispatch]);
 
     return(<>

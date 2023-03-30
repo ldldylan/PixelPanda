@@ -1,5 +1,6 @@
 
 import { useEffect, useState } from "react";
+import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getArtworks } from "../../store/artworks";
 import { useHistory } from "react-router-dom";
@@ -23,7 +24,7 @@ const Cart = () => {
     const [subTotal, setSubTotal] = useState(0.0)
     const [matchingArtworks, setMatchingArtworks] = useState([]);
     const [loaded, setLoaded] = useState(false);
-
+    const checkoutBtnRef = useRef(null);
 
     useEffect(() => {
         Promise.all([
@@ -60,6 +61,9 @@ const Cart = () => {
 
     const handleCheckout = (e) => {
         e.preventDefault();
+        checkoutBtnRef.current.disabled = true;
+        checkoutBtnRef.current.value = "Loading..."
+        checkoutBtnRef.current.style.cursor = "default";
         dispatch(checkoutCartItems(matchingArtworks));
         // dispatch(deleteAllCartItems(currentUser._id));
         // history.push('/checkout')
@@ -138,7 +142,8 @@ const Cart = () => {
                                             ${subTotal}
                                         </div>
                                         <form onSubmit={handleCheckout} className="checkout-form">
-                                            <input
+                                            <input 
+                                                ref={checkoutBtnRef}
                                                 type='submit'
                                                 className="checkout-btn"
                                                 value="Proceed to Checkout"

@@ -137,7 +137,7 @@ function LoginForm() {
         submitElement.removeEventListener('focus', handleSubmitFocus);
       }
     };
-  }, []);
+  }, [dispatch]);
 
   if (loggedIn) history.push('/');
 
