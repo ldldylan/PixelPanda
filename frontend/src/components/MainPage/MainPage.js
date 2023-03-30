@@ -239,7 +239,7 @@ function MainPage() {
                   className="asset-item"
                 >
                   {/* <FavoriteBorderIcon className="favorite-item-icon" fontSize='35px'/> */}
-                  {artwork.author._id !== sessionUser._id && sessionUser ?(<div onClick={() => toggleFavorite(artwork._id)}>
+                  {sessionUser&&artwork.author._id !== sessionUser._id && sessionUser ?(<div onClick={() => toggleFavorite(artwork._id)}>
                     {favorites[artwork._id] ?
                       <FavoriteIcon style={{ color: "red" }} className="favorite-item-icon" fontSize="40" /> :
                       <FavoriteBorderIcon className="favorite-item-icon" fontSize="40px" />}
@@ -258,10 +258,10 @@ function MainPage() {
                     onClick={artwork ? () => history.push(`/artworks/${artwork._id}`) : null} />
                   <div className="artwork-name"
                     onClick={() => history.push(`/artworks/${artwork._id}`)}><p>{artwork?.name ? artwork.name : null}</p></div>
-                  <div className="artwork-artist">{artwork.author._id!==sessionUser._id ? artwork?.author?.email ? artwork.author.email.split('@')[0] : null : "You"}</div>
+                  <div className="artwork-artist">{artwork?.author?._id!==sessionUser?._id ? artwork?.author?.email ? artwork.author.email.split('@')[0] : null : "You"}</div>
                   <div className="artwork-price-cart">
                     <div className="artwork-price"><p>${artwork?.price ? artwork.price.toFixed(2) : null}</p></div>
-                    {artwork.author._id !== sessionUser._id&&
+                    {artwork?.author?._id !== sessionUser?._id&&
                       (<div className="artwork-cart"
                         onClick={artwork?._id ? (e) => {
                           clearTimeout(timeoutId);
