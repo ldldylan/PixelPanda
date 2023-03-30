@@ -24,9 +24,9 @@ export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }
     const sessionUser = useSelector((state) => state.session.user)
     // console.log(sessionUser._id)
 
-    useEffect(() => {
-        dispatch(fetchArtworks())
-    }, [dispatch])
+    // useEffect(() => {
+    //     dispatch(fetchArtworks())
+    // }, [dispatch])
 
     const handleChange = (event) => {
         setCategory(event.target.value);
