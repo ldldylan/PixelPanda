@@ -16,14 +16,16 @@ export default function Checkout() {
         history.push('/');
     }, [dispatch]);
 
-    return(
+    return(<>
+        <NavBar />
         <div className="checkout-page">
-            <NavBar />
             <div className="checkout-container">
-                Order Placed! Thank you for your purchase!
+                <a href="/"><div className="checkout-image"/></a>
+                Order Placed! <br/> Thank you for your purchase!
             </div>
-            <div className="checkout-image"/>
+            
             <div className="checkout-footer"><Footer/></div>
         </div>
+        </>
     )
 }
