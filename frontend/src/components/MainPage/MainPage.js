@@ -43,10 +43,7 @@ function MainPage() {
   const [currentCategory, setCurrentCategory] = useState('POPULAR');
   const [currentLikedArtworkId, setCurrentLikedArtworkId] = useState(null);
   const wishlists = useSelector(getWishlistItems);
-  const userId=null;
-  if (sessionUser){
-    userId = sessionUser._id;
-  }
+
   // const artworkId=null;
   // let artwork=useSelector(getArtwork(artworkId));
   const toggleFavorite = (artworkId) => {
