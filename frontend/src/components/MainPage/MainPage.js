@@ -264,7 +264,7 @@ console.log(favorites,"FAVORITES????")
                         clearTimeout(timeoutId);
                         handleAddCartItem(e, artwork._id);
                         setShowToolTip(true);
-                        
+                      
                       } : null}>
                       <AddShoppingCartIcon />
                     </div>
