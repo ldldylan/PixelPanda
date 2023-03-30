@@ -55,13 +55,16 @@ function MainPage() {
     }))
   }
   useEffect(() => {
-    if (currentLikedArtworkId && favorites[currentLikedArtworkId] === true) {
+    const find = wishlists.find(wishlistItem => wishlistItem.artwork === currentLikedArtworkId);
+    if (currentLikedArtworkId&& !find && favorites[currentLikedArtworkId] === true) {
 
-
+      console.log("passinghere", currentLikedArtworkId)
       dispatch(addNewWishlistItem({ artwork: currentLikedArtworkId }, sessionUser._id))
-    } else if (currentLikedArtworkId && favorites[currentLikedArtworkId] === false) {
-
-      let wishlistItemId = wishlists.find(wishlistItem => wishlistItem.artwork === currentLikedArtworkId)._id
+    } else if (currentLikedArtworkId && find && favorites[currentLikedArtworkId] === false) {
+      console.log("currentLikedArtworkId", currentLikedArtworkId)
+      console.log("wishlists", wishlists)
+      let wishlistItemId = find._id
+      console.log("wishlistItemId", wishlistItemId)
       dispatch(deleteWishlistItem(wishlistItemId));
 
     }

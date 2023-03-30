@@ -11,15 +11,15 @@ const validateWishlistItemInput = [
 
     check('artwork')
         .notEmpty()
-        .withMessage('Artwork ID is required')
-        .custom(async (artwork, { req }) => {
-            const existingWishlistItem = await WishlistItem.findOne({ artwork }).exec();
-            if (existingWishlistItem) {
-                throw new Error('Artwork already exists in cart');
-            } else {
-                console.log(existingWishlistItem, "existingWishlistItem")
-            }
-        }),
+        .withMessage('Artwork ID is required'),
+        // .custom(async (artwork, { req }) => {
+        //     const existingWishlistItem = await WishlistItem.findOne({ artwork }).exec();
+        //     if (existingWishlistItem) {
+        //         throw new Error('Artwork already exists in wishlist');
+        //     } else {
+        //         console.log(existingWishlistItem, "existingWishlistItem")
+        //     }
+        // }),
     handleValidationErrors
 
 ];
