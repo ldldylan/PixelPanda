@@ -142,6 +142,7 @@ const wishlistItemsReducer = (state = {}, action) => {
     let newState = { ...state }
     switch (action.type) {
         case RECEIVE_WISHLISTITEMS:
+            newState={};
             const wishlistItems = action.wishlistItems
             wishlistItems.forEach(wishlistItem => {
                 newState[wishlistItem._id] = wishlistItem
