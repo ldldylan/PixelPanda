@@ -71,12 +71,13 @@ function MainPage() {
 
     }
   }, [favorites])
+
   if ((artworksArray.length === 0 && artworks.length !== 0)) {
     setArtworksArray(artworks)
   }
   function loadArtworks() {
     if (artworksArray.length !== artworks.length) {
-      setArtworksArray(artworks);
+      setArtworksArray(artworks.filter(artwork => artwork.category === currentType));
     }
   }
   useEffect(() => {
@@ -152,6 +153,7 @@ function MainPage() {
       history.push('/login');
     };
   }
+  console.log(artworksArray, 'type')
 
   function shuffle(shouldSwap) {
     if (shouldSwap) {
