@@ -12,6 +12,7 @@ import NavBar from "../NavBar/NavBar";
 import Footer from "../Footer/Footer";
 import { deleteCartItem, clearCart } from "../../store/cartItems";
 import Loading from '../Loading/Loading'
+import { fetchUserWishlistItems } from "../../store/wishlistItems";
 
 const Cart = () => {
     const dispatch = useDispatch();

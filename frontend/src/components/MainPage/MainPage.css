@@ -72,6 +72,10 @@
     width: 5.5%;
 }
 
+#swap-button:hover {
+    cursor: pointer;
+}
+
 #swap-icon {
     background-image: url('../../../assets/swap-icon.png');
     height: 100%;

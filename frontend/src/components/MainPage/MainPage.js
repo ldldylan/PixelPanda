@@ -32,18 +32,43 @@ function MainPage() {
   const cartItems = useSelector((state) => state.cartItems)
   const sessionUser = useSelector(state => state.session.user);
   const [loaded, setLoaded] = useState(false);
-  const [currentType, setCurrentType] = useState('chinese');
+  const [currentType, setCurrentType] = useState('popular');
+  const [clickedSwap, setClickedSwap] = useState(false);
+  const [artworksArray, setArtworksArray] = useState([]);
   let currentCategory = 'POPULAR'
-  useEffect(() => {
 
+  if (artworksArray.length === 0 && artworks.length!==0){
+    setArtworksArray(artworks.slice())
+  }
+
+  function changeCategory(){
+    if (currentType === "popular") {
+      setArtworksArray(artworks.slice())
+    } else if (currentType === "chinese") {
+      currentCategory = 'CHINESE';
+      setArtworksArray(artworks.slice().filter(artwork => artwork.category === "chinese"))
+    } else if (currentType === "japanese") {
+      currentCategory = 'JAPANESE';
+      setArtworksArray(artworks.slice().filter(artwork => artwork.category === "japanese"))
+    } else if (currentType === "pixel") {
+      currentCategory = 'PIXEL';
+      setArtworksArray(artworks.slice().filter(artwork => artwork.category === "pixel"))
+    } else if (currentType === "fantasy") {
+      currentCategory = 'FANTASY';
+      setArtworksArray(artworks.slice().filter(artwork => artwork.category === "fantasy"))
+    }
+  }
+
+  useEffect(() => {
     Promise.all([
     dispatch(fetchArtworks()),
     dispatch(fetchUsers()),
     dispatch(fetchCartItems()),
-    ]).then(() => {
+    ]).then(()=>{
+      changeCategory();
+    }).then(() => {
       setLoaded(true);
     })
-    
   }, [dispatch])
 
   
@@ -59,32 +84,32 @@ function MainPage() {
       history.push('/login')
     };
   }
+  
+  
 
-  let artworksArray;
-  if(currentType==="all"){
-    artworksArray=artworks.slice()
-  } else if(currentType==="chinese"){
-    currentCategory = 'CHINESE';
-    artworksArray = artworks.slice().filter(artwork=>artwork.category==="chinese");
-  } else if (currentType === "japanese") {
-    currentCategory = 'JAPANESE';
-    artworksArray = artworks.slice().filter(artwork => artwork.category === "japanese");
-  } else if (currentType === "pixel") {
-    currentCategory = 'PIXEL';
-    artworksArray = artworks.slice().filter(artwork => artwork.category === "pixel");
-  } else if (currentType === "fantasy") {
-    currentCategory = 'FANTASY';
-    artworksArray = artworks.slice().filter(artwork => artwork.category === "fantasy");
-  }
-  // console.log(artworksArray,"artworksArray")
-  // console.log(currentType,"currentType")  
-  function shuffle(array) {
-    for (let i = array.length; i; i--) {
-      let j = Math.floor(Math.random() * i);
-      [array[i - 1], array[j]] = [array[j], array[i - 1]];
+  function shuffle(shouldSwap) {
+    if (shouldSwap) {
+      const shuffledArray = [...artworksArray];
+      for (let i = shuffledArray.length; i; i--) {
+        let j = Math.floor(Math.random() * i);
+        [shuffledArray[i - 1], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i - 1]];
+      }
+      if(shuffledArray!==artworksArray){
+        setArtworksArray(shuffledArray);
+      }
+      setClickedSwap(false);
     }
-    return array;
   }
+
+  useEffect(()=>{
+    changeCategory()
+  }, [currentType])
+
+  useEffect(() => {
+    if (clickedSwap) {
+      shuffle(artworksArray, true);
+    }
+  }, [clickedSwap])
 
   if (!loaded) {
     return (
@@ -98,7 +123,6 @@ function MainPage() {
   return (
     <>
       <NavBar />
-
       <div className="main-page">
         <div data-aos="zoom-in-up"
           data-aos-duration="3000"
@@ -107,7 +131,7 @@ function MainPage() {
         </div>
         <div className="categories">
           <div className="categories-items">
-            <div className="category" id="popular-label" onClick={() => setCurrentType('all')}>
+            <div className="category" id="popular-label" onClick={() => setCurrentType('popular')}>
               <div className="category-wrapper"><div id='popular-icon'/></div>
               <div className="category-name">Popular</div>
             </div>
@@ -127,14 +151,13 @@ function MainPage() {
           </div>
         </div>
         <div className="popular-assets-box">
-          <div className='popular-assets-box-header'><h3>{currentCategory} ASSETS</h3><div id='swap-button'><div id='swap-icon'></div><div id='swap-text'>Swap</div></div></div>
+          <div className='popular-assets-box-header'><h3>{currentCategory} ASSETS</h3><div id='swap-button' onClick={e => setClickedSwap(true)}><div id='swap-icon'></div><div id='swap-text'>Swap</div></div></div>
           <ul className="assets">
-            {shuffle(artworksArray).slice(0, 10).map(artwork => (
+            {artworksArray.slice(0, 10).map(artwork => (
               <li key={artwork._id ? artwork._id : null}
                 className="asset-item"
               >
                 <FavoriteBorderIcon className="favorite-item-icon" />
-                {/* <div className="artwork-image-container"> */}
                 <img
                   src={artwork?.ArtworkImageUrl ? artwork.ArtworkImageUrl : null}
                   style={{
@@ -145,7 +168,6 @@ function MainPage() {
                   }}
                   className="artwork-preview-image"
                   onClick={artwork ? () => history.push(`/artworks/${artwork._id}`) : null} />
-                {/* </div> */}
                 <div className="artwork-name"
                   onClick={() => history.push(`/artworks/${artwork._id}`)}><p>{artwork?.name ? artwork.name : null}</p></div>
                 <div className="artwork-artist">{artwork?.author?.email ? artwork.author.email.split('@')[0] : null}</div>
@@ -188,5 +210,6 @@ function MainPage() {
     </>);
   }
 }
+
 
 export default MainPage;
