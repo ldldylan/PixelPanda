@@ -23,7 +23,6 @@ import { useParams } from 'react-router-dom';
 import { notInitialized } from 'react-redux/es/utils/useSyncExternalStore';
 import Loading from '../Loading/Loading'
 
-
 function MainPage() {
   const dispatch = useDispatch();
   const artworks = useSelector(getArtworks);
@@ -91,7 +90,6 @@ function MainPage() {
     })
   }, [dispatch])
 
-
   const handleAddCartItem = (e, artworkId) => {
     e.preventDefault();
     if (sessionUser) {
@@ -114,8 +112,6 @@ function MainPage() {
       history.push('/login')
     };
   }
-
-
 
   function shuffle(shouldSwap) {
     if (shouldSwap) {
