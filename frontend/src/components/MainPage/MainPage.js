@@ -113,7 +113,8 @@ function MainPage() {
         }))
       }
     }
-    // console.log("loadWishlistItems", wishlists)
+    console.log(favorites,"FAVORITESwishh")
+    console.log("loadWishlistItems",wishlists)
   }
   // console.log("loadWishlistItems", wishlists)
 
@@ -263,7 +264,7 @@ function MainPage() {
                         clearTimeout(timeoutId);
                         handleAddCartItem(e, artwork._id);
                         setShowToolTip(true);
-
+                        
                       } : null}>
                       <AddShoppingCartIcon />
                     </div>
