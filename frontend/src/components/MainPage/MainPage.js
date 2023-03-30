@@ -44,6 +44,7 @@ function MainPage() {
   const [currentCategory, setCurrentCategory] = useState('POPULAR');
   const [currentLikedArtworkId, setCurrentLikedArtworkId] = useState(null);
   const wishlists = useSelector(getWishlistItems);
+
   // const artworkId=null;
   // let artwork=useSelector(getArtwork(artworkId));
   const toggleFavorite = (artworkId) => {
@@ -119,7 +120,7 @@ function MainPage() {
       dispatch(fetchArtworks()),
       dispatch(fetchUsers()),
       dispatch(fetchCartItems()),
-      // dispatch(fetchUserWishlistItems(sessionUser._id)),
+      sessionUser ? dispatch(fetchUserWishlistItems(sessionUser._id)) : Promise.resolve(),
     ]).then(() => {
       loadWishlistItems();
     }).then(() => {
