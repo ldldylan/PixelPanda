@@ -47,9 +47,18 @@ function MainPage() {
     }));
   }
 
-  if (artworksArray.length === 0 && artworks.length !== 0) {
+  if ((artworksArray.length === 0 && artworks.length !== 0)) {
     setArtworksArray(artworks.slice())
   }
+  function loadArtworks() {
+    if (artworksArray.length !== artworks.length) {
+      setArtworksArray(artworks);
+    }
+  }
+
+  useEffect(() => {
+    loadArtworks();
+  }, [artworks])
 
   function changeCategory() {
     if (currentType === "popular") {
@@ -76,8 +85,6 @@ function MainPage() {
       dispatch(fetchUsers()),
       dispatch(fetchCartItems()),
     ]).then(() => {
-      changeCategory();
-    }).then(() => {
       setLoaded(true);
     })
   }, [dispatch])
