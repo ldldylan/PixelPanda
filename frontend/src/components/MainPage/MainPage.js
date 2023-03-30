@@ -72,7 +72,7 @@ function MainPage() {
     })
   }, [dispatch])
 
-  
+
   const handleAddCartItem = artworkId => e => {
     e.preventDefault();
     if (sessionUser) {
@@ -115,100 +115,100 @@ function MainPage() {
   if (!loaded) {
     return (
       <>
-      <NavBar />
-      <Loading />
+        <NavBar />
+        <Loading />
       </>
-      
+
     )
   } else {
-  return (
-    <>
-      <NavBar />
-      <div className="main-page">
-        <div data-aos="zoom-in-up"
-          data-aos-duration="3000"
-          className="main-banner-box">
-          <div className="main-banner"><div className="actual-banner" /></div>
-        </div>
-        <div className="categories">
-          <div className="categories-items">
-            <div className="category" id="popular-label" onClick={() => setCurrentType('popular')}>
-              <div className="category-wrapper"><div id='popular-icon'/></div>
-              <div className="category-name">Popular</div>
-            </div>
-            <div className="category" id="chinese-label" onClick={() => setCurrentType('chinese')}>
-              <div className="category-wrapper"><div id='chinese-icon'/></div>
-              <div className="category-name" >Chinese</div>
-            </div>
-            <div className="category" id="japanese-label" onClick={() => setCurrentType('japanese')}>
-              <div className="category-wrapper"><div id='japanese-icon'/></div>
-              <div className="category-name" >Japanese</div></div>
-            <div className="category" id="pixel-label" onClick={() => setCurrentType('pixel')}>
-              <div className="category-wrapper"><div id='pixel-icon'/></div>
-              <div className="category-name" >Pixel</div></div>
-            <div className="category" id="fantasy-label" onClick={() => setCurrentType('fantasy')}>
-              <div className="category-wrapper"><div id='fantasy-icon'/></div>
-              <div className="category-name">Fantasy</div></div>
+    return (
+      <>
+        <NavBar />
+        <div className="main-page">
+          <div data-aos="zoom-in-up"
+            data-aos-duration="3000"
+            className="main-banner-box">
+            <div className="main-banner"><div className="actual-banner" /></div>
           </div>
-        </div>
-        <div className="popular-assets-box">
-          <div className='popular-assets-box-header'><h3>{currentCategory} ASSETS</h3><div id='swap-button' onClick={e => setClickedSwap(true)}><div id='swap-icon'></div><div id='swap-text'>Swap</div></div></div>
-          <ul className="assets">
-            {artworksArray.slice(0, 10).map(artwork => (
-              <li key={artwork._id ? artwork._id : null}
-                className="asset-item"
-              >
-                <FavoriteBorderIcon className="favorite-item-icon" />
-                <img
-                  src={artwork?.ArtworkImageUrl ? artwork.ArtworkImageUrl : null}
-                  style={{
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "contain",
-                    backgroundPosition: "center",
-                    objectFit: "cover"
-                  }}
-                  className="artwork-preview-image"
-                  onClick={artwork ? () => history.push(`/artworks/${artwork._id}`) : null} />
-                <div className="artwork-name"
-                  onClick={() => history.push(`/artworks/${artwork._id}`)}><p>{artwork?.name ? artwork.name : null}</p></div>
-                <div className="artwork-artist">{artwork?.author?.email ? artwork.author.email.split('@')[0] : null}</div>
-                <div className="artwork-price-cart">
-                  <div className="artwork-price"><p>${artwork?.price ? artwork.price.toFixed(2) : null}</p></div>
-                  <div className="artwork-cart" onClick={artwork?._id ? handleAddCartItem(artwork._id) : null}>
-                    <AddShoppingCartIcon />
+          <div className="categories">
+            <div className="categories-items">
+              <div className="category" id="popular-label" onClick={() => setCurrentType('popular')}>
+                <div className="category-wrapper"><div id='popular-icon' /></div>
+                <div className="category-name">Popular</div>
+              </div>
+              <div className="category" id="chinese-label" onClick={() => setCurrentType('chinese')}>
+                <div className="category-wrapper"><div id='chinese-icon' /></div>
+                <div className="category-name" >Chinese</div>
+              </div>
+              <div className="category" id="japanese-label" onClick={() => setCurrentType('japanese')}>
+                <div className="category-wrapper"><div id='japanese-icon' /></div>
+                <div className="category-name" >Japanese</div></div>
+              <div className="category" id="pixel-label" onClick={() => setCurrentType('pixel')}>
+                <div className="category-wrapper"><div id='pixel-icon' /></div>
+                <div className="category-name" >Pixel</div></div>
+              <div className="category" id="fantasy-label" onClick={() => setCurrentType('fantasy')}>
+                <div className="category-wrapper"><div id='fantasy-icon' /></div>
+                <div className="category-name">Fantasy</div></div>
+            </div>
+          </div>
+          <div className="popular-assets-box">
+            <div className='popular-assets-box-header'><h3>{currentCategory} ASSETS</h3><div id='swap-button' onClick={e => setClickedSwap(true)}><div id='swap-icon'></div><div id='swap-text'>Swap</div></div></div>
+            <ul className="assets">
+              {artworksArray.slice(0, 10).map(artwork => (
+                <li key={artwork._id ? artwork._id : null}
+                  className="asset-item"
+                >
+                  <FavoriteBorderIcon className="favorite-item-icon" />
+                    <img
+                    src={artwork?.ArtworkImageUrl ? artwork.ArtworkImageUrl : null}
+                    style={{
+                      backgroundRepeat: "no-repeat",
+                      backgroundSize: "contain",
+                      backgroundPosition: "center",
+                      objectFit: "cover"
+                    }}
+                    className="artwork-preview-image"
+                    onClick={artwork ? () => history.push(`/artworks/${artwork._id}`) : null} />
+                    <div className="artwork-name"
+                    onClick={() => history.push(`/artworks/${artwork._id}`)}><p>{artwork?.name ? artwork.name : null}</p></div>
+                  <div className="artwork-artist">{artwork?.author?.email ? artwork.author.email.split('@')[0] : null}</div>
+                  <div className="artwork-price-cart">
+                    <div className="artwork-price"><p>${artwork?.price ? artwork.price.toFixed(2) : null}</p></div>
+                    <div className="artwork-cart" onClick={artwork?._id ? handleAddCartItem(artwork._id) : null}>
+                      <AddShoppingCartIcon />
+                    </div>
                   </div>
-                </div>
-              </li>
-            ))}
-          </ul>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="popular-assets-box">
+            <h3>POPULAR ARTISTS</h3>
+            <ul className="assets">
+              {users.slice(0, 10).map(user => (
+                <li
+                  key={user?._id ? user._id : null} className="asset-item artist">
+                  <img
+                    src={user?.profileImageUrl ? user.profileImageUrl : null}
+                    style={{
+                      backgroundRepeat: "no-repeat",
+                      backgroundSize: "contain",
+                      backgroundPosition: "center",
+                      objectFit: "cover"
+                    }}
+                    className="artwork-preview-image"
+                    onClick={user?._id ? () => history.push(`/users/${user._id}`) : null} />
+                  <div className="artwork-name artist"
+                    onClick={user?._id ? () => history.push(`/users/${user._id}`) : null}>
+                    <p>{user?.email ? user.email.split('@')[0] : null}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <Footer />
         </div>
-        <div className="popular-assets-box">
-          <h3>POPULAR ARTISTS</h3>
-          <ul className="assets">
-            {users.slice(0, 10).map(user => (
-              <li
-                key={user?._id ? user._id : null} className="asset-item artist">
-                <img
-                  src={user?.profileImageUrl ? user.profileImageUrl : null}
-                  style={{
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "contain",
-                    backgroundPosition: "center",
-                    objectFit: "cover"
-                  }}
-                  className="artwork-preview-image"
-                  onClick={user?._id ? () => history.push(`/users/${user._id}`) : null} />
-                <div className="artwork-name artist"
-                  onClick={user?._id ? () => history.push(`/users/${user._id}`) : null}>
-                  <p>{user?.email ? user.email.split('@')[0] : null}</p>
-                </div>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <Footer />
-      </div>
-    </>);
+      </>);
   }
 }
 
