@@ -359,6 +359,16 @@
     background-color: #29e990;
 }
 
+.tooltip {
+    position: fixed;
+    font-size: 24px;
+    color: var(--off-white);
+    background-color: var(--interactive-hover);
+    box-shadow: 0 0 10px 0 rgba(78, 80, 88, 0.8);
+    padding: 10px;
+    z-index: 20;
+    margin-left: 20px;
+}
 
 
 @keyframes bounce {
