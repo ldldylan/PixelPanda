@@ -144,11 +144,13 @@ function MainPage() {
   const [deg, setDeg] = useState(0);
 
   function handleRotation() {
-    setDeg(deg + 90);
+    setDeg(deg + 360);
     const swapIcon = document.getElementById("swap-icon");
     swapIcon.style.transformOrigin = "center center";
+    swapIcon.style.transition = "transform .5s ease";
     swapIcon.style.transform = `rotate(${deg}deg)`;
   }
+
   if (!loaded) {
     return (
       <>
