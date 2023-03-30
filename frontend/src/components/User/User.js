@@ -15,7 +15,8 @@ import { addNewCartItem } from '../../store/cartItems';
 import { fetchCartItems } from '../../store/cartItems';
 import './User.css'
 import Loading from '../Loading/Loading'
-
+import { addNewWishlistItem, fetchUserWishlistItems, deleteWishlistItem } from '../../store/wishlistItems';
+import { getWishlistItems } from '../../store/wishlistItems';
 function User() {
     const dispatch = useDispatch();
     const { userId } = useParams();
@@ -30,21 +31,58 @@ function User() {
     const [timeoutMessage, setTimeoutMessage] = useState("");
     const [toolTipClassName, setToolTipClassName] = useState("tooltip");
     const [favorites, setFavorites] = useState({});
+    const [currentLikedArtworkId, setCurrentLikedArtworkId] = useState(null);
+    const wishlists = useSelector(getWishlistItems);
 
     const toggleFavorite = (artworkId) => {
+        // const artwork=artworks.find(artwork=>artwork._id===artworkId)
+        setCurrentLikedArtworkId(artworkId);
+
         setFavorites(prevFavorites => ({
             ...prevFavorites,
             [artworkId]: !prevFavorites[artworkId]
-        }));
+        }))
     }
 
+    useEffect(() => {
+        const find = wishlists.find(wishlistItem => wishlistItem.artwork === currentLikedArtworkId);
+        if (currentLikedArtworkId && !find && favorites[currentLikedArtworkId] === true) {
+
+            console.log("passinghere", currentLikedArtworkId)
+            dispatch(addNewWishlistItem({ artwork: currentLikedArtworkId }, currentUser._id))
+        } else if (currentLikedArtworkId && find && favorites[currentLikedArtworkId] === false) {
+            console.log("currentLikedArtworkId", currentLikedArtworkId)
+            console.log("wishlists", wishlists)
+            let wishlistItemId = find._id
+            console.log("wishlistItemId", wishlistItemId)
+            dispatch(deleteWishlistItem(wishlistItemId));
+
+        }
+    }, [favorites])
+    function loadWishlistItems() {
+        if (wishlists) {
+            for (let i = 0; i < wishlists.length; i++) {
+                setFavorites(prevFavorites => ({
+                    ...prevFavorites,
+                    [wishlists[i].artwork]: true
+                }))
+            }
+        }
+    }
+    useEffect(() => {
+        loadWishlistItems();
+    }, [wishlists])
     useEffect(() => {
         Promise.all([
 
             dispatch(fetchUser(userId)),
             dispatch(fetchUserArtworks(userId)),
             dispatch(fetchCartItems()),
+            currentUser ? dispatch(fetchUserWishlistItems(currentUser._id)) : Promise.resolve(),
+
         ]).then(() => {
+            loadWishlistItems();
+        }).then(() => {
             setLoaded(true);
         })
     }, [dispatch, userId])
@@ -128,7 +166,7 @@ function User() {
 
                 <div className="user-artworks-container">
                      
-                    {currentUser._id !== userId ? user?.email ? user.email.split('@')[0].concat('s Artworks') : "Mysterious Artist" : "Yours Artwork"}
+                    {currentUser._id !== userId ? user?.email ? user.email.split('@')[0].concat('s Artworks') : "Mysterious Artist" : "Your Artworks"}
                     <div className="divider user-show" />
                     <ul className="user-artworks">
                         {/* {console.log(artworks ? artworks : null)} */}
