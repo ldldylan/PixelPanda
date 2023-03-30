@@ -99,10 +99,12 @@ function User() {
                                 objectFit: "cover"
                             }}
                             className="user-image" />
+                        {currentUser._id !== userId ? (<>
                         <button className="msg-user-button"><EmailIcon /></button>
                         <button className="like-user-button"
                             onClick={handleLikeClick}
                             style={{ color: isLiked ? 'blue' : 'white' }}><ThumbUpIcon /></button>
+                      </>): null}
                     </div>
                     <div className="user-info">
                         <div className="user-author">
