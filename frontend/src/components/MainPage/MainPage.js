@@ -14,7 +14,7 @@ import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { fetchArtworks } from '../../store/artworks';
-import { getArtworks } from '../../store/artworks';
+import { getArtworks,getArtwork } from '../../store/artworks';
 import { getUsers, fetchUsers } from '../../store/users';
 import { useSelector } from 'react-redux';
 import { addNewCartItem } from '../../store/cartItems';
@@ -22,8 +22,8 @@ import { fetchCartItems } from '../../store/cartItems';
 import { useParams } from 'react-router-dom';
 import { notInitialized } from 'react-redux/es/utils/useSyncExternalStore';
 import Loading from '../Loading/Loading'
-
-
+import { addNewWishlistItem, deleteWishlistItem } from '../../store/wishlistItems';
+import { fetchUserWishlistItems, getWishlistItems } from '../../store/wishlistItems';
 function MainPage() {
   const dispatch = useDispatch();
   const artworks = useSelector(getArtworks);
@@ -39,14 +39,38 @@ function MainPage() {
   const [timeoutId, setTimeoutId] = useState(null);
   const [favorites, setFavorites] = useState({});
   const [currentCategory, setCurrentCategory] = useState('POPULAR');
-
+  const [currentLikedArtworkId, setCurrentLikedArtworkId] = useState(null);
+  const wishlists = useSelector(getWishlistItems);
+  // const artworkId=null;
+  // let artwork=useSelector(getArtwork(artworkId));
   const toggleFavorite = (artworkId) => {
+    // const artwork=artworks.find(artwork=>artwork._id===artworkId)
+    setCurrentLikedArtworkId(artworkId);
+
+    console.log(currentLikedArtworkId,"passing???")
     setFavorites(prevFavorites => ({
       ...prevFavorites,
       [artworkId]: !prevFavorites[artworkId]
-    }));
+    }))
   }
+console.log(favorites,"FAVORITES????")
+  useEffect(() => { 
+    if (currentLikedArtworkId && favorites[currentLikedArtworkId]===true) {
+      console.log("true")
+      console.log(artworks,"artworks")
+      // console.log("artworks[currentLikedArtworkId]",currentLikedArtwork)
+      // console.log("currentLikedArtwork._id", currentLikedArtwork._id)
 
+      dispatch(addNewWishlistItem({ artwork: currentLikedArtworkId }, sessionUser._id))
+      // console.log(currentLikedArtwork,"added")
+    }else if(currentLikedArtworkId && favorites[currentLikedArtworkId]===false){
+      console.log("false")
+      console.log("currentLikedArtworkId", currentLikedArtworkId)
+      let wishlistItemId=wishlists.find(wishlistItem=>wishlistItem.artwork===currentLikedArtworkId)._id
+      dispatch(deleteWishlistItem(wishlistItemId));
+
+    }
+  }, [favorites])
   if ((artworksArray.length === 0 && artworks.length !== 0)) {
     setArtworksArray(artworks)
   }
@@ -55,7 +79,7 @@ function MainPage() {
       setArtworksArray(artworks);
     }
   }
-
+  console.log(favorites,"FAVORITES")
   useEffect(() => {
     loadArtworks();
   }, [artworks])
@@ -78,14 +102,32 @@ function MainPage() {
       setArtworksArray(artworks.filter(artwork => artwork.category === "fantasy"))
     }
   }
+  function loadWishlistItems(){
+    if(wishlists){
+      for(let i=0;i<wishlists.length;i++){
+      setFavorites(prevFavorites => ({
+        ...prevFavorites,
+        [wishlists[i].artwork]: true
+      }))
+    }
+    }
+    console.log("loadWishlistItems",wishlists)
+  }
+  console.log("loadWishlistItems", wishlists)
 
   useEffect(() => {
     Promise.all([
       dispatch(fetchArtworks()),
       dispatch(fetchUsers()),
       dispatch(fetchCartItems()),
+      dispatch(fetchUserWishlistItems(sessionUser._id)),
     ]).then(() => {
-      setLoaded(true);
+      console.log("passing")
+      loadWishlistItems();
+    }).then(() => {
+      // if(wishlists){
+        setLoaded(true);
+      // }
     })
   }, [dispatch])
 
