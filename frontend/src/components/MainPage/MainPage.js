@@ -49,25 +49,18 @@ function MainPage() {
     // const artwork=artworks.find(artwork=>artwork._id===artworkId)
     setCurrentLikedArtworkId(artworkId);
 
-    console.log(currentLikedArtworkId, "passing???")
     setFavorites(prevFavorites => ({
       ...prevFavorites,
       [artworkId]: !prevFavorites[artworkId]
     }))
   }
-  console.log(favorites, "FAVORITES????")
   useEffect(() => {
     if (currentLikedArtworkId && favorites[currentLikedArtworkId] === true) {
-      console.log("true")
-      console.log(artworks, "artworks")
-      // console.log("artworks[currentLikedArtworkId]",currentLikedArtwork)
-      // console.log("currentLikedArtwork._id", currentLikedArtwork._id)
+
 
       dispatch(addNewWishlistItem({ artwork: currentLikedArtworkId }, sessionUser._id))
-      // console.log(currentLikedArtwork,"added")
     } else if (currentLikedArtworkId && favorites[currentLikedArtworkId] === false) {
-      console.log("false")
-      console.log("currentLikedArtworkId", currentLikedArtworkId)
+
       let wishlistItemId = wishlists.find(wishlistItem => wishlistItem.artwork === currentLikedArtworkId)._id
       dispatch(deleteWishlistItem(wishlistItemId));
 
@@ -81,7 +74,6 @@ function MainPage() {
       setArtworksArray(artworks);
     }
   }
-  console.log(favorites, "FAVORITES")
   useEffect(() => {
     loadArtworks();
   }, [artworks])
@@ -113,24 +105,22 @@ function MainPage() {
         }))
       }
     }
-    console.log(favorites,"FAVORITESwishh")
-    console.log("loadWishlistItems",wishlists)
   }
-  // console.log("loadWishlistItems", wishlists)
+  useEffect(() => {
+    loadWishlistItems();
+  }, [wishlists])
 
   useEffect(() => {
     Promise.all([
       dispatch(fetchArtworks()),
       dispatch(fetchUsers()),
       dispatch(fetchCartItems()),
-      // dispatch(fetchUserWishlistItems(sessionUser._id)),
+      dispatch(fetchUserWishlistItems(sessionUser._id)),
     ]).then(() => {
-      console.log("passing")
       loadWishlistItems();
     }).then(() => {
-      // if(wishlists){
       setLoaded(true);
-      // }
+
     })
   }, [dispatch])
 
@@ -239,11 +229,13 @@ function MainPage() {
                   className="asset-item"
                 >
                   {/* <FavoriteBorderIcon className="favorite-item-icon" fontSize='35px'/> */}
-                  <div onClick={() => toggleFavorite(artwork._id)}>
+                  {sessionUser ?(<div onClick={() => toggleFavorite(artwork._id)}>
                     {favorites[artwork._id] ?
                       <FavoriteIcon style={{ color: "red" }} className="favorite-item-icon" fontSize="40" /> :
                       <FavoriteBorderIcon className="favorite-item-icon" fontSize="40px" />}
-                  </div>
+                  </div>) : null
+                  }
+                  
                   <img
                     src={artwork?.ArtworkImageUrl ? artwork.ArtworkImageUrl : null}
                     style={{
