@@ -370,6 +370,7 @@
     z-index: 20;
     margin-left: 80px;
     margin-top: 90px;
+    border-radius: 10px;
 }
 
 .tooltip.error {
