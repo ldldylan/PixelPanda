@@ -201,7 +201,7 @@ function Artwork() {
                                 {artwork?.name ? artwork.name : "Untitled"}
                             </div>
                             <div className="artwork-author" onClick={() => history.push(`/users/${artwork.author._id}`)}>
-                                {artwork?.author?.email ? artwork.author.email.split('@')[0] : "Mysterious Artist"}
+                                {artwork.author._id !== sessionUser._id ? artwork?.author?.email ? artwork.author.email.split('@')[0] : "Mysterious Artist" : "You"}
                             </div>
                             <div className="artwork-price">
                                 ${artwork?.price ? artwork.price.toFixed(2) : "3.50"}
@@ -214,7 +214,9 @@ function Artwork() {
                                 </div>
                             </div>
                             <div className="artwork-cart-buy">
-                                <div className="cart-and-fav">
+                                {console.log(sessionUser._id, artwork.author._id,"aaaaaa")}
+                                {sessionUser._id !== artwork.author._id &&
+                                    (<div className="cart-and-fav">
                                     <div className="artwork-cart" onClick={artwork?._id ? (e) => {
                                         clearTimeout(timeoutId);
                                         handleAddCartItem(e, artwork._id);
@@ -235,6 +237,7 @@ function Artwork() {
                                         ><Favorite /></button>
                                     </div>
                                 </div>
+                                )}
                                 <div className="edit-and-delete">
                                     {artwork.author._id === sessionUser._id ? (<>
                                         <button id='edit-button' onClick={() => setShowModal(true)}>Edit</button>

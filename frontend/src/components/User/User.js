@@ -127,7 +127,8 @@ function User() {
                 </div>
 
                 <div className="user-artworks-container">
-                    {user?.email ? user.email.split('@')[0] : "Mysterious Artist"}'s Artworks
+                     
+                    {currentUser._id !== userId ? user?.email ? user.email.split('@')[0] : "Mysterious Artist" : "Your"}'s Artworks
                     <div className="divider user-show" />
                     <ul className="user-artworks">
                         {/* {console.log(artworks ? artworks : null)} */}
@@ -150,16 +151,21 @@ function User() {
                                                 className="artwork-preview-image-user-show"
                                                 onClick={() => history.push(`/artworks/${artworks[key]._id}`)} />
                                         </div>
-                                        <div onClick={() => toggleFavorite(artworks[key]._id)}>
+                                        {currentUser._id!==userId &&(<div onClick={() => toggleFavorite(artworks[key]._id)}>
                                             {favorites[artworks[key]._id] ?
                                                 <FavoriteIcon style={{ color: "red" }} className="favorite-item-icon" fontSize="40" /> :
                                                 <FavoriteBorderIcon className="favorite-item-icon" fontSize="40px" />}
-                                        </div>
+                                        </div>)
+
+                                        }
+                                        
                                         <div className="artwork-name"
                                             onClick={() => history.push(`/artworks/${artworks[key]._id}`)}><p>{artworks[key].name}</p></div>
                                         <div className="artwork-artist">{artworks[key]?.author?.email?.split('@')[0] ? artworks[key]?.author.email.split('@')[0] : null}</div>
+                    
                                         <div className="artwork-price-cart">
                                             <div className="artwork-price"><p>${artworks[key].price.toFixed(2)}</p></div>
+                                            {currentUser._id !== userId && (
                                             <div className="artwork-cart"
                                                 onClick={artworks[key]?._id ? (e) => {
                                                     clearTimeout(timeoutId);
@@ -172,6 +178,7 @@ function User() {
                                                 } : null}>
                                                 <AddShoppingCartIcon />
                                             </div>
+                                            )}
                                         </div>
 
                                     </div>
