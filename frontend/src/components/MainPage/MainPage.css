@@ -105,6 +105,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+    margin-bottom: 4px;
     /* background-color: var(--interactive); */
 }
 
@@ -154,6 +155,7 @@
     cursor: pointer;
     background-color: white;
     object-fit: contain;
+   
 }
 
 .artwork-name {
