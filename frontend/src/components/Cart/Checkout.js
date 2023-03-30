@@ -11,22 +11,33 @@ export default function Checkout() {
     const dispatch = useDispatch();
     const history = useHistory();
     useEffect(() => {
+        const handleLoad = () => {
+          alert("Thank you for your purchase! Your order is being processed.");
+          history.push('/');
+        };
+      
+        window.addEventListener('load', handleLoad);
+      
         Promise.all([dispatch(deleteAllCartItems(currentUser._id))]).then(() => {
-            alert("Thank you for your purchase! Your order is being processed.");
-            history.push('/');
+          // No need to remove the event listener here
         });
-    }, [dispatch]);
+      
+        // Add a cleanup function to remove the event listener
+        return () => {
+          window.removeEventListener('load', handleLoad);
+        };
+      }, [dispatch, currentUser, history]);
 
-    return(<>
+    return (<>
         <NavBar />
         <div className="checkout-page">
             <div className="checkout-container">
-                <a href="/"><div className="checkout-image"/></a>
-                Order Placed! <br/> Thank you for your purchase!
+                <a href="/"><div className="checkout-image" /></a>
+                Order Placed! <br /> Thank you for your purchase!
             </div>
-            
-            <div className="checkout-footer"><Footer/></div>
+
+            <div className="checkout-footer"><Footer /></div>
         </div>
-        </>
+    </>
     )
 }

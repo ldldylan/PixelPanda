@@ -37,6 +37,8 @@ function Artwork() {
     const [loaded, setLoaded] = useState(false);
     const [showToolTip, setShowToolTip] = useState(false);
     const [timeoutId, setTimeoutId] = useState(null);
+    const [timeoutMessage, setTimeoutMessage] = useState("");
+    const [toolTipClassName, setToolTipClassName] = useState("tooltip");
     const [rating, setRating] = useState(1);
 
     const handleRatingChange = (value) => {
@@ -128,12 +130,22 @@ function Artwork() {
         e.preventDefault();
         if (sessionUser) {
             const artworkArray = Object.values(cartItems).map((item) => item.artwork);
-            if (!artworkArray.includes(artworkId))
+            const newTimeoutId = setTimeout(() => {
+                setShowToolTip(false);
+            }, 2500);
+            setTimeoutId(newTimeoutId);
+            if (!artworkArray.includes(artworkId)) {
                 dispatch(addNewCartItem({ artwork: artworkId }, sessionUser._id));
-            else alert('Artwork is already in your cart!')
+                setTimeoutMessage("Artwork added to cart!");
+                setToolTipClassName("tooltip");
+            }
+            else {
+                setTimeoutMessage('Artwork is already in your cart!');
+                setToolTipClassName("tooltip error");
+            }
         }
         else {
-            history.push('/login')
+            history.push('/login');
         };
     }
 
@@ -161,7 +173,7 @@ function Artwork() {
             <>
                 <NavBar />
                 {/* {artwork &&<UpdateArtworkPage artwork={artwork} />} */}
-                {showToolTip && <div className="tooltip">Artwork added to cart!</div>}
+                {showToolTip && <div className={toolTipClassName}>{timeoutMessage}</div>}
                 <div className="artwork">
                     <div className="artwork-main">
                         <div className="show-artwork-image-container">

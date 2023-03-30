@@ -37,6 +37,8 @@ function MainPage() {
   const [artworksArray, setArtworksArray] = useState([]);
   const [showToolTip, setShowToolTip] = useState(false);
   const [timeoutId, setTimeoutId] = useState(null);
+  const [timeoutMessage, setTimeoutMessage] = useState("");
+  const [toolTipClassName, setToolTipClassName] = useState("tooltip");
   const [favorites, setFavorites] = useState({});
   const [currentCategory, setCurrentCategory] = useState('POPULAR');
   const [currentLikedArtworkId, setCurrentLikedArtworkId] = useState(null);
@@ -132,21 +134,28 @@ console.log(favorites,"FAVORITES????")
     })
   }, [dispatch])
 
-
   const handleAddCartItem = (e, artworkId) => {
     e.preventDefault();
     if (sessionUser) {
       const artworkArray = Object.values(cartItems).map((item) => item.artwork);
-      if (!artworkArray.includes(artworkId))
+      const newTimeoutId = setTimeout(() => {
+        setShowToolTip(false);
+      }, 2500);
+      setTimeoutId(newTimeoutId);
+      if (!artworkArray.includes(artworkId)) {
         dispatch(addNewCartItem({ artwork: artworkId }, sessionUser._id));
-      else alert('Artwork is already in your cart!')
+        setTimeoutMessage("Artwork added to cart!");
+        setToolTipClassName("tooltip");
+      }  
+      else {
+        setTimeoutMessage('Artwork is already in your cart!');
+        setToolTipClassName("tooltip error");
+      }
     }
     else {
       history.push('/login')
     };
   }
-
-
 
   function shuffle(shouldSwap) {
     if (shouldSwap) {
@@ -172,6 +181,16 @@ console.log(favorites,"FAVORITES????")
     }
   }, [clickedSwap])
 
+  const [deg, setDeg] = useState(0);
+
+  function handleRotation() {
+    setDeg(deg + 360);
+    const swapIcon = document.getElementById("swap-icon");
+    swapIcon.style.transformOrigin = "center center";
+    swapIcon.style.transition = "transform .5s ease";
+    swapIcon.style.transform = `rotate(${deg}deg)`;
+  }
+
   if (!loaded) {
     return (
       <>
@@ -185,7 +204,7 @@ console.log(favorites,"FAVORITES????")
       <>
         <NavBar />
         <div className="main-page">
-          {showToolTip && <div className="tooltip">Artwork added to cart!</div>}
+          {showToolTip && <div className={toolTipClassName}>{timeoutMessage}</div>}
           <div data-aos="zoom-in-up"
             data-aos-duration="3000"
             className="main-banner-box">
@@ -213,7 +232,7 @@ console.log(favorites,"FAVORITES????")
             </div>
           </div>
           <div className="popular-assets-box">
-            <div className='popular-assets-box-header'><h3>{currentCategory} ASSETS</h3><div id='swap-button' onClick={e => setClickedSwap(true)}><div id='swap-icon'></div><div id='swap-text'>Swap</div></div></div>
+            <div className='popular-assets-box-header'><h3>{currentCategory} ASSETS</h3><div id='swap-button' onClick={e => {setClickedSwap(true); handleRotation()}}><div id='swap-icon'></div><div id='swap-text'>Swap</div></div></div>
             <ul className="assets">
               {artworksArray.slice(0, 10).map(artwork => (
                 <li key={artwork._id ? artwork._id : null}
@@ -245,10 +264,7 @@ console.log(favorites,"FAVORITES????")
                         clearTimeout(timeoutId);
                         handleAddCartItem(e, artwork._id);
                         setShowToolTip(true);
-                        const newTimeoutId = setTimeout(() => {
-                          setShowToolTip(false);
-                        }, 2500);
-                        setTimeoutId(newTimeoutId);
+                        
                       } : null}>
                       <AddShoppingCartIcon />
                     </div>

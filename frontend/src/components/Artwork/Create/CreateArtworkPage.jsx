@@ -207,19 +207,7 @@ export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }
                     </input>
                 </label>
 
-                <div className="upload-box">
-                    {/* Image to Upload */}
-                    <div className='dotline'><img className="Uploadpic" /></div>
-                    <input
-                        className='uploadButton'
-                        type="file"
-                        ref={fileRef}
-                        accept=".jpg, .jpeg, .png"
-                        onChange={updateFile} />
-                    <p><i className="fa-solid fa-cloud-arrow-up"></i></p>
-                    <p className='uploadins'>click to upload</p>
-                    <p className='recommend'>We recommend using high-quality .jpg files under 20MB</p>
-                </div>
+                
                 
                 <label className= {errors.category ? "error category-label" : "category-label"} htmlFor="category">Category:
                     <select name="category"
@@ -235,6 +223,20 @@ export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }
                     </select>
                     <span>{errors.category}</span>
                 </label>
+
+                <div className="upload-box">
+                    {/* Image to Upload */}
+                    <div className='dotline'><img className="Uploadpic" /></div>
+                    <input
+                        className='uploadButton'
+                        type="file"
+                        ref={fileRef}
+                        accept=".jpg, .jpeg, .png"
+                        onChange={updateFile} />
+                    <p><i className="fa-solid fa-cloud-arrow-up"></i></p>
+                    <p className='uploadins'>click to upload</p>
+                    <p className='recommend'>We recommend using high-quality .jpg files under 20MB</p>
+                </div>
                 
                 <button className="submit-artwork-button" onClick={handleSubmit}>Upload New Artwork</button>
 
