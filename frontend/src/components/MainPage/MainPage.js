@@ -127,17 +127,13 @@ function MainPage() {
       setLoaded(true);
 
     })
-  }, [dispatch])
+  }, [dispatch, sessionUser])
 
   const handleAddCartItem = (e, artworkId) => {
     e.preventDefault();
     if (sessionUser) {
-      console.log(cartItems, 'cartItems')
-      // console.log(Object.values(cartItems))
       const userCartItems = Object.values(cartItems).filter(item => item.user._id === sessionUser._id )
-      // const artworkArray = Object.values(cartItems).map(item => item.artwork);
       const artworkArray = userCartItems.map(item => item.artwork);
-      console.log(artworkArray, 'artworkArray')
       const newTimeoutId = setTimeout(() => {
         setShowToolTip(false);
       }, 2500);
@@ -153,7 +149,7 @@ function MainPage() {
       }
     }
     else {
-      history.push('/login')
+      history.push('/login');
     };
   }
 

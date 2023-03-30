@@ -158,7 +158,7 @@ function NavBar({ updateShouldFetchArtworks }) {
             <div onClick={directToCart}>
               <div className="cart-icon">
                 <ShoppingCart /> 
-                {Object.keys(cartItems).length > 0 && (
+                {Object.keys(cartItems.filter(item => item.user._id === user._id)).length > 0 && (
                   <div className="cart-count">{Object.keys(cartItems.filter(item => item.user._id === user._id)).length}</div>
                 )}
               </div>
