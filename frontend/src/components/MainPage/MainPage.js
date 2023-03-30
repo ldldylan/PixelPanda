@@ -238,11 +238,13 @@ function MainPage() {
                   className="asset-item"
                 >
                   {/* <FavoriteBorderIcon className="favorite-item-icon" fontSize='35px'/> */}
-                  <div onClick={() => toggleFavorite(artwork._id)}>
+                  {sessionUser ?(<div onClick={() => toggleFavorite(artwork._id)}>
                     {favorites[artwork._id] ?
                       <FavoriteIcon style={{ color: "red" }} className="favorite-item-icon" fontSize="40" /> :
                       <FavoriteBorderIcon className="favorite-item-icon" fontSize="40px" />}
-                  </div>
+                  </div>) : null
+                  }
+                  
                   <img
                     src={artwork?.ArtworkImageUrl ? artwork.ArtworkImageUrl : null}
                     style={{
