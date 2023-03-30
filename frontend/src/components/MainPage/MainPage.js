@@ -30,6 +30,7 @@ function MainPage() {
   const users = useSelector(getUsers);
   const history = useHistory();
   const cartItems = useSelector((state) => state.cartItems)
+  
   const sessionUser = useSelector(state => state.session.user);
   const [loaded, setLoaded] = useState(false);
   const [currentType, setCurrentType] = useState('popular');
@@ -118,7 +119,7 @@ function MainPage() {
       dispatch(fetchArtworks()),
       dispatch(fetchUsers()),
       dispatch(fetchCartItems()),
-      dispatch(fetchUserWishlistItems(sessionUser._id)),
+      // dispatch(fetchUserWishlistItems(sessionUser._id)),
     ]).then(() => {
       loadWishlistItems();
     }).then(() => {
@@ -130,7 +131,12 @@ function MainPage() {
   const handleAddCartItem = (e, artworkId) => {
     e.preventDefault();
     if (sessionUser) {
-      const artworkArray = Object.values(cartItems).map((item) => item.artwork);
+      console.log(cartItems, 'cartItems')
+      // console.log(Object.values(cartItems))
+      const userCartItems = Object.values(cartItems).filter(item => item.user._id === sessionUser._id )
+      // const artworkArray = Object.values(cartItems).map(item => item.artwork);
+      const artworkArray = userCartItems.map(item => item.artwork);
+      console.log(artworkArray, 'artworkArray')
       const newTimeoutId = setTimeout(() => {
         setShowToolTip(false);
       }, 2500);

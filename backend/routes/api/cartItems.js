@@ -61,6 +61,7 @@ router.post('/users/:userId', requireUser, validateCartItemInput, async (req, re
       user: req.params.userId,
       artwork: req.body.artwork
     });
+    debugger
     let cartItem = await newCartItem.save();
     cartItem = await cartItem.populate('user', 'artwork');
     return res.json(cartItem);
