@@ -115,6 +115,9 @@ function MainPage() {
     }
     console.log("loadWishlistItems", wishlists)
   }
+  useEffect(() => {
+    loadWishlistItems();
+  }, [wishlists])
   console.log("loadWishlistItems", wishlists)
 
   useEffect(() => {
@@ -122,7 +125,7 @@ function MainPage() {
       dispatch(fetchArtworks()),
       dispatch(fetchUsers()),
       dispatch(fetchCartItems()),
-      // dispatch(fetchUserWishlistItems(sessionUser._id)),
+      dispatch(fetchUserWishlistItems(sessionUser._id)),
     ]).then(() => {
       console.log("passing")
       loadWishlistItems();
