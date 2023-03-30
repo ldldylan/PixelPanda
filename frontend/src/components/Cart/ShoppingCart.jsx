@@ -139,7 +139,7 @@ const Cart = () => {
                                         <div className="sub-total-container">
                                             Subtotal ({Object.keys(cartItems).length}{" "}
                                             {cartItems.length > 1 ? "items" : "item"}):&nbsp;
-                                            ${subTotal}
+                                            ${subTotal.toFixed(2)}
                                         </div>
                                         <form onSubmit={handleCheckout} className="checkout-form">
                                             <input 

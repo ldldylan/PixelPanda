@@ -26,6 +26,7 @@ function NavBar({ updateShouldFetchArtworks }) {
   const user = useSelector(state => state.session.user);
   const artworks = useSelector(state => Object.values(state.artworks));
   const artists = useSelector(state => Object.values(state.users));
+  const cartItems = useSelector((state) => state.cartItems);
 
   const [showCreateArtworkModal, setShowCreateArtworkModal] = useState(false);
   const [showSearchResults, setShowSearchResults] = useState(false);
@@ -155,7 +156,14 @@ function NavBar({ updateShouldFetchArtworks }) {
               )}
 
             <div onClick={() => history.push(`/users/${user._id}`)}><PersonIcon /> Profile</div>
-            <div onClick={directToCart}><ShoppingCart /> Cart </div>
+            <div onClick={directToCart}>
+              <div className="cart-icon">
+                <ShoppingCart /> 
+                {Object.keys(cartItems).length > 0 && (
+                  <div className="cart-count">{Object.keys(cartItems).length}</div>
+                )}
+              </div>
+            Cart </div>
             <div onClick={directToWishlist} ><FavoriteIcon /> Wish List </div>
 
 

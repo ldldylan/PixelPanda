@@ -138,19 +138,24 @@
     height: 30px;
 }
 
-.nav-tools div {
+.nav-tools > div {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
 }
 
-.nav-tools div:hover {
+.nav-tools > div:hover {
     color: rgb(230,0,18);
     cursor: pointer;
 }
 
 .nav-tools div:hover a {
+    color: rgb(230,0,18);
+    cursor: pointer;
+}
+
+.nav-tools div:hover a:visited {
     color: rgb(230,0,18);
     cursor: pointer;
 }
@@ -193,4 +198,29 @@ a:visited {
     align-items: center;
     position: absolute;
     right: 10px;
+}
+
+.cart-icon {
+    position: relative;
+}
+
+.cart-count {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: -10px;
+    right: 0;
+    border-radius: 50%;
+    background-color: var(--danger);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.nav-tools div:hover .cart-count {
+    /* background-color: white; */
+    /* color: var(--danger); */
 }
