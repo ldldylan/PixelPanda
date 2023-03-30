@@ -127,7 +127,7 @@ function MainPage() {
       setLoaded(true);
 
     })
-  }, [dispatch])
+  }, [dispatch, sessionUser])
 
   const handleAddCartItem = (e, artworkId) => {
     e.preventDefault();
