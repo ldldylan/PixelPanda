@@ -144,7 +144,8 @@ function Artwork() {
     const handleAddCartItem = (e, artworkId) => {
         e.preventDefault();
         if (sessionUser) {
-            const artworkArray = Object.values(cartItems).map((item) => item.artwork);
+            const userCartItems = Object.values(cartItems).filter(item => item.user._id === sessionUser._id)
+            const artworkArray = userCartItems.map(item => item.artwork);
             const newTimeoutId = setTimeout(() => {
                 setShowToolTip(false);
             }, 2500);
