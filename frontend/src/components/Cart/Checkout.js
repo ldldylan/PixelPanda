@@ -17,18 +17,21 @@ export default function Checkout() {
                 history.push('/');
             });
         });
+        return () => {
+            window.removeEventListener('load', handleLoad);
+        };
     }, [dispatch]);
 
-    return(<>
+    return (<>
         <NavBar />
         <div className="checkout-page">
             <div className="checkout-container">
-                <a href="/"><div className="checkout-image"/></a>
-                Order Placed! <br/> Thank you for your purchase!
+                <a href="/"><div className="checkout-image" /></a>
+                Order Placed! <br /> Thank you for your purchase!
             </div>
-            
-            <div className="checkout-footer"><Footer/></div>
+
+            <div className="checkout-footer"><Footer /></div>
         </div>
-        </>
+    </>
     )
 }
