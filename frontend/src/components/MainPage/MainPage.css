@@ -365,10 +365,17 @@
     font-size: 24px;
     color: var(--off-white);
     background-color: var(--interactive-hover);
-    box-shadow: 0 0 10px 0 rgba(78, 80, 88, 0.8);
+    box-shadow: var(--interactive-box-shadow);
     padding: 10px;
     z-index: 20;
-    margin-left: 20px;
+    margin-left: 80px;
+    margin-top: 90px;
+}
+
+.tooltip.error {
+    color: var(--off-white);
+    background-color: rgba(242, 63, 66, 0.8);
+    box-shadow: var(--interactive-box-shadow);
 }
 
 #swap-text {

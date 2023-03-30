@@ -37,6 +37,8 @@ function MainPage() {
   const [artworksArray, setArtworksArray] = useState([]);
   const [showToolTip, setShowToolTip] = useState(false);
   const [timeoutId, setTimeoutId] = useState(null);
+  const [timeoutMessage, setTimeoutMessage] = useState("");
+  const [toolTipClassName, setToolTipClassName] = useState("tooltip");
   const [favorites, setFavorites] = useState({});
   const [currentCategory, setCurrentCategory] = useState('POPULAR');
 
@@ -94,9 +96,19 @@ function MainPage() {
     e.preventDefault();
     if (sessionUser) {
       const artworkArray = Object.values(cartItems).map((item) => item.artwork);
-      if (!artworkArray.includes(artworkId))
+      const newTimeoutId = setTimeout(() => {
+        setShowToolTip(false);
+      }, 2500);
+      setTimeoutId(newTimeoutId);
+      if (!artworkArray.includes(artworkId)) {
         dispatch(addNewCartItem({ artwork: artworkId }, sessionUser._id));
-      else alert('Artwork is already in your cart!')
+        setTimeoutMessage("Artwork added to cart!");
+        setToolTipClassName("tooltip");
+      }  
+      else {
+        setTimeoutMessage('Artwork is already in your cart!');
+        setToolTipClassName("tooltip error");
+      }
     }
     else {
       history.push('/login')
@@ -142,7 +154,7 @@ function MainPage() {
       <>
         <NavBar />
         <div className="main-page">
-          {showToolTip && <div className="tooltip">Artwork added to cart!</div>}
+          {showToolTip && <div className={toolTipClassName}>{timeoutMessage}</div>}
           <div data-aos="zoom-in-up"
             data-aos-duration="3000"
             className="main-banner-box">
@@ -202,10 +214,7 @@ function MainPage() {
                         clearTimeout(timeoutId);
                         handleAddCartItem(e, artwork._id);
                         setShowToolTip(true);
-                        const newTimeoutId = setTimeout(() => {
-                          setShowToolTip(false);
-                        }, 2500);
-                        setTimeoutId(newTimeoutId);
+                        
                       } : null}>
                       <AddShoppingCartIcon />
                     </div>
