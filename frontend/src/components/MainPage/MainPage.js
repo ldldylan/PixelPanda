@@ -14,7 +14,7 @@ import { useDispatch } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { fetchArtworks } from '../../store/artworks';
-import { getArtworks,getArtwork } from '../../store/artworks';
+import { getArtworks, getArtwork } from '../../store/artworks';
 import { getUsers, fetchUsers } from '../../store/users';
 import { useSelector } from 'react-redux';
 import { addNewCartItem } from '../../store/cartItems';
@@ -49,26 +49,26 @@ function MainPage() {
     // const artwork=artworks.find(artwork=>artwork._id===artworkId)
     setCurrentLikedArtworkId(artworkId);
 
-    console.log(currentLikedArtworkId,"passing???")
+    console.log(currentLikedArtworkId, "passing???")
     setFavorites(prevFavorites => ({
       ...prevFavorites,
       [artworkId]: !prevFavorites[artworkId]
     }))
   }
-console.log(favorites,"FAVORITES????")
-  useEffect(() => { 
-    if (currentLikedArtworkId && favorites[currentLikedArtworkId]===true) {
+  console.log(favorites, "FAVORITES????")
+  useEffect(() => {
+    if (currentLikedArtworkId && favorites[currentLikedArtworkId] === true) {
       console.log("true")
-      console.log(artworks,"artworks")
+      console.log(artworks, "artworks")
       // console.log("artworks[currentLikedArtworkId]",currentLikedArtwork)
       // console.log("currentLikedArtwork._id", currentLikedArtwork._id)
 
       dispatch(addNewWishlistItem({ artwork: currentLikedArtworkId }, sessionUser._id))
       // console.log(currentLikedArtwork,"added")
-    }else if(currentLikedArtworkId && favorites[currentLikedArtworkId]===false){
+    } else if (currentLikedArtworkId && favorites[currentLikedArtworkId] === false) {
       console.log("false")
       console.log("currentLikedArtworkId", currentLikedArtworkId)
-      let wishlistItemId=wishlists.find(wishlistItem=>wishlistItem.artwork===currentLikedArtworkId)._id
+      let wishlistItemId = wishlists.find(wishlistItem => wishlistItem.artwork === currentLikedArtworkId)._id
       dispatch(deleteWishlistItem(wishlistItemId));
 
     }
@@ -81,7 +81,7 @@ console.log(favorites,"FAVORITES????")
       setArtworksArray(artworks);
     }
   }
-  console.log(favorites,"FAVORITES")
+  console.log(favorites, "FAVORITES")
   useEffect(() => {
     loadArtworks();
   }, [artworks])
@@ -104,16 +104,16 @@ console.log(favorites,"FAVORITES????")
       setArtworksArray(artworks.filter(artwork => artwork.category === "fantasy"))
     }
   }
-  function loadWishlistItems(){
-    if(wishlists){
-      for(let i=0;i<wishlists.length;i++){
-      setFavorites(prevFavorites => ({
-        ...prevFavorites,
-        [wishlists[i].artwork]: true
-      }))
+  function loadWishlistItems() {
+    if (wishlists) {
+      for (let i = 0; i < wishlists.length; i++) {
+        setFavorites(prevFavorites => ({
+          ...prevFavorites,
+          [wishlists[i].artwork]: true
+        }))
+      }
     }
-    }
-    console.log("loadWishlistItems",wishlists)
+    console.log("loadWishlistItems", wishlists)
   }
   console.log("loadWishlistItems", wishlists)
 
@@ -122,13 +122,13 @@ console.log(favorites,"FAVORITES????")
       dispatch(fetchArtworks()),
       dispatch(fetchUsers()),
       dispatch(fetchCartItems()),
-      dispatch(fetchUserWishlistItems(sessionUser._id)),
+      // dispatch(fetchUserWishlistItems(sessionUser._id)),
     ]).then(() => {
       console.log("passing")
       loadWishlistItems();
     }).then(() => {
       // if(wishlists){
-        setLoaded(true);
+      setLoaded(true);
       // }
     })
   }, [dispatch])
@@ -145,7 +145,7 @@ console.log(favorites,"FAVORITES????")
         dispatch(addNewCartItem({ artwork: artworkId }, sessionUser._id));
         setTimeoutMessage("Artwork added to cart!");
         setToolTipClassName("tooltip");
-      }  
+      }
       else {
         setTimeoutMessage('Artwork is already in your cart!');
         setToolTipClassName("tooltip error");
@@ -231,7 +231,7 @@ console.log(favorites,"FAVORITES????")
             </div>
           </div>
           <div className="popular-assets-box">
-            <div className='popular-assets-box-header'><h3>{currentCategory} ASSETS</h3><div id='swap-button' onClick={e => {setClickedSwap(true); handleRotation()}}><div id='swap-icon'></div><div id='swap-text'>Swap</div></div></div>
+            <div className='popular-assets-box-header'><h3>{currentCategory} ASSETS</h3><div id='swap-button' onClick={e => { setClickedSwap(true); handleRotation() }}><div id='swap-icon'></div><div id='swap-text'>Swap</div></div></div>
             <ul className="assets">
               {artworksArray.slice(0, 10).map(artwork => (
                 <li key={artwork._id ? artwork._id : null}
@@ -263,7 +263,7 @@ console.log(favorites,"FAVORITES????")
                         clearTimeout(timeoutId);
                         handleAddCartItem(e, artwork._id);
                         setShowToolTip(true);
-                        
+
                       } : null}>
                       <AddShoppingCartIcon />
                     </div>
