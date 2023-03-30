@@ -26,8 +26,7 @@ import Loading from '../Loading/Loading'
 
 function MainPage() {
   const dispatch = useDispatch();
-  const originalArtworks = useSelector(getArtworks);
-  // let artworks = useSelector(getArtworks);
+  const artworks = useSelector(getArtworks);
   const users = useSelector(getUsers);
   const history = useHistory();
   const cartItems = useSelector((state) => state.cartItems)
@@ -36,11 +35,10 @@ function MainPage() {
   const [currentType, setCurrentType] = useState('popular');
   const [clickedSwap, setClickedSwap] = useState(false);
   const [artworksArray, setArtworksArray] = useState([]);
-  const [artworks, setArtworks] = useState(originalArtworks);
   const [showToolTip, setShowToolTip] = useState(false);
   const [timeoutId, setTimeoutId] = useState(null);
   const [favorites, setFavorites] = useState({});
-  
+
   const toggleFavorite = (artworkId) => {
     setFavorites(prevFavorites => ({
       ...prevFavorites,
@@ -50,25 +48,25 @@ function MainPage() {
 
   let currentCategory = 'POPULAR'
 
-  // if (artworksArray.length === 0 && artworks.length !== 0) {
-  //   setArtworksArray(artworks.slice())
-  // }
+  if (artworksArray.length === 0 && artworks.length !== 0) {
+    setArtworksArray(artworks.slice())
+  }
 
   function changeCategory() {
     if (currentType === "popular") {
-      setArtworks(originalArtworks);
+      setArtworksArray(artworks.slice())
     } else if (currentType === "chinese") {
       currentCategory = 'CHINESE';
-      setArtworks(originalArtworks.filter(artwork => artwork.category === "chinese"))
+      setArtworksArray(artworks.slice().filter(artwork => artwork.category === "chinese"))
     } else if (currentType === "japanese") {
       currentCategory = 'JAPANESE';
-      setArtworks(originalArtworks.filter(artwork => artwork.category === "japanese"))
+      setArtworksArray(artworks.slice().filter(artwork => artwork.category === "japanese"))
     } else if (currentType === "pixel") {
       currentCategory = 'PIXEL';
-      setArtworks(originalArtworks.filter(artwork => artwork.category === "pixel"))
+      setArtworksArray(artworks.slice().filter(artwork => artwork.category === "pixel"))
     } else if (currentType === "fantasy") {
       currentCategory = 'FANTASY';
-      setArtworks(originalArtworks.filter(artwork => artwork.category === "fantasy"))
+      setArtworksArray(artworks.slice().filter(artwork => artwork.category === "fantasy"))
     }
   }
 
@@ -102,13 +100,13 @@ function MainPage() {
 
   function shuffle(shouldSwap) {
     if (shouldSwap) {
-      const shuffledArray = [...artworks];
+      const shuffledArray = [...artworksArray];
       for (let i = shuffledArray.length; i; i--) {
         let j = Math.floor(Math.random() * i);
         [shuffledArray[i - 1], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i - 1]];
       }
-      if (shuffledArray !== artworks) {
-        setArtworks(shuffledArray);
+      if (shuffledArray !== artworksArray) {
+        setArtworksArray(shuffledArray);
       }
       setClickedSwap(false);
     }
@@ -120,7 +118,7 @@ function MainPage() {
 
   useEffect(() => {
     if (clickedSwap) {
-      shuffle(artworks, true);
+      shuffle(artworksArray, true);
     }
   }, [clickedSwap])
 
@@ -167,7 +165,7 @@ function MainPage() {
           <div className="popular-assets-box">
             <div className='popular-assets-box-header'><h3>{currentCategory} ASSETS</h3><div id='swap-button' onClick={e => setClickedSwap(true)}><div id='swap-icon'></div><div id='swap-text'>Swap</div></div></div>
             <ul className="assets">
-              {artworks.slice(0, 10).map(artwork => (
+              {artworksArray.slice(0, 10).map(artwork => (
                 <li key={artwork._id ? artwork._id : null}
                   className="asset-item"
                 >
