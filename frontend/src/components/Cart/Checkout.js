@@ -11,16 +11,22 @@ export default function Checkout() {
     const dispatch = useDispatch();
     const history = useHistory();
     useEffect(() => {
-        Promise.all([dispatch(deleteAllCartItems(currentUser._id))]).then(() => {
-            window.addEventListener('load', () => {
-                alert("Thank you for your purchase! Your order is being processed.");
-                history.push('/');
-            });
-        });
-        return () => {
-            window.removeEventListener('load', handleLoad);
+        const handleLoad = () => {
+          alert("Thank you for your purchase! Your order is being processed.");
+          history.push('/');
         };
-    }, [dispatch]);
+      
+        window.addEventListener('load', handleLoad);
+      
+        Promise.all([dispatch(deleteAllCartItems(currentUser._id))]).then(() => {
+          // No need to remove the event listener here
+        });
+      
+        // Add a cleanup function to remove the event listener
+        return () => {
+          window.removeEventListener('load', handleLoad);
+        };
+      }, [dispatch, currentUser, history]);
 
     return (<>
         <NavBar />
