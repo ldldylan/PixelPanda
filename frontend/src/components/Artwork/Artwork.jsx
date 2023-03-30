@@ -23,8 +23,8 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 // import {Modal} from '../context/Modal';
 import { Modal } from '../context/Modal';
 import Loading from '../Loading/Loading'
-
-
+import { fetchUserWishlistItems, getWishlistItems } from "../../store/wishlistItems";
+import { addNewWishlistItem, deleteWishlistItem } from "../../store/wishlistItems";
 function Artwork() {
     const { artworkId } = useParams();
     const [comment, setComment] = useState('');
@@ -40,6 +40,7 @@ function Artwork() {
     const [timeoutMessage, setTimeoutMessage] = useState("");
     const [toolTipClassName, setToolTipClassName] = useState("tooltip");
     const [rating, setRating] = useState(1);
+    const wishlistItems = useSelector(getWishlistItems);
 
     const handleRatingChange = (value) => {
         setRating(value);
@@ -52,6 +53,14 @@ function Artwork() {
     const [isFavorited, setIsFavorited] = useState(false);
 
     const handleButtonClick = () => {
+        console.log('wishlistItems', wishlistItems)
+        if (!isFavorited) {
+            console.log('pass')
+            dispatch(addNewWishlistItem({ artwork: artworkId }, sessionUser._id))
+        } else {
+            console.log('pass2')
+            dispatch(deleteWishlistItem(wishlistItems.find(item => item.artwork === artworkId)._id))
+        }
         setIsFavorited(!isFavorited);
     };
     // const artwork = useSelector (state => state.artworks.artwork);
@@ -76,7 +85,8 @@ function Artwork() {
     // console.log(artwork)
     useEffect(() => {
         Promise.all([
-            dispatch(fetchArtworks())
+            dispatch(fetchArtworks()),
+            dispatch(fetchUserWishlistItems(sessionUser?._id)),
         ]).then(() => {
             setLoaded(true);
         })
@@ -85,6 +95,11 @@ function Artwork() {
         console.log('pass', artworkId)
         dispatch(fetchArtworkReviews(artworkId))
     }, [artworkId, dispatch])
+    useEffect(() => {
+        if (wishlistItems.find(item => item.artwork === artworkId) && isFavorited === false) {
+            setIsFavorited(true);
+        }
+    }, [wishlistItems])
     const artwork = useSelector(getArtwork(artworkId));
     // console.log(artwork,'artwork')
 
