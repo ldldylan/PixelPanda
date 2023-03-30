@@ -128,7 +128,7 @@ function User() {
 
                 <div className="user-artworks-container">
                      
-                    {currentUser._id !== userId ? user?.email ? user.email.split('@')[0] : "Mysterious Artist" : "Your"}'s Artworks
+                    {currentUser._id !== userId ? user?.email ? user.email.split('@')[0].concat('s Artworks') : "Mysterious Artist" : "Yours"}
                     <div className="divider user-show" />
                     <ul className="user-artworks">
                         {/* {console.log(artworks ? artworks : null)} */}
