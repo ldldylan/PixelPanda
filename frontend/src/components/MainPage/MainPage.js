@@ -111,6 +111,7 @@ console.log(favorites,"FAVORITES????")
       }))
     }
     }
+    console.log(favorites,"FAVORITESwishh")
     console.log("loadWishlistItems",wishlists)
   }
   console.log("loadWishlistItems", wishlists)
