@@ -35,6 +35,7 @@ function MainPage() {
   const [currentType, setCurrentType] = useState('popular');
   const [clickedSwap, setClickedSwap] = useState(false);
   const [artworksArray, setArtworksArray] = useState([]);
+  
   let currentCategory = 'POPULAR'
 
   if (artworksArray.length === 0 && artworks.length!==0){
