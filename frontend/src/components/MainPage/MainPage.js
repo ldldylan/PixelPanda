@@ -38,6 +38,7 @@ function MainPage() {
   const [showToolTip, setShowToolTip] = useState(false);
   const [timeoutId, setTimeoutId] = useState(null);
   const [favorites, setFavorites] = useState({});
+  const [currentCategory, setCurrentCategory] = useState('POPULAR');
 
   const toggleFavorite = (artworkId) => {
     setFavorites(prevFavorites => ({
@@ -46,26 +47,25 @@ function MainPage() {
     }));
   }
 
-  let currentCategory = 'POPULAR'
-
   if (artworksArray.length === 0 && artworks.length !== 0) {
     setArtworksArray(artworks.slice())
   }
 
   function changeCategory() {
     if (currentType === "popular") {
-      setArtworksArray(artworks.slice())
+      setArtworksArray(artworks.slice());
+      setCurrentCategory('POPULAR');
     } else if (currentType === "chinese") {
-      currentCategory = 'CHINESE';
+      setCurrentCategory("CHINESE");
       setArtworksArray(artworks.slice().filter(artwork => artwork.category === "chinese"))
     } else if (currentType === "japanese") {
-      currentCategory = 'JAPANESE';
+      setCurrentCategory('JAPANESE');
       setArtworksArray(artworks.slice().filter(artwork => artwork.category === "japanese"))
     } else if (currentType === "pixel") {
-      currentCategory = 'PIXEL';
+      setCurrentCategory('PIXEL');
       setArtworksArray(artworks.slice().filter(artwork => artwork.category === "pixel"))
     } else if (currentType === "fantasy") {
-      currentCategory = 'FANTASY';
+      setCurrentCategory("FANTASY");
       setArtworksArray(artworks.slice().filter(artwork => artwork.category === "fantasy"))
     }
   }
