@@ -7,7 +7,6 @@ import './NavBar.css';
 import { logout } from '../../store/session';
 import SearchIcon from '@mui/icons-material/Search';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-// import { Modal } from '../../context/Modal';
 
 import { Modal } from '../context/Modal';
 import { SearchResult } from '../context/SearchResult';
@@ -27,7 +26,6 @@ function NavBar({ updateShouldFetchArtworks }) {
   const user = useSelector(state => state.session.user);
   const artworks = useSelector(state => Object.values(state.artworks));
   const artists = useSelector(state => Object.values(state.users));
-  // const cartItems = useSelector((state) => state.cartItems);
   const cartItems = useSelector(getCartItems);
 
   const [showCreateArtworkModal, setShowCreateArtworkModal] = useState(false);
@@ -86,12 +84,6 @@ function NavBar({ updateShouldFetchArtworks }) {
     };
   }, [searchResultsRef]);
 
-  // let cartItemsNum = 0
-  // if (cartItems.length !== 0) {
-  //   cartItemsNum = cartItems.filter(item => item.user._id === user._id)
-  // }
-  console.log(cartItems)
-  // console.log(cartItemsNum, "cartItemsNum")
   const getLinks = () => {
     if (loggedIn) {
       return (<>
