@@ -69,20 +69,28 @@
 #swap-button {
     display: flex;
     flex-direction: row;
-    width: 5.5%;
+    /* width: 5.5%; */
+    width: 80px;
+    justify-content: space-between;
 }
+
+/* .rotate {
+    transform: rotate(360deg);
+    transition: transform .5s ease;
+} */
 
 #swap-button:hover {
     cursor: pointer;
 }
 
 #swap-icon {
-    background-image: url('../../../assets/swap-icon.png');
-    height: 100%;
-    width: 100%;
+    background-image: url('../../../assets/swap-icon.svg');
+    height: 20px;
+    width: 20px;
     background-repeat: no-repeat;
     background-size: contain;
     border:none;
+    transform: rotate(360deg);
 }
 
 .assets {

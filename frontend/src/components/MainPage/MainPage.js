@@ -141,6 +141,14 @@ function MainPage() {
     }
   }, [clickedSwap])
 
+  const [deg, setDeg] = useState(0);
+
+  function handleRotation() {
+    setDeg(deg + 90);
+    const swapIcon = document.getElementById("swap-icon");
+    swapIcon.style.transformOrigin = "center center";
+    swapIcon.style.transform = `rotate(${deg}deg)`;
+  }
   if (!loaded) {
     return (
       <>
@@ -182,7 +190,7 @@ function MainPage() {
             </div>
           </div>
           <div className="popular-assets-box">
-            <div className='popular-assets-box-header'><h3>{currentCategory} ASSETS</h3><div id='swap-button' onClick={e => setClickedSwap(true)}><div id='swap-icon'></div><div id='swap-text'>Swap</div></div></div>
+            <div className='popular-assets-box-header'><h3>{currentCategory} ASSETS</h3><div id='swap-button' onClick={e => {setClickedSwap(true); handleRotation()}}><div id='swap-icon'></div><div id='swap-text'>Swap</div></div></div>
             <ul className="assets">
               {artworksArray.slice(0, 10).map(artwork => (
                 <li key={artwork._id ? artwork._id : null}
