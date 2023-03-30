@@ -18,6 +18,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import BrushIcon from '@mui/icons-material/Brush';
 import CreateArtworkPage from '../Artwork/Create/CreateArtworkPage';
 
+import { getCartItems } from '../../store/cartItems';
 function NavBar({ updateShouldFetchArtworks }) {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -26,7 +27,8 @@ function NavBar({ updateShouldFetchArtworks }) {
   const user = useSelector(state => state.session.user);
   const artworks = useSelector(state => Object.values(state.artworks));
   const artists = useSelector(state => Object.values(state.users));
-  const cartItems = useSelector((state) => state.cartItems);
+  // const cartItems = useSelector((state) => state.cartItems);
+  const cartItems = useSelector(getCartItems);
 
   const [showCreateArtworkModal, setShowCreateArtworkModal] = useState(false);
   const [showSearchResults, setShowSearchResults] = useState(false);
@@ -79,12 +81,17 @@ function NavBar({ updateShouldFetchArtworks }) {
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [searchResultsRef]);
 
+  // let cartItemsNum = 0
+  // if (cartItems.length !== 0) {
+  //   cartItemsNum = cartItems.filter(item => item.user._id === user._id)
+  // }
+  console.log(cartItems)
+  // console.log(cartItemsNum, "cartItemsNum")
   const getLinks = () => {
     if (loggedIn) {
       return (<>
@@ -160,7 +167,7 @@ function NavBar({ updateShouldFetchArtworks }) {
               <div className="cart-icon">
                 <ShoppingCart /> 
                 {Object.keys(cartItems).length > 0 && (
-                  <div className="cart-count">{Object.keys(cartItems).length}</div>
+                  <div className="cart-count">{Object.keys(cartItems.filter(item => item.user._id === user._id)).length}</div>
                 )}
               </div>
             Cart </div>

@@ -113,9 +113,9 @@ function MainPage() {
         }))
       }
     }
-    console.log("loadWishlistItems", wishlists)
+    // console.log("loadWishlistItems", wishlists)
   }
-  console.log("loadWishlistItems", wishlists)
+  // console.log("loadWishlistItems", wishlists)
 
   useEffect(() => {
     Promise.all([

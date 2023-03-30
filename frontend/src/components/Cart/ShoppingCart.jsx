@@ -25,6 +25,7 @@ const Cart = () => {
     const [matchingArtworks, setMatchingArtworks] = useState([]);
     const [loaded, setLoaded] = useState(false);
     const checkoutBtnRef = useRef(null);
+    const [userCartItems, setUserCartItems] = useState()
 
     useEffect(() => {
         Promise.all([
@@ -34,10 +35,16 @@ const Cart = () => {
             setLoaded(true);
         });
     }, [dispatch, currentUser]);
+    console.log(cartItems, "cartItems")
+    
+    // if (cartItems.length !== 0) {
+    //     setUserCartItems()
+    // }
 
+    console.log(userCartItems)
     const calculateSubTotal = () => {
         let sumPrice = 0
-        const matchingArtworks = cartItems
+        const matchingArtworks = cartItems.filter(item => item.user._id === currentUser._id)
             .map((cartItem) => artworks.find((artwork) => artwork._id === cartItem.artwork))
             .filter((artwork) => artwork !== undefined);
         setMatchingArtworks(matchingArtworks);
@@ -56,7 +63,6 @@ const Cart = () => {
 
     useEffect(() => {
         calculateSubTotal();
-
     }, [cartItems, artworks]);
 
     const handleCheckout = (e) => {
@@ -93,12 +99,12 @@ const Cart = () => {
             <>
                 <NavBar />
                 <div className="cart-page">
-                    {Object.keys(cartItems).length > 0 && (
+                    {Object.keys(cartItems.filter(item => item.user._id === currentUser._id)).length > 0 && (
                         <div className="cart-container">
                             <div className="cart-content">
                                 <div className="cart-item-box">
                                     <div className="cart-item-header">
-                                        <div className="cart-heading">{cartItems.length} item(s) in your shopping cart</div>
+                                        <div className="cart-heading">{cartItems.filter(item => item.user._id === currentUser._id).length} item(s) in your shopping cart</div>
                                         <div className="cart-price-heading">Price</div>
                                     </div>
                                     <div style={{ marginTop: "10px", marginBottom: "10px" }}></div>
@@ -137,8 +143,8 @@ const Cart = () => {
                                 <div className="checkout-box">
                                     <div className="checkout-container">
                                         <div className="sub-total-container">
-                                            Subtotal ({Object.keys(cartItems).length}{" "}
-                                            {cartItems.length > 1 ? "items" : "item"}):&nbsp;
+                                            Subtotal ({Object.keys(cartItems.filter(item => item.user._id === currentUser._id)).length}{" "}
+                                            {cartItems.filter(item => item.user._id === currentUser._id).length > 1 ? "items" : "item"}):&nbsp;
                                             ${subTotal.toFixed(2)}
                                         </div>
                                         <form onSubmit={handleCheckout} className="checkout-form">
@@ -164,7 +170,7 @@ const Cart = () => {
 
                         </div>
                     )}
-                    {Object.keys(cartItems).length < 1 && (
+                    {Object.keys(cartItems.filter(item => item.user._id === currentUser._id)).length < 1 && (
                         <div className="empty-cart-container">
                             <div className="panda-box-container">
                                 <a href="/"><div className="panda-box"></div></a>
