@@ -48,7 +48,7 @@ function MainPage() {
   }
 
   if ((artworksArray.length === 0 && artworks.length !== 0)) {
-    setArtworksArray(artworks.slice())
+    setArtworksArray(artworks)
   }
   function loadArtworks() {
     if (artworksArray.length !== artworks.length) {
@@ -62,20 +62,20 @@ function MainPage() {
 
   function changeCategory() {
     if (currentType === "popular") {
-      setArtworksArray(artworks.slice());
+      setArtworksArray(artworks);
       setCurrentCategory('POPULAR');
     } else if (currentType === "chinese") {
       setCurrentCategory("CHINESE");
-      setArtworksArray(artworks.slice().filter(artwork => artwork.category === "chinese"))
+      setArtworksArray(artworks.filter(artwork => artwork.category === "chinese"))
     } else if (currentType === "japanese") {
       setCurrentCategory('JAPANESE');
-      setArtworksArray(artworks.slice().filter(artwork => artwork.category === "japanese"))
+      setArtworksArray(artworks.filter(artwork => artwork.category === "japanese"))
     } else if (currentType === "pixel") {
       setCurrentCategory('PIXEL');
-      setArtworksArray(artworks.slice().filter(artwork => artwork.category === "pixel"))
+      setArtworksArray(artworks.filter(artwork => artwork.category === "pixel"))
     } else if (currentType === "fantasy") {
       setCurrentCategory("FANTASY");
-      setArtworksArray(artworks.slice().filter(artwork => artwork.category === "fantasy"))
+      setArtworksArray(artworks.filter(artwork => artwork.category === "fantasy"))
     }
   }
 
