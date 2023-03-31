@@ -5,7 +5,7 @@ import { getArtworks } from "../../store/artworks";
 import { useHistory } from "react-router-dom";
 import './Wishlist.css'
 import { fetchArtworks } from "../../store/artworks";
-import { getWishlistItems } from "../../store/wishlistItems";
+import { getWishlistItems, deleteAllWishlistItems } from "../../store/wishlistItems";
 import { addNewCartItem } from "../../store/cartItems";
 import { fetchUserWishlistItems } from "../../store/wishlistItems";
 import NavBar from "../NavBar/NavBar";
@@ -102,6 +102,13 @@ const Wishlist = () => {
             }
         }
     }
+
+    const handleClearWishlist = e => {
+        e.preventDefault();
+        dispatch(deleteAllWishlistItems(currentUser._id));
+        history.push('/wishlist')
+    }
+
     if (!loaded) {
         return (
             <>
@@ -116,6 +123,13 @@ const Wishlist = () => {
                 <NavBar />
                 <div className="wishlist-page">
                     {showToolTip && <div className={toolTipClassName}>{timeoutMessage}</div>}
+                    <form onSubmit={handleClearWishlist} className="clear-form">
+                        <input
+                            type='submit'
+                            className="clear-btn"
+                            value="Remove All Items"
+                        ></input>
+                    </form>
                     {Object.keys(wishlistItems).length > 0 && (
                         <div className="wishlist-container">
                             <div className="wishlist-content">

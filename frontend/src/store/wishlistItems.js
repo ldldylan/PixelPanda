@@ -108,7 +108,19 @@ export const deleteWishlistItem = wishlistItemId => async dispatch => {
 
 };
 
-
+export const deleteAllWishlistItems = (userId) => async dispatch => {
+    try {
+        const res = await jwtFetch(`/api/wishlistItems/users/${userId}`, {
+            method: 'DELETE'
+        })
+        dispatch(clearWishlist());
+    } catch (err) {
+        const resBody = await err.json();
+        if (resBody.statusCode === 400) {
+            return dispatch(receiveErrors(resBody.errors));
+        }
+    }
+}
 
 // export const deleteAllCartItems = (userId) => async dispatch => {
 //     try {

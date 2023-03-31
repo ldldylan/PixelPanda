@@ -159,7 +159,6 @@ const Cart = () => {
                                         </form>
                                         <form onSubmit={handleClearCart} className="clear-form">
                                             <input
-                                                ref={checkoutBtnRef}
                                                 type='submit'
                                                 className="clear-btn"
                                                 value="Remove All Items"
