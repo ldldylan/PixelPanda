@@ -59,6 +59,7 @@ function NavBar({ updateShouldFetchArtworks }) {
 
   const logoutUser = e => {
     e.preventDefault();
+
     dispatch(logout());
   }
 
