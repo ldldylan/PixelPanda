@@ -54,8 +54,8 @@ router.get('/users/:userId', async (req, res, next) => {
 // });
 
 router.post('/users/:userId', requireUser, validateCartItemInput, async (req, res, next) => {
-  console.log(req.body, "req.body")
-  console.log(req.params, "req.params")
+  // console.log(req.body, "req.body")
+  // console.log(req.params, "req.params")
   try {
     const newCartItem = new CartItem({
       user: req.params.userId,
@@ -93,7 +93,7 @@ router.post('/users/:userId', requireUser, validateCartItemInput, async (req, re
 
 router.delete("/:id", async (req, res, next) => {
   // res.json({ message: "DELETE /product" });
-  console.log(req.params)
+  // console.log(req.params)
   CartItem.findByIdAndDelete(req.params.id)
     .then((cartItem) => {
       return res.json(cartItem);

@@ -54,8 +54,8 @@ router.get('/users/:userId', async (req, res, next) => {
 // });
 
 router.post('/users/:userId', requireUser, validateWishlistItemInput, async (req, res, next) => {
-    console.log(req.body, "req.body")
-    console.log(req.params, "req.params")
+    // console.log(req.body, "req.body")
+    // console.log(req.params, "req.params")
     try {
         const newWishlistItem = new WishlistItem({
             user: req.params.userId,

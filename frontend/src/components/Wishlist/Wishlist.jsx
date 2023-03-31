@@ -156,7 +156,6 @@ const Wishlist = () => {
                                                         <div className="wishlist-item-title">{wishlistArtwork?.name ? wishlistArtwork.name : null}</div>
                                                         <div className="wishlist-item-author" onClick={() => history.push(`/users/${wishlistArtwork.author._id}`)}>By artist: {wishlistArtwork?.author.email ? wishlistArtwork.author.email.split('@')[0] : null}</div>
                                                         <div className="wishlist-item-delete-btn" onClick={(e) => {
-                                                            console.log('button clicked');
                                                             handleAddItemToCart(e, wishlistArtwork);
                                                             clearTimeout(timeoutId);
                                                             setShowToolTip(true);

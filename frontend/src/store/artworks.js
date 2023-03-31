@@ -108,7 +108,7 @@ export const createArtwork = formData => async dispatch => {
         });
         
         const artwork = await res.json();
-        console.log(artwork);
+        // console.log(artwork);
         dispatch(receiveNewArtwork(artwork));
     } catch (err) {
         const resBody = await err.json();

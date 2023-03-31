@@ -58,7 +58,6 @@ const initializeImages = async () => {
                 { ArtworkImageUrl: `https://aws-mern-pixelpanda.s3.us-west-1.amazonaws.com/aws_mern/pixel/${i - 59}.png` }
             );
         };
-        // console.log(artwork)
         console.log('Artwork updated successfully!');
     }
     const new_artworks = await Artwork.find();

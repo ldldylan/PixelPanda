@@ -67,7 +67,7 @@ export const fetchUserWishlistItems = userId => async dispatch => {
     try {
         const res = await jwtFetch(`/api/wishlistItems/users/${userId}`);
         const userWishlistItems = await res.json();
-        console.log(userWishlistItems)
+        // console.log(userWishlistItems)
         dispatch(receiveWishlistItems(userWishlistItems));
     } catch (err) {
         const resBody = await err.json();

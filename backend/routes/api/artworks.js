@@ -59,7 +59,7 @@ router.get('/:id', async (req, res, next) => {
 router.post('/', singleMulterUpload("image"), requireUser, validateArtworkInput, async (req, res, next) => {
 
   const ArtworkImageUrl = await singleFileUpload({ file: req.file, public: true });
-  console.log(ArtworkImageUrl,"ArtworkImageUrl")
+  // console.log(ArtworkImageUrl,"ArtworkImageUrl")
     try {
       const newArtwork = new Artwork({
           name: req.body.name,

@@ -62,7 +62,6 @@ function Artwork() {
         setIsFavorited(!isFavorited);
     };
     // const artwork = useSelector (state => state.artworks.artwork);
-    // console.log(artworkId)
 
     const handleSubmit = (e) => {
         e.preventDefault();
