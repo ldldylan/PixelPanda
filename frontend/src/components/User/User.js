@@ -134,8 +134,9 @@ function User() {
 
         )
     } else {
-        return (<div className="user-show-page">
-            <NavBar updateShouldFetchArtworks={updateShouldFetchArtworks} />
+        return (<>
+        <NavBar updateShouldFetchArtworks={updateShouldFetchArtworks} />
+        <div className="user-show-page">
             {showToolTip && <div className={toolTipClassName}>{timeoutMessage}</div>}
             <div className="user">
                 <div className="user-main">
@@ -226,7 +227,8 @@ function User() {
                 </div>
             </div>
             <Footer />
-        </div>);
+        </div>
+        </>);
     }
 }
 
