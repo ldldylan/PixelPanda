@@ -135,6 +135,7 @@ export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }
                 setCategory("");
                 fileRef.current.value = null;
                 onClose();
+                dispatch(fetchArtworks());
             });
         }
 
