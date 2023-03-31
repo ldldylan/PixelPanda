@@ -19,19 +19,13 @@ export default function CreateReviewForm(props) {
     const history = useHistory();
     // const {reviewId}=props
     //might want to pass it as a prop
-    // console.log(artworkId,"artworkId")
-    // console.log(reviewId, "reviewId")
     const [errors, setErrors] = useState([]);
 
     const artwork = useSelector(getArtwork(artworkId))
     const formType = reviewId ? 'Edit Review' : 'Create Review'
-    //     console.log(artworkId, "artworkId")
-    // console.log(reviewId, "reviewId")
-    // console.log(artwork)
     // if (sessionUser === undefined) history.push("/login");
 
     useEffect(() => {
-        // console.log("fetct")
         dispatch(fetchArtwork(artworkId))
         // dispatch(fetchArtworks())
         // dispatch(fetchReview('6413b4a612b8d640711b50ba'))
@@ -40,7 +34,6 @@ export default function CreateReviewForm(props) {
         }
         // dispatch(fetchReview())
 
-        // console.log("fetct")
     }, [dispatch])
     // let review=null;
     // const review = useSelector(getReview);
@@ -57,7 +50,6 @@ export default function CreateReviewForm(props) {
     const [rating, setRating] = useState(review ? review.rating ? review.rating : '' : '');
     if (!artwork) return null;
 
-    console.log(review,"review")
     
     const handleSubmit = (e) => {
         e.preventDefault();

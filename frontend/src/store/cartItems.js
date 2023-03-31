@@ -67,7 +67,6 @@ export const fetchUserCartItems = userId => async dispatch => {
     try {
         const res = await jwtFetch(`/api/cartItems/users/${userId}`);
         const userCartItems = await res.json();
-        console.log(userCartItems)
         dispatch(receiveCartItems(userCartItems));
     } catch (err) {
         const resBody = await err.json();

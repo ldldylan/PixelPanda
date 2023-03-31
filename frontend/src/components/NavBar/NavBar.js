@@ -48,7 +48,6 @@ function NavBar({ updateShouldFetchArtworks }) {
           return artist.email.toLowerCase().includes(searchValue.toLowerCase());
         });
         filteredArtworks.push(...filteredArtists);
-        console.log(filteredArtworks);
       }
       setFilteredResults(filteredArtworks);
     }
