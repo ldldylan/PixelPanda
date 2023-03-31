@@ -75,7 +75,7 @@
     align-items: center;
 }
 
-.member-image:hover {
+.member-image:hover, .member-description:hover {
     transition: 1s;
     box-shadow: 0px 0px 30px #0719c1;
     /* animation: wiggle 2.5s forwards;
