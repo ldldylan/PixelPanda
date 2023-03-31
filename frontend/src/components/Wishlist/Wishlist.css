@@ -1,6 +1,6 @@
 .wishlist-page {
     width: 100%;
-    height: 87%;  
+    height: 70vh;  
     /* min-height: 100vh; */
 }
 
@@ -205,6 +205,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    max-height: 452px;
+    max-width: 350px;
     width: 450px;
     height: 502px;
     background-repeat: no-repeat;
