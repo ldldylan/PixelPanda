@@ -258,7 +258,8 @@ function MainPage() {
                   <div className="artwork-artist">{artwork?.author?._id!==sessionUser?._id ? artwork?.author?.email ? artwork.author.email.split('@')[0] : null : "You"}</div>
                   <div className="artwork-price-cart">
                     <div className="artwork-price"><p>${artwork?.price ? artwork.price.toFixed(2) : null}</p></div>
-                    {artwork?.author?._id !== sessionUser?._id&&
+                    
+                    {artwork?.author?._id !== sessionUser?._id &&
                       (<div className="artwork-cart"
                         onClick={artwork?._id ? (e) => {
                           clearTimeout(timeoutId);
@@ -269,6 +270,8 @@ function MainPage() {
                         <AddShoppingCartIcon />
                       </div>)
                     }
+                    {artwork?.author?._id === sessionUser?._id && 
+                      (<div className="artwork-owned" onClick={artwork ? () => history.push(`/artworks/${artwork._id}`) : null}><p>Owned</p></div>)}
                     
                   </div>
                 </li>

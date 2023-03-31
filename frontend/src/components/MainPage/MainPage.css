@@ -212,6 +212,14 @@
     right: 0px;
 }
 
+.artwork-owned{
+    text-align: center;
+    font-size: 20px;
+    display: flex;
+    align-items: flex-end;
+    cursor: pointer;
+}
+
 .asset-item.artist .artwork-name.artist{
     height: 200%;
 }

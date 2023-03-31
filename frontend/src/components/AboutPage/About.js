@@ -10,8 +10,8 @@ function About(){
                 <div className='member-text'></div>
             </div>
             <div className='team-member'>
-                <div className='member-image'></div>
                 <div className='member-text'></div>
+                <div className='member-image'></div>
             </div>
             <div className='team-member'>
                 <div className='member-image'></div>
