@@ -55,6 +55,7 @@ function MainPage() {
     });
     return unlisten;
   }, [history]);
+
   useEffect(() => {
     setWishlists(wishlistsFromStore);
   }, [wishlistsFromStore]);
@@ -67,6 +68,7 @@ function MainPage() {
       [artworkId]: !prevFavorites[artworkId]
     }))
   }
+
   useEffect(() => {
     if(wishlists){
     const find = wishlists.find(wishlistItem => wishlistItem.artwork === currentLikedArtworkId);
@@ -93,7 +95,7 @@ function MainPage() {
   useEffect(() => {
     console.log('hello');
     loadArtworks();
-  }, [dispatch])
+  }, [artworks])
 
   function changeCategory() {
     if (currentType === "popular") {
