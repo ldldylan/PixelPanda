@@ -223,7 +223,10 @@ export default function UpdateArtworkPage(props) {
                         required
                         onPaste={handlePaste}
                         onKeyDown={handleKeyDown}
-                        onChange={(e) => setPrice(e.target.value)}>
+                        onChange={(e) => {
+                            if(e.target.value === "") setPrice("0");
+                            else setPrice(e.target.value[0] === "0" ? e.target.value.slice(1) : e.target.value);
+                        }}>
                     </input>
                 </label>
 
@@ -241,18 +244,16 @@ export default function UpdateArtworkPage(props) {
                     <span>{errors.category}</span>
                 </label>
 
-          
-                    <div className="upload-box">
-
-                    <div className='dotline'><img className="Uploadpic" /></div>
+                {/* <label>
+                    Image to Upload
+                    <div className='updatepic'><img className="Uploadpic" /></div>
                     <input
                         className='uploadButton'
                         type="file"
                         ref={fileRef}
                         accept=".jpg, .jpeg, .png"
                         onChange={updateFile} />
-                    </div>
-        
+                </label>
                 <button className="submit-artwork-button" onClick={handleSubmit}>Update Artwork</button>
             </form>
         </>

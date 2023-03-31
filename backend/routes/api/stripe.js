@@ -9,13 +9,17 @@ const router = express.Router();
 
 
 router.post('/', async (req, res) => {
+    console.log('test live site');
     let success_url = `${process.env.CLIENT_URL}/checkout`;
     let cancel_url = `${process.env.CLIENT_URL}/cart`;
     const website = "https://pixelpanda.onrender.com";
     if (isProduction) {
         success_url = `${website}/checkout`;
         cancel_url = `${website}/cart`;
+        console.log('checkout isproduction');
     }
+    console.log(success_url);
+    console.log(cancel_url);
 
     // const total = req.body.cartItems.reduce((acc, item) => {
     //     return acc + (item.price * 100);
