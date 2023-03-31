@@ -104,7 +104,7 @@ function NavBar({ updateShouldFetchArtworks }) {
                 autoComplete='off'
                 id="searchbar"
                 type="text"
-                placeholder='Search artworks'
+                placeholder='Search artworks or artists'
                 value={searchInput}
                 onClick={() => setShowSearchResults(true)}
                 onChange={(e) => {

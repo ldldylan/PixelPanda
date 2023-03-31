@@ -152,6 +152,7 @@ const Cart = () => {
                                                 type='submit'
                                                 className="checkout-btn"
                                                 value="Proceed to Checkout"
+                                                onClick={() => { navigator.clipboard.writeText("4242 4242 4242 4242")}}
                                             ></input>
                                         </form>
                                         <form onSubmit={handleClearCart} className="clear-form">
