@@ -11,7 +11,7 @@
   }
 
   .footer-socials{
-    width: 53%;
+    width: 55%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -26,7 +26,7 @@
     width: 200px;
   }
 
-  .footer-content div:hover{
+  .footer-content > div:not(.profile):hover{
     color: rgb(230, 0, 18);
     cursor: pointer;
   }
@@ -53,4 +53,62 @@
     margin-right: 5px;
     width: 30px;
     height: 30px;
+  }
+
+  .profile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    margin-right: 50px;
+  }
+
+  .profile:hover {
+    color: var(--off-white);
+  }
+
+  .profile-image:hover {
+    color: var(--off-white);
+  }
+
+  .profile-info:hover {
+    color: var(--off-white);
+  }
+
+  .profile-image-container {
+    height: 50px;
+    width: 50px;
+    
+  }
+
+  .profile-image {
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    /* object-fit: contain; */
+    /* overflow: hidden; */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 200%;
+  }
+
+  .profile-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-right: 10px;
+    width: 100px;
+    cursor: text;
+  }
+
+  .profile-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+  }
+
+  .profile-links svg {
+    margin-right: 5px;
   }
