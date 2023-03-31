@@ -123,13 +123,13 @@ const Wishlist = () => {
                 <NavBar />
                 <div className="wishlist-page">
                     {showToolTip && <div className={toolTipClassName}>{timeoutMessage}</div>}
-                    <form onSubmit={handleClearWishlist} className="clear-form">
+                    {/* <form onSubmit={handleClearWishlist} className="clear-form">
                         <input
                             type='submit'
                             className="clear-btn"
                             value="Remove All Items"
                         ></input>
-                    </form>
+                    </form> */}
                     {Object.keys(wishlistItems).length > 0 && (
                         <div className="wishlist-container">
                             <div className="wishlist-content">
