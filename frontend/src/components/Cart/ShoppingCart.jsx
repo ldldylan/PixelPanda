@@ -71,11 +71,13 @@ const Cart = () => {
         checkoutBtnRef.current.value = "Loading..."
         checkoutBtnRef.current.style.cursor = "default";
         dispatch(checkoutCartItems(matchingArtworks));
-        // dispatch(deleteAllCartItems(currentUser._id));
-        // history.push('/checkout')
-        // alert("Thank you for your purchase! Your order is being processed.")
-        // history.push('/');
     };
+
+    const handleClearCart = e => {
+        e.preventDefault();
+        dispatch(deleteAllCartItems(currentUser._id));
+        history.push('/cart')
+    }
 
     const handleDeteCartItem = cartArtworkId => (e) => {
         e.preventDefault();
@@ -153,6 +155,14 @@ const Cart = () => {
                                                 type='submit'
                                                 className="checkout-btn"
                                                 value="Proceed to Checkout"
+                                            ></input>
+                                        </form>
+                                        <form onSubmit={handleClearCart} className="clear-form">
+                                            <input
+                                                ref={checkoutBtnRef}
+                                                type='submit'
+                                                className="clear-btn"
+                                                value="Remove All Items"
                                             ></input>
                                         </form>
                                     </div>

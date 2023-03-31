@@ -153,7 +153,6 @@ function MainPage() {
       history.push('/login');
     };
   }
-  console.log(artworksArray, 'type')
 
   function shuffle(shouldSwap) {
     if (shouldSwap) {

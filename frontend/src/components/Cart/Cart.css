@@ -133,9 +133,12 @@
 .checkout-form {
     align-items: center;
 }
+.clear-form {
+    align-items: center;
+    margin-top: 20px;
+}
 
-.checkout-btn {
-
+.checkout-btn, .clear-btn {
     height: 50px;
     color: var(--off-white);
     background-color: #121212;
@@ -154,6 +157,10 @@
     margin-left: 10px;
     /* margin-right: 20px; */
     text-align: center;
+}
+
+.clear-btn{
+    color: red;
 }
 
 .empty-cart-container {
