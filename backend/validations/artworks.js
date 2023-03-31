@@ -15,7 +15,7 @@ const validateArtworkInput = [
 
   check('price')
     .exists({ checkFalsy: true })
-    .isInt({ min: 0, max: 1000000 }),
+    .isFloat({ min: 0, max: 1000000 }),
 
   handleValidationErrors
   

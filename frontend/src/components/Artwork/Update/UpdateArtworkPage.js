@@ -5,24 +5,24 @@ import { useSelector } from 'react-redux';
 import { fetchArtwork } from '../../../store/artworks';
 import { useParams } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
-// import 'UpdateArtworkPage.css';
+
+import './UpdateArtwork.css';
 export default function UpdateArtworkPage(props) {
     const { onClose, artwork } = props;
     const dispatch = useDispatch();
+    console.log(artwork.ArtworkImageUrl, "artwork1111")
     // const { artworkId } = useParams();
 
     // useEffect(() => {
-    //     console.log("fetct")
     //     // dispatch(fetchArtwork(artworkId))
     // }, [dispatch])
-    // console.log(artworkId, "artworkId")
     // const artwork = useSelector(getArtwork(artworkId))
     const [name, setName] = useState(artwork ? artwork.name : '');
     const [description, setDescription] = useState(artwork ? artwork.description : '');
     const [price, setPrice] = useState(artwork ? artwork.price : '');
     const [category, setCategory] = useState(artwork ? artwork.category : '');
     const [image, setImage] = useState([]);
-    const [imageUrl, setImageUrl] = useState(artwork ? artwork.ArtworkImageUrl : '');
+    const [imageUrl, setImageUrl] = useState('');
     const [errors, setErrors] = useState({
         name: "",
         description: "",
@@ -38,11 +38,18 @@ export default function UpdateArtworkPage(props) {
 
 
     const img = document.querySelector('.Uploadpic');
-
     useEffect(() => {
 
-        if (img) img.src = imageUrl;
-    }, [imageUrl, name, description, price, category])
+        console.log('price', price)
+    }, [price])
+    useEffect(() => {
+        console.log("passs")
+        console.log(img,"img",img===true,"true?")
+        if (img) {
+            img.style.display = 'block';
+            img.src = imageUrl;
+        }
+    }, [imageUrl])
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -76,6 +83,9 @@ export default function UpdateArtworkPage(props) {
         } else {
             formData.append("ArtworkImageUrl", imageUrl);
         }
+
+
+
 
         setErrors(errorData);
 
@@ -153,30 +163,8 @@ export default function UpdateArtworkPage(props) {
         }
     };
 
-
-    // const updateFiles = async e => {
-    //     const files = e.target.files;
-    //     setImage(files);
-    //     if (files.length !== 0) {
-    //         let filesLoaded = 0;
-    //         const urls = [];
-    //         Array.from(files).forEach((file, index) => {
-    //             const fileReader = new FileReader();
-    //             fileReader.readAsDataURL(file);
-    //             fileReader.onload = () => {
-    //                 urls[index] = fileReader.result;
-    //                 if (++filesLoaded === files.length)
-    //                     setImageUrl(urls);
-    //             }
-    //         });
-    //     }
-    //     else setImageUrl([]);
-    //     console.log(image, "image")
-
-    // }
     const updateFile = async e => {
         const file = e.target.files[0];
-        // console.log(file, "file")
         setImage(file);
         if (file) {
 
@@ -205,7 +193,13 @@ export default function UpdateArtworkPage(props) {
         } 
     };
     useEffect(() => {
-    }, [image, imageUrl]);
+        console.log(artwork, "artwork")
+        console.log(artwork.ArtworkImageUrl, "artwork.ArtworkImageUrl")
+
+        if(artwork&&!imageUrl)setImageUrl(artwork.ArtworkImageUrl);
+        console.log(imageUrl, "imageUrl")
+
+    }, []);
     return (
         <>
             <form className='artwork-edit-form'>
@@ -253,16 +247,18 @@ export default function UpdateArtworkPage(props) {
                     <span>{errors.category}</span>
                 </label>
 
-                <label>
-                    {/* Image to Upload */}
-                    <div className='updatepic'><img className="Uploadpic" /></div>
+          
+                    <div className="upload-box">
+
+                    <div className='dotline'><img className="Uploadpic" /></div>
                     <input
                         className='uploadButton'
                         type="file"
                         ref={fileRef}
                         accept=".jpg, .jpeg, .png"
                         onChange={updateFile} />
-                </label>
+                    </div>
+        
                 <button className="submit-artwork-button" onClick={handleSubmit}>Update Artwork</button>
             </form>
         </>

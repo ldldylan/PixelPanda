@@ -22,7 +22,6 @@ export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }
     const dispatch = useDispatch();
 
     const sessionUser = useSelector((state) => state.session.user)
-    // console.log(sessionUser._id)
 
     // useEffect(() => {
     //     dispatch(fetchArtworks())

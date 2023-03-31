@@ -46,7 +46,6 @@ function MainPage() {
   const [wishlists, setWishlists] = useState(null);
 
   const wishlistsFromStore = useSelector(getWishlistItems);
-console.log("wishlists1111", wishlists)
   // const artworkId=null;
   // let artwork=useSelector(getArtwork(artworkId));
   useEffect(() => {
@@ -67,20 +66,16 @@ console.log("wishlists1111", wishlists)
       ...prevFavorites,
       [artworkId]: !prevFavorites[artworkId]
     }))
-    console.log("favorites", favorites)
   }
   useEffect(() => {
     if(wishlists){
     const find = wishlists.find(wishlistItem => wishlistItem.artwork === currentLikedArtworkId);
     if (currentLikedArtworkId&& !find && favorites[currentLikedArtworkId] === true) {
 
-      console.log("passinghere", currentLikedArtworkId)
       dispatch(addNewWishlistItem({ artwork: currentLikedArtworkId }, sessionUser._id))
     } else if (currentLikedArtworkId && find && favorites[currentLikedArtworkId] === false) {
-      console.log("currentLikedArtworkId", currentLikedArtworkId)
-      console.log("wishlists", wishlists)
+
       let wishlistItemId = find._id
-      console.log("wishlistItemId", wishlistItemId)
       dispatch(deleteWishlistItem(wishlistItemId));
 
     }
@@ -117,7 +112,6 @@ console.log("wishlists1111", wishlists)
     }
   }
   function loadWishlistItems() {
-    console.log("wishlists", wishlists)
     if (wishlists) {
       setFavorites({});
       for (let i = 0; i < wishlists.length; i++) {
@@ -127,7 +121,6 @@ console.log("wishlists1111", wishlists)
         }))
       }
     }
-    console.log("favoritesload", favorites)
   }
   useEffect(() => {
     loadWishlistItems();

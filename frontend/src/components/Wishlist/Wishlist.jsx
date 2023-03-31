@@ -38,7 +38,6 @@ const Wishlist = () => {
             .map((wishlistItem) => artworks.find((artwork) => artwork._id === wishlistItem.artwork))
             .filter((artwork) => artwork !== undefined);
         setMatchingArtworks(matchingArtworks);
-        console.log(matchingArtworks);
         if (matchingArtworks.length === 0){
             setSubTotal(0);
             return;

@@ -41,6 +41,7 @@ function Artwork() {
     const [toolTipClassName, setToolTipClassName] = useState("tooltip");
     const [rating, setRating] = useState(1);
     const wishlistItems = useSelector(getWishlistItems);
+    const artwork = useSelector(getArtwork(artworkId));
 
     const handleRatingChange = (value) => {
         setRating(value);
@@ -53,12 +54,9 @@ function Artwork() {
     const [isFavorited, setIsFavorited] = useState(false);
 
     const handleButtonClick = () => {
-        console.log('wishlistItems', wishlistItems)
         if (!isFavorited) {
-            console.log('pass')
             dispatch(addNewWishlistItem({ artwork: artworkId }, sessionUser._id))
         } else {
-            console.log('pass2')
             dispatch(deleteWishlistItem(wishlistItems.find(item => item.artwork === artworkId)._id))
         }
         setIsFavorited(!isFavorited);
@@ -80,9 +78,8 @@ function Artwork() {
                 history.push(`/artworks/${artworkId}`)
             })
     };
-
+   
     // const artwork = useSelector(state => state.artworks); // from kenny
-    // console.log(artwork)
     useEffect(() => {
         Promise.all([
             dispatch(fetchArtworks()),
@@ -100,8 +97,6 @@ function Artwork() {
             setIsFavorited(true);
         }
     }, [wishlistItems])
-    const artwork = useSelector(getArtwork(artworkId));
-    // console.log(artwork,'artwork')
 
 
     const reviews = useSelector(getReviews);
@@ -110,10 +105,7 @@ function Artwork() {
     // }\
     // useEffect(()=> {
     //     if (reviews !== undefined){
-    //     // console.log(Object.values(reviews), 'Object.values')
 
-    //     console.log('pass')
-    //     // console.log(reviews[0].content,'reviews')
     // }
     // })
     const [showEditForm, setShowEditForm] = useState(false)
@@ -205,7 +197,11 @@ function Artwork() {
                                 {artwork.author._id !== sessionUser._id ? artwork?.author?.email ? artwork.author.email.split('@')[0] : "Mysterious Artist" : "You"}
                             </div>
                             <div className="artwork-price">
-                                ${artwork?.price ? artwork.price.toFixed(2) : "3.50"}
+                                {console.log(artwork?.price,"show")}
+                                {console.log(artwork?.price, "show2")}
+                                {console.log(artwork ? "showartwork" : "no artwork")}
+                                {console.log(artwork.price ? "showprice" : "no price")}
+                                {artwork && artwork.price ? artwork.price.toFixed(2) : "3.50"}
                             </div>
                             <div className="divider" />
                             <div className="artwork-about">
@@ -345,7 +341,6 @@ function Artwork() {
             </div> */}
                 </div>
                 {/* <div>test1</div>
-        {console.log(reviews, 'reviews!!!!!!!!!')}
             <div>
                 
                 {reviews?.map((review) => (

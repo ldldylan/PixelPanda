@@ -13,7 +13,6 @@ router.get('/', async (req, res) => {
         const reviews = await Review.find()
             .populate("author", "_id email profileImageUrl")
             .sort({ createdAt: -1 });
-        console.log(reviews)
         return res.json(reviews);
     }
     catch (err) {
@@ -99,10 +98,7 @@ router.get('/artworks/:artworkId', async (req, res, next) => {
 })
 
 router.post('/artwork/:artworkId', requireUser, validateReviewInput, async (req, res, next) => {
-    // console.log(req,"req")
-    // console.log(req.user,"req.user")
-    // console.log(req.params.artworkId,"req.params.artworkId")
-    // console.log(req.body, "req.body")
+  
     
     try {
         const newReview = new Review({
@@ -112,7 +108,6 @@ router.post('/artwork/:artworkId', requireUser, validateReviewInput, async (req,
             content: req.body.content,
             rating: req.body.rating
         });
-        console.log(newReview,"newReview")
         let review = await newReview.save();
         review = await review.populate('author', '_id email profileImageUrl');
         return res.json(review);
@@ -124,8 +119,7 @@ router.post('/artwork/:artworkId', requireUser, validateReviewInput, async (req,
 });
 
 router.patch("/:id", requireUser, validateReviewInput, async (req, res, next) => {
-    // console.log(req.params, "req.params");
-    // console.log(req.user, "req.user._id");
+
     Review.findByIdAndUpdate(
         req.params.id,
         {
@@ -141,8 +135,6 @@ router.patch("/:id", requireUser, validateReviewInput, async (req, res, next) =>
             return res.json(review);
         })
         .catch((err) => {
-            console.log("errstart");
-            console.log(err, "err");
             const error = new Error("Review can't be updated.");
             error.statusCode = 422;
             error.errors = { message: "Invalid review input values." };

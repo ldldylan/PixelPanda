@@ -48,13 +48,9 @@ function User() {
         const find = wishlists.find(wishlistItem => wishlistItem.artwork === currentLikedArtworkId);
         if (currentLikedArtworkId && !find && favorites[currentLikedArtworkId] === true) {
 
-            console.log("passinghere", currentLikedArtworkId)
             dispatch(addNewWishlistItem({ artwork: currentLikedArtworkId }, currentUser._id))
         } else if (currentLikedArtworkId && find && favorites[currentLikedArtworkId] === false) {
-            console.log("currentLikedArtworkId", currentLikedArtworkId)
-            console.log("wishlists", wishlists)
             let wishlistItemId = find._id
-            console.log("wishlistItemId", wishlistItemId)
             dispatch(deleteWishlistItem(wishlistItemId));
 
         }
