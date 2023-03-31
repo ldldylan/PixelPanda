@@ -1,6 +1,6 @@
 .wishlist-page {
     width: 100%;
-    /* height: 87%;   */
+    height: 87%;  
     /* min-height: 100vh; */
 }
 
@@ -224,4 +224,5 @@
     background-color: #333;
     color: #fff;
     text-align: center;
+    margin-top: 10px;
 }
