@@ -78,18 +78,20 @@
   .profile-image-container {
     height: 50px;
     width: 50px;
-    
+    display: inline-block; /* change the default display type to inline-block */
+    overflow: hidden;      /* hide the overflow */  
+    border-radius: 50%;
+    position: relative;
   }
 
   .profile-image {
     height: 50px;
     width: 50px;
     border-radius: 50%;
-    /* object-fit: contain; */
-    /* overflow: hidden; */
-    background-position: center;
     background-repeat: no-repeat;
-    background-size: 200%;
+    scale: 180%;
+    position: absolute;
+    left: 0;
   }
 
   .profile-info {

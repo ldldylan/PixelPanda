@@ -20,7 +20,9 @@ function Footer() {
         <div className="footer-content">
           <div className="profile">
             <div className="profile-image-container">
-              <img src={dilang} className='profile-image' alt="profile" />
+              <img src={dilang}
+              style={{left: '0'}}
+              className='profile-image' alt="profile" />
             </div>
             <div className="profile-info">
               <div className="profile-name">Dilang Lin</div>
@@ -36,7 +38,10 @@ function Footer() {
           </div>
           <div className="profile">
             <div className="profile-image-container">
-              <img src={kenny} className='profile-image' alt="profile" />
+              <img 
+              src={kenny}
+              style={{scale: '240%', top: '11px'}}
+              className='profile-image' alt="profile" />
             </div>
             <div className="profile-info">
               <div className="profile-name">Kenny Tram</div>
