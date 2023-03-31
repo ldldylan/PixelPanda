@@ -93,9 +93,8 @@ function MainPage() {
     }
   }
   useEffect(() => {
-    console.log('hello');
     loadArtworks();
-  }, [artworks])
+  }, [artworks.length])
 
   function changeCategory() {
     if (currentType === "popular") {
