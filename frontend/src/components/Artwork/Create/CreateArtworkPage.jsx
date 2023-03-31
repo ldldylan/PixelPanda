@@ -22,7 +22,6 @@ export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }
     const dispatch = useDispatch();
 
     const sessionUser = useSelector((state) => state.session.user)
-    // console.log(sessionUser._id)
 
     // useEffect(() => {
     //     dispatch(fetchArtworks())
@@ -106,11 +105,11 @@ export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }
         if (description.trim()) formData.append("description", description.trim());
         else errorData.description = "Please enter a description";
 
-        if (price && !isNaN(price)) {
+        if (price && !isNaN(price) && price > 0 && price < 100000) {
             const formattedPrice = parseFloat(parseFloat(price).toFixed(2));
             formData.append("price", formattedPrice);
         }
-        else errorData.price = "Please enter a price";
+        else errorData.price = "Please enter a valid price";
 
         formData.append("image", image);
 

@@ -35,20 +35,17 @@ const Cart = () => {
             setLoaded(true);
         });
     }, [dispatch, currentUser]);
-    console.log(cartItems, "cartItems")
     
     // if (cartItems.length !== 0) {
     //     setUserCartItems()
     // }
 
-    console.log(userCartItems)
     const calculateSubTotal = () => {
         let sumPrice = 0
         const matchingArtworks = cartItems.filter(item => item.user._id === currentUser._id)
             .map((cartItem) => artworks.find((artwork) => artwork._id === cartItem.artwork))
             .filter((artwork) => artwork !== undefined);
         setMatchingArtworks(matchingArtworks);
-        console.log(matchingArtworks);
         if (matchingArtworks.length === 0) {
             setSubTotal(0);
             return;

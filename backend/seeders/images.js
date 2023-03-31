@@ -30,12 +30,8 @@ const initializeImages = async () => {
             { _id: user._id },
             { profileImageUrl: `https://aws-mern-pixelpanda.s3.us-west-1.amazonaws.com/profiles/profile+(${i + 1}).png` }
         );
-        // console.log(artwork)
         console.log('User updated successfully!');
     }
-    // const new_artworks = await Artwork.find();
-    // console.log(new_artworks);
-    // console.log("Done!");
 
     const artworks_for_image = await Artwork.find();
 
