@@ -117,7 +117,9 @@ export const checkoutCartItems = (cartItems) => async dispatch => {
         body: JSON.stringify({ cartItems })
     })
     const session = await res.json();
-    alert("Note for testing: Please use the following test card number provided by Stripe to complete your payment: 4242 4242 4242 4242. This is a fake card number that can be used for testing purposes only. Please do not use a real card for testing.");
+    alert("Note for testing: Please use the following test card number provided by Stripe to complete your payment: \
+    4242 4242 4242 4242. This is a fake card number that can be used for testing purposes only. \
+    Please do not use a real card for testing. The test card number has been copied to your clipboard.");
     stripe.redirectToCheckout({ sessionId: session.id });
 }
         
