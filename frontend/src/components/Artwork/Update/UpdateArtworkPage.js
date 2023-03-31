@@ -10,7 +10,6 @@ import './UpdateArtwork.css';
 export default function UpdateArtworkPage(props) {
     const { onClose, artwork } = props;
     const dispatch = useDispatch();
-    console.log(artwork.ArtworkImageUrl, "artwork1111")
     // const { artworkId } = useParams();
 
     // useEffect(() => {
@@ -38,13 +37,12 @@ export default function UpdateArtworkPage(props) {
 
 
     const img = document.querySelector('.Uploadpic');
+    // useEffect(() => {
+
+    //     console.log('price', price)
+    // }, [price])
     useEffect(() => {
 
-        console.log('price', price)
-    }, [price])
-    useEffect(() => {
-        console.log("passs")
-        console.log(img,"img",img===true,"true?")
         if (img) {
             img.style.display = 'block';
             img.src = imageUrl;
@@ -67,11 +65,11 @@ export default function UpdateArtworkPage(props) {
         if (description.trim()) formData.append("description", description.trim());
         else errorData.description = "Please enter a description";
 
-        if (price && !isNaN(price)) {
+        if (price && !isNaN(price) && price > 0 && price < 100000) {
             const formattedPrice = parseFloat(parseFloat(price).toFixed(2));
             formData.append("price", formattedPrice);
         }
-        else errorData.price = "Please enter a price";
+        else errorData.price = "Please enter a valid price";
 
         if (category) formData.append("category", category);
         else errorData.category = "Please select a category";
@@ -193,11 +191,7 @@ export default function UpdateArtworkPage(props) {
         } 
     };
     useEffect(() => {
-        console.log(artwork, "artwork")
-        console.log(artwork.ArtworkImageUrl, "artwork.ArtworkImageUrl")
-
         if(artwork&&!imageUrl)setImageUrl(artwork.ArtworkImageUrl);
-        console.log(imageUrl, "imageUrl")
 
     }, []);
     return (

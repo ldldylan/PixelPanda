@@ -197,11 +197,8 @@ function Artwork() {
                                 {artwork.author._id !== sessionUser._id ? artwork?.author?.email ? artwork.author.email.split('@')[0] : "Mysterious Artist" : "You"}
                             </div>
                             <div className="artwork-price">
-                                {console.log(artwork?.price,"show")}
-                                {console.log(artwork?.price, "show2")}
-                                {console.log(artwork ? "showartwork" : "no artwork")}
-                                {console.log(artwork.price ? "showprice" : "no price")}
-                                {artwork && artwork.price ? artwork.price.toFixed(2) : "3.50"}
+
+                                {artwork && artwork.price ? artwork.price : "3.50"}
                             </div>
                             <div className="divider" />
                             <div className="artwork-about">
@@ -211,7 +208,6 @@ function Artwork() {
                                 </div>
                             </div>
                             <div className="artwork-cart-buy">
-                                {console.log(sessionUser._id, artwork.author._id,"aaaaaa")}
                                 {sessionUser._id !== artwork.author._id &&
                                     (<div className="cart-and-fav">
                                     <div className="artwork-cart" onClick={artwork?._id ? (e) => {
