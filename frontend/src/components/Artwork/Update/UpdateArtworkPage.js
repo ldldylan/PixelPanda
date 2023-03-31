@@ -235,7 +235,10 @@ export default function UpdateArtworkPage(props) {
                         required
                         onPaste={handlePaste}
                         onKeyDown={handleKeyDown}
-                        onChange={(e) => setPrice(e.target.value)}>
+                        onChange={(e) => {
+                            if(e.target.value === "") setPrice(0);
+                            else setPrice(e.target.value)
+                        }}>
                     </input>
                 </label>
 
@@ -253,8 +256,8 @@ export default function UpdateArtworkPage(props) {
                     <span>{errors.category}</span>
                 </label>
 
-                <label>
-                    {/* Image to Upload */}
+                {/* <label>
+                    Image to Upload
                     <div className='updatepic'><img className="Uploadpic" /></div>
                     <input
                         className='uploadButton'
@@ -262,7 +265,7 @@ export default function UpdateArtworkPage(props) {
                         ref={fileRef}
                         accept=".jpg, .jpeg, .png"
                         onChange={updateFile} />
-                </label>
+                </label> */}
                 <button className="submit-artwork-button" onClick={handleSubmit}>Update Artwork</button>
             </form>
         </>

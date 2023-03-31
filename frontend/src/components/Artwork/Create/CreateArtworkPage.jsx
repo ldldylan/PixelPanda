@@ -8,7 +8,7 @@ import "./CreateArtwork.css"
 export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }) {
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
-    const [price, setPrice] = useState(0)
+    const [price, setPrice] = useState("0")
     const [image, setImage] = useState([]);
     const [imageUrl, setImageUrl] = useState([]);
     const [category, setCategory] = useState("");
@@ -69,7 +69,7 @@ export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }
         if (e.ctrlKey || e.metaKey) {
             return;
         }
-
+        console.log(value);
         if (!allowedKeys.includes(e.keyCode)
             || (e.shiftKey || (e.keyCode === 190 && e.target.value.includes('.')))
             || (decimalIndex !== -1 && value.substring(decimalIndex + 1).length >= 2 && e.keyCode !== 8)) {
@@ -129,7 +129,7 @@ export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }
                 }
                 setImage([]);
                 setImageUrl([]);
-                setPrice(0)
+                setPrice("0")
                 setName('');
                 setDescription('');
                 setCategory("");
@@ -203,7 +203,10 @@ export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }
                         required
                         onPaste={handlePaste}
                         onKeyDown={handleKeyDown}
-                        onChange={(e) => setPrice(parseFloat(e.target.value))}>
+                        onChange={(e) => {
+                            if(e.target.value === "") setPrice("0");
+                            else setPrice(e.target.value[0] === "0" ? e.target.value.slice(1) : e.target.value);
+                        }}>
                     </input>
                 </label>
 
