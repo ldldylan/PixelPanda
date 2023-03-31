@@ -1,3 +1,10 @@
+.user-show-page {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    height: 100%;
+}
+
 .user {
     display: flex;
     width: 100%;

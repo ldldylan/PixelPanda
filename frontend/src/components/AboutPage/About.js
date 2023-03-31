@@ -53,7 +53,7 @@ function About(){
                     <div className='empty-div'></div>
                 </div>
             </div>
-            <Footer/>
+            <Footer/>   
         </div>
     </>)
 }

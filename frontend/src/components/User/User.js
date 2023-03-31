@@ -134,7 +134,7 @@ function User() {
 
         )
     } else {
-        return (<>
+        return (<div className="user-show-page">
             <NavBar updateShouldFetchArtworks={updateShouldFetchArtworks} />
             {showToolTip && <div className={toolTipClassName}>{timeoutMessage}</div>}
             <div className="user">
@@ -165,7 +165,6 @@ function User() {
                 </div>
 
                 <div className="user-artworks-container">
-                     
                     {currentUser._id !== userId ? user?.email ? user.email.split('@')[0].concat('s Artworks') : "Mysterious Artist" : "Your Artworks"}
                     <div className="divider user-show" />
                     <ul className="user-artworks">
@@ -227,7 +226,7 @@ function User() {
                 </div>
             </div>
             <Footer />
-        </>);
+        </div>);
     }
 }
 
