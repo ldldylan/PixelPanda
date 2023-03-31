@@ -243,17 +243,16 @@ export default function UpdateArtworkPage(props) {
                     </select>
                     <span>{errors.category}</span>
                 </label>
+                <div className="upload-box">
 
-                {/* <label>
-                    Image to Upload
-                    <div className='updatepic'><img className="Uploadpic" /></div>
-                    <input
-                        className='uploadButton'
-                        type="file"
-                        ref={fileRef}
-                        accept=".jpg, .jpeg, .png"
-                        onChange={updateFile} />
-                </label>
+                <div className='dotline'><img className="Uploadpic" /></div>
+                <input
+                    className='uploadButton'
+                    type="file"
+                    ref={fileRef}
+                    accept=".jpg, .jpeg, .png"
+                    onChange={updateFile} />
+                </div>
                 <button className="submit-artwork-button" onClick={handleSubmit}>Update Artwork</button>
             </form>
         </>
