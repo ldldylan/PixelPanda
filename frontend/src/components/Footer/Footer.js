@@ -7,6 +7,7 @@ import Diversity3Icon from '@mui/icons-material/Diversity3';
 import { useSelector } from 'react-redux';
 import dilang from '../../assets/dilang.jpg'
 import kenny from '../../assets/kenny.jpg'
+import james from '../../assets/james.png'
 
 function Footer() {
   const user = useSelector(state => state.session.user);
@@ -57,7 +58,7 @@ function Footer() {
           </div>
           <div className="profile">
             <div className="profile-image-container">
-              <img src={dilang} className='profile-image' alt="james" />
+              <img src={james} className='profile-image' alt="james" />
             </div>
             <div className="profile-info">
               <div className="profile-name">James Wu</div>
