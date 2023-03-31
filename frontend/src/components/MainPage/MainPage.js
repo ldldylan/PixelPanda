@@ -43,10 +43,22 @@ function MainPage() {
   const [favorites, setFavorites] = useState({});
   const [currentCategory, setCurrentCategory] = useState('POPULAR');
   const [currentLikedArtworkId, setCurrentLikedArtworkId] = useState(null);
-  const wishlists = useSelector(getWishlistItems);
+  const [wishlists, setWishlists] = useState(null);
 
+  const wishlistsFromStore = useSelector(getWishlistItems);
+console.log("wishlists1111", wishlists)
   // const artworkId=null;
   // let artwork=useSelector(getArtwork(artworkId));
+  useEffect(() => {
+    const unlisten = history.listen((location) => {
+      setWishlists(null);
+      setFavorites({});
+    });
+    return unlisten;
+  }, [history]);
+  useEffect(() => {
+    setWishlists(wishlistsFromStore);
+  }, [wishlistsFromStore]);
   const toggleFavorite = (artworkId) => {
     // const artwork=artworks.find(artwork=>artwork._id===artworkId)
     setCurrentLikedArtworkId(artworkId);
@@ -55,8 +67,10 @@ function MainPage() {
       ...prevFavorites,
       [artworkId]: !prevFavorites[artworkId]
     }))
+    console.log("favorites", favorites)
   }
   useEffect(() => {
+    if(wishlists){
     const find = wishlists.find(wishlistItem => wishlistItem.artwork === currentLikedArtworkId);
     if (currentLikedArtworkId&& !find && favorites[currentLikedArtworkId] === true) {
 
@@ -70,6 +84,7 @@ function MainPage() {
       dispatch(deleteWishlistItem(wishlistItemId));
 
     }
+  }
   }, [favorites])
   if ((artworksArray.length === 0 && artworks.length !== 0)) {
     setArtworksArray(artworks)
@@ -102,7 +117,9 @@ function MainPage() {
     }
   }
   function loadWishlistItems() {
+    console.log("wishlists", wishlists)
     if (wishlists) {
+      setFavorites({});
       for (let i = 0; i < wishlists.length; i++) {
         setFavorites(prevFavorites => ({
           ...prevFavorites,
@@ -110,6 +127,7 @@ function MainPage() {
         }))
       }
     }
+    console.log("favoritesload", favorites)
   }
   useEffect(() => {
     loadWishlistItems();
@@ -190,7 +208,7 @@ function MainPage() {
   if (!loaded) {
     return (
       <>
-        <NavBar />
+        <NavBar/>
         <Loading />
       </>
 
@@ -198,7 +216,7 @@ function MainPage() {
   } else {
     return (
       <>
-        <NavBar />
+        <NavBar/>
         <div className="main-page">
           {showToolTip && <div className={toolTipClassName}>{timeoutMessage}</div>}
           <div data-aos="zoom-in-up"
