@@ -18,6 +18,9 @@ function Footer() {
         <div className="footer-copyright">
           <div>Copyright @ 2023 Pixel Panda</div>
         </div>
+          <div className='about-and-github'><Link to={'/about'} id='about-us-button'>About Us</Link>
+            <a id="project-github" href="https://github.com/ldldylan/PixelPanda" target="_blank"><GitHubIcon/></a>
+          </div>
         <div className="footer-content">
           <div className="profile">
             <div className="profile-image-container">
@@ -72,13 +75,11 @@ function Footer() {
               </div>
             </div>
           </div>
-          {/* <div><Link to={'/about'}>About Us</Link></div>
-            <a href="https://github.com/ldldylan/PixelPanda" target="_blank"><GitHubIcon/></a> */}
         </div>
       </div>
-      <div className="signup-button-container">
+      {/* <div className="signup-button-container">
         {user ? <div /> : <div><Link to={'/signup'}> <Diversity3Icon /> Sign Up</Link></div>}
-      </div>
+      </div> */}
     </div>
   );
 

@@ -16,7 +16,7 @@ import ShoppingCart from '@mui/icons-material/ShoppingCart';
 import LogoutIcon from '@mui/icons-material/Logout';
 import BrushIcon from '@mui/icons-material/Brush';
 import CreateArtworkPage from '../Artwork/Create/CreateArtworkPage';
-
+import Diversity3Icon from '@mui/icons-material/Diversity3';
 import { getCartItems } from '../../store/cartItems';
 function NavBar({ updateShouldFetchArtworks }) {
   const history = useHistory();
@@ -228,6 +228,9 @@ function NavBar({ updateShouldFetchArtworks }) {
             </div>
           </div>
           <div className="nav-tools logout">
+            <div className="signup-button-container">
+              {user ? <div /> : <Link to={'/signup'}> <Diversity3Icon /> Sign Up</Link>}
+            </div>
             <div><Link to={'/login'}><PersonIcon />Login</Link></div>
           </div>
         </div>);

@@ -11,12 +11,22 @@
   }
 
   .footer-socials{
-    width: 55%;
+    width: 89%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-left: 40px;
     height: 30px;
+  }
+
+  .about-and-github{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  #project-github {
+    margin-left: 15px;
   }
 
   .footer-content {
@@ -34,6 +44,7 @@
   .signup-button-container {
     display: flex;
     margin-right: 10px;
+    
     
   }
   
