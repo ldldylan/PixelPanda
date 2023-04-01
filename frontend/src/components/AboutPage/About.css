@@ -10,7 +10,7 @@
 }
 
 .team-member-container {
-    width: 80%;
+    width: 70%;
     z-index: 1;
 }
 
@@ -37,29 +37,46 @@
 }
 
 .member-description {
+    border: 2px black solid;
     border-radius: 40px;
     background-color: rgb(255, 255, 255);
-    display: flex;
-    flex-direction: column;
+    /* display: flex;
+    flex-direction: column; */
     justify-content: center;
     align-items: left;
-    min-width: 67%;
+    min-width: 62.5%;
     height: 80%;
     
 }
 
 .member-name {
     display: flex;
-    justify-content: space-between
+    justify-content: space-between;
+}
+
+.name-and-role {
+    display: flex;
+    font-family: 'Nanum Pen Script', cursive;
 }
 
 .member-name h1 {
     margin: 20px;
     font-size: 20px;
+    font-weight: 500;
+}
+
+.member-role {
+    /* vertical-align: center; */
+    margin: 20px auto;
+    font-size: 20px;
+}
+
+.about-icons {
+    margin-right: 20px;
 }
 
 .github-icon, .linkedin-icon {
-    margin: 10px;
+    margin: 15px;
     width: 30px;
     height: 30px;
     object-fit: cover;
@@ -73,6 +90,12 @@
     display: flex;
     text-align: left;
     align-items: center;
+    line-height: 24px;
+    max-width: 93.5%;
+}
+
+.member-text a {
+    color:blue;
 }
 
 .member-image:hover, .member-description:hover {
