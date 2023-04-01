@@ -7,11 +7,13 @@
     justify-content: space-between;
     flex-direction: column;
     background-image: url('/assets/pandas-bg.png');
+    overflow: hidden;
 }
 
 .team-member-container {
     width: 70%;
     z-index: 1;
+    overflow: hidden;
 }
 
 .team-member {
@@ -21,6 +23,7 @@
     height: 30%;
     justify-content: space-between;
     align-items: center;
+    
 }
 
 .member-image-box {
@@ -42,11 +45,12 @@
     background-color: rgb(255, 255, 255);
     /* display: flex;
     flex-direction: column; */
-    justify-content: center;
+    display: flex;
+    flex-direction: column;
     align-items: left;
     min-width: 62.5%;
-    height: 80%;
-    
+    /* height: 90%; */
+    padding: 16px;
 }
 
 .member-name {
@@ -60,6 +64,7 @@
 }
 
 .member-name h1 {
+    /* margin: 1.22rem;      */
     margin: 20px;
     font-size: 20px;
     font-weight: 500;
@@ -79,7 +84,7 @@
     margin: 15px;
     width: 30px;
     height: 30px;
-    object-fit: cover;
+    /* object-fit: cover; */
 }
 
 .member-text {
