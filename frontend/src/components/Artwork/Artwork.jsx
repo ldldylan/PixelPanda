@@ -88,7 +88,7 @@ function Artwork() {
         })
     }, [dispatch])
     useEffect(() => {
-        console.log('pass', artworkId)
+        // console.log('pass', artworkId)
         dispatch(fetchArtworkReviews(artworkId))
     }, [artworkId, dispatch])
     useEffect(() => {

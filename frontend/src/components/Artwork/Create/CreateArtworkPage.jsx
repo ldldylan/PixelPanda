@@ -68,7 +68,7 @@ export default function CreateArtworkPage({ onClose, updateShouldFetchArtworks }
         if (e.ctrlKey || e.metaKey) {
             return;
         }
-        console.log(value);
+        // console.log(value);
         if (!allowedKeys.includes(e.keyCode)
             || (e.shiftKey || (e.keyCode === 190 && e.target.value.includes('.')))
             || (decimalIndex !== -1 && value.substring(decimalIndex + 1).length >= 2 && e.keyCode !== 8)) {
