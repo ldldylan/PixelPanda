@@ -34,14 +34,16 @@ function About(){
                         <div className='member-name'>
                             <div className='name-and-role'>
                                 <h1>Kenny Tram</h1>
-                                <h2 className='member-role'>Frontend Lead</h2>
+                                <h2 className='member-role'>Code Wrangler and Master of All Things Stack-tastic</h2>
                             </div>
                             <div className='about-icons'>
                                 <a href="https://github.com/kennytram/" target="_blank"><img src={githubIcon} className='github-icon'/></a>
                                 <a href="https://www.linkedin.com/in/kennytram/" target="_blank"><img src={linkedinIcon} className='linkedin-icon'/></a>
                             </div>
                             </div>
-                        <div className='member-text'><p>About yourself or project duties go here? About yourself or project duties go here? About yourself or project duties go here? About yourself or project duties go here? About yourself or project duties go here? About yourself or project duties go here? About yourself or project duties go here?</p></div>
+                        <div className='member-text'><p>Hello World! As a full stack software engineer, I'm equally comfortable working on the front-end and back-end of web applications. I'm fluent in a variety of programming languages and technologies, 
+                            and I love nothing more than diving into a new stack and mastering it from top to bottom. But I'm not just a code wrangler - I'm also a problem solver. I thrive on finding elegant solutions to complex challenges, and I always go 
+                            above and beyond to ensure that my code is not only functional, but also scalable, maintainable, and easy to read."When I'm not wrangling code, I'm probably trying out a new recipe in the kitchen.</p></div>
                     </div>
                     <div className='member-image-box'><img className='member-image' src={kenny} /></div>
                 </div>
