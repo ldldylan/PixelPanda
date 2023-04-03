@@ -61,7 +61,7 @@ function About() {
                                 <a href="https://www.linkedin.com/in/james-wu-5a609520a/" target="_blank"><img src={linkedinIcon} className='linkedin-icon' /></a>
                             </div>
                         </div>
-                        <div className='member-text'><p>About yourself or project duties go here? About yourself or project duties go here? About yourself or project duties go here? About yourself or project duties go here? About yourself or project duties go here? About yourself or project duties go here? About yourself or project duties go here?</p></div>
+                        <div className='member-text'><p>I am a passionate software engineer based in San Francisco, and I enjoy tackling complex challenges and finding innovative solutions. Whether at work or in my personal life, I strive to optimize and streamline processes to achieve the best possible results. When I'm not coding, you will probably find me training Muay Thai, running, or hiking. These activities help me stay grounded and connected to the world around me.</p></div>
                     </div>
                     <div className='empty-div'></div>
                 </div>
