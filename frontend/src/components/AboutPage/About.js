@@ -24,7 +24,7 @@ function About() {
                                 <a href="https://www.linkedin.com/in/dilanglin/" target="_blank"><img src={linkedinIcon} className='linkedin-icon' /></a>
                             </div>
                         </div>
-                        <div className='member-text'><p>As a full-stack developer, I am passionate about building web applications that are not only aesthetically pleasing but also highly functional. I am a highly motivated self-starter who thrives in collaborative environments. I believe in the power of teamwork and effective communication to deliver top-quality products. Outside of work, I enjoy playing badminton and indulging in Beat Saber. Please feel free to browse my <a href="https://ldldylan.github.io/Protfolio/" target="_blank">portfolio</a> or contact me via <a href="mailto:dilang@berkeley.edu">email</a> for any inquiries.</p></div>
+                        <div className='member-text'><p>As a full-stack developer, I am passionate about building web applications that are not only aesthetically pleasing but also highly functional. My expertise in both front-end and back-end technologies has given me a comprehensive understanding of full-stack development. I am a highly motivated self-starter who thrives in collaborative environments. I believe in the power of teamwork and effective communication to deliver top-quality products. Outside of work, I enjoy playing badminton and indulging in Beat Saber. Please feel free to browse my <a href="https://ldldylan.github.io/Protfolio/" target="_blank">portfolio</a> or contact me via <a href="mailto:dilang@berkeley.edu">email</a> for any inquiries.</p></div>
                     </div>
                     <div className='empty-div'></div>
                 </div>
