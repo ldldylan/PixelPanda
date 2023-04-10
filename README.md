@@ -3,11 +3,11 @@
 
 <img src="https://github.com/ldldylan/PixelPanda/blob/demo/frontend/assets/demo/MainPage.gif?raw=true" width=900 height= 420/>
 
-## Functionalities & MVPs
+<!-- ## Functionalities & MVPs
 * Artworks(CRUD)
 * Artworks comments(CRUD)
 * Shopping Card(CRUD)
-* Search functionality
+* Search functionality -->
 
 ## Technologies
 * Frontend: React and React Native with Redux
@@ -198,7 +198,7 @@ export const checkoutCartItems = (cartItems) => async dispatch => {
 }
 ```
 
-
+<!-- 
 ## Bonus Features
 * Real-time communication between the artist and buyers 
 * End-to-end encryption
@@ -211,4 +211,4 @@ Dilang Lin: Project Lead
 
 Kenny Tram: Project Frontend Lead
 
-James Wu: Project Backend Lead
+James Wu: Project Backend Lead -->
