@@ -28,12 +28,15 @@
   #project-github {
     margin-left: 15px;
   }
-
+  .footer-empty-div {
+    /* width: 10%; */
+  }
   .footer-content {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-items: center;
     width: 200px;
+    /* background-color: red; */
   }
 
   .footer-content > div:not(.profile):hover{

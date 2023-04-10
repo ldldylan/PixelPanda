@@ -18,15 +18,15 @@ function Footer() {
         <div className="footer-copyright">
           <div>Copyright @ 2023 Pixel Panda</div>
         </div>
-          <div className='about-and-github'><Link to={'/about'} id='about-us-button'>About Us</Link>
-            <a id="project-github" href="https://github.com/ldldylan/PixelPanda" target="_blank"><GitHubIcon/></a>
-          </div>
+        <div className='about-and-github'><Link to={'/about'} id='about-us-button'>About Us</Link>
+          <a id="project-github" href="https://github.com/ldldylan/PixelPanda" target="_blank"><GitHubIcon /></a>
+        </div>
         <div className="footer-content">
           <div className="profile">
             <div className="profile-image-container">
               <img src={dilang}
-              style={{left: '0'}}
-              className='profile-image' alt="profile" />
+                style={{ left: '0' }}
+                className='profile-image' alt="profile" />
             </div>
             <div className="profile-info">
               <div className="profile-name">Dilang Lin</div>
@@ -42,10 +42,10 @@ function Footer() {
           </div>
           <div className="profile">
             <div className="profile-image-container">
-              <img 
-              src={kenny}
-              style={{scale: '240%', top: '11px'}}
-              className='profile-image' alt="profile" />
+              <img
+                src={kenny}
+                style={{ scale: '240%', top: '11px' }}
+                className='profile-image' alt="profile" />
             </div>
             <div className="profile-info">
               <div className="profile-name">Kenny Tram</div>
