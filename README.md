@@ -159,7 +159,7 @@ const handleSubmit = (e) => {
 };
 ```
 ## Handling Information for Reviews
-```
+```javascript
 const handleSubmit = (e) => {
     e.preventDefault();
 
