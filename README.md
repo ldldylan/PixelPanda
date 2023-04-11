@@ -31,8 +31,6 @@
 ### Creating a Wishlist Item
 ```javascript
 router.post('/users/:userId', requireUser, validateWishlistItemInput, async (req, res, next) => {
-    // console.log(req.body, "req.body")
-    // console.log(req.params, "req.params")
     try {
         const newWishlistItem = new WishlistItem({
             user: req.params.userId,
