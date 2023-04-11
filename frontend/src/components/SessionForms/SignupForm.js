@@ -9,6 +9,7 @@ function SignupForm () {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const errors = useSelector(state => state.errors.session);
   const loggedIn = useSelector(state => !!state.session.user);
   const dispatch = useDispatch();
@@ -65,14 +66,15 @@ function SignupForm () {
   const handleSubmit = e => {
     dispatch(clearSessionErrors());
     e.preventDefault();
-    const newIndex = Array.from({length: 10}, () => Math.floor(Math.random() * svgElements.length));
-    setRandIndex(newIndex);
+    // const newIndex = Array.from({length: 10}, () => Math.floor(Math.random() * svgElements.length));
+    // setRandIndex(newIndex);
     if(confirmPassword === password) {
       const user = {
         email,
         password
       };
-      dispatch(signup(user));
+      setLoading(true);
+      dispatch(signup(user)).then(() => setLoading(false));
     }
   }
 

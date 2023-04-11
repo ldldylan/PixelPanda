@@ -9,6 +9,7 @@ import { Redirect } from 'react-router-dom';
 function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
   const errors = useSelector(state => state.errors.session);
   const loggedIn = useSelector(state => !!state.session.user);
   const dispatch = useDispatch();
@@ -51,9 +52,10 @@ function LoginForm() {
   const handleSubmit = (e) => {
     dispatch(clearSessionErrors());
     e.preventDefault();
-    const newIndex = Array.from({ length: 10 }, () => Math.floor(Math.random() * svgElements.length));
-    setRandIndex(newIndex);
-    dispatch(login({ email, password }));
+    // const newIndex = Array.from({ length: 10 }, () => Math.floor(Math.random() * svgElements.length));
+    // setRandIndex(newIndex);
+    setLoading(true);
+    dispatch(login({ email, password })).then(() => setLoading(false));
   }
 
   const demoUser = () => {
@@ -164,7 +166,7 @@ function LoginForm() {
                   id="stop878" />
               </linearGradient>
             </defs>
-            <path className="login-path" d="m 40,120.00016 239.99984,-3.2e-4 c 0,0 24.99263,
+            <path className={loading ? "login-path loading" : "login-path"} d="m 40,120.00016 239.99984,-3.2e-4 c 0,0 24.99263,
         0.79932 25.00016,35.00016 0.008,34.20084 -25.00016,35 -25.00016,
         35 h -239.99984 c 0,-0.0205 -25,4.01348 -25,38.5 0,34.48652 25,38.5 25,
         38.5 h 215 c 0,0 20,-0.99604 20,-25 0,-24.00396 -20,-25 -20,-25 h -190 c 0,

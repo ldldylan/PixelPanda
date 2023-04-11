@@ -77,6 +77,21 @@ form label span.errors {
   stroke-width: 4;
   stroke-dasharray: 290 1800;
 }
+
+path.login-path.error {
+  stroke: #f8101c;
+}
+path.login-path.loading {
+  stroke: blue;
+}
+
+path.signup-path.error {
+  stroke: #f8101c;
+}
+path.signup-path.loading {
+  stroke: blue;
+}
+
 .form {
   margin: 40px;
   position: absolute;
