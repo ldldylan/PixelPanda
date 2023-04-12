@@ -1,7 +1,7 @@
 # Pixel Panda
 #### [Pixel Panda](https://pixelpanda.onrender.com) is an online marketplace for game assets, where game artists can showcase and sell their artworks. Game developers and buyers can browse through various categories of assets on the website, add desired artworks to their shopping carts, or save them to their wish lists for future reference. In addition to browsing and purchasing assets, PixelPanda also allows users to leave reviews on the artworks they have bought or used. This feature helps provide valuable feedback to the artists and enables buyers to make informed decisions when selecting assets. Users can write, edit, or delete their reviews as necessary.
 
-<img src="https://github.com/ldldylan/PixelPanda/blob/demo/frontend/assets/demo/MainPage.gif?raw=true" width=900 height= 420/>
+<img src="https://github.com/ldldylan/PixelPanda/blob/main/frontend/assets/demo/MainPage.gif?raw=true" width=900 height= 420/>
 
 <!-- ## Functionalities & MVPs
 * Artworks(CRUD)
@@ -18,13 +18,13 @@
 
 ## Highlightened Features
 ### Categories
-<img src="https://github.com/ldldylan/PixelPanda/blob/demo/frontend/assets/demo/Categories.gif?raw=true" width=900 height=420/>
+<img src="https://raw.githubusercontent.com/ldldylan/PixelPanda/main/frontend/assets/demo/Categories.gif" width=900 height=420/>
 
 ### Create Artwork
-<img src="https://github.com/ldldylan/PixelPanda/blob/demo/frontend/assets/demo/CreateArtwork.gif?raw=true" width=900 height=420/>
+<img src="https://raw.githubusercontent.com/ldldylan/PixelPanda/main/frontend/assets/demo/CreateArtwork.gif" width=900 height=420/>
 
 ### Checkout
-<img src="https://github.com/ldldylan/PixelPanda/blob/demo/frontend/assets/demo/Checkout.gif?raw=true" width=900 height=420/>
+<img src="https://raw.githubusercontent.com/ldldylan/PixelPanda/main/frontend/assets/demo/Checkout.gif" width=900 height=420/>
 
 ## Hightlightened Code Snippets
 
